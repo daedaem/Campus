@@ -1,7 +1,7 @@
 <template>
   <div class="feed newsfeed">
     <div class="wrapB">
-      <h1>뉴스피드</h1>
+      <h1>SNS 게시글 작성</h1>
 
       <FeedItem />
       <FeedItem />
@@ -20,7 +20,6 @@ import FeedItem from "../../components/feed/FeedItem.vue";
 export default {
   props: ["keyword"],
 
-  components: { FeedItem }
+  components: { FeedItem },
 };
 </script>
-
