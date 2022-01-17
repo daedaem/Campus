@@ -4,7 +4,7 @@ import Login from './views/user/Login.vue'
 import Join from './views/user/Join.vue'
 import FeedMain from './views/feed/IndexFeed.vue'
 import Components from './views/Components.vue'
-
+import Mateparty from './views/mateparty/Mateparty.vue'
 export default [
 
 
@@ -27,5 +27,10 @@ export default [
         path : '/components',
         name : 'Components',
         component : Components
+    },
+    {
+        path : '/mateparty',
+        name : 'Mateparty',
+        component : Mateparty
     }
 ]
