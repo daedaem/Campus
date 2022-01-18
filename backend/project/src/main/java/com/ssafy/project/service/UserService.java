@@ -4,11 +4,11 @@ import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.dto.UserResultDto;
 
 public interface UserService {
-    public UserDto userSelect(int userNo);
+    public UserDto userSelect(String userEmail);
 
     public UserResultDto userRegister(UserDto userDto);
 
     public UserResultDto userUpdate(UserDto userDto);
 
-    public UserResultDto userDelete(int userNo);
+    public UserResultDto userDelete(String userEmail);
 }

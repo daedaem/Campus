@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.FollowDao">
+
+	<!-- follow 추가 -->
+	<insert id="followInsert" parameterType="Integer">
+		INSERT INTO follow(userNo, followUserNo)
+		VALUES ( #{userNo}, #{followUserNo} );
+	</insert>
+	
+	<!-- follow 삭제 -->
+	<delete id="followDelete" parameterType="Integer">
+		DELETE FROM follow
+		WHERE userNo = #{userNo} and followUserNO = #{followUserNo};
+	</delete>
+	
+	<!-- follow 수 구하기 -->
+	<select id="followNum" parameterType="Integer" resultType="Integer">
+		SELECT count(*) as followNum
+		FROM follow
+		WHERE followUserNo = #{followUserNo};
+	</select>
+
+	<!-- follower 수 구하기 -->
+    <select id="followerNum" parameterType="Integer" resultType="Integer">
+        SELECT count(*) as followerNum
+		FROM follow
+		WHERE userNo = #{userNo};
+	</select>
+
+	<!-- follow list -->
+	<select id="followList" parameterType="Integer" resultType="com.ssafy.project.dto.UserDto">
+		SELECT u.userNo, u.userProfileImage, u.userNickname
+		FROM follow f, user u
+		WHERE f.followUserNo = u.userNo
+		AND f.followUserNo = #{followUserNo};
+	</select>
+
+	<!-- follower list -->
+    <select id="followerList" parameterType="Integer" resultType="com.ssafy.project.dto.UserDto">
+        SELECT u.userNo, u.userProfileImage, u.userNickname
+		FROM follow f, user u
+		WHERE f.userNo = u.userNo
+		AND f.userNo = #{userNo};
+	</select>
+</mapper>

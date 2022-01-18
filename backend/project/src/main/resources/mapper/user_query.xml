@@ -2,23 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.project.dao.UserDao">
 
-    <insert id="userRegister" parameterType="com.ssafy.project.dto.UserDto">
+    <!-- 회원가입 -->
+    <!-- campStyle, campEquip -> default Null -->
+    <insert id="userInsert" parameterType="com.ssafy.project.dto.UserDto">
         INSERT INTO user(userEmail, userPassword, userName, userProfileImage, userLocation, userAge, userGender, userNickname, userMBTI)
             VALUES( #{userEmail}, #{userPassword}, #{userName}, #{userProfileImage}, #{userLocation}, #{userAge}, #{userGender}, #{userNickname}, #{userMBTI} );
+        INSERT INTO campStyle(userNo, campStyle1, campStyle2, campStyle3, campStyle4, campStyle5, campStyle6)
+            VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campStyle1}, #{campStyle2}, #{campStyle3}, #{campStyle4}, #{campStyle5}, #{campStyle6} );
+        INSERT INTO campEquip(userNo, campEquipTent, campEquipSleepingbag, campEquipBurner, campEquipBrazier, campEquipEtc1, campEquipEtc2, campEquipEtc3, campEquipEtc4, campEquipEtc5)
+            VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campEquipTent}, #{campEquipSleepingbag}, #{campEquipBurner}, #{campEquipBrazier}, #{campEquipEtc1}, #{campEquipEtc2}, #{campEquipEtc3}, #{campEquipEtc4}, #{campEquipEtc5} );
     </insert>
 
+    <!-- 유저 정보를 모두 가져온다 -->
     <select id="userSelect" parameterType="String" resultType="com.ssafy.project.dto.UserDto">
-        SELECT userEmail, userPassword, userName, userProfileImage, userLocation, userAge, userGender, userNickname, userMBTI
-        FROM user
-        WHERE userEmail = #{userEmail};
+        SELECT u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
+                s.campStyle1, s.campStyle2, s.campStyle3, s.campStyle4, s.campStyle5, s.campStyle6,
+                e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
+                e.campEquipEtc4, e.campEquipEtc5
+        FROM user u, campStyle s, campEquip e
+        WHERE u.userNo = s.userNo
+        AND u.userNo = e.userNo
+        AND u.userEmail = #{userEmail};
     </select>
 
+    <!-- 유저 정보 업데이트 -->
     <update id="userUpdate" parameterType="com.ssafy.project.dto.UserDto">
-        UPDATE user
-        SET userProfileImage = #{userProfileImage}, userLocation = #{userLocation}, userAge = #{userAge}, userGender = #{userGender}, userNickname = #{userNickname}, userMBTI = #{userMBTI}
-        WHERE userEmail = #{userEmail};
+        UPDATE user u, campStyle s, campEquip e
+        SET u.userProfileImage = #{userProfileImage}, u.userLocation = #{userLocation}, u.userAge = #{userAge}, u.userGender = #{userGender}, u.userNickname = #{userNickname}, u.userMBTI = #{userMBTI},
+            s.campStyle1 = #{campStyle1}, s.campStyle2 = #{campStyle2}, s.campStyle3 = #{campStyle3}, s.campStyle4 = #{campStyle4}, s.campStyle5 = #{campStyle5}, s.campStyle6 = #{campStyle6},
+                e.campEquipTent = #{campEquipTent}, e.campEquipSleepingbag = #{campEquipSleepingbag}, e.campEquipBurner = #{campEquipBurner}, e.campEquipBrazier = #{campEquipBrazier}, 
+                e.campEquipEtc1 = #{campEquipEtc1}, e.campEquipEtc2 = #{campEquipEtc2}, e.campEquipEtc3 = #{campEquipEtc3}, e.campEquipEtc4 = #{campEquipEtc4}, e.campEquipEtc5 = #{campEquipEtc5}
+        WHERE u.userNo = s.userNo
+        AND u.userNo = e.userNo
+        AND u.userEmail = #{userEmail};
     </update>
 
+    <!-- 유저 정보 삭제 -->
     <delete id="userDelete" parameterType="String">
+        DELETE FROM campStyle WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
+        DELETE FROM campEquip WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
+        DELETE FROM follow WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
+        DELETE FROM follow WHERE followUserNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
         DELETE FROM user WHERE userEmail = #{userEmail};
     </delete>
+</mapper>
