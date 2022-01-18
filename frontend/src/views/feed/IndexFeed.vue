@@ -1,11 +1,8 @@
 <template>
   <div class="feed newsfeed">
     <div class="wrapB">
-      <h1>SNS 게시글 작성</h1>
+      <h1>뉴스피드</h1>
 
-      <FeedItem />
-      <FeedItem />
-      <FeedItem />
       <FeedItem />
     </div>
   </div>
