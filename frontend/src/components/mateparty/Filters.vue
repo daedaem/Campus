@@ -20,16 +20,16 @@
     </b-modal>
  
   </div>
-  
+  <div>sd</div>
 </template>
 
 <script>
-import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
+// import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
 
 export default {
   name : 'Filters',
   components : {
-    Modal1,
+    // Modal1,
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
 
 .filterbox1 {
   float: left;
-  width: 70px;
+  width: 80px;
   height: 40px;
   margin-left: 20px;
 } 

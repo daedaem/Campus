@@ -17,18 +17,37 @@
       
       </b-card-group>
     </b-row>
-    <b-pagination
-      align="center"
-      @change="onPageChanged"
-      v-model="currentPage"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
+    <v-pagination
+    v-model="page"
+    :pages="10"
+    :range-size="1"
+    active-color="#DCEDFF"
+    @update:modelValue="updateHandler"
+    />
 </template>
 
 <script>
+import VPagination from "@hennge/vue3-pagination";
+
 const items = [
           { id: 1, first_name: 'Fred', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg' },
           { id: 2, first_name: 'Wilma', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
@@ -42,37 +61,27 @@ const items = [
         ]
 export default {
   name : 'Pagination',
-    data() {
-      return {
-        items : items,
-        paginatedItems: items,
-        totalRows: items.length,
-        perPage: 6,
-        currentPage: 1,
-      }
-    },
-    methods: {
-      paginate (page_size, page_number) {
-        let itemsToParse = this.items
-        this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
-      },
-      onPageChanged(page){
-        this.paginate(this.perPage, page - 1)
-      }
-    },
-    mounted(){
-      this.paginate(this.perPage, 0)
-    },
-    computed: {
-      rows() {
-        return this.items.length
-      },
-      pageCount() {
-        let l = this.totalRows,
-          s = this.perPage;
-        return Math.floor(l / s);
-      }    
-    },
+  components : {
+    VPagination,
+  },
+  data() {
+    return {
+      items : items,
+      paginatedItems: items,
+      totalRows: items.length,
+      perPage: 3,
+      currentPage: 1,
+    }
+  },
+  methods: {
+
+  },
+  mounted(){
+ 
+  },
+  computed: {
+
+  },
 
 }
 </script>

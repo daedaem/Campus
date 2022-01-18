@@ -12,7 +12,9 @@
 
 <script>
 import Pagination from '../../components/mateparty/Pagination.vue'
-import Filters from '../../components/mateparty/Filters.vue'
+import Filters from '@/components/mateparty/Filters.vue'
+
+
 export default {
   data() {
     return {
@@ -23,6 +25,7 @@ export default {
   components: { 
     Pagination,
     Filters,
+    
   },
 
   name : 

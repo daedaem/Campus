@@ -1,30 +1,12 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router';
-import routes from './routes'
-import store from './vuex/store'
-import BootstrapVue  from 'bootstrap-vue'
+import router from './router'
+import store from './store'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.js"
+import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VCalendar from 'v-calendar';
-Vue.config.productionTip = false
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
-
-Vue.use(VCalendar, {
-    componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
-                    // ...other defaults
-  })
-Vue.use(VueRouter)
-Vue.use(BootstrapVue)
-const router = new VueRouter({
-    mode: 'history',
-    routes,
-});
-
-new Vue({
-    router,
-    store,
-    render: h => h(App),
-}).$mount('#app');
-
-
+createApp(App).use(store).use(router).use(BootstrapVue3).mount('#app')
