@@ -6,9 +6,14 @@ import store from './vuex/store'
 import BootstrapVue  from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import VCalendar from 'v-calendar';
 Vue.config.productionTip = false
 
+
+Vue.use(VCalendar, {
+    componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
+                    // ...other defaults
+  })
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 const router = new VueRouter({

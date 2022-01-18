@@ -5,6 +5,7 @@ import Join from './views/user/Join.vue'
 import FeedMain from './views/feed/IndexFeed.vue'
 import Components from './views/Components.vue'
 import Mateparty from './views/mateparty/Mateparty.vue'
+import Makeparty from './views/mateparty/Makeparty.vue'
 export default [
 
 
@@ -32,5 +33,10 @@ export default [
         path : '/mateparty',
         name : 'Mateparty',
         component : Mateparty
-    }
+    },
+    {
+        path : '/makeparty',
+        name : 'Makeparty',
+        component : Makeparty
+    },   
 ]
