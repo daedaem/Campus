@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Makeparty from '../views/mateparty/Makeparty.vue'
 import Mateparty from '../views/mateparty/Mateparty.vue'
-
+import Feed from "@/views/feed/FeedList.vue"
 const routes = [
   {
     path: '/',
@@ -28,7 +28,13 @@ const routes = [
     name : 'Makeparty',
     component : Makeparty,
     // component: () => import('../views/mateparty/Makeparty.vue')
-  },   
+  },
+  {
+    path: "/feed",
+    name: "Feed",
+    component: Feed,
+  },
+
 
 ]
 
