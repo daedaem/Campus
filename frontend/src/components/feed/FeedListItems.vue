@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="feed-frame">
     <div class="user-feed-cards" v-for="feed in feeds" :key="feed.id">
       <div class="user-feed-card">
         <div class="user-profile d-flex">
@@ -10,9 +10,9 @@
           <div class="user-feed-alert">follow</div>
         </div>
       </div>
-      <div>
-        <br />
-        <!-- carousal 예정 -->
+
+      <!-- 피드 게시물 첨부 사진이 한 개일때 -->
+      <div class="feed-picture-box" v-if="feed.imgurl.length >= 1">
         <div class="feed">
           <div
             id="carouselExampleIndicators"
@@ -44,11 +44,84 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img
-                  src="@/assets/images/bear.png"
-                  class="d-block w-100"
-                  alt="..."
-                />
+                <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
+              </div>
+              <!-- <div class="carousel-item">
+              <img
+                src="@/assets/images/bear.png"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="@/assets/images/bear.png"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div> -->
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
+      <div class="feed-picture-box" v-else>
+        <div class="feed">
+          <div
+            id="carouselExampleIndicators"
+            class="carousel slide"
+            data-bs-ride="carousel"
+            data-bs-interval="false"
+          >
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <!-- <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button> -->
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
               </div>
               <!-- <div class="carousel-item">
               <img
@@ -104,9 +177,10 @@
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum
       </div>
-      <div class="user-feed-buttons d-flex">
+      <div class="user-feed-buttons d-flex justify-content-around">
         <div class="d-flex">
-          좋아요
+          <i class="bi bi-heart-fill"></i>
+          <i class="fas fa-fire-alt"></i>
           <p>좋아요 갯수</p>
         </div>
         <div class="d-flex">
@@ -125,14 +199,6 @@
 import { mapState } from "vuex";
 export default {
   name: "feedlistitems",
-  data: function () {
-    return {
-      feed: {
-        id: 1,
-        frist_name: "fred",
-      },
-    };
-  },
   // props: {
   //   feeds: Object,
   // },
@@ -143,10 +209,43 @@ export default {
 </script>
 
 <style>
+/* .feed-frame {
+  border: 1px solid #dbdbdb;
+} */
+.user-feed-cards {
+  border-radius: 3px;
+
+  margin: 0px 0px 30px 0px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+}
+.feed-picture-box {
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+}
 .user-feed-card {
-  padding: 20px 10px 20px 10px;
+  padding: 20px 30px 20px 30px;
+  border: 1px solid #dbdbdb;
+
+  /* border-bottom: 1px solid #eee; */
+  /* border-bottom: 1px solid black; */
+  /* border-top: 1px solid black; */
+  /* border-bottom: 1px solid #eee; */
 }
 .user-feed-alert {
   margin-left: auto;
+}
+.feed-text {
+  border: 1px solid #dbdbdb;
+
+  text-align: justify;
+  font-size: 18px;
+  padding: 20px 20px;
+}
+
+.user-feed-buttons {
+  /* margin: 10px 0px; */
+  padding: 10px 0px;
+  border: 1px solid #dbdbdb;
 }
 </style>
