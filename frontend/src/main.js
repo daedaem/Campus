@@ -7,6 +7,10 @@ import "bootstrap/dist/js/bootstrap.js"
 import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
-import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import 'vue-universal-modal/dist/index.css'
+import VueUniversalModal from 'vue-universal-modal'
 
-createApp(App).use(store).use(router).use(BootstrapVue3).mount('#app')
+
+createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {
+  teleportTarget: '#modals'
+}).mount('#app')

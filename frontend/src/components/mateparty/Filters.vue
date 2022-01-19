@@ -3,7 +3,7 @@
     <b-button  v-b-modal.modal-1 class="filterbox1" pill>날짜</b-button>
     <b-modal id="modal-1" title="BootstrapVue">
       <h4>날짜 필터</h4>
-      <Modal1/>
+      <!-- <Modal1/> -->
     </b-modal>
     <b-button  v-b-modal.modal-2 class="filterbox1" pill>유형</b-button>
     <b-modal id="modal-2" title="BootstrapVue">
@@ -18,9 +18,9 @@
     <b-modal id="modal-4" title="BootstrapVue">
       <p class="my-4">4</p>
     </b-modal>
- 
+          
   </div>
-  <div>sd</div>
+ 
 </template>
 
 <script>
