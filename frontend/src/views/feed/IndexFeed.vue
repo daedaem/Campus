@@ -4,9 +4,6 @@
       <h1>뉴스피드</h1>
 
       <FeedItem />
-      <FeedItem />
-      <FeedItem />
-      <FeedItem />
     </div>
   </div>
 </template>
@@ -20,7 +17,6 @@ import FeedItem from "../../components/feed/FeedItem.vue";
 export default {
   props: ["keyword"],
 
-  components: { FeedItem }
+  components: { FeedItem },
 };
 </script>
-
