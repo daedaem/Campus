@@ -2,205 +2,95 @@
   <div class="feed-frame">
     <div class="user-feed-cards" v-for="feed in feeds" :key="feed.id">
       <div class="user-feed-card">
-        <div class="user-profile d-flex">
-          <div class="user-profile-infos d-flex justify-content-between">
-            {{ feed.id }}
-            <div class="user-profile-username">{{ feed.first_name }}</div>
+        <div class="d-flex justify-content-center align-items-center">
+          <div>
+            <img
+              :src="`${feed.profile_image_url}`"
+              class="user-profile-image"
+              alt="..."
+            />
           </div>
+          <div class="user-profile-username">{{ feed.first_name }}</div>
           <div class="user-feed-alert">follow</div>
         </div>
       </div>
 
-      <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-      <div class="feed-picture-box" v-if="feed.imgurl.length >= 1">
-        <div class="feed">
-          <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-bs-ride="carousel"
-            data-bs-interval="false"
-          >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <!-- <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button> -->
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
-              </div>
-              <!-- <div class="carousel-item">
-              <img
-                src="@/assets/images/bear.png"
-                class="d-block w-100"
-                alt="..."
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                src="@/assets/images/bear.png"
-                class="d-block w-100"
-                alt="..."
-              />
-            </div> -->
-            </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-      <div class="feed-picture-box" v-else>
-        <div class="feed">
-          <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-bs-ride="carousel"
-            data-bs-interval="false"
-          >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <!-- <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button> -->
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
-              </div>
-              <!-- <div class="carousel-item">
-              <img
-                src="@/assets/images/bear.png"
-                class="d-block w-100"
-                alt="..."
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                src="@/assets/images/bear.png"
-                class="d-block w-100"
-                alt="..."
-              />
-            </div> -->
-            </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
+      <!-- 피드 사진 캐러셀 -->
+      <feed-list-item-carousel v-bind:feed="feed"></feed-list-item-carousel>
+      <!-- 피드 게시글 내용 -->
       <div class="feed-text">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
         scrambled it to make a type specimen book. It has survived not only five
         centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum
+        essentially unchanged.
       </div>
-      <div class="user-feed-buttons d-flex justify-content-around">
-        <div class="d-flex">
-          <i class="bi bi-heart-fill"></i>
-          <i class="fas fa-fire-alt"></i>
-          <p>좋아요 갯수</p>
+
+      <!-- 피드 게시글 밑 버튼들 -->
+      <div class="user-feed-buttons d-flex justify-content-around fs-4">
+        <span class="heart-box d-flex my-auto">
+          <i class="bi bi-heart-fill me-3"></i>
+          <p class="fs-6 my-auto">1234</p>
+        </span>
+
+        <div class="comment-box my-auto">
+          <span>
+            <b-icon
+              icon="chat-dots"
+              font-size="25px"
+              :class="visible ? null : 'collapsed'"
+              :aria-expanded="visible ? 'true' : 'false'"
+              aria-controls="comment"
+              @click="visible = !visible"
+            >
+            </b-icon>
+          </span>
         </div>
-        <div class="d-flex">
-          댓글
-          <p>댓글 개수</p>
-        </div>
-        <div class="d-flex">
-          공유이모티콘
-          <p>공유</p>
-        </div>
+        <span class="share-box d-flex me-3 my-auto">
+          <i class="bi bi-envelope-plus"></i>
+        </span>
       </div>
+      <!-- <textarea v-auto-resize name="" id="" cols="30" rows="10"></textarea> -->
+      <b-collapse id="comment" v-model="visible" class="comment-total-frame">
+        <div class="d-flex">
+          <div class="col-1">
+            <img
+              :src="`${feeds[0].profile_image_url}`"
+              class="user-comment-profile-image mx-1"
+              alt="..."
+            />
+          </div>
+
+          <div class="form-floating d-flex flex-grow-1">
+            <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
+            <textarea
+              v-model="commentcontent"
+              class="flex-grow-1"
+              id="commentcontent"
+            >
+            </textarea>
+            <label for="commentcontent">댓글을 입력하세요...</label>
+            <button class="btn btn-outline-secondary fs-6">게시</button>
+          </div>
+        </div>
+      </b-collapse>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import FeedListItemCarousel from "./feedlistitmes/FeedListItemCarousel.vue";
+
 export default {
+  components: { FeedListItemCarousel },
   name: "feedlistitems",
-  // props: {
-  //   feeds: Object,
+  data() {
+    return {
+      visible: true,
+    };
+  },
+  methods: {},
   // },
   computed: {
     ...mapState(["feeds"]),
@@ -209,9 +99,11 @@ export default {
 </script>
 
 <style>
-/* .feed-frame {
-  border: 1px solid #dbdbdb;
-} */
+.feed-frame {
+  min-height: 400px;
+  /* max-height: 800px; */
+  width: 600px;
+}
 .user-feed-cards {
   border-radius: 3px;
 
@@ -219,10 +111,19 @@ export default {
   background-color: white;
   border: 1px solid #dbdbdb;
 }
-.feed-picture-box {
-  padding: 10px;
-  border: 1px solid #dbdbdb;
+.user-profile-image {
+  /* display: inline-block; */
+  border-radius: 50%;
+  margin: 0px 20px 0px 0px;
+  width: 42px;
+  height: 42px;
 }
+
+.user-profile-username {
+  display: block;
+  font-size: 18px;
+}
+
 .user-feed-card {
   padding: 20px 30px 20px 30px;
   border: 1px solid #dbdbdb;
@@ -235,11 +136,11 @@ export default {
 .user-feed-alert {
   margin-left: auto;
 }
+
 .feed-text {
   border: 1px solid #dbdbdb;
-
   text-align: justify;
-  font-size: 18px;
+  font-size: 16px;
   padding: 20px 20px;
 }
 
@@ -247,5 +148,19 @@ export default {
   /* margin: 10px 0px; */
   padding: 10px 0px;
   border: 1px solid #dbdbdb;
+}
+.comment-total-frame {
+  height: 80px;
+}
+.collapsed-comment {
+  height: 50px;
+  /* margin: auto; */
+}
+.user-comment-profile-image {
+  /* display: inline-block; */
+  border-radius: 50%;
+  margin: 0px 20px 0px 0px;
+  width: 30px;
+  height: 30px;
 }
 </style>

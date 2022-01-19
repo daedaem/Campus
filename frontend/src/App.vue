@@ -1,27 +1,10 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-              
-  </div>
-  <router-view/>
+  <div>
+    <div class="nav"></div>
+    <!-- <router-link to="/">Home</router-link> | -->
+    <!-- <router-link to="/about">About</router-link> -->
 
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
+    <router-view />
   </div>
 </template>
 
@@ -31,19 +14,31 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  // font-style: normal;
+  font-size: 14px;
+  // line-height: 18px;
+  font-weight: 400;
+  // color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.nav {
+  padding: 40px 0px 40px 0px;
+  // margin: 0px 0px 0px 0px;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  background-color: green;
+  // .nav {
+  // }
+  // a {
+  //   font-weight: bold;
+  //   color: #2c3e50;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  //   &.router-link-exact-active {
+  //     color: #42b983;
+  //   }
+  // }
 }
 </style>
