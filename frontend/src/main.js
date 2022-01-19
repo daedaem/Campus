@@ -11,6 +11,4 @@ import 'vue-universal-modal/dist/index.css'
 import VueUniversalModal from 'vue-universal-modal'
 
 
-createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {
-  teleportTarget: '#modals'
-}).mount('#app')
+createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {teleportTarget: '#modals'}).mount('#app')
