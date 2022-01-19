@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.project.dto.UserDto;
+import com.ssafy.project.dto.UserRateDto;
 import com.ssafy.project.dto.UserResultDto;
 import com.ssafy.project.service.UserService;
 
@@ -66,6 +67,19 @@ public class UserController {
                                                                                   // 같이
                                                                                   // 넘겨준다.
         UserResultDto userResultDto = userService.userDelete(userEmail);
+        if (userResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 유저 평점
+    @PostMapping(value = "/user/rate")
+    public ResponseEntity<UserResultDto> rate(@RequestBody UserRateDto userRateDto) { // restapi를 이용해서 http 상태코드를 성공
+                                                                                      // 실패여부로
+        // 같이 넘겨준다.
+        UserResultDto userResultDto = userService.userRate(userRateDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
         } else {

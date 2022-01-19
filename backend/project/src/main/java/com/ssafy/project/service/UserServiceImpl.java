@@ -2,6 +2,7 @@ package com.ssafy.project.service;
 
 import com.ssafy.project.dao.UserDao;
 import com.ssafy.project.dto.UserDto;
+import com.ssafy.project.dto.UserRateDto;
 import com.ssafy.project.dto.UserResultDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,17 @@ public class UserServiceImpl implements UserService {
     public UserResultDto userDelete(String userEmail) {
         UserResultDto userResultDto = new UserResultDto();
         if (userDao.userDelete(userEmail) != FAIL) { // 탈퇴 성공
+            userResultDto.setResult(SUCCESS);
+        } else { // 탈퇴 실패
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
+    @Override
+    public UserResultDto userRate(UserRateDto userRateDto) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userRate(userRateDto) != FAIL) { // 탈퇴 성공
             userResultDto.setResult(SUCCESS);
         } else { // 탈퇴 실패
             userResultDto.setResult(FAIL);

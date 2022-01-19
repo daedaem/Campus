@@ -18,10 +18,11 @@
         SELECT u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
                 s.campStyle1, s.campStyle2, s.campStyle3, s.campStyle4, s.campStyle5, s.campStyle6,
                 e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
-                e.campEquipEtc4, e.campEquipEtc5
-        FROM user u, campStyle s, campEquip e
+                e.campEquipEtc4, e.campEquipEtc5, AVG(r.userRatePoint) as userRatePoint
+        FROM user u, campStyle s, campEquip e, userRate r
         WHERE u.userNo = s.userNo
         AND u.userNo = e.userNo
+        AND u.userNo = r.userNo
         AND u.userEmail = #{userEmail};
     </select>
 
@@ -43,6 +44,12 @@
         DELETE FROM campEquip WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
         DELETE FROM follow WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
         DELETE FROM follow WHERE followUserNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
+        DELETE FROM userRate WHERE userNo = (SELECT userNo from user WHERE userEmail = #{userEmail});
         DELETE FROM user WHERE userEmail = #{userEmail};
     </delete>
+
+    <insert id="userRate" parameterType="com.ssafy.project.dto.UserRateDto">
+        INSERT INTO userRate(userNo, userRatePoint)
+            VALUES( #{userNo}, #{userRatePoint} );
+    </insert>
 </mapper>

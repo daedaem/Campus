@@ -34,4 +34,7 @@ public class UserDto {
     private String campEquipEtc3;
     private String campEquipEtc4;
     private String campEquipEtc5;
+
+    // userRate 테이블
+    private double userRatePoint;
 }

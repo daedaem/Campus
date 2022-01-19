@@ -1,6 +1,7 @@
 package com.ssafy.project.dao;
 
 import com.ssafy.project.dto.UserDto;
+import com.ssafy.project.dto.UserRateDto;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,7 @@ public interface UserDao {
 
     // userEmail에 해당하는 user 삭제
     public int userDelete(String userEmail);
+
+    // user 평점
+    public int userRate(UserRateDto userRateDto);
 }
