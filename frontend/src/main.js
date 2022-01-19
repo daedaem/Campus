@@ -1,22 +1,16 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router';
-import routes from './routes'
-import store from './vuex/store'
+import router from './router'
+import store from './store'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.js"
+import BootstrapVue3 from 'bootstrap-vue-3'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import 'vue-universal-modal/dist/index.css'
+import VueUniversalModal from 'vue-universal-modal'
 
 
-Vue.config.productionTip = false
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-    routes,
-});
-
-new Vue({
-    router,
-    store,
-    render: h => h(App),
-}).$mount('#app');
-
-
+createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {
+  teleportTarget: '#modals'
+}).mount('#app')
