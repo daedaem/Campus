@@ -2,11 +2,9 @@ package com.ssafy.project.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class SnsReplyDto {
     private int snsReplyNo;
     private int snsNo;
@@ -18,3 +16,4 @@ public class SnsReplyDto {
 
     
 }
+// 컨트롤러에서 sns와 댓글 따로 부르기

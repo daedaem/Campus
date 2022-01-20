@@ -3,13 +3,9 @@ package com.ssafy.project.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString(exclude = "userProfileImageUrl")
+@Data
 public class SnsDto {
     private int snsNo;
     private int userNo;
