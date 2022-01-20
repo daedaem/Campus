@@ -1,58 +1,37 @@
 <template>
-  <p>
-    <button @click="showModal">
-      Show modal
-    </button>
-  </p>
-  <!-- If the option changed modal component the name
-  <MyModal>
-  -->
-  <Modal
-    v-model="isShow"
-    :close="closeModal"
-  >
-    <div class="modal">
-      <p>
-        Hello
-      </p>
-      <button @click="closeModal">
-        close
-      </button>
-    </div>
-  </Modal>
+  <Datepicker v-model="date1" range></Datepicker>
+  123
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
 
-export default defineComponent({
-  setup () {
-    const isShow = ref(false)
+<script>
+import Datepicker from 'vue3-date-time-picker';
+import 'vue3-date-time-picker/dist/main.css'
+import { ref, onMounted } from 'vue';
 
-    function showModal () {
-      isShow.value = true
+
+export default {
+  name: 'Modal1',
+  components: {
+    Datepicker,
+  },
+  setup() {
+        const date = ref();
+
+        // For demo purposes assign range from the current date
+        onMounted(() => {
+            const startDate = new Date();
+            const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+            date.value = [startDate, endDate];
+        })
+        
+        return {
+            date,
+        }
     }
-
-    function closeModal () {
-      isShow.value = false
-    }
-
-    return {
-      isShow,
-      showModal,
-      closeModal
-    }
-  }
-})
+}
 </script>
 
-<style scoped lang="scss">
-.modal {
-  width: 300px;
-  padding: 30px;
-  box-sizing: border-box;
-  background-color: #fff;
-  font-size: 20px;
-  text-align: center;
-}
+<style>
+
 </style>
