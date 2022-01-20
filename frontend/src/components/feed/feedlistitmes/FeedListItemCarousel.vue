@@ -3,15 +3,15 @@
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
       <div class="feed-picture">
-        <img :src="`${feed.imgurl[0]}`" class="d-block w-100" alt="..." />
+        <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
       </div>
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
     <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
-      <div class="feed">
+      <div class="feed-picture">
         <div
-          v-bind:id="carouselExampleIndicators"
+          :id="`picture${feed.id}`"
           class="carousel slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
@@ -22,7 +22,7 @@
             :key="indicator.key" -->
             <button
               type="button"
-              data-bs-target="#carouselExampleIndicators"
+              :data-bs-target="`picture${feed.id}`"
               data-bs-slide-to="0"
               class="active"
               aria-current="true"
@@ -30,7 +30,7 @@
             ></button>
             <button
               type="button"
-              data-bs-target="`#carouselExampleIndicators"
+              :data-bs-target="`picture${feed.id}`"
               data-bs-slide-to="1"
               aria-label="Slide 2"
             ></button>
@@ -46,7 +46,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            data-bs-target="#carouselExampleIndicators"
+            :data-bs-target="`picture${feed.id}`"
             data-bs-slide="prev"
           >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -55,7 +55,7 @@
           <button
             class="carousel-control-next"
             type="button"
-            data-bs-target="#carouselExampleIndicators"
+            :data-bs-target="`picture${feed.id}`"
             data-bs-slide="next"
           >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default {
   name: "FeedListItemCarousel",
@@ -80,11 +80,15 @@ export default {
   data() {
     return {
       feedimage: "",
+      feedid:"",
     };
-  },
-  computed: {
-    ...mapState(["feeds"]),
-  },
+  },created : function() {
+    // console.log(this.feed);
+    // console.log(this.feeds);
+  }
+  // computed: {
+  //   ...mapState(["feeds"]),
+  // },
 };
 </script>
 

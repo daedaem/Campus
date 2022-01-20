@@ -3,16 +3,15 @@
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
       <div class="feed-picture">
-        <img :src="`${feed.imgurl[0]}`" class="d-block w-100" alt="..." />
+        <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
       </div>
     </div>
     <!-- 두개이상일 때 -->
-
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
-      <div class="feed">
+    <div class="feed-picture-box" v-else-if="feed.imgurl.length >=2">
+      <div class="feed-picture">
         <div
-          id="carouselExampleIndicators"
+          v-bind:id="carouselExampleIndicators"
           class="carousel slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
@@ -31,7 +30,7 @@
             ></button>
             <button
               type="button"
-              data-bs-target="#carouselExampleIndicators"
+              data-bs-target="`#carouselExampleIndicators"
               data-bs-slide-to="1"
               aria-label="Slide 2"
             ></button>
