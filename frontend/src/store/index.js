@@ -32,8 +32,9 @@ export default createStore({
         last_name: "Rubble",
         profile_image_url:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-        imgurl:
+        imgurl: [
           "https://cdn.pixabay.com/photo/2016/11/25/23/15/moon-1859616_960_720.jpg",
+        ],
       },
       {
         id: 4,
@@ -41,8 +42,9 @@ export default createStore({
         last_name: "Rubble",
         profile_image_url:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-        imgurl:
+        imgurl: [
           "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_960_720.jpg",
+        ],
       },
       {
         id: 5,
@@ -87,7 +89,6 @@ export default createStore({
           "https://cdn.pixabay.com/photo/2019/10/03/11/14/camp-4522970__340.jpg",
           "https://cdn.pixabay.com/photo/2020/01/15/12/56/kyrgyzstan-4767876__340.jpg",
           "https://cdn.pixabay.com/photo/2016/11/29/04/17/bonfire-1867275__340.jpg",
-          "https://cdn.pixabay.com/photo/2020/02/04/10/42/people-4817872__340.jpg",
         ],
       },
       {
@@ -96,16 +97,18 @@ export default createStore({
         last_name: "Slaghoople",
         profile_image_url:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-        imgurl:
+        imgurl: [
           "https://cdn.pixabay.com/photo/2016/11/21/15/14/camping-1845906__340.jpg",
+        ],
       },
       {
         id: 10,
         first_name: "Sord",
         last_name: "Sordsese",
         profile_image_url: "https://i.stack.imgur.com/l60Hf.png",
-        imgurl:
+        imgurl: [
           "https://cdn.pixabay.com/photo/2018/12/19/22/38/aconcagua-3884935__340.jpg",
+        ],
       },
     ],
   },

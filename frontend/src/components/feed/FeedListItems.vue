@@ -29,6 +29,8 @@
 
       <!-- 피드 게시글 밑 버튼들 -->
       <div class="user-feed-buttons d-flex justify-content-around fs-4">
+        <!-- 밑에 삽입 예정 
+          @click="[changedheart(), heartcount()]"-->
         <span class="heart-box d-flex my-auto">
           <i class="bi bi-heart-fill me-3"></i>
           <p class="fs-6 my-auto">1234</p>
@@ -36,6 +38,9 @@
 
         <div class="comment-box my-auto">
           <span>
+            <!-- visible? visible이 참이면 null 거짓이면 collapsed -->
+            <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
+            <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
             <b-icon
               icon="chat-dots"
               font-size="25px"
@@ -52,26 +57,40 @@
         </span>
       </div>
       <!-- <textarea v-auto-resize name="" id="" cols="30" rows="10"></textarea> -->
-      <b-collapse id="comment" v-model="visible" class="comment-total-frame">
-        <div class="d-flex">
-          <div class="col-1">
+      <b-collapse id="comment" v-model="visible">
+        <div
+          class="collapsed-comment d-flex justify-content-around align-items-center"
+        >
+          <div class="my-auto">
             <img
               :src="`${feeds[0].profile_image_url}`"
-              class="user-comment-profile-image mx-1"
+              class="user-comment-profile-image mx-1 my-auto"
               alt="..."
             />
           </div>
+          <div class="my-auto col-10">
+            <div class="form-floating">
+              <div class="d-flex">
+                <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
 
-          <div class="form-floating d-flex flex-grow-1">
-            <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
-            <textarea
-              v-model="commentcontent"
-              class="flex-grow-1"
-              id="commentcontent"
-            >
-            </textarea>
-            <label for="commentcontent">댓글을 입력하세요...</label>
-            <button class="btn btn-outline-secondary fs-6">게시</button>
+                <textarea
+                  v-model="commentcontent"
+                  id="commentcontent"
+                  ref="textarea"
+                  rows="1"
+                  class="d-flex col-10 me-2"
+                  placeholder="댓글을 입력하세요"
+                >
+                </textarea>
+                <button
+                  class="btn btn-outline-secondary fs-6 me-1"
+                  type="button"
+                  id="commentcontent"
+                >
+                  게시
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </b-collapse>
@@ -87,11 +106,33 @@ export default {
   name: "feedlistitems",
   data() {
     return {
+      commentcontent: [],
       visible: true,
+      //   heart: null,
+      //   heartcount: 0,
+      //   // likeCount:
+      // };
     };
+    // methods: {
+    //   changedheart() {
+    //     if (heart == null) {
+    //       console.log("heart is null");
+    //       heart;
+    //     } else {
+    //       console.log("heart is filled");
+    //       heartcount + 1;
+    //     }
+    //   },
+    //   heartcount() {
+    //     if (heart == null) {
+    //       console.log("heart is null");
+    //     } else {
+    //       console.log("heart is filled");
+    //       heartcount + 1;
+    //     }
+    //   },
+    // },
   },
-  methods: {},
-  // },
   computed: {
     ...mapState(["feeds"]),
   },
@@ -149,11 +190,8 @@ export default {
   padding: 10px 0px;
   border: 1px solid #dbdbdb;
 }
-.comment-total-frame {
-  height: 80px;
-}
 .collapsed-comment {
-  height: 50px;
+  height: 80px;
   /* margin: auto; */
 }
 .user-comment-profile-image {

@@ -7,11 +7,12 @@
       </div>
     </div>
     <!-- 두개이상일 때 -->
+
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
     <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
       <div class="feed">
         <div
-          v-bind:id="carouselExampleIndicators"
+          id="carouselExampleIndicators"
           class="carousel slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
@@ -30,7 +31,7 @@
             ></button>
             <button
               type="button"
-              data-bs-target="`#carouselExampleIndicators"
+              data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="1"
               aria-label="Slide 2"
             ></button>
