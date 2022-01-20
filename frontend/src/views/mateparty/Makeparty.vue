@@ -11,19 +11,26 @@
     <Filtermake/>
 
 
-  <div align="left">
-    <div align="left" class="filterbox2">인원 제한
-    <Dropdown/>
-    </div>
-    <div align="left" class="filterbox1">연령 제한
-      <Dropdown />
-      
-      <div align="center">~</div>
+    <div align="left">
+      <div align="left" class="filterbox2">인원 제한
       <Dropdown/>
+      </div>
+      <div align="left" class="filterbox1">연령 제한
+        <Dropdown />
+        
+        <div align="center">~</div>
+        <Dropdown/>
+      </div>
     </div>
-  </div>
-    
-    </body>
+    <!-- <div v-if="choose === 0" @click="imgsel">
+    <img width="200" height="200" src="../../assets/images/icebox3.png" alt="qwsdfd">
+    </div>
+    <div v-else @click="imgsel">
+    <img width="200" height="200" src="../../assets/images/bear.png" alt="qwsdfd">
+    </div> -->
+    <div class="col-md-12">
+                               <input class="form-control" type="text" name="name" placeholder="Full Name" required>
+  </body>
   
   
 </template>
@@ -39,25 +46,34 @@ export default {
   },
   methods: {
   //image upload and preview methods
-  selectImage () {
-    this.$refs.fileInput.click()
-  },
-  pickFile () {
-    let input = this.$refs.fileInput
-    let file = input.files
-    if (file && file[0]) {
-      let reader = new FileReader
-      reader.onload = e => {
-        this.previewImage = e.target.result
+    selectImage () {
+      this.$refs.fileInput.click()
+    },
+    pickFile () {
+      let input = this.$refs.fileInput
+      let file = input.files
+      if (file && file[0]) {
+        let reader = new FileReader
+        reader.onload = e => {
+          this.previewImage = e.target.result
+        }
+        reader.readAsDataURL(file[0])
+        this.$emit('input', file[0])
       }
-      reader.readAsDataURL(file[0])
-      this.$emit('input', file[0])
-    }
-  }
+    },
+    // imgsel() {
+    //   if (this.choose === 0) {
+    //     this.choose += 1
+    //   } else {
+    //     this.choose = 0
+    //   }
+    // }
+
   },
   data: function() {
     return {
-     previewImage: null
+     previewImage: null,
+     choose : 0
   }  
 }
 }

@@ -69,15 +69,7 @@ export default {
       console.log(this.currentPage)
       this.paginate(this.perPage, this.currentPage - 1)
     },
-    pageUp() {
-      return this.pageNum += 1
-    },
-    pageDown() {
-      if (this.pageNum >3) {
-        return this.pageNum -= 1
-      } 
-      
-    },
+
   },
   mounted(){
     console.log(1)
