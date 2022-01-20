@@ -4,7 +4,6 @@
     <router-link to="/about">About</router-link>
      
   </div>
-  <router-view/>
 
 
 </template>
@@ -15,19 +14,31 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  // font-style: normal;
+  font-size: 14px;
+  // line-height: 18px;
+  font-weight: 400;
+  // color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.nav {
+  padding: 40px 0px 40px 0px;
+  // margin: 0px 0px 0px 0px;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  background-color: green;
+  // .nav {
+  // }
+  // a {
+  //   font-weight: bold;
+  //   color: #2c3e50;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  //   &.router-link-exact-active {
+  //     color: #42b983;
+  //   }
+  // }
 }
 </style>
