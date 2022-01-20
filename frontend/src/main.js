@@ -13,7 +13,13 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faImages as fasImages} from '@fortawesome/free-solid-svg-icons'
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 library.add(faPhone, fasImages);
 
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {teleportTarget: '#modals'}).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
+
+
+
+
+
+

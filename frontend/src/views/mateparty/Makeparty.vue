@@ -28,8 +28,7 @@
     <div v-else @click="imgsel">
     <img width="200" height="200" src="../../assets/images/bear.png" alt="qwsdfd">
     </div> -->
-    <div class="col-md-12">
-                               <input class="form-control" type="text" name="name" placeholder="Full Name" required>
+    
   </body>
   
   
