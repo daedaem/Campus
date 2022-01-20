@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Makeparty from '../views/mateparty/Makeparty.vue'
 import Mateparty from '../views/mateparty/Mateparty.vue'
+import Signup from '../views/user/SignUp.vue'
+import Login from '../views/user/Login.vue'
+import addSign from '../views/user/addSign.vue'
 import Feed from "@/views/feed/FeedList.vue"
 const routes = [
   {
@@ -34,6 +37,21 @@ const routes = [
     name: "Feed",
     component: Feed,
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
+    path: "/addsign",
+    name: "addSign",
+    component: addSign,
+  }
 
 
 ]
