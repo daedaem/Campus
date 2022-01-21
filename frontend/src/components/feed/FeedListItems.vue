@@ -107,7 +107,7 @@ import FeedListItemCarousel from "./feedlistitmes/FeedListItemCarousel.vue";
 
 export default {
   components: { FeedListItemCarousel },
-  name: "feedlistitems",
+  name: "FeedListItems",
   props:{
     feed:Object
   },
@@ -153,8 +153,10 @@ export default {
 <style>
 .feed-frame {
   min-height: 400px;
+  max-width: 600px;
+  margin:0 auto
   /* max-height: 800px; */
-  width: 600px;
+  
 }
 .user-feed-cards {
   border-radius: 3px;

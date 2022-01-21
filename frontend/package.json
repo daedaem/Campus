@@ -19,6 +19,8 @@
     "bootstrap-vue-3": "^0.1.0",
     "choices.js": "^10.0.0",
     "core-js": "^3.6.5",
+    "email-validator": "^2.0.4",
+    "password-validator": "^5.2.1",
     "v-pagination-3": "^0.1.7",
     "vue": "^3.0.0",
     "vue-next-select": "^2.10.2",
