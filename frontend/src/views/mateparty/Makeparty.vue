@@ -1,33 +1,53 @@
 <template>
   <body>
     
-    <div class="App container mt-5">
-    <div class="mb-3">
-      <input style="display:none" class="form-control" ref="fileInput" type="file" @input="pickFile">
-      </div>
-        
-       <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"><font-awesome-icon :icon="['fas','images']" size="10x"/></div>
-    </div>
-    <Filtermake/>
+    <Fileupload/>
+    
+      <div style="margin-left: 30px;">
+        <Filtermake/>
 
-
-    <div align="left">
-      <div align="left" class="filterbox2">인원 제한
-      <Dropdown/>
-      </div>
-      <div align="left" class="filterbox1">연령 제한
-        <Dropdown />
+        <div align="left" class="filterbox">
+          <div align="left" class="filterbox2">인원 제한
+            <Dropdown/>
+          </div>
+          <div align="left" class="filterbox1">연령 제한
+            <Dropdown />
+            
+            <div align="center" style="padding : 20px;">~</div>
+            <Dropdown/>
+        </div>
         
-        <div align="center">~</div>
-        <Dropdown/>
       </div>
-    </div>
-    <!-- <div v-if="choose === 0" @click="imgsel">
-    <img width="200" height="200" src="../../assets/images/icebox3.png" alt="qwsdfd">
-    </div>
-    <div v-else @click="imgsel">
-    <img width="200" height="200" src="../../assets/images/bear.png" alt="qwsdfd">
+      
+      <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
+    <!-- <div class="camping">
+      <input class="input1" type="text" placeholder="캠핑장 선택">
     </div> -->
+    </div>
+    <br>
+    <Items/> 
+    
+    
+    <div class="container contact-form" >
+      <div class="row">
+          <div >
+              <p align="left">제목</p>
+              <div class="form-group">
+                  <input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+              </div>
+          </div>
+          <div >
+              <p align="left">메이트 소개</p>
+              <div class="form-group">
+                  <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+          </div>
+      </div>
+    </div>
     
   </body>
   
@@ -37,11 +57,17 @@
 <script>
 import Filtermake from '@/components/mateparty/Filtermake.vue'
 import Dropdown from '../../components/mateparty/Dropdown.vue'
+import Items from '@/components/mateparty/Items.vue'
+import Campchoice from '@/components/mateparty/Campchoice.vue'
+import Fileupload from '@/components/mateparty/Fileupload.vue'
 export default {
   name: 'Makeparty',
   components : {
+    Items,
     Filtermake,
-    Dropdown
+    Dropdown,
+    Campchoice,
+    Fileupload,
   },
   methods: {
   //image upload and preview methods
@@ -60,22 +86,15 @@ export default {
         this.$emit('input', file[0])
       }
     },
-    // imgsel() {
-    //   if (this.choose === 0) {
-    //     this.choose += 1
-    //   } else {
-    //     this.choose = 0
-    //   }
-    // }
 
   },
   data: function() {
     return {
-     previewImage: null,
-     choose : 0
-  }  
-}
-}
+      
+      }
+    }  
+ }  
+
 </script>
 
 <style scoped>
@@ -83,12 +102,12 @@ body {
   width: 768px;
   margin: 0 auto;
   padding: 0 20px;
-  background: beige;
+  /* background: beige; */
 }
 .imagePreviewWrapper {
   background-repeat: no-repeat;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 125px;
     display: block;
     cursor: pointer;
     margin: 0 auto 30px;
@@ -107,7 +126,77 @@ body {
 }
 .filterbox2 {
   float: left;
-  
-  
 } 
+
+.input1 {
+  float: left;
+  width: 250px;
+  height: 32px;
+  font-size: 15px;
+  border: 2;
+  /* border-br: red; */
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(224, 224, 224);
+}
+
+.contact-form{
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 100%;
+}
+.contact-form .form-control{
+    border-radius:1rem;
+}
+.contact-image{
+    text-align: center;
+}
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -3%;
+    transform: rotate(29deg);
+}
+.contact-form form{
+    padding: 14%;
+}
+.contact-form form .row{
+    margin-bottom: -7%;
+}
+.contact-form h3{
+    margin-bottom: 8%;
+    margin-top: -10%;
+    text-align: center;
+    color: #0062cc;
+}
+.contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnContactSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+}
+
+.camping {
+  overflow: hidden;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+
 </style>
