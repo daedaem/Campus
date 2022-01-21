@@ -3,13 +3,15 @@ package com.ssafy.project.service;
 import java.util.List;
 
 import com.ssafy.project.dto.CampSiteDto;
+import com.ssafy.project.dto.CampSiteParamDto;
+import com.ssafy.project.dto.CampSiteResultDto;
 
 public interface CampSiteService {
     // 캠핑장 전체 리스트
-    public List<CampSiteDto> campSiteList();
+    public CampSiteResultDto campSiteList(CampSiteParamDto campSiteParamDto);
 
     // 캠핑장 검색
-    public List<CampSiteDto> campSiteSearch(String searchWord);
+    public CampSiteResultDto campSiteSearch(CampSiteParamDto campSiteParamDto);
 
     // 도 선택
     public List<String> campSiteDo();

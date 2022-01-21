@@ -11,7 +11,7 @@
 	<!-- follow 삭제 -->
 	<delete id="followDelete" parameterType="Integer">
 		DELETE FROM follow
-		WHERE userNo = #{userNo} and followUserNO = #{followUserNo};
+		WHERE userNo = #{userNo} and followUserNo = #{followUserNo};
 	</delete>
 	
 	<!-- follow 수 구하기 -->

@@ -1,6 +1,6 @@
 # show databases; 로 DB가 있는지 확인
 # CREATE DATABASE
-CREATE DATABASE ssafy;
+#CREATE DATABASE ssafy;
 USE ssafy;
 
 DROP TABLE IF EXISTS `user`;
@@ -38,10 +38,15 @@ CREATE TABLE `campStyle` (
 
 CREATE TABLE `campEquip` (
 	`userNo` INT NOT NULL,
-	`campEquipTent` VARCHAR(128) DEFAULT NULL,
-	`campEquipSleepingbag` VARCHAR(128) DEFAULT NULL,
-	`campEquipBurner` VARCHAR(128) DEFAULT NULL,
-	`campEquipBrazier` VARCHAR(128) DEFAULT NULL,
+	`campEquipTent` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipSleepingbag` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipBurner` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipTableChair` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipPot` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipLantern` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipReel` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipIcebox` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipTarp` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipEtc1` VARCHAR(128) DEFAULT NULL,
 	`campEquipEtc2` VARCHAR(128) DEFAULT NULL,
 	`campEquipEtc3` VARCHAR(128) DEFAULT NULL,
@@ -54,9 +59,9 @@ CREATE TABLE `campEquip` (
 CREATE TABLE `follow` (
 	`userNo` INT NOT NULL,
 	`followUserNo` INT NOT NULL,
-	PRIMARY KEY (`userNo`, `followUserNo`)
 	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
-	FOREIGN KEY (`followUserNo`) REFERENCES user(`userNo`) ON DELETE CASCADE
+	FOREIGN KEY (`followUserNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`userNo`, `followUserNo`)
 );
 
 CREATE TABLE `campSite` (
@@ -130,17 +135,17 @@ CREATE TABLE `campSite` (
 CREATE TABLE `campRate` (
 	`campRateNo` INT NOT NULL AUTO_INCREMENT,
 	`contentId` VARCHAR(12) NOT NULL,
-	`campRateCleanliness` ENUM(0, 1, 2, 3, 4, 5),
-	`campRatePrice` ENUM(0, 1, 2, 3, 4, 5),
-	`campRateFacility` ENUM(0, 1, 2, 3, 4, 5),
+	`campRateCleanliness` INT,
+	`campRatePrice` INT,
+	`campRateFacility` INT,
 	`userNo` INT NOT NULL,
 	`campRateContent` TEXT,
 	`campRateCreateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	`campRateUpdateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+	`campRateTitle` TEXT,
 	PRIMARY KEY (`campRateNo`),
 	FOREIGN KEY (`contentId`) REFERENCES campSite(`contentId`) ON DELETE CASCADE,
-	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE NO ACTION
-	# ON DELETE NO ACTION : 회원정보가 지워져도 평점은 지워지지 않는다.
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE
 );
 
 CREATE TABLE `campRateReply` (
@@ -150,9 +155,9 @@ CREATE TABLE `campRateReply` (
 	`campRateReplyUpdateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	`campRateReplyContent` TEXT,
 	`userNo` INT NOT NULL,
-	PRIMARY KEY (`campRateReplyNo`)
 	FOREIGN KEY (`campRateNo`) REFERENCES campRate(`campRateNo`) ON DELETE CASCADE,
-	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE NO ACTION
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`campRateReplyNo`)
 );
 
 CREATE TABLE `mate` (
@@ -166,7 +171,7 @@ CREATE TABLE `mate` (
 	`mateCamptype` VARCHAR(20),
 	`mateCampstart` DATE,
 	`mateCampend` DATE,
-	`contentId` INT NOT NULL,
+	`contentId` VARCHAR(12) NOT NULL,
 	`mateStatus` VARCHAR(1),
 	`userNo` INT NOT NULL,
 	PRIMARY KEY (`mateNo`),
@@ -181,9 +186,9 @@ CREATE TABLE `mateReply` (
 	`mateReplyUpdateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	`mateReplyContent` TEXT,
 	`userNo` INT NOT NULL,
-	PRIMARY KEY (`mateReplyNo`),
-	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE NO ACTION,
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
 	FOREIGN KEY (`mateNo`) REFERENCES mate(`mateNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`mateReplyNo`)
 );
 
 CREATE TABLE `mateList` (
@@ -193,19 +198,19 @@ CREATE TABLE `mateList` (
 	`mateListAge` INT,
 	`mateNo` INT NOT NULL,
 	`mateGender` ENUM('남', '여'),
-	PRIMARY KEY (`mateListNo`),
 	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
 	FOREIGN KEY (`mateNo`) REFERENCES mate(`mateNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`mateListNo`)
 );
 
 CREATE TABLE `sns` (
-	`snsNo` INT NOT NULL, AUTO_INCREMENT,
+	`snsNo` INT NOT NULL AUTO_INCREMENT,
 	`snsContent` TEXT,
 	`snsUpdateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	`snsCreateTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	`userNo` INT NOT NULL,
-	PRIMARY KEY (`snsNo`),
-	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`snsNo`)
 );
 
 CREATE TABLE `snsReply` (
@@ -216,7 +221,7 @@ CREATE TABLE `snsReply` (
 	`userNo` INT NOT NULL,
 	`snsNo` INT NOT NULL,
 	PRIMARY KEY (`snsReplyNo`),
-	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE NO ACTION,
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
 	FOREIGN KEY (`snsNo`) REFERENCES sns(`snsNo`) ON DELETE CASCADE
 );
 
@@ -235,4 +240,12 @@ CREATE TABLE `snsLike` (
 	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
 	FOREIGN KEY (`snsNo`) REFERENCES sns(`snsNo`) ON DELETE CASCADE,
 	PRIMARY KEY (`userNo`, `snsNo`)
+);
+
+CREATE TABLE `userRate` (
+	`userRateNo` INT NOT NULL AUTO_INCREMENT,
+	`userNo` INT NOT NULL,
+	`userRatePoint` INT,
+	FOREIGN KEY (`userNo`) REFERENCES user(`userNo`) ON DELETE CASCADE,
+	PRIMARY KEY (`userRateNo`)
 );

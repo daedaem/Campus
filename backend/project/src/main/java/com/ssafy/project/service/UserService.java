@@ -14,4 +14,8 @@ public interface UserService {
     public UserResultDto userDelete(String userEmail);
 
     public UserResultDto userRate(UserRateDto userRateDto);
+
+    public UserResultDto userDuplEmail(String userEmail);
+
+    public UserResultDto userDuplNickname(String userNickname);
 }

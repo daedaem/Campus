@@ -78,12 +78,30 @@ public class UserController {
     @PostMapping(value = "/user/rate")
     public ResponseEntity<UserResultDto> rate(@RequestBody UserRateDto userRateDto) { // restapi를 이용해서 http 상태코드를 성공
                                                                                       // 실패여부로
-        // 같이 넘겨준다.
+                                                                                      // 같이 넘겨준다.
         UserResultDto userResultDto = userService.userRate(userRateDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // userEmail에 해당하는 user 정보 구하기
+    @GetMapping(value = "/user/dupl/{userEmail}")
+    public ResponseEntity<UserResultDto> duplEmail(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공
+                                                                                     // 실패여부로 같이
+        // 넘겨준다.
+        UserResultDto userResultDto = userService.userDuplEmail(userEmail);
+        return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+    }
+
+    // userEmail에 해당하는 user 정보 구하기
+    @GetMapping(value = "/user/dupl/{userNickname}")
+    public ResponseEntity<UserResultDto> duplNickname(@PathVariable String userNickname) { // restapi를 이용해서 http 상태코드를
+                                                                                           // 성공 실패여부로 같이
+        // 넘겨준다.
+        UserResultDto userResultDto = userService.userDuplNickname(userNickname);
+        return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
     }
 }

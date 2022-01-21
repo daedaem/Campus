@@ -15,4 +15,7 @@ public class CampRateDto {
     private String campRateContent;
     private Date campRateCreateTime;
     private Date campRateUpdateTime;
+    private String campRateTitle;
+    private String userNickname;
+    private boolean sameUser;
 }

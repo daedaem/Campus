@@ -12,4 +12,6 @@ public class CampRateReplyDto {
     private Date campRateReplyUpdateTime;
     private String campRateReplyContent;
     private int userNo;
+    private String userProfileImage;
+    private String userNickname;
 }
