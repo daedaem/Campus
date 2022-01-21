@@ -65,9 +65,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResultDto userRate(UserRateDto userRateDto) {
         UserResultDto userResultDto = new UserResultDto();
-        if (userDao.userRate(userRateDto) != FAIL) { // 탈퇴 성공
+        if (userDao.userRate(userRateDto) == SUCCESS) {
             userResultDto.setResult(SUCCESS);
-        } else { // 탈퇴 실패
+        } else {
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
+    @Override
+    public UserResultDto userDuplEmail(String userEmail) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userDuplEmail(userEmail) == 0) { // 중복되는 이메일이 없음
+            userResultDto.setResult(SUCCESS);
+        } else {
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
+    @Override
+    public UserResultDto userDuplNickname(String userNickname) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userDuplNickname(userNickname) == 0) { // 중복되는 닉네임이 없음
+            userResultDto.setResult(SUCCESS);
+        } else {
             userResultDto.setResult(FAIL);
         }
         return userResultDto;

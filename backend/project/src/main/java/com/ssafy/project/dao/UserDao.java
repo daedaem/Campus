@@ -21,4 +21,10 @@ public interface UserDao {
 
     // user 평점
     public int userRate(UserRateDto userRateDto);
+
+    // email 중복 확인
+    public int userDuplEmail(String userEmail);
+
+    // 닉네임 중복 확인
+    public int userDuplNickname(String userNickname);
 }

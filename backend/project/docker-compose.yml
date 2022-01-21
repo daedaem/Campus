@@ -1,0 +1,32 @@
+version: "3"
+services:
+  database:
+    container_name: maria-db
+    image: mariadb
+    volumes:
+      - ~/docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d:ro
+      - ~/docker/mariadb/var/lib/mysql:/var/lib/mysql
+      - ~/docker/mariadb/var/log/maria:/var/log/maria
+    environment:
+      - MYSQL_DATABASE=ssafy
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+      ]
+    ports:
+      - 3306:3306
+
+  application:
+    image: back:0.1
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/ssafy?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - 8080:8080
+    depends_on:
+      - database

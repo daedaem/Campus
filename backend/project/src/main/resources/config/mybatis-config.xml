@@ -14,5 +14,7 @@
         <mapper resource="mapper/login_query.xml" />
         <mapper resource="mapper/follow_query.xml" />
         <mapper resource="mapper/camp_query.xml" />
+        <mapper resource="mapper/camp_rate_query.xml" />
+        <mapper resource="mapper/camp_rate_reply_query.xml" />
 	</mappers>	
 </configuration>
