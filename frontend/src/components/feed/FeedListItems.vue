@@ -1,6 +1,6 @@
 <template>
   <div class="feed-frame">
-    <div class="user-feed-cards" v-for="feed in feeds" :key="feed.id">
+    <div class="user-feed-cards">
       <div class="user-feed-card">
         <div class="d-flex justify-content-center align-items-center">
           <div>
@@ -31,9 +31,13 @@
       <div class="user-feed-buttons d-flex justify-content-around fs-4">
         <!-- 밑에 삽입 예정 
           @click="[changedheart(), heartcount()]"-->
-        <span class="heart-box d-flex my-auto">
+        <span class="heart-box d-flex my-auto" @click="changedheart(feed)" v-if="heartclick== 1">
+          <i class="bi bi-heart me-3"></i>
+          <p class="fs-6 my-auto">{{feed.likecount}}</p>
+        </span>
+        <span class="heart-box d-flex my-auto" @click="changedheart(feed)" v-else>
           <i class="bi bi-heart-fill me-3"></i>
-          <p class="fs-6 my-auto">1234</p>
+          <p class="fs-6 my-auto">{{feed.likecount}}</p>
         </span>
 
         <div class="comment-box my-auto">
@@ -104,24 +108,31 @@ import FeedListItemCarousel from "./feedlistitmes/FeedListItemCarousel.vue";
 export default {
   components: { FeedListItemCarousel },
   name: "feedlistitems",
+  props:{
+    feed:Object
+  },
   data() {
     return {
       commentcontent: [],
       visible: true,
-      //   heart: null,
-      //   heartcount: 0,
-      //   // likeCount:
-      // };
-    };
-    // methods: {
-    //   changedheart() {
-    //     if (heart == null) {
-    //       console.log("heart is null");
-    //       heart;
-    //     } else {
-    //       console.log("heart is filled");
-    //       heartcount + 1;
-    //     }
+      heartclick: 1,
+      heartcount : 0
+      // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
+      // likecount = 0
+      
+    }},
+    methods: {
+      // 만약 좋아요를 했다면 좋아요 취소
+      changedheart(feed) {
+        if (this.heartclick > 0) {
+          this.heartclick = 0
+          this.$store.state.feeds[feed.id-1].likecount += 1
+          // this.heartcount = this.$store.state.feeds[feed.id].likecount
+        } else {
+          this.heartclick = 1
+          this.$store.state.feeds[feed.id-1].likecount -= 1
+          // this.heartcount = this.$store.state.feeds[feed.id].likecount
+        }
     //   },
     //   heartcount() {
     //     if (heart == null) {
@@ -131,7 +142,7 @@ export default {
     //       heartcount + 1;
     //     }
     //   },
-    // },
+    },
   },
   computed: {
     ...mapState(["feeds"]),
