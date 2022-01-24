@@ -1,89 +1,97 @@
 <template>
-  <div>
-    <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
-      <div class="feed-picture">
-        <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
-      </div>
+  <div class="d-flex flex-wrap">
+    <div class="uploadimageframe" v-if="images">
+      <img :src="images" alt="No Image" />
     </div>
-    <!-- 두개이상일 때 -->
-    <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
-      <b-carousel
-        id="carousel-1"
-        v-model="slide"
-        :interval="0"
-        controls
-        indicators
-        background="#ababab"
-        img-width="1024"
-        img-height="480"
-        style="text-shadow: 1px 1px 2px #333"
-        @sliding-start="onSlideStart"
-        @sliding-end="onSlideEnd"
-      >
-        <b-carousel-slide
-          :img-src="`${feed.imgurl[0]}`"
-          class="d-block w-100"
-        ></b-carousel-slide>
-
-        <b-carousel-slide
-          :img-src="`${feed.imgurl[1]}`"
-          class="d-block w-100"
-        ></b-carousel-slide>
-      </b-carousel>
-
-      <p class="mt-4">Sliding: {{ sliding }}</p>
+    <div v-else class="uploadimageframe">
+      <form method="post" enctype="multipart/form-data">
+        <input
+          ref="image"
+          @change="uploadImg()"
+          type="file"
+          id="chooseFile"
+          name="chooseFile"
+          accept="image/*"
+          class="uploadimage"
+        />
+      </form>
+    </div>
+    <div class="profilewidthtextarea m-2 p-2">
+      <div class="d-flex m-2">
+        <div>
+          <img
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            class="user-comment-profile-image mx-1 my-auto"
+            alt="..."
+          />
+        </div>
+        <div class="profile-username flex-fill ms-3 text-start">
+          <p class="fs-6 fw-bold">이름</p>
+        </div>
+      </div>
+      <div class="p-3">
+        <b-form-textarea
+          class="p-3"
+          id="textarea-rows"
+          placeholder="Tall textarea"
+          rows="10"
+        ></b-form-textarea>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState } from "vuex";
-
+// import axios from "axios";
 export default {
-  name: "FeedListItemCarousel",
-  props: {
-    // feeds: Object,
-    feed: Object,
-  },
+  name: "FeedCreateItems",
   data() {
     return {
-      slide: 0,
-      sliding: null,
+      images: "",
+      // "https://cdn.pixabay.com/photo/2022/01/10/15/29/wind-mills-6928590__340.jpg",
+      // "https://cdn.pixabay.com/photo/2022/01/10/15/29/wind-mills-6928590__340.jpg",
     };
   },
   methods: {
-    onSlideStart() {
-      this.sliding = true;
-    },
-    onSlideEnd() {
-      this.sliding = false;
+    uploadImg() {
+      console.log("들어왔다");
+      var image = this.$refs["image"].files[0];
+
+      const url = URL.createObjectURL(image);
+      this.image = url;
+      console.log(url);
+      console.log(this.image);
     },
   },
-  created: function () {
-    // console.log(this.feed);
-    // console.log(this.feeds);
-  },
-  // computed: {
-  //   ...mapState(["feeds"]),
-  // },
 };
 </script>
 
 <style>
-.feed-picture-box {
-  /* padding: 10px; */
+.totalframe {
   height: 100%;
-  min-height: 400px;
-  max-height: 600px;
-  border: 1px solid #dbdbdb;
+  align-self: stretch;
 }
-
-.feed-picture {
+.uploadeimageframe {
+  object-fit: cover;
+  /* flex-grow: 1; */
+}
+.uploadimage {
   width: 100%;
-  margin: auto;
-  /* height: 500px; */
-  /* min-height: 400 px; */
-  /* max-height: 400 px; */
+  height: 100%;
+  object-fit: cover;
 }
+.profilewidthtextarea {
+  /* flex-grow: 1; */
+  border-color: black;
+}
+/* .uploadimageframe {
+  min-width: 250px;
+  min-height: 350px;
+  /* width: 100%; */
+/* height: 100%; */
+
+/* .uploadimage {
+  min-width: 250px;
+  min-height: 350px;
+} */
 </style>

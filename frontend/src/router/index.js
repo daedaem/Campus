@@ -31,9 +31,9 @@ const routes = [
     // component: () => import('../views/mateparty/Mateparty.vue')
   },
   {
-    path : '/mateparty/makeparty',
-    name : 'Makeparty',
-    component : Makeparty,
+    path: "/mateparty/makeparty",
+    name: "Makeparty",
+    component: Makeparty,
     path: "/makeparty",
     name: "Makeparty",
     component: Makeparty,
@@ -80,13 +80,6 @@ const routes = [
     name: "Matematch",
     component: Matematch,
   },
-  
-
-
-
-
-
-]
 ];
 
 const router = createRouter({
