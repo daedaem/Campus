@@ -6,6 +6,8 @@ import Signup from '../views/user/SignUp.vue'
 import Login from '../views/user/Login.vue'
 import addSign from '../views/user/addSign.vue'
 import Feed from "@/views/feed/FeedList.vue"
+import Partyinfo from "@/views/mateparty/Partyinfo.vue"
+import Matematch from "@/views/matematch/Matematch.vue"
 const routes = [
   {
     path: '/',
@@ -27,7 +29,7 @@ const routes = [
     // component: () => import('../views/mateparty/Mateparty.vue')
   },
   {
-    path : '/makeparty',
+    path : '/mateparty/makeparty',
     name : 'Makeparty',
     component : Makeparty,
     // component: () => import('../views/mateparty/Makeparty.vue')
@@ -51,7 +53,19 @@ const routes = [
     path: "/addsign",
     name: "addSign",
     component: addSign,
-  }
+  },
+  {
+    path: "/mateparty/partyinfo",
+    name: "Partyinfo",
+    component: Partyinfo,
+  },
+  {
+    path: "/matematch/",
+    name: "Matematch",
+    component: Matematch,
+  },
+  
+
 
 
 
