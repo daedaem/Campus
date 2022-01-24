@@ -44,15 +44,12 @@ const routes = [
     // component: () => import('../views/mateparty/Mateparty.vue')
   },
   {
-<<<<<<< HEAD
     path : '/mateparty/makeparty',
     name : 'Makeparty',
     component : Makeparty,
-=======
     path: "/makeparty",
     name: "Makeparty",
     component: Makeparty,
->>>>>>> 445f153913e53190863aff378969ec094189b477
     // component: () => import('../views/mateparty/Makeparty.vue')
   },
   {
