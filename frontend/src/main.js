@@ -14,7 +14,8 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faImages as fasImages} from '@fortawesome/free-solid-svg-icons'
 import "bootstrap-icons/font/bootstrap-icons.css";
-library.add(faPhone, fasImages);
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+library.add(faPhone, fasImages,faUser);
 
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {teleportTarget: '#modals'}).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
 

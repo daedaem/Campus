@@ -2,6 +2,7 @@
   <body>
     <h1>Mate party</h1>
     <Filters/>
+    <Newmodal/>
     <div>
       <span>캠핑 검색 결과</span><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;" @click="goMakeparty">글 작성</b-button></span>
     </div>
@@ -13,7 +14,7 @@
 <script>
 import Pagination from '../../components/mateparty/Pagination.vue'
 import Filters from '@/components/mateparty/Filters.vue'
-
+import Newmodal from '@/components/mateparty/Newmodal.vue'
 
 export default {
   data() {
@@ -25,7 +26,7 @@ export default {
   components: { 
     Pagination,
     Filters,
-    
+    Newmodal,
   },
 
   name : 
