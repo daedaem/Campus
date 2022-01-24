@@ -8,6 +8,8 @@ import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
+import Partyinfo from "../views/mateparty/Partyinfo.vue";
+import Matematch from "../views/matematch/Matematch.vue";
 
 const routes = [
   {
@@ -34,10 +36,7 @@ const routes = [
     path : '/mateparty/makeparty',
     name : 'Makeparty',
     component : Makeparty,
-    path: "/makeparty",
-    name: "Makeparty",
-    component: Makeparty,
-    // component: () => import('../views/mateparty/Makeparty.vue')
+    
   },
   {
     path: "/feed",
@@ -87,7 +86,7 @@ const routes = [
 
 
 ]
-];
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
