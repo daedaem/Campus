@@ -10,7 +10,7 @@
               alt="..."
             />
           </div>
-          <div class="user-profile-username">{{ feed.first_name }}</div>
+          <div class="user-profile-username fs-5">{{ feed.first_name }}</div>
           <div class="user-feed-alert">follow</div>
         </div>
       </div>
@@ -31,13 +31,21 @@
       <div class="user-feed-buttons d-flex justify-content-around fs-4">
         <!-- 밑에 삽입 예정 
           @click="[changedheart(), heartcount()]"-->
-        <span class="heart-box d-flex my-auto" @click="changedheart(feed)" v-if="heartclick== 1">
+        <span
+          class="heart-box d-flex my-auto"
+          @click="changedheart(feed)"
+          v-if="heartclick == 1"
+        >
           <i class="bi bi-heart me-3"></i>
-          <p class="fs-6 my-auto">{{feed.likecount}}</p>
+          <p class="fs-6 my-auto">{{ feed.likecount }}</p>
         </span>
-        <span class="heart-box d-flex my-auto" @click="changedheart(feed)" v-else>
+        <span
+          class="heart-box d-flex my-auto"
+          @click="changedheart(feed)"
+          v-else
+        >
           <i class="bi bi-heart-fill me-3"></i>
-          <p class="fs-6 my-auto">{{feed.likecount}}</p>
+          <p class="fs-6 my-auto">{{ feed.likecount }}</p>
         </span>
 
         <div class="comment-box my-auto">
@@ -103,45 +111,45 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import FeedListItemCarousel from "./feedlistitmes/FeedListItemCarousel.vue";
+import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
 
 export default {
   components: { FeedListItemCarousel },
-  name: "feedlistitems",
-  props:{
-    feed:Object
+  name: "FeedListItems",
+  props: {
+    feed: Object,
   },
   data() {
     return {
       commentcontent: [],
       visible: true,
       heartclick: 1,
-      heartcount : 0
+      heartcount: 0,
       // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
       // likecount = 0
-      
-    }},
-    methods: {
-      // 만약 좋아요를 했다면 좋아요 취소
-      changedheart(feed) {
-        if (this.heartclick > 0) {
-          this.heartclick = 0
-          this.$store.state.feeds[feed.id-1].likecount += 1
-          // this.heartcount = this.$store.state.feeds[feed.id].likecount
-        } else {
-          this.heartclick = 1
-          this.$store.state.feeds[feed.id-1].likecount -= 1
-          // this.heartcount = this.$store.state.feeds[feed.id].likecount
-        }
-    //   },
-    //   heartcount() {
-    //     if (heart == null) {
-    //       console.log("heart is null");
-    //     } else {
-    //       console.log("heart is filled");
-    //       heartcount + 1;
-    //     }
-    //   },
+    };
+  },
+  methods: {
+    // 만약 좋아요를 했다면 좋아요 취소
+    changedheart(feed) {
+      if (this.heartclick > 0) {
+        this.heartclick = 0;
+        this.$store.state.feeds[feed.id - 1].likecount += 1;
+        // this.heartcount = this.$store.state.feeds[feed.id].likecount
+      } else {
+        this.heartclick = 1;
+        this.$store.state.feeds[feed.id - 1].likecount -= 1;
+        // this.heartcount = this.$store.state.feeds[feed.id].likecount
+      }
+      //   },
+      //   heartcount() {
+      //     if (heart == null) {
+      //       console.log("heart is null");
+      //     } else {
+      //       console.log("heart is filled");
+      //       heartcount + 1;
+      //     }
+      //   },
     },
   },
   computed: {
@@ -153,8 +161,9 @@ export default {
 <style>
 .feed-frame {
   min-height: 400px;
+  max-width: 600px;
+  margin: 0 auto;
   /* max-height: 800px; */
-  width: 600px;
 }
 .user-feed-cards {
   border-radius: 3px;
@@ -173,7 +182,7 @@ export default {
 
 .user-profile-username {
   display: block;
-  font-size: 18px;
+  /* font-size: ; */
 }
 
 .user-feed-card {

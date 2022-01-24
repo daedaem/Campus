@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class>
-      <div class="total-frame">
-        <feed-list-items v-for="feed in feeds" :key="feed.id" :feed="feed">
+    <nav class="nav">안녕</nav>
+    <div class="total-frame">
+      <div>
+        <feed-list-items v-for="(feed, i) in feeds" :key="i" :feed="feed">
           <!-- {{ feed.id }} -->
         </feed-list-items>
         <!-- <div></div> -->
@@ -17,11 +18,10 @@
 
 <script>
 import FeedListItems from "../../components/feed/FeedListItems.vue";
-// import FeedListItemModal from "../../components/feed/feedlistitmes/FeedListItemModal.vue";
 import { mapState } from "vuex";
 
 export default {
-  name: "feedlist",
+  name: "FeedList",
   components: {
     // FeedListItemModal,
     FeedListItems,
@@ -29,7 +29,7 @@ export default {
   // created: function () {
   //   this.$store.dispatch("LoadFeedListItems");
   // },
-    computed: {
+  computed: {
     ...mapState(["feeds"]),
   },
   // created: function() {
@@ -47,9 +47,13 @@ export default {
 /* p {
   font-size: 16px;
 } */
+.nav {
+  height: 1vh;
+  width: 100%;
+}
 
 .total-frame {
-  width: 768px;
+  max-width: calc(100vw - 500px);
   /* width: 80vw; */
   margin: 0 auto;
   padding: 0 20px;
