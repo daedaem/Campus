@@ -158,7 +158,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .feed-frame {
   min-height: 400px;
   max-width: 600px;

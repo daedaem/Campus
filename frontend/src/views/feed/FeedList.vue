@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* .feed {
   width: 80vw;
   max-width: 480px;
