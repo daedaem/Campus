@@ -1,20 +1,17 @@
 <template>
   <body>
     
-    <Fileupload/>
+    <Fileupload @image="uploadedImage"/>
     
       <div style="margin-left: 30px;">
-        <Filtermake/>
+        <Filtermake @drink-check="drinkCheck" @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
 
         <div align="left" class="filterbox">
-          <div align="left" class="filterbox2">인원 제한
-            <Dropdown/>
+          <div align="left" class="filterbox2">
+            <Dropdown1 @member-value="memberValue"/>
           </div>
-          <div align="left" class="filterbox1">연령 제한
-            <Dropdown />
-            
-            <div align="center" style="padding : 20px;">~</div>
-            <Dropdown/>
+          <div align="left" class="filterbox1">
+            <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2"/>
         </div>
         
       </div>
@@ -25,7 +22,7 @@
     </div> -->
     </div>
     <br>
-    <Items/> 
+    <Items @img-status="imgStatus"/> 
     
     
     <div class="container contact-form" >
@@ -33,13 +30,13 @@
           <div >
               <p align="left">제목</p>
               <div class="form-group">
-                  <input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+                  <input v-model="title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
               </div>
           </div>
           <div >
               <p align="left">메이트 소개</p>
               <div class="form-group">
-                  <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                  <textarea v-model="content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
               </div>
           </div>
           
@@ -56,7 +53,8 @@
 
 <script>
 import Filtermake from '@/components/mateparty/Filtermake.vue'
-import Dropdown from '../../components/mateparty/Dropdown.vue'
+import Dropdown1 from '../../components/mateparty/dropdown/Dropdown1.vue'
+import Dropdown2 from '../../components/mateparty/dropdown/Dropdown2.vue'
 import Items from '@/components/mateparty/Items.vue'
 import Campchoice from '@/components/mateparty/Campchoice.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
@@ -65,7 +63,8 @@ export default {
   components : {
     Items,
     Filtermake,
-    Dropdown,
+    Dropdown1,
+    Dropdown2,
     Campchoice,
     Fileupload,
   },
@@ -86,13 +85,41 @@ export default {
         this.$emit('input', file[0])
       }
     },
+    drinkCheck(text) {
+      console.log(text)
+    },
+    styleCheck(text) {
+      console.log(text)
+    },
+    limitCheck(text) {
+      console.log(text)
+    },
+    campCheck(text) {
+      console.log(text)
+    },
+    memberValue(text) {
+      console.log(text)
+    },
+    ageValue1(text) {
+      console.log(text)
+    },
+    ageValue2(text) {
+      console.log(text)
+    },
+    imgStatus(text) {
+      console.log(text)
+    },
+    uploadedImage(file) {
+      console.log(file)
+    }
 
   },
   data: function() {
     return {
-      
+        title : '',
+        content : ''
       }
-    }  
+  }  
  }  
 
 </script>
