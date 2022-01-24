@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Service
 public class SnsServiceImpl implements SnsService{
 
-    @Autowired
+    //@Autowired
     SnsDao dao;
     
     @Value("${app.fileupload.uploadDir}")
@@ -97,8 +97,10 @@ public class SnsServiceImpl implements SnsService{
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
         
         SnsResultDto snsResultDto = new SnsResultDto();
+        System.out.println("1");
 
         try{
+            System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
             int count = dao.snsListTotalCount();
             snsResultDto.setList(list);
@@ -165,7 +167,7 @@ public class SnsServiceImpl implements SnsService{
 
         try {
             //로컬에 저장된 이미지 삭제
-
+            System.out.println("delete serviceImpl");
             //snsImageDelete(snsNo);
             //댓글 삭제;
             dao.snsDelete(snsNo); // 마지막으로 글 삭제

@@ -4,15 +4,15 @@
 
     <!-- snsPost -->
     <insert id="snsInsert" parameterType="com.ssafy.project.dto.SnsDto" useGeneratedKeys="true" keyProperty="snsNo">
-        INSERT INTO SNS ( userNo, snsContent, snsCreateTime )
+        INSERT INTO sns ( userNo, snsContent, snsCreateTime )
                     VALUES ( #{userNo}, #{snsContent}, now() )
     </insert>
 
     <select id="snsList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
-        SELECT s.snsNo, s.userno, s.userNickname,
-                b.snsContent, s.snsCreateTime, u.userProfileImage
-            FROM SNS s, user u
-            WHERE s.userno = u.userNo
+        SELECT s.snsNo, s.userNo, 
+                s.snsContent, s.snsCreateTime, u.userProfileImage
+            FROM sns s, user u
+            WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
     </select>
 
@@ -23,12 +23,12 @@
     </update>
 
     <delete id="snsDelete" parameterType="int">
-        DELETE FROM SNS WHERE snsNo = #{snsNo}
+        DELETE FROM sns WHERE snsNo = #{snsNo}
     </delete>
 
     <!-- search word-->
     <select id="snsListSearchList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
-        SELECT s.snsNo, s.userno, s.userNickname,
+        SELECT s.snsNo, s.userNo, s.userNickname,
                 s.snsContent, s.snsCreateTime, u.userProfileImage
             FROM SNS s, user u
             WHERE s.userno = u.userNo
