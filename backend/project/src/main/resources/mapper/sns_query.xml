@@ -3,7 +3,7 @@
 <mapper namespace="com.ssafy.project.dao.SnsDao">
 
     <!-- snsPost -->
-    <insert id="snsInsert" parameterType="com.ssafy.project.dto.SnsDto" useGeneratedKeys="true" keyProperty="boardId">
+    <insert id="snsInsert" parameterType="com.ssafy.project.dto.SnsDto" useGeneratedKeys="true" keyProperty="snsNo">
         INSERT INTO SNS ( userNo, snsContent, snsCreateTime )
                     VALUES ( #{userNo}, #{snsContent}, now() )
     </insert>
