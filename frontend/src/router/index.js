@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Makeparty from '../views/mateparty/Makeparty.vue'
-import Mateparty from '../views/mateparty/Mateparty.vue'
-import Signup from '../views/user/SignUp.vue'
-import Login from '../views/user/Login.vue'
-import addSign from '../views/user/addSign.vue'
-import Feed from "@/views/feed/FeedList.vue"
-import Partyinfo from "@/views/mateparty/Partyinfo.vue"
-import Matematch from "@/views/matematch/Matematch.vue"
-=======
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Makeparty from "../views/mateparty/Makeparty.vue";
@@ -21,7 +9,6 @@ import FeedList from "../views/feed/FeedList.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
 
->>>>>>> 445f153913e53190863aff378969ec094189b477
 const routes = [
   {
     path: "/",
@@ -83,7 +70,6 @@ const routes = [
     name: "addSign",
     component: addSign,
   },
-<<<<<<< HEAD
   {
     path: "/mateparty/partyinfo",
     name: "Partyinfo",
@@ -101,9 +87,7 @@ const routes = [
 
 
 ]
-=======
 ];
->>>>>>> 445f153913e53190863aff378969ec094189b477
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -48,10 +48,14 @@
           </div>
 
           
-          <section class="test">
+          <!-- <section class="test">
             <div class="google login-button" v-on:click="GoogleLoginBtn">구글 로그인</div>
             <div class="google" id="my-signin2" style="display: none"></div>
-          </section>
+          </section> -->
+          <div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <button @click="signout">구글 로그아웃</button>
+          </div>
 
           <span style="color: #000000;" >비밀번호 찾기</span>
           <span style="color: #000000;"><router-link to="Signup">회원가입</router-link></span>
@@ -162,41 +166,47 @@ export default {
     simpleOff: function () {
       this.simpleShow = !this.simpleShow
     },
-
+    
+    signout() {
+      const authInst = window.gapi.auth2.getAuthInstance();
+      authInst.signOut().then(() => {
+        console.log('User Signed Out!!!')
+      });
+    }
 
     // 구글폼로그인
-    GoogleLoginBtn:function(){
-      var self = this;
+    // GoogleLoginBtn:function(){
+    //   var self = this;
 
-      window.gapi.signin2.render('my-signin2', {
-        scope: 'profile email',
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: 'dark',
-        onsuccess: this.GoogleLoginSuccess,
-        onfailure: this.GoogleLoginFailure,
-      });
+    //   window.gapi.signin2.render('my-signin2', {
+    //     scope: 'profile email',
+    //     width: 240,
+    //     height: 50,
+    //     longtitle: true,
+    //     theme: 'dark',
+    //     onsuccess: this.GoogleLoginSuccess,
+    //     onfailure: this.GoogleLoginFailure,
+    //   });
 
-      setTimeout(function () {
-        if (!self.googleLoginCheck) {
-          const auth = window.gapi.auth2.getAuthInstance();
-          auth.isSignedIn.get();
-          document.querySelector('.abcRioButton').click();
-        }
-      }, 1500)
+    //   setTimeout(function () {
+    //     if (!self.googleLoginCheck) {
+    //       const auth = window.gapi.auth2.getAuthInstance();
+    //       auth.isSignedIn.get();
+    //       document.querySelector('.abcRioButton').click();
+    //     }
+    //   }, 1500)
 
-    },
-    async GoogleLoginSuccess(googleUser) {
-      const googleEmail = googleUser.getBasicProfile().getEmail();
-      if (googleEmail !== 'undefined') {
-        console.log(googleEmail);
-      }
-    },
-    //구글 로그인 콜백함수 (실패)
-    GoogleLoginFailure(error) {
-      console.log(error);
-    },
+    // },
+    // async GoogleLoginSuccess(googleUser) {
+    //   const googleEmail = googleUser.getBasicProfile().getEmail();
+    //   if (googleEmail !== 'undefined') {
+    //     console.log(googleEmail);
+    //   }
+    // },
+    // //구글 로그인 콜백함수 (실패)
+    // GoogleLoginFailure(error) {
+    //   console.log(error);
+    // },
   }
 }
 </script>
