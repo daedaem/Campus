@@ -20,6 +20,3 @@ createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, 
 
 
 
-
-
-

@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
+    equipLists: [],
     isUser: false,
     feeds: [
       {
@@ -123,7 +124,22 @@ export default createStore({
       },
     ],
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    CREATE_EQUIP: function (state, equipItem) {
+      state.equipLists.push(equipItem)
+    },
+    DELETE_EQUIP: function (state, equipItem) {
+      const index = state.equipLists.indexOf(equipItem)
+      state.equipLists.splice(index, 1)
+    },
+  },
+  actions: {
+    createEquip: function ({ commit }, equipItem){
+      commit('CREATE_EQUIP', equipItem)
+    },
+    deleteEquip: function ({ commit }, equipItem) {
+      commit('DELETE_EQUIP', equipItem)
+    }
+  },
   modules: {},
 });
