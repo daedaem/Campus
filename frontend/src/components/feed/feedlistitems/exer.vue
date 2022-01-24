@@ -8,31 +8,32 @@
     </div>
     <!-- 두개이상일 때 -->
     <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="0"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <b-carousel-slide
-        :img-src="`${feed.imgurl[0]}`"
-        class="d-block w-100"
-      ></b-carousel-slide>
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="0"
+        controls
+        indicators
+        background="#ababab"
+        img-width="1024"
+        img-height="480"
+        style="text-shadow: 1px 1px 2px #333"
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+      >
+        <b-carousel-slide
+          :img-src="`${feed.imgurl[0]}`"
+          class="d-block w-100"
+        ></b-carousel-slide>
 
-      <b-carousel-slide :img-src="`${feed.imgurl[1]}`" class="d-block w-100"></b-carousel-slide>
-    </b-carousel>
+        <b-carousel-slide
+          :img-src="`${feed.imgurl[1]}`"
+          class="d-block w-100"
+        ></b-carousel-slide>
+      </b-carousel>
 
-    <p class="mt-4">
-      Sliding: {{ sliding }}
-    </p>
-  </div>
+      <p class="mt-4">Sliding: {{ sliding }}</p>
+    </div>
   </div>
 </template>
 
@@ -48,20 +49,21 @@ export default {
   data() {
     return {
       slide: 0,
-      sliding: null
-    }},
-      methods: {
-      onSlideStart() {
-        this.sliding = true
-      },
-      onSlideEnd() {
-        this.sliding = false
-      }
+      sliding: null,
+    };
+  },
+  methods: {
+    onSlideStart() {
+      this.sliding = true;
     },
-  created : function() {
+    onSlideEnd() {
+      this.sliding = false;
+    },
+  },
+  created: function () {
     // console.log(this.feed);
     // console.log(this.feeds);
-  }
+  },
   // computed: {
   //   ...mapState(["feeds"]),
   // },

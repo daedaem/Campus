@@ -18,7 +18,6 @@
 
 <script>
 import FeedListItems from "../../components/feed/FeedListItems.vue";
-// import FeedListItemModal from "../../components/feed/feedlistitmes/FeedListItemModal.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -30,7 +29,7 @@ export default {
   // created: function () {
   //   this.$store.dispatch("LoadFeedListItems");
   // },
-    computed: {
+  computed: {
     ...mapState(["feeds"]),
   },
   // created: function() {
@@ -48,13 +47,13 @@ export default {
 /* p {
   font-size: 16px;
 } */
-.nav{
-  height:1vh;
-  width:100%
+.nav {
+  height: 1vh;
+  width: 100%;
 }
 
 .total-frame {
-  width: 70vw;
+  max-width: calc(100vw - 500px);
   /* width: 80vw; */
   margin: 0 auto;
   padding: 0 20px;

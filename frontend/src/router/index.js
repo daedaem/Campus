@@ -1,12 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Makeparty from '../views/mateparty/Makeparty.vue'
-import Mateparty from '../views/mateparty/Mateparty.vue'
-import Signup from '../views/user/SignUp.vue'
-import Login from '../views/user/Login.vue'
-import addSign from '../views/user/addSign.vue'
-import FeedList from "../views/feed/FeedList.vue"
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "../views/Home.vue";
+import Makeparty from "../views/mateparty/Makeparty.vue";
+import Mateparty from "../views/mateparty/Mateparty.vue";
+import Signup from "../views/user/SignUp.vue";
+import Login from "../views/user/Login.vue";
+import addSign from "../views/user/addSign.vue";
+import FeedList from "../views/feed/FeedList.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
+import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
 
 const routes = [
   {
@@ -46,6 +47,12 @@ const routes = [
     component: FeedCreate,
   },
   {
+    path: "/feed/create/detail",
+    // path: "/feed/create/:feed_id",
+    name: "FeedCreateDetail",
+    component: FeedCreateDetail,
+  },
+  {
     path: "/login",
     name: "Login",
     component: Login,
@@ -64,7 +71,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

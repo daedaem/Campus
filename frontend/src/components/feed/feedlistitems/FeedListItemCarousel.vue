@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
       <div class="feed-picture">
@@ -25,7 +25,7 @@
               @click="carouselidadd(feed)"
               :data-bs-target="feedlink"
               data-bs-slide-to="0"
-              class=active
+              class="active"
               aria-current="true"
               aria-label="Slide 1"
             ></button>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-        <div class="feed-picture-box" v-else-if="feed.imgurl.length == 3">
+    <div class="feed-picture-box" v-else-if="feed.imgurl.length == 3">
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -85,7 +85,7 @@
               @click="carouselidadd(feed)"
               :data-bs-target="feedlink"
               data-bs-slide-to="0"
-              class=active
+              class="active"
               aria-current="true"
               aria-label="Slide 1"
             ></button>
@@ -96,7 +96,7 @@
               data-bs-slide-to="1"
               aria-label="Slide 2"
             ></button>
-              <button
+            <button
               type="button"
               @click="carouselidadd(feed)"
               :data-bs-target="feedlink"
@@ -111,7 +111,7 @@
             <div class="carousel-item">
               <img :src="`${feed.imgurl[1]}`" class="d-block w-100" alt="..." />
             </div>
-              <div class="carousel-item">
+            <div class="carousel-item">
               <img :src="`${feed.imgurl[2]}`" class="d-block w-100" alt="..." />
             </div>
           </div>
@@ -151,15 +151,16 @@ export default {
   },
   data() {
     return {
-      feedid:"",
-      feedlink:""
-    }},
-    methods:{
-     carouselidadd: function (feed){
-      this.feedid = "feed"+feed.id
-      this.feedlink = '#'+ this.feedid
-      }
+      feedid: "",
+      feedlink: "",
+    };
+  },
+  methods: {
+    carouselidadd: function (feed) {
+      this.feedid = "feed" + feed.id;
+      this.feedlink = "#" + this.feedid;
     },
+  },
 
   // computed: {
   //   ...mapState(["feeds"]),
@@ -168,10 +169,12 @@ export default {
 </script>
 
 <style>
+/* .total-feed-box { */
+/* } */
 .feed-picture-box {
   /* padding: 10px; */
   height: 100%;
-  min-height: 400px;
+  /* min-height: 400px; */
   max-height: 600px;
   border: 1px solid #dbdbdb;
 }
@@ -179,6 +182,7 @@ export default {
 .feed-picture {
   width: 100%;
   margin: auto;
+
   /* height: 500px; */
   /* min-height: 400 px; */
   /* max-height: 400 px; */
