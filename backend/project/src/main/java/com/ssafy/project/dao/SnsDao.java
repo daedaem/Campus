@@ -8,7 +8,8 @@ import com.ssafy.project.dto.SnsParamDto;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Component;
+@Component
 @Mapper
 public interface SnsDao {
     public int snsInsert(SnsDto snsNo);

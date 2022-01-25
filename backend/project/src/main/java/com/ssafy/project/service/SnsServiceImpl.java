@@ -20,8 +20,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class SnsServiceImpl implements SnsService{
-
-    //@Autowired
+    
+    @Autowired
     SnsDao dao;
     
     @Value("${app.fileupload.uploadDir}")

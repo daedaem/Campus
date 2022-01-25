@@ -10,4 +10,6 @@
 
     <mappers>
         <mapper resource="mapper/sns_query.xml" />
-    </mapper>
+    </mappers>
+
+</configuration>

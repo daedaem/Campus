@@ -34,6 +34,7 @@
             WHERE s.userno = u.userNo
                 AND s.snsContent LIKE CONCAT('%', #{searchword}, '%')
             ORDER BY s.snsNo DESC
+    </select>
 
 
     <!-- snsImage -->
@@ -67,4 +68,5 @@
         DELETE FROM snsLike where userNo = #{userNo}
     </delete>
 
+</mapper>
 
