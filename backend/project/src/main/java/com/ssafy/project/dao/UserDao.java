@@ -4,6 +4,8 @@ import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.dto.UserRateDto;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface UserDao {

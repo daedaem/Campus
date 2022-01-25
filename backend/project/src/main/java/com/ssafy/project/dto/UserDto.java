@@ -1,8 +1,15 @@
 package com.ssafy.project.dto;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     // user 테이블
     private int userNo;
@@ -25,10 +32,16 @@ public class UserDto {
     private char campStyle6;
 
     // campEquip 테이블
-    private String campEquipTent;
-    private String campEquipSleepingBag;
-    private String campEquipBurner;
-    private String campEquipBrazier;
+    private char campEquipTent;
+    private char campEquipSleepingbag;
+    private char campEquipBurner;
+    private char campEquipBrazier;
+    private char campEquipTableChair;
+    private char campEquipPot;
+    private char campEquipLantern;
+    private char campEquipReel;
+    private char campEquipIcebox;
+    private char campEquipTarp;
     private String campEquipEtc1;
     private String campEquipEtc2;
     private String campEquipEtc3;

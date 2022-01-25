@@ -62,7 +62,7 @@ public class UserController {
     }
 
     // userEmail에 해당하는 user 탈퇴
-    @DeleteMapping(value = "/uses/{userEmail}")
+    @DeleteMapping(value = "/user/{userEmail}")
     public ResponseEntity<UserResultDto> delete(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
                                                                                   // 같이
                                                                                   // 넘겨준다.
