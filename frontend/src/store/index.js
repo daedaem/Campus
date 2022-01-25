@@ -4,6 +4,7 @@ export default createStore({
   state: {
     equipLists: [],
     isUser: false,
+    uploadimages: "",
     feeds: [
       {
         id: 1,
@@ -126,20 +127,20 @@ export default createStore({
   },
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
-      state.equipLists.push(equipItem)
+      state.equipLists.push(equipItem);
     },
     DELETE_EQUIP: function (state, equipItem) {
-      const index = state.equipLists.indexOf(equipItem)
-      state.equipLists.splice(index, 1)
+      const index = state.equipLists.indexOf(equipItem);
+      state.equipLists.splice(index, 1);
     },
   },
   actions: {
-    createEquip: function ({ commit }, equipItem){
-      commit('CREATE_EQUIP', equipItem)
+    createEquip: function ({ commit }, equipItem) {
+      commit("CREATE_EQUIP", equipItem);
     },
     deleteEquip: function ({ commit }, equipItem) {
-      commit('DELETE_EQUIP', equipItem)
-    }
+      commit("DELETE_EQUIP", equipItem);
+    },
   },
   modules: {},
 });

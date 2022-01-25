@@ -1,18 +1,19 @@
 <template>
   <div>
-    <nav class="nav">안녕</nav>
-    <div class="total-frame">
-      <div>
-        <feed-list-items v-for="(feed, i) in feeds" :key="i" :feed="feed">
-          <!-- {{ feed.id }} -->
-        </feed-list-items>
-        <!-- <div></div> -->
-        <!-- {{ feeds }} -->
-        <!-- <feed-list-items></feed-list-items> -->
-        <!-- :key="item.title" -->
-        <!-- :eachOfListItems="item" -->
+    <nav class="nav"></nav>
+    <div
+      class="body d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="total-frame">
+        <div>
+          <feed-list-items v-for="(feed, i) in feeds" :key="i" :feed="feed">
+          </feed-list-items>
+        </div>
       </div>
     </div>
+    <button type="button" class="btn btn-success">
+      <i class="bi bi-plus-square fs-3"></i>
+    </button>
   </div>
 </template>
 
@@ -39,6 +40,10 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  width: 768px;
+  margin: auto;
+}
 /* .feed {
   width: 80vw;
   max-width: 480px;
@@ -74,5 +79,12 @@ export default {
       color: #ccc;
     }
   } */
+}
+
+.btn {
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+  border-radius: 10%;
 }
 </style>
