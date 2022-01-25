@@ -17,6 +17,7 @@
       </div>
       
       <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
+      <Datepicker @date-in="dateIn"/>
     <!-- <div class="camping">
       <input class="input1" type="text" placeholder="캠핑장 선택">
     </div> -->
@@ -58,6 +59,8 @@ import Dropdown2 from '../../components/mateparty/dropdown/Dropdown2.vue'
 import Items from '@/components/mateparty/Items.vue'
 import Campchoice from '@/components/mateparty/Campchoice.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
+import Datepicker from '@/components/mateparty/Datepicker.vue'
+
 export default {
   name: 'Makeparty',
   components : {
@@ -67,6 +70,7 @@ export default {
     Dropdown2,
     Campchoice,
     Fileupload,
+    Datepicker,
   },
   methods: {
   //image upload and preview methods
@@ -111,7 +115,11 @@ export default {
     },
     uploadedImage(file) {
       console.log(file)
+    },
+    dateIn(value) {
+      console.log(value)
     }
+    
 
   },
   data: function() {

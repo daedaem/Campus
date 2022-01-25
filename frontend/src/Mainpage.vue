@@ -1,68 +1,65 @@
 <template>
-<div>
-  <h4>날짜</h4>
-  <Datepicker/>
-  <Datepicker @date-in="dateIn" />
-  
-    <div align="center">
-        <div class="col-sm-3">
-        <a class="btn btn-lg" href="#" @click="sendData" @date-in="dateIn">
-            <span>button</span>
-        </a>
+  <body>
+    <div class="box">
+      <img width="768" height="384" src="@/assets/images/bonfire-gab201fb38_1920.jpg" alt="">
+      <div class="overlay"> 
+        <div>오른쪽으로 스와이프</div>  
+          <a class="btn btn-lg" href="#">
+              <span>계정 만들기</span>
+          </a>
+      </div>
     </div>
-</div>
-</div>
+    <div class="filterbox">
+      <div style="float:left; margin-left:20px; margin-top:50px;">지금 뜨는 메이트 모집</div>
+      <div style="float:right; margin-right:20px; margin-top:50px;">전체보기</div>
+    </div>
+    <Maincarousel/>
+  </body>
 </template>
 
-
 <script>
-import Datepicker from '@/components/mateparty/Datepicker.vue'
-import 'vue3-date-time-picker/dist/main.css'
-// import Datepicker from '../Datepicker.vue'
-import {ref} from 'vue'
+import Maincarousel from '@/components/mateparty/Maincarousel.vue'
 
 export default {
-  emits : ['date-check'],
-  name: 'Modal1',
-  components: {
-    Datepicker
-
-  },
-  setup(props,{emit}) {
-    const myData = ref('')
-    
-    const dateIn = (val) => {myData.value = val}
-
-    const sendData = () => {emit('date-check', myData.value)}
-  
-  
-  return {
-    dateIn,
-    sendData,
- 
-  }
-  
-  }
-  
+  name : 'Mainpage',
+  components : {
+    Maincarousel
+}
 
 }
 </script>
 
 <style scoped>
+body {
+  width: 768px;
+  margin: 0 auto;
+  /* padding: 0 20px; */
+  background: beige;
+}
+
 .box {
-  visibility: hidden;
+  position : relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  padding: 5px;
+  color : white;
+  font-size : 50px;
 }
 
 .btn{
     color: #fff;
-    background: linear-gradient(135deg, #ffbb00, #3f300e);
-
+    background: linear-gradient(135deg, #ec5008, #dd12a0);
+    font-family: 'Comfortaa', ;
     font-size: 22px;
     font-weight: 700;
     text-transform: lowercase;
     padding: 10px 20px;
     border: none;
-    border-radius: 15px;
+    border-radius: 45px;
     overflow: hidden;
     position: relative;
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
@@ -104,4 +101,11 @@ export default {
 @media only screen and (max-width: 767px){
     .btn{ margin-bottom: 20px; }
 }
+
+
+.filterbox{
+  overflow: hidden;
+}
+
+
 </style>

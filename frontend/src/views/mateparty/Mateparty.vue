@@ -1,13 +1,15 @@
 <template>
   <body>
     <h1>Mate party</h1>
+    <Searchbar style="margin:20px 0;"/>
     <Filters/>
     <Newmodal/>
+    
     <div>
-      <span>캠핑 검색 결과</span><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;" @click="goMakeparty">글 작성</b-button></span>
+      <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;" @click="goMakeparty">글 작성</b-button></span>
     </div>
     <Pagination/>    
-
+    
   </body>
 </template>
 
@@ -15,6 +17,7 @@
 import Pagination from '../../components/mateparty/Pagination.vue'
 import Filters from '@/components/mateparty/Filters.vue'
 import Newmodal from '@/components/mateparty/Newmodal.vue'
+import Searchbar from '../../components/mateparty/Searchbar.vue'
 
 export default {
   data() {
@@ -27,9 +30,10 @@ export default {
     Pagination,
     Filters,
     Newmodal,
+    Searchbar
   },
 
-  name : 
+  name :
     'Mateparty'
   ,
 
