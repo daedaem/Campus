@@ -9,15 +9,17 @@
             VALUES( #{userEmail}, #{userPassword}, #{userName}, #{userProfileImage}, #{userLocation}, #{userAge}, #{userGender}, #{userNickname}, #{userMBTI} );
         INSERT INTO campStyle(userNo, campStyle1, campStyle2, campStyle3, campStyle4, campStyle5, campStyle6)
             VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campStyle1}, #{campStyle2}, #{campStyle3}, #{campStyle4}, #{campStyle5}, #{campStyle6} );
-        INSERT INTO campEquip(userNo, campEquipTent, campEquipSleepingbag, campEquipBurner, campEquipBrazier, campEquipEtc1, campEquipEtc2, campEquipEtc3, campEquipEtc4, campEquipEtc5)
-            VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campEquipTent}, #{campEquipSleepingbag}, #{campEquipBurner}, #{campEquipBrazier}, #{campEquipEtc1}, #{campEquipEtc2}, #{campEquipEtc3}, #{campEquipEtc4}, #{campEquipEtc5} );
+        INSERT INTO campEquip(userNo, campEquipTent, campEquipSleepingbag, campEquipBurner, campEquipBrazier, campEquipTableChair, campEquipPot, campEquipLantern, campEquipReel, campEquipIcebox, campEquipTarp, campEquipEtc1, campEquipEtc2, campEquipEtc3, campEquipEtc4, campEquipEtc5)
+            VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campEquipTent}, #{campEquipSleepingbag}, #{campEquipBurner}, #{campEquipBrazier}, #{campEquipTableChair}, #{campEquipPot}, #{campEquipLantern}, #{campEquipReel}, #{campEquipIcebox}, #{campEquipTarp},#{campEquipEtc1}, #{campEquipEtc2}, #{campEquipEtc3}, #{campEquipEtc4}, #{campEquipEtc5} );
     </insert>
 
     <!-- 유저 정보를 모두 가져온다 -->
     <select id="userSelect" parameterType="String" resultType="com.ssafy.project.dto.UserDto">
         SELECT u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
                 s.campStyle1, s.campStyle2, s.campStyle3, s.campStyle4, s.campStyle5, s.campStyle6,
-                e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
+                e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipTableChair, 
+                e.campEquipPot, e.campEquipLantern, e.campEquipReel, e.campEquipIcebox, e.campEquipTarp,
+                e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
                 e.campEquipEtc4, e.campEquipEtc5, AVG(r.userRatePoint) as userRatePoint
         FROM user u, campStyle s, campEquip e, userRate r
         WHERE u.userNo = s.userNo
@@ -31,7 +33,8 @@
         UPDATE user u, campStyle s, campEquip e
         SET u.userProfileImage = #{userProfileImage}, u.userLocation = #{userLocation}, u.userAge = #{userAge}, u.userGender = #{userGender}, u.userNickname = #{userNickname}, u.userMBTI = #{userMBTI},
             s.campStyle1 = #{campStyle1}, s.campStyle2 = #{campStyle2}, s.campStyle3 = #{campStyle3}, s.campStyle4 = #{campStyle4}, s.campStyle5 = #{campStyle5}, s.campStyle6 = #{campStyle6},
-                e.campEquipTent = #{campEquipTent}, e.campEquipSleepingbag = #{campEquipSleepingbag}, e.campEquipBurner = #{campEquipBurner}, e.campEquipBrazier = #{campEquipBrazier}, 
+                e.campEquipTent = #{campEquipTent}, e.campEquipSleepingbag = #{campEquipSleepingbag}, e.campEquipBurner = #{campEquipBurner}, e.campEquipBrazier = #{campEquipBrazier}, e.campEquipTableChair = #{campEquipTableChair},
+                e.campEquipPot = #{campEquipPot}, e.campEquipLantern = #{campEquipLantern}, e.campEquipReel = #{campEquipReel}, e.campEquipIcebox = #{campEquipIcebox}, e.campEquipTarp = #{campEquipTarp},
                 e.campEquipEtc1 = #{campEquipEtc1}, e.campEquipEtc2 = #{campEquipEtc2}, e.campEquipEtc3 = #{campEquipEtc3}, e.campEquipEtc4 = #{campEquipEtc4}, e.campEquipEtc5 = #{campEquipEtc5}
         WHERE u.userNo = s.userNo
         AND u.userNo = e.userNo

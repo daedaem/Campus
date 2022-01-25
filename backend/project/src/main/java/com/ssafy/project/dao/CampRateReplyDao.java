@@ -5,6 +5,8 @@ import java.util.List;
 import com.ssafy.project.dto.CampRateReplyDto;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface CampRateReplyDao {

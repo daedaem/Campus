@@ -1,6 +1,10 @@
 package com.ssafy.project.dto;
 
-import java.sql.Date;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampSiteDto {
+@Entity
+@Table(name = "campSite")
+public class CampSiteInfoDto {
+    @Id
     private String contentId; // 콘텐츠 ID
     private String addr1; // 주소
     private String facltNm; // 야영장명
@@ -44,7 +51,7 @@ public class CampSiteDto {
     private int toiletCo; // 화장실 개수
     private int swrmCo; // 샤워실 개수
     private int wtrplCo; // 개수대 개수
-    private int brazierCl; // 화로대
+    private String brazierCl; // 화로대
     private String sbrsCl; // 부대시설
     private String sbrsEtc; // 부대시설 기타
     private String posblFcltyCl; // 주변이용가능시설

@@ -2,6 +2,8 @@ package com.ssafy.project.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.ssafy.project.dao.CampSiteDao;
 import com.ssafy.project.dto.CampSiteDto;
 import com.ssafy.project.dto.CampSiteParamDto;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class CampSiteServiceImpl implements CampSiteService {
 
     @Autowired
-    CampSiteDao campSiteDao;
+    private CampSiteDao campSiteDao;
 
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;

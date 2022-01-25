@@ -1,6 +1,6 @@
 # show databases; 로 DB가 있는지 확인
 # CREATE DATABASE
-#CREATE DATABASE ssafy;
+CREATE DATABASE ssafy;
 USE ssafy;
 
 DROP TABLE IF EXISTS `user`;
@@ -41,6 +41,7 @@ CREATE TABLE `campEquip` (
 	`campEquipTent` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipSleepingbag` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipBurner` ENUM('Y', 'N') DEFAULT 'N',
+	`campEquipBrazier` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipTableChair` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipPot` ENUM('Y', 'N') DEFAULT 'N',
 	`campEquipLantern` ENUM('Y', 'N') DEFAULT 'N',

@@ -2,9 +2,13 @@ package com.ssafy.project.dto;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CampRateDto {
     private int campRateNo;
     private String contentId;

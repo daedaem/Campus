@@ -10,7 +10,7 @@
         AND contentId = #{contentId};
     </select>
 
-    <select id="campRateList" parameterType="String" resultType="int">
+    <select id="campRateListTotalCount" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM campRate
         WHERE contentId = #{contentId};
