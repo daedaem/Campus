@@ -17,7 +17,7 @@
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
-        UPDATE SNS
+        UPDATE sns
             SET snsContent = #{snsContent}
             WHERE snsNo = #{snsNo}
     </update>
@@ -30,7 +30,7 @@
     <select id="snsListSearchList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, s.userNickname,
                 s.snsContent, s.snsCreateTime, u.userProfileImage
-            FROM SNS s, user u
+            FROM sns s, user u
             WHERE s.userno = u.userNo
                 AND s.snsContent LIKE CONCAT('%', #{searchword}, '%')
             ORDER BY s.snsNo DESC
