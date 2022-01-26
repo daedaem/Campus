@@ -6,16 +6,16 @@
 <!-- 게시물 등록과 파일 첨부 -->
 <insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
     insert into mate(mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle, mateCampstart,
-                        mateCampend, userNo, regDt, fileId, fileName, fileSize, fileContentType, fileUrl )
+                        mateCampend, userNo, fileId, fileName, fileSize, fileContentType, fileUrlm , mateCamptype )
                     values(#{mateTitle}, #{mateCampsite}, #{lowestAge}, #{highestAge}, #{mateContent}, 
-                        #{mateCampstyle}, #{mateCampstart}, #{mateCampend}, #{userNo}, now(),
-                         #{fileId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl} )
+                        #{mateCampstyle}, #{mateCampstart}, #{mateCampend}, #{userNo},
+                         #{fileId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl}, #{mateCamptype} )
 </insert>
 
 <!-- 모든 게시물 조회 -->
-<select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
+<select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
     select mateNo, mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle,
-        mateCampstart, mateCampend, userNo, regDt, fileId, fileName, fileSize, fileContentType, fileUrl
+        mateCampstart, mateCampend, userNo, mateCreateTime, mateUpdateTime, fileId, fileName, fileSize, fileContentType, fileUrl, mateCamptype
         from mate
         order by mateNo desc;
 </select>
@@ -27,6 +27,10 @@
 
 <select id="mateFileUrlDeleteList" parameterType="int" resultType="string">
     select fileUrl from mate where mateNo = #{mateNo}
+</select>
+
+<select id="mateListTotalCount" resultType="int">
+    select count(*) from mate
 </select>
 
 

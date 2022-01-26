@@ -1,8 +1,6 @@
 package com.ssafy.project.dto;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-
 
 import lombok.Data;
 
@@ -15,11 +13,13 @@ public class MateDto {
     private int highestAge;
     private String mateContent;
     private String mateCampstyle;
+    private String mateCamptype;
     private Date mateCampstart;
     private Date mateCampend;
     private int userNo;
 
-    private LocalDateTime regDt;
+    private Date mateCreateTime;
+    private Date mateUpdateTime;
 
     private int fileId;
     private String fileName;

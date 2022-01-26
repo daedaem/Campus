@@ -40,6 +40,7 @@ public class MateController {
 
         //call mateList from MateService
         mateResultDto = service.mateList(mateParamDto);
+        System.out.println(mateResultDto.toString());
 
         if( mateResultDto.getResult() == SUCCESS ){
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
