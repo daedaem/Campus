@@ -67,6 +67,8 @@ export default {
 </script>
 
 <style>
+@media screen {
+}
 .total {
   flex: 1;
 }

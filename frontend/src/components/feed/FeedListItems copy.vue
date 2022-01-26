@@ -118,23 +118,14 @@ import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
 export default {
   components: { FeedListItemCarousel },
   name: "FeedListItems",
-
-  props: {
-    feed: Object,
-  },
-  data() {
-    return {
-      commentcontent: [],
-      visible: true,
-      heartclick: 1,
-      heartcount: 0,
-      // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
-      // likecount = 0
-    };
-  },
-  methods: {
-    // 만약 좋아요를 했다면 좋아요 취소
-    changedheart(feed) {
+  props: [feed],
+  setup(props) {
+    console.log(props);
+    commentcontent = [];
+    visible = true;
+    heartclick = 1;
+    heartcount = 0;
+    function changedheart(feed) {
       if (this.heartclick > 0) {
         this.heartclick = 0;
         this.$store.state.feeds[feed.id - 1].likecount += 1;
@@ -144,16 +135,15 @@ export default {
         this.$store.state.feeds[feed.id - 1].likecount -= 1;
         // this.heartcount = this.$store.state.feeds[feed.id].likecount
       }
-      //   },
-      //   heartcount() {
-      //     if (heart == null) {
-      //       console.log("heart is null");
-      //     } else {
-      //       console.log("heart is filled");
-      //       heartcount + 1;
-      //     }
-      //   },
-    },
+    }
+    return {
+      commentcontent,
+      visible,
+      heartclick,
+      heartcount,
+      // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
+      // likecount = 0
+    };
   },
   computed: {
     ...mapState(["feeds"]),

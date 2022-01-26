@@ -6,6 +6,7 @@ import Signup from "../views/user/SignUp.vue";
 import Login from "../views/user/Login.vue";
 import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
+import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
@@ -41,6 +42,12 @@ const routes = [
     path: "/feed",
     name: "FeedList",
     component: FeedList,
+  },
+  {
+    path: "/feed/detail",
+    // path: "/feed/:feed_id",
+    name: "FeedDetail",
+    component: FeedDetail,
   },
   {
     path: "/feed/create",

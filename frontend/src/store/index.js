@@ -5,6 +5,7 @@ export default createStore({
     equipLists: [],
     isUser: false,
     uploadimages: "",
+    feeddetailnum: 0,
     feeds: [
       {
         id: 1,
@@ -133,6 +134,9 @@ export default createStore({
       const index = state.equipLists.indexOf(equipItem);
       state.equipLists.splice(index, 1);
     },
+    TODETAIL: function (state, feeddetailnum) {
+      state.feeddetailnum = feeddetailnum;
+    },
   },
   actions: {
     createEquip: function ({ commit }, equipItem) {
@@ -141,6 +145,10 @@ export default createStore({
     deleteEquip: function ({ commit }, equipItem) {
       commit("DELETE_EQUIP", equipItem);
     },
+    toDetail: function ({ commit }, feeddetailnum) {
+      commit("TODETAIL", feeddetailnum);
+    },
   },
+
   modules: {},
 });

@@ -11,13 +11,12 @@
         >
           <i class="bi bi-arrow-left ps-3 fs-4"></i>
         </router-link>
-        <div class="fs-5 fw-bold">새 게시글 작성</div>
-        <p
-          @click="CreateFeed"
+        <div class="fs-5 fs-bold">새 게시글 작성</div>
+        <router-link
           class="text-decoration-none fw-bold text-primary align-middle align-self-center pe-3"
+          :to="{ name: 'FeedCreate' }"
+          >업로드</router-link
         >
-          업로드
-        </p>
       </div>
       <div class="FeedCreateDetail-contentbox d-flex flex-wrap">
         <!-- 이미지 업로드 -->
@@ -68,9 +67,7 @@
                 <div class="FeedCreateDetail-user-profile-username fs-5">
                   <!-- {{ feed.first_name }} -->
                 </div>
-                <div class="FeedCreateDetailuser-feed-alert fw-bold">
-                  username
-                </div>
+                <div class="FeedCreateDetailuser-feed-alert">username</div>
               </div>
             </div>
           </div>
@@ -95,7 +92,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
@@ -116,12 +113,9 @@ export default {
         email: "",
         password: "",
       },
-      feedcreatecontent: {
-        images: [],
-        contents: "",
-      },
-
-      // uploadReady: true,
+      image: "",
+      images: [],
+      uploadReady: true,
 
       profileimage:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
@@ -129,10 +123,10 @@ export default {
   },
   methods: {
     uploadImg() {
-      // var image = this.$refs["image"].files[0];
-      // // console.log(image);
-      // const url = URL.createObjectURL(image);
-      // this.image = url;
+      var image = this.$refs["image"].files[0];
+      // console.log(image);
+      const url = URL.createObjectURL(image);
+      this.image = url;
       // console.log(url);
       // console.log(this.image);
 
@@ -159,46 +153,16 @@ export default {
       // console.log(this.image);
       // console.log(this.images);
 
-      // this.clearImage();
+      this.clearImage();
       this.$refs.image = null;
       // this.image = null;
       // this.images = null;
     },
-    // clearImage() {
-    //   this.uploadReady = false;
-    //   this.$nextTick(() => {
-    //     this.uploadReady = true;
-    //   });
-    // },
-    CreateFeed() {
-      if (this.feedcreatecontent.contents && this.feedcreatecontent.images) {
-        if (
-          // 문자열 양끝 공백 제거
-          // feedcreatecontent.images도 trim해야하는지 확인해보자
-          this.feedcreatecontent.contents.trim()
-        ) {
-          axios({
-            method: "post",
-            // url도 받아오는대로 확인
-            url: "",
-            // headers는 토큰 어떻게 하냐에 따라 달라질것
-            headers: this.$store.getters.config,
-            data: this.feedcreatecontent,
-          })
-            .then((res) => {
-              this.$store.dispatch("toDetail", res.data.id);
-              this.$router.push({ name: "FeedDetail" });
-            })
-            .catch((err) => {
-              console.log(err);
-              alert("Please check Movie title");
-            });
-        } else {
-          alert(`There's an empty box`);
-        }
-      } else {
-        alert(`There's an empty box`);
-      }
+    clearImage() {
+      this.uploadReady = false;
+      this.$nextTick(() => {
+        this.uploadReady = true;
+      });
     },
   },
   // 제출했을때
@@ -208,7 +172,6 @@ export default {
 <style scoped>
 .FeedCreateDetail-TotalFrame {
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85);
   /* width: 768px; */
   /* padding: 0 20px; */
   /* background: beige; */
@@ -218,10 +181,7 @@ export default {
   width: 768px;
   position: relative;
   height: auto;
-  /* padding: 10px; */
-  margin: auto;
-  /* padding-top: 10%; */
-  /* padding-top: 10%; */
+  top: 5%;
 }
 .FeedCreateDetail-title {
   background-color: #ffff;
