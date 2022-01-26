@@ -24,4 +24,11 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
+    // 카카오 로그인은 비밀번호를 입력 받지 않는다
+    @Override
+    public UserDto kakaoLogin(UserDto dto) {
+        UserDto userDto = loginDao.login(dto.getUserEmail());
+        return userDto;
+    }
+
 }

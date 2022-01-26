@@ -11,6 +11,13 @@ public interface UserService {
 
     public UserResultDto userUpdate(UserDto userDto);
 
+    public UserResultDto userUpdateCamp(UserDto userDto);
+
+    public UserResultDto userUpdateMBTI(String userMBTI);
+
+    // 가입 시 이미지 등록
+    // public UserResultDto userUpdateProfileImage();
+
     public UserResultDto userDelete(String userEmail);
 
     public UserResultDto userRate(UserRateDto userRateDto);

@@ -6,8 +6,6 @@ import com.ssafy.project.dto.CampSiteDto;
 import com.ssafy.project.dto.CampSiteParamDto;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface CampSiteDao {

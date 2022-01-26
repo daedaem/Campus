@@ -4,7 +4,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -22,7 +21,6 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,17 +29,14 @@ import com.ssafy.project.dto.CampRateDto;
 import com.ssafy.project.dto.CampRateReplyDto;
 import com.ssafy.project.dto.CampRateReplyResultDto;
 import com.ssafy.project.dto.CampRateResultDto;
-import com.ssafy.project.dto.CampSiteDto;
 import com.ssafy.project.dto.CampSiteInfoDto;
 import com.ssafy.project.dto.CampSiteInfoDtoRepository;
 import com.ssafy.project.dto.CampSiteParamDto;
 import com.ssafy.project.dto.CampSiteResultDto;
-import com.ssafy.project.dto.FollowDto;
 import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.CampRateReplyService;
 import com.ssafy.project.service.CampRateService;
 import com.ssafy.project.service.CampSiteService;
-import com.ssafy.project.service.FollowService;
 
 @CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
@@ -83,8 +78,10 @@ public class CampController {
         }
     }
 
+    // 공공데이터 DB에 저장
     @PostMapping(value = "/camp")
-    public String saveCampSiteInfo(Model model) {
+    public CampSiteResultDto saveCampSiteInfo(Model model) {
+        CampSiteResultDto campSiteResultDto = new CampSiteResultDto();
         String result = "";
 
         try {
@@ -97,7 +94,7 @@ public class CampController {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
             JSONObject response = (JSONObject) jsonObject.get("response");
-            JSONObject header = (JSONObject) jsonObject.get("header");
+            // JSONObject header = (JSONObject) jsonObject.get("header");
             // Long totalCount = (Long) response.get("totalCount");
 
             JSONObject body = (JSONObject) response.get("body");
@@ -158,8 +155,8 @@ public class CampController {
                 String animalCmgCl = (String) tmp.get("animalCmgCl"); // 애완동물출입
                 String tourEraCl = (String) tmp.get("tourEraCl"); // 여행시기
                 String firstImageUrl = (String) tmp.get("firstImageUrl"); // 대표이미지
-                Date createdtime = (Date) tmp.get("createdTime"); // 등록일
-                Date modifiedtime = (Date) tmp.get("modifiedTime"); // 수정일
+                String createdtime = (String) tmp.get("createdTime"); // 등록일
+                String modifiedtime = (String) tmp.get("modifiedTime"); // 수정일
                 int sitedStnc = Integer.parseInt(String.valueOf(tmp.get("sitedStnc"))); // 사이트간 거리
                 int siteMg1Width = Integer.parseInt(String.valueOf(tmp.get("siteMg1Width"))); // 사이트 크기 1 가로
                 int siteMg2Width = Integer.parseInt(String.valueOf(tmp.get("siteMg2Width"))); // 사이트 크기 2 가로
@@ -190,11 +187,13 @@ public class CampController {
                         siteMg3Co);
                 campSiteInfoDtoRepository.save(campSiteInfoDto);
             }
+            campSiteResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {
             e.printStackTrace();
+            campSiteResultDto.setResult(FAIL);
         }
-        return "redirect:/findname";
+        return campSiteResultDto;
     }
 
     // 도 list

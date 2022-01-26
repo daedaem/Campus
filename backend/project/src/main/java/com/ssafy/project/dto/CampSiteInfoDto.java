@@ -1,7 +1,5 @@
 package com.ssafy.project.dto;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -69,8 +67,8 @@ public class CampSiteInfoDto {
     private String animalCmgCl; // 애완동물출입
     private String tourEraCl; // 여행시기
     private String firstImageUrl; // 대표이미지
-    private Date createdtime; // 등록일
-    private Date modifiedtime; // 수정일
+    private String createdtime; // 등록일
+    private String modifiedtime; // 수정일
     private int sitedStnc; // 사이트간 거리
     private int siteMg1Width; // 사이트 크기 1 가로
     private int siteMg2Width; // 사이트 크기 2 가로

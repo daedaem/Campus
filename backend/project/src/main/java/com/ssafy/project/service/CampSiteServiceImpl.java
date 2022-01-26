@@ -2,8 +2,6 @@ package com.ssafy.project.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.ssafy.project.dao.CampSiteDao;
 import com.ssafy.project.dto.CampSiteDto;
 import com.ssafy.project.dto.CampSiteParamDto;
