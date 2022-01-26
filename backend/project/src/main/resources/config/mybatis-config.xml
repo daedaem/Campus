@@ -11,7 +11,8 @@
     <mappers>
         <mapper resource="mapper/mate_query.xml" />
         <mapper resource="mapper/sns_query.xml" />
-        <mapper resource="mapper/mate_query.xml" />
+        <mapper resource="mapper/sns_reply_query.xml" />
+        
     </mappers>
 
     

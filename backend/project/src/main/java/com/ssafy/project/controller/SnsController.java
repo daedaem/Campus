@@ -1,9 +1,14 @@
 package com.ssafy.project.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
+import com.ssafy.project.dto.SnsReplyResultDto;
 import com.ssafy.project.dto.SnsResultDto;
+import com.ssafy.project.service.SnsReplyService;
 import com.ssafy.project.service.SnsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -31,7 +38,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class SnsController {
     
     @Autowired
-    SnsService service;
+    SnsService snsService;
+
+    @Autowired
+    SnsReplyService snsReplyService;
 
     private static final int SUCCESS = 1;
 
@@ -41,15 +51,11 @@ public class SnsController {
     private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto){
         
         SnsResultDto snsResultDto;
-        System.out.println(snsParamDto.toString());
-        System.out.println("test!!");
 
         if( snsParamDto.getSearchWord() == null ){ // 검색어가 없을시
-            System.out.println("!!!");
-            snsResultDto = service.snsList(snsParamDto);
+            snsResultDto = snsService.snsList(snsParamDto);
         }else{
-            System.out.println("???");
-            snsResultDto = service.snsListSearchWord(snsParamDto);// 검색어가 있을시에
+            snsResultDto = snsService.snsListSearchWord(snsParamDto);// 검색어가 있을시에
         }
 
         if( snsResultDto.getResult() == SUCCESS ){
@@ -66,7 +72,7 @@ public class SnsController {
 
         //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
 
-        SnsResultDto snsResultDto = service.snsInsert(snsDto, request);
+        SnsResultDto snsResultDto = snsService.snsInsert(snsDto, request);
 
         if( snsResultDto.getResult() == SUCCESS ){
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
@@ -82,7 +88,7 @@ public class SnsController {
 
         //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
 
-        SnsResultDto snsResultDto = service.snsUpdate(snsDto, request);
+        SnsResultDto snsResultDto = snsService.snsUpdate(snsDto, request);
 
         if( snsResultDto.getResult() == SUCCESS ){
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
@@ -93,7 +99,7 @@ public class SnsController {
 
     @DeleteMapping(value="/sns/{snsNo}")
     private ResponseEntity<SnsResultDto> snsDelete(@PathVariable(value="snsNo") int snsNo){
-        SnsResultDto snsResultDto = service.snsDelete(snsNo);
+        SnsResultDto snsResultDto = snsService.snsDelete(snsNo);
         System.out.println("delete");
         if( snsResultDto.getResult() == SUCCESS ){
             System.out.println("delete");
@@ -102,6 +108,65 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
+    // sns 댓글 리스트 생성
+    @GetMapping(value="/sns/reply/{snsNo}")
+    public ResponseEntity<SnsReplyResultDto> snsReplyList(@PathVariable int snsReplyNo){
+        
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyList(snsReplyNo);
 
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
+
+    }
+    // sns 댓글 입력
+    @PostMapping(value="/sns/reply")
+    public ResponseEntity<SnsReplyResultDto> snsReplyInsert(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
+        
+        //UserDto userDto = (UserDto) session.getAttribute("userDto");
+
+        snsReplyDto.setUserNo(userDto.getUserNo());
+
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
+
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
+
+    }
+    // sns 댓글 수정
+    @PutMapping(value="/sns/reply")
+    public ResponseEntity<SnsReplyResultDto> snsReplyUpdate(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
+        
+        //UserDto userDto = (UserDto) session.getAttribute("userDto");
+
+        snsReplyDto.setUserNo(userDto.getUserNo());
+
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyUpdate(snsReplyDto);
+
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
+
+    }
+
+    @DeleteMapping(value="/sns/reply/{snsReplyNo}")
+    public ResponseEntity<SnsReplyResultDto> snsReplyDelete(@PathVariable(value="snsNo") int snsReplyNo){
+        
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.SnsReplyDelete(snsReplyNo);
+
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
+
+    }
 
 }

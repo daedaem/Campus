@@ -5,10 +5,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SnsResultDto {
+public class SnsReplyResultDto {
     private int result;
-    private SnsDto dto;
-    private List<SnsDto> list;
-    //private 
     private int count;
+    private List<SnsReplyDto> list;
 }

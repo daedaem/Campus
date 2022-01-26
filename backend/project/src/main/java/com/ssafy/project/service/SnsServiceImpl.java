@@ -102,6 +102,7 @@ public class SnsServiceImpl implements SnsService{
         try{
             System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
+            //List<>
             int count = dao.snsListTotalCount();
             snsResultDto.setList(list);
             snsResultDto.setCount(count);

@@ -9,7 +9,9 @@ public class SnsReplyDto {
     private int snsReplyNo;
     private int snsNo;
     private int userNo;
+    private String userNickname;
     private String snsReplyContent;
+    private String userProfileImage;
 
     private LocalDateTime snsReplyCreateTime;
     private LocalDateTime snsReplyUpdateTime;
