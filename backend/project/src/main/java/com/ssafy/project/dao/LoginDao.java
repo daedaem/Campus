@@ -3,8 +3,6 @@ package com.ssafy.project.dao;
 import com.ssafy.project.dto.UserDto;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface LoginDao {

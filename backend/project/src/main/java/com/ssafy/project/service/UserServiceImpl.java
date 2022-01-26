@@ -50,6 +50,42 @@ public class UserServiceImpl implements UserService {
         return userResultDto;
     }
 
+    // 가입 시 user 세부 정보 입력
+    @Override
+    public UserResultDto userUpdateCamp(UserDto userDto) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userUpdateCamp(userDto) == SUCCESS) { // 수정 성공
+            userResultDto.setResult(SUCCESS);
+        } else { // 수정 실패
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
+    // 가입 시 mbti
+    @Override
+    public UserResultDto userUpdateMBTI(String userMBTI) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userUpdateMBTI(userMBTI) == SUCCESS) { // 수정 성공
+            userResultDto.setResult(SUCCESS);
+        } else { // 수정 실패
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
+    // 가입 시 이미지 등록
+    // @Override
+    // public UserResultDto userUpdateProfileImage() {
+    // UserResultDto userResultDto = new UserResultDto();
+    // if (userDao.userUpdateProfileImage(userMBTI) == SUCCESS) { // 수정 성공
+    // userResultDto.setResult(SUCCESS);
+    // } else { // 수정 실패
+    // userResultDto.setResult(FAIL);
+    // }
+    // return userResultDto;
+    // }
+
     // userEmail에 해당하는 유저 정보 삭제
     @Override
     public UserResultDto userDelete(String userEmail) {

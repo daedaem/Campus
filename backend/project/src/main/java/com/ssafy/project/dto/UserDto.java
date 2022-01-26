@@ -1,10 +1,7 @@
 package com.ssafy.project.dto;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -18,7 +15,7 @@ public class UserDto {
     private String userName;
     private String userProfileImage;
     private String userLocation;
-    private int userAge;
+    private String userAge;
     private String userGender;
     private String userNickname;
     private String userMBTI;

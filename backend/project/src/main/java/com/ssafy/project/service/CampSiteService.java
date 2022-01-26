@@ -2,7 +2,6 @@ package com.ssafy.project.service;
 
 import java.util.List;
 
-import com.ssafy.project.dto.CampSiteDto;
 import com.ssafy.project.dto.CampSiteParamDto;
 import com.ssafy.project.dto.CampSiteResultDto;
 

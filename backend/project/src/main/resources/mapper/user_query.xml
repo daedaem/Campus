@@ -40,6 +40,32 @@
         AND u.userNo = e.userNo
         AND u.userEmail = #{userEmail};
     </update>
+    
+    <!-- 가입 시 user 세부 정보 입력 -->
+    <update id="userUpdateCamp" parameterType="com.ssafy.project.dto.UserDto">
+        UPDATE user u, campStyle s, campEquip e
+        SET s.campStyle1 = #{campStyle1}, s.campStyle2 = #{campStyle2}, s.campStyle3 = #{campStyle3}, s.campStyle4 = #{campStyle4}, s.campStyle5 = #{campStyle5}, s.campStyle6 = #{campStyle6},
+                e.campEquipTent = #{campEquipTent}, e.campEquipSleepingbag = #{campEquipSleepingbag}, e.campEquipBurner = #{campEquipBurner}, e.campEquipBrazier = #{campEquipBrazier}, e.campEquipTableChair = #{campEquipTableChair},
+                e.campEquipPot = #{campEquipPot}, e.campEquipLantern = #{campEquipLantern}, e.campEquipReel = #{campEquipReel}, e.campEquipIcebox = #{campEquipIcebox}, e.campEquipTarp = #{campEquipTarp},
+                e.campEquipEtc1 = #{campEquipEtc1}, e.campEquipEtc2 = #{campEquipEtc2}, e.campEquipEtc3 = #{campEquipEtc3}, e.campEquipEtc4 = #{campEquipEtc4}, e.campEquipEtc5 = #{campEquipEtc5}
+        WHERE u.userNo = s.userNo
+        AND u.userNo = e.userNo
+        AND u.userEmail = #{userEmail};
+    </update>
+
+    <!-- 가입 시 mbti -->
+    <update id="userUpdateMBTI" parameterType="String">
+        UPDATE user u
+        SET u.userMBTI = #{userMBTI}
+        WHERE u.userEmail = #{userEmail};
+    </update>
+
+    <!-- 가입 시 이미지 등록 -->
+    <!-- <update id="userUpdateProfileImage" parameterType="String">
+        UPDATE user u
+        SET u.userProfileImage = #{userProfileImage}
+        WHERE u.userEmail = #{userEmail};
+    </update> -->
 
     <!-- 유저 정보 삭제 -->
     <delete id="userDelete" parameterType="String">

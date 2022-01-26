@@ -61,6 +61,48 @@ public class UserController {
         }
     }
 
+    // 가입 시 user 세부 정보 입력
+    @PutMapping(value = "/user/camp")
+    public ResponseEntity<UserResultDto> updateCamp(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
+                                                                                    // 같이
+        // 넘겨준다.
+        UserResultDto userResultDto = userService.userUpdateCamp(userDto);
+        if (userResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 가입 시 mbti
+    @PutMapping(value = "/user/mbti/{userMBTI}")
+    public ResponseEntity<UserResultDto> updateMBTI(@PathVariable String userMBTI) { // restapi를 이용해서 http 상태코드를 성공
+                                                                                     // 실패여부로
+                                                                                     // 같이
+        // 넘겨준다.
+        UserResultDto userResultDto = userService.userUpdateMBTI(userMBTI);
+        if (userResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 가입 시 이미지 등록
+    // @PutMapping(value = "/user/image")
+    // public ResponseEntity<UserResultDto> updateImage(@RequestBody UserDto
+    // userDto) { // restapi를 이용해서 http 상태코드를 성공
+    // // 실패여부로 같이
+    // // 넘겨준다.
+    // UserResultDto userResultDto = userService.userUpdateProfileImage(userDto);
+    // if (userResultDto.getResult() == SUCCESS) {
+    // return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+    // } else {
+    // return new ResponseEntity<UserResultDto>(userResultDto,
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
     // userEmail에 해당하는 user 탈퇴
     @DeleteMapping(value = "/user/{userEmail}")
     public ResponseEntity<UserResultDto> delete(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
