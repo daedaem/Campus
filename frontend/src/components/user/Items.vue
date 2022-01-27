@@ -147,6 +147,15 @@ export default {
         brazier : 0,
       }
     }
+  },
+  watch : {
+    imgStatus: {
+      handler(text){
+        this.$emit('img-status',text)
+      },
+      deep: true
+      // this.$emit('img-status',text)
+    }
   }
 }
 </script>

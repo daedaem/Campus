@@ -43,7 +43,7 @@ export default {
 
 <style scoped>
 body {
-  width: 768px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 20px;
   background: beige;

@@ -10,6 +10,7 @@ import FeedCreate from "../views/feed/FeedCreate.vue";
 import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
+import findPw from "../views/user/FindPassword.vue";
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
     path: "/addsign",
     name: "addSign",
     component: addSign,
+  },
+  {
+    path: "/findPw",
+    name: "findPw",
+    component: findPw,
   },
   {
     path: "/mateparty/partyinfo",

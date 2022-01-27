@@ -1,9 +1,12 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
   state: {
     equipLists: [],
     isUser: false,
+    isLogin: localStorage.getItem('jwt') ? true : false,
+    nickname: null,
     feeds: [
       {
         id: 1,
@@ -132,6 +135,26 @@ export default createStore({
       const index = state.equipLists.indexOf(equipItem)
       state.equipLists.splice(index, 1)
     },
+    LOGIN: function (state) {
+      state.isLogin = true;
+      const token = localStorage.getItem('jwt');
+      axios ({
+        method: 'get',
+        url: `${process.env.VUE_APP_MCS_URL}/accounts/profile/`,
+        headers: { Authorization: `JWT ${token}`},
+      }) .then((res) => {
+        this.commit("SET_PROFILE", res.data)
+      })
+    },
+    LOGOUT: function (state) {
+      state.nickname = null;
+      state.isLogin = false;
+      localStorage.removeItem('jwt')
+    },
+    SET_PROFILE: function (state, res) {
+      state.nickname = res.nickname;
+    }
+
   },
   actions: {
     createEquip: function ({ commit }, equipItem){
@@ -139,7 +162,14 @@ export default createStore({
     },
     deleteEquip: function ({ commit }, equipItem) {
       commit('DELETE_EQUIP', equipItem)
+    },
+    login: function ({ commit }) {
+      commit("LOGIN")
+    },
+    logout: function ({ commit }) {
+      commit("LOGOUT")
     }
+
   },
   modules: {},
 });
