@@ -3,7 +3,7 @@
     <div
       class="FeedDetailTotal d-flex justify-content-center align-items-center"
     >
-      d
+      ddd
       <div class="FeedDetailTotalFrame">
         <div
           class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
