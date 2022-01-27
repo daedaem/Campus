@@ -1,11 +1,21 @@
 <template>
   <div id="app">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
 </template>
+
+<script>
+// import Navbar from '@/components/Navbar.vue'
+
+export default {
+  name : 'App',
+  components : {
+    // Navbar,
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -23,12 +33,12 @@
   // color: #2c3e50;
 }
 
-.nav {
-  padding: 40px 0px 40px 0px;
+// .nav {
+//   padding: 40px 0px 40px 0px;
   // margin: 0px 0px 0px 0px;
-  border-bottom: 1px solid #eee;
-  position: sticky;
-  background-color: green;
+  // border-bottom: 1px solid #eee;
+  // position: sticky;
+  // background-color: green;
   // .nav {
   // }
   // a {
@@ -39,5 +49,23 @@
   //     color: #42b983;
   //   }
   // }
+// }
+
+ #nav{
+background: whitesmoke;
+width:100vw;
+}
+#nav {
+  padding: 30px;
+  text-align: center;
+}
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+#nav a.router-link-exact-active {
+  color: whitesmoke;
+  background: crimson;
+  border-radius: .5rem;
 }
 </style>

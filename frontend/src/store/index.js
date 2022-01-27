@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     equipLists: [],
+    mateList : [],
     isUser: false,
     uploadimages: "",
     feeddetailnum: 0,
@@ -137,6 +138,12 @@ export default createStore({
     TODETAIL: function (state, feeddetailnum) {
       state.feeddetailnum = feeddetailnum;
     },
+
+
+    //mate
+    VIEW_MATE(state,data) {
+      state.mateList = data
+    }
   },
   actions: {
     createEquip: function ({ commit }, equipItem) {
@@ -147,6 +154,14 @@ export default createStore({
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
+      commit('DELETE_EQUIP', equipItem)
+    },
+
+   
+
+    //mate
+    viewMate({commit}, data) {
+      commit('VIEW_MATE', data)
     },
   },
 

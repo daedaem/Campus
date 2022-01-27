@@ -1,53 +1,55 @@
 <template>
-  <body>
-    
-    <Fileupload @image="uploadedImage"/>
-    
-      <div style="margin-left: 30px;">
-        <Filtermake @drink-check="drinkCheck" @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
-
-        <div align="left" class="filterbox">
-          <div align="left" class="filterbox2">
-            <Dropdown1 @member-value="memberValue"/>
-          </div>
-          <div align="left" class="filterbox1">
-            <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2"/>
-        </div>
-        
-      </div>
+  <div class="test">
+    <body>
       
-      <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
-    <!-- <div class="camping">
-      <input class="input1" type="text" placeholder="캠핑장 선택">
-    </div> -->
-    </div>
-    <br>
-    <Items @img-status="imgStatus"/> 
-    
-    
-    <div class="container contact-form" >
-      <div class="row">
-          <div >
-              <p align="left">제목</p>
-              <div class="form-group">
-                  <input v-model="title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
-              </div>
-          </div>
-          <div >
-              <p align="left">메이트 소개</p>
-              <div class="form-group">
-                  <textarea v-model="content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
-              </div>
+      <Fileupload @image="uploadedImage"/>
+      
+        <div style="margin-left: 30px;">
+          <Filtermake @drink-check="drinkCheck" @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
+
+          <div align="left" class="filterbox">
+            <div align="left" class="filterbox2">
+              <Dropdown1 @member-value="memberValue"/>
+            </div>
+            <div align="left" class="filterbox1">
+              <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2"/>
           </div>
           
-          <div class="form-group">
-              <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
-          </div>
+        </div>
+        
+        <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
+        <Datepicker @date-in="dateIn"/>
+      <!-- <div class="camping">
+        <input class="input1" type="text" placeholder="캠핑장 선택">
+      </div> -->
       </div>
-    </div>
-    
-  </body>
-  
+      <br>
+      <Items @img-status="imgStatus"/> 
+      
+      
+      <div class="container contact-form" >
+        <div class="row">
+            <div >
+                <p align="left">제목</p>
+                <div class="form-group">
+                    <input v-model="title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
+                </div>
+            </div>
+            <div >
+                <p align="left">메이트 소개</p>
+                <div class="form-group">
+                    <textarea v-model="content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test" />
+            </div>
+        </div>
+      </div>
+      
+    </body>
+  </div>
   
 </template>
 
@@ -58,6 +60,10 @@ import Dropdown2 from '../../components/mateparty/dropdown/Dropdown2.vue'
 import Items from '@/components/mateparty/Items.vue'
 import Campchoice from '@/components/mateparty/Campchoice.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
+import Datepicker from '@/components/mateparty/Datepicker.vue'
+import axios from 'axios'
+
+
 export default {
   name: 'Makeparty',
   components : {
@@ -67,6 +73,7 @@ export default {
     Dropdown2,
     Campchoice,
     Fileupload,
+    Datepicker,
   },
   methods: {
   //image upload and preview methods
@@ -111,26 +118,71 @@ export default {
     },
     uploadedImage(file) {
       console.log(file)
+    },
+    dateIn(value) {
+      console.log(value)
+    },
+
+    test() {
+      console.log('test')
+      axios({
+        method: 'get',
+        url : 'http://localhost:8080/mate',
+
+      })
+
+      .then((res) => {
+        console.log(res.data.list)
+      })
+
+      .catch(err => {
+        console.log(err)
+      })
     }
+    
+    
 
   },
   data: function() {
     return {
         title : '',
-        content : ''
+        content : '',
+        partyData : {
+          kind : null,
+          friendimit : null,
+          style : null,
+          memberlimit : null,
+          agelimit : null,
+          campingsite : null,
+          startdate : null,
+          enddate : null,
+          parttitle : null,
+          partycontent : null,
+        },
       }
-  }  
+  },
+  
  }  
+
+
+
+
 
 </script>
 
 <style scoped>
 body {
-  width: 768px;
+  /* width: 768px; */
+  width :768px;
   margin: 0 auto;
   padding: 0 20px;
-  /* background: beige; */
+  background: beige;
 }
+
+.test {
+  width :100%;
+}
+
 .imagePreviewWrapper {
   background-repeat: no-repeat;
     width: 200px;

@@ -27,6 +27,42 @@
           음주
         </label>
       </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="독서" id="flexCheckChecked20" >
+        <label class="form-check-label" for="flexCheckChecked20">
+          독서
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="낚시" id="flexCheckChecked21" >
+        <label class="form-check-label" for="flexCheckChecked21">
+          낚시
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="하이킹" id="flexCheckChecked22" >
+        <label class="form-check-label" for="flexCheckChecked22">
+          하이킹
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="물놀이" id="flexCheckChecked23" >
+        <label class="form-check-label" for="flexCheckChecked23">
+          물놀이
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="등산" id="flexCheckChecked24" >
+        <label class="form-check-label" for="flexCheckChecked24">
+          등산
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="불멍" id="flexCheckChecked25" >
+        <label class="form-check-label" for="flexCheckChecked25">
+          불멍
+        </label>
+      </div>
     </div>
    
     <div align="center">

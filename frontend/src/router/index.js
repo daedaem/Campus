@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+// import Home from "../views/Home.vue";
 import Makeparty from "../views/mateparty/Makeparty.vue";
 import Mateparty from "../views/mateparty/Mateparty.vue";
 import Signup from "../views/user/SignUp.vue";
@@ -10,12 +10,15 @@ import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
+import Mainpage from "../Mainpage.vue" 
+
+
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Mainpage",
+    component: Mainpage,
   },
   {
     path: "/about",
@@ -85,6 +88,15 @@ const routes = [
     component: Matematch,
   },
 ];
+  
+  
+
+
+
+
+
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
