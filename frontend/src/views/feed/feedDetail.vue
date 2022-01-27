@@ -21,16 +21,25 @@
           <div class="FeedDetail-RightBox col d-flex flex-column">
             <div class="FeedDetail-RightBox-ProfileBox">
               <div
-                class="d-flex FeedDetail-RightBox-ProfileBox-UserInfo ps-3 justify-content-start align-items-center"
+                class="d-flex FeedDetail-RightBox-ProfileBox-UserInfo ps-3 justify-content-between align-items-center"
               >
-                <div class="FeedDetail-ProfileBox-Image ps-2">
+                <div
+                  class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
+                >
                   <img
                     src="http://placehold.it/800x800"
                     class="FeedDetail-user-profile-image"
                     alt="..."
                   />
+                  <div class="FeedDetail-ProfileBox-Username py-4">
+                    유저네임
+                  </div>
                 </div>
-                <div class="FeedDetail-ProfileBox-Username p-4">유저네임</div>
+                <div
+                  class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
+                >
+                  <feed-detail-dropdown></feed-detail-dropdown>
+                </div>
               </div>
             </div>
             <div class="FeedDetail-RightBox-ContentBox p-4">작성자 글 내용</div>
@@ -140,8 +149,12 @@
 </template>
 
 <script>
+import FeedDetailDropdown from "../../components/feed/FeedDetailDropdown.vue";
 export default {
   name: "FeedDetail",
+  components: {
+    FeedDetailDropdown,
+  },
   data() {
     return {
       commentcontent: [],

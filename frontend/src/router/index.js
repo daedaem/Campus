@@ -8,7 +8,6 @@ import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
 import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
-import FeedCreateDetail from "../views/feed/FeedCreateDetail.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
 
@@ -54,12 +53,12 @@ const routes = [
     name: "FeedCreate",
     component: FeedCreate,
   },
-  {
-    path: "/feed/create/detail",
-    // path: "/feed/create/:feed_id",
-    name: "FeedCreateDetail",
-    component: FeedCreateDetail,
-  },
+  // {
+  //   path: "/feed/create/detail",
+  //   // path: "/feed/create/:feed_id",
+  //   name: "FeedCreateDetail",
+  //   component: FeedCreateDetail,
+  // },
   {
     path: "/login",
     name: "Login",
