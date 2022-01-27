@@ -68,22 +68,50 @@
           요리
         </label>
       </div>
-    </div>
-    <h4 align="left">음주</h4>
-    <div class="filterbox">
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="drinkCheck" type="checkbox" value="음주" id="flexCheckDefault">
-        <label align="left" class="form-check-label" for="flexCheckDefault">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="음주" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
           음주
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="drinkCheck" type="checkbox" value="비음주" id="flexCheckChecked" >
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="독서" id="flexCheckChecked" >
         <label class="form-check-label" for="flexCheckChecked">
-          비음주
+          독서
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="낚시" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
+          낚시
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="하이킹" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
+          하이킹
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="물놀이" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
+          물놀이
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="등산" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
+          등산
+        </label>
+      </div>
+      <div class="form-check filterbox1">
+        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="불멍" id="flexCheckChecked" >
+        <label class="form-check-label" for="flexCheckChecked">
+          불멍
         </label>
       </div>
     </div>
+    
 
     
 
