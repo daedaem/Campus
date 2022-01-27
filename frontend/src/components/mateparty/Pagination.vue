@@ -3,7 +3,7 @@
 
 
     <b-row :per-page="perPage" :current-page="currentPage"> 
-      <b-card-group class ="col-4" v-for="(item,idx) in paginatedItems" :key="idx" >
+      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx" >
         <b-card class="mb-5" :title="item.first_name" :img-src="item.imgurl" img-alt="Image" img-top>
           <b-card-text>
             {{item.last_name}}
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     paginate (page_size, page_number) {
-        console.log(2)
+     
         let itemsToParse = this.items
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
     },
@@ -72,7 +72,7 @@ export default {
 
   },
   mounted(){
-    console.log(1)
+
     this.paginate(this.perPage, 0)
   },
   computed: {

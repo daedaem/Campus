@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     equipLists: [],
+    mateList : [],
     isUser: false,
     feeds: [
       {
@@ -132,6 +133,12 @@ export default createStore({
       const index = state.equipLists.indexOf(equipItem)
       state.equipLists.splice(index, 1)
     },
+
+
+    //mate
+    VIEW_MATE(state,data) {
+      state.mateList = data
+    }
   },
   actions: {
     createEquip: function ({ commit }, equipItem){
@@ -139,7 +146,14 @@ export default createStore({
     },
     deleteEquip: function ({ commit }, equipItem) {
       commit('DELETE_EQUIP', equipItem)
-    }
+    },
+
+   
+
+    //mate
+    viewMate({commit}, data) {
+      commit('VIEW_MATE', data)
+    },
   },
   modules: {},
 });

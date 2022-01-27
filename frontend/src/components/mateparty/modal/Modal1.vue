@@ -1,12 +1,12 @@
 <template>
 <div>
   <h4>날짜</h4>
-  <!-- <Datepicker class="box" v-model="date1" range></Datepicker> -->
-  <Datepicker v-model="date"></Datepicker>
-  <Datepicker v-model="date" range></Datepicker>
+  <Datepicker/>
+  <Datepicker @date-in="dateIn" />
+  
     <div align="center">
         <div class="col-sm-3">
-        <a class="btn btn-lg" href="#" @click="$emit('date-check',date)">
+        <a class="btn btn-lg" href="#" @click="sendData" @date-in="dateIn">
             <span>button</span>
         </a>
     </div>
@@ -16,31 +16,35 @@
 
 
 <script>
-import Datepicker from 'vue3-date-time-picker'
+import Datepicker from '@/components/mateparty/Datepicker.vue'
 import 'vue3-date-time-picker/dist/main.css'
-import { ref, onMounted } from 'vue';
-
+// import Datepicker from '../Datepicker.vue'
+import {ref} from 'vue'
 
 export default {
-  name: 'Modal1',
   emits : ['date-check'],
+  name: 'Modal1',
   components: {
-    Datepicker,
-  },
-  setup() {
-        const date = ref();
+    Datepicker
 
-        // For demo purposes assign range from the current date
-        onMounted(() => {
-            const startDate = new Date();
-            const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-            date.value = [startDate, endDate];
-        })
-        
-        return {
-            date,
-        }
-    }
+  },
+  setup(props,{emit}) {
+    const myData = ref('')
+    
+    const dateIn = (val) => {myData.value = val}
+
+    const sendData = () => {emit('date-check', myData.value)}
+  
+  
+  return {
+    dateIn,
+    sendData,
+ 
+  }
+  
+  }
+  
+
 }
 </script>
 
