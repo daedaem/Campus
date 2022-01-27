@@ -3,10 +3,7 @@
     <div
       class="FeedDetailTotal d-flex justify-content-center align-items-center"
     >
-<<<<<<< HEAD
-      ddd
-=======
->>>>>>> 21f07fa2fa08cb10229955d88cedaa12a6999204
+      dddd
       <div class="FeedDetailTotalFrame">
         <div
           class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
