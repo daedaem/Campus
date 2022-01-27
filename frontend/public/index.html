@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <meta
-      name="google-signin-client_id"
-      content="513477268858-aud2mi8uf61jmot04h4lurf5b0cl4nik.apps.googleusercontent.com"
-    />
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="513477268858-aud2mi8uf61jmot04h4lurf5b0cl4nik.apps.googleusercontent.com" />
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     <link
       rel="shortcut icon"
       href="src/assets/favicon.ico"
@@ -22,6 +19,7 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
+  
   </head>
   <body>
     <noscript>

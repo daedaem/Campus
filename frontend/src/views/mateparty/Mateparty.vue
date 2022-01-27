@@ -55,11 +55,12 @@ export default {
 
 <style scoped>
 @media (min-width: 768px) {
-  body { width: 768px;
-  /* width : 768px; */
-  margin: 0 auto;
-  padding: 0 20px;
-  background: beige; } }
+  body {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: beige; }
+  }
 
 
 .test {

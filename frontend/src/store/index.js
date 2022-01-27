@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -7,6 +8,8 @@ export default createStore({
     isUser: false,
     uploadimages: "",
     feeddetailnum: 0,
+    isLogin: localStorage.getItem('jwt') ? true : false,
+    nickname: null,
     feeds: [
       {
         id: 1,
@@ -143,27 +146,60 @@ export default createStore({
     //mate
     VIEW_MATE(state,data) {
       state.mateList = data
+    
+    },
+    LOGIN: function (state) {
+      state.isLogin = true;
+      const token = localStorage.getItem('jwt');
+      axios ({
+        method: 'get',
+        url: `${process.env.VUE_APP_MCS_URL}/accounts/profile/`,
+        headers: { Authorization: `JWT ${token}`},
+      }) .then((res) => {
+        this.commit("SET_PROFILE", res.data)
+      })
+    },
+    LOGOUT: function (state) {
+      state.nickname = null;
+      state.isLogin = false;
+      localStorage.removeItem('jwt')
+    },
+    SET_PROFILE: function (state, res) {
+      state.nickname = res.nickname;
     }
+
   },
   actions: {
-    createEquip: function ({ commit }, equipItem) {
-      commit("CREATE_EQUIP", equipItem);
+    createEquip: function ({ commit }, equipItem){
+      commit('CREATE_EQUIP', equipItem)
     },
     deleteEquip: function ({ commit }, equipItem) {
-      commit("DELETE_EQUIP", equipItem);
+      commit('DELETE_EQUIP', equipItem)
+    },
+    login: function ({ commit }) {
+      commit("LOGIN")
+    },
+    logout: function ({ commit }) {
+      commit("LOGOUT")       
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
       commit('DELETE_EQUIP', equipItem)
     },
-
-   
-
     //mate
     viewMate({commit}, data) {
       commit('VIEW_MATE', data)
     },
+  
   },
+  
+   
 
-  modules: {},
+    
+  
+
+  modules: {
+
+  }
+
 });

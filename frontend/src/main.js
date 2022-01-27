@@ -20,4 +20,3 @@ library.add(faPhone, fasImages,faUser);
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueUniversalModal, {teleportTarget: '#modals'}).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
 
 
-

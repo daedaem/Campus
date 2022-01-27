@@ -24,7 +24,7 @@ export default {
   },
   components: {
     VueSelect,
-  }
+  },
 
 }
 </script>
