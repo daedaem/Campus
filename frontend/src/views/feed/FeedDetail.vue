@@ -27,18 +27,22 @@
                   class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
                 >
                   <img
+                    style="cursor: pointer"
                     src="http://placehold.it/800x800"
                     class="FeedDetail-user-profile-image"
                     alt="..."
                   />
-                  <div class="FeedDetail-ProfileBox-Username py-4">
-                    유저네임
+                  <div
+                    class="FeedDetail-ProfileBox-Username py-4"
+                    style="cursor: pointer"
+                  >
+                    username
                   </div>
                 </div>
                 <div
                   class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
                 >
-                  <feed-detail-dropdown></feed-detail-dropdown>
+                  <feed-dropdown></feed-dropdown>
                 </div>
               </div>
             </div>
@@ -52,6 +56,7 @@
               <!-- 밑에 삽입 예정 
           @click="[changedheart(), heartcount()]"-->
               <span
+                style="cursor: pointer"
                 class="heart-box d-flex my-auto"
                 @click="changedheart(feed)"
                 v-if="heartclick == 1"
@@ -60,6 +65,7 @@
                 <!-- <p class="fs-6 my-auto">{{ feed.likecount }}</p> -->
               </span>
               <span
+                style="cursor: pointer"
                 class="heart-box d-flex my-auto"
                 @click="changedheart(feed)"
                 v-else
@@ -74,6 +80,7 @@
                   <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
                   <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
                   <b-icon
+                    style="cursor: pointer"
                     icon="chat-dots"
                     font-size="25px"
                     :class="visible ? null : 'collapsed'"
@@ -149,11 +156,11 @@
 </template>
 
 <script>
-import FeedDetailDropdown from "../../components/feed/FeedDetailDropdown.vue";
+import FeedDropdown from "../../components/feed/FeedDropdown.vue";
 export default {
   name: "FeedDetail",
   components: {
-    FeedDetailDropdown,
+    FeedDropdown,
   },
   data() {
     return {

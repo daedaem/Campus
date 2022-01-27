@@ -2,16 +2,28 @@
   <div class="feed-frame col-12 col-sm-12 col-md-10">
     <div class="user-feed-cards">
       <div class="user-feed-card">
-        <div class="d-flex justify-content-center align-items-center">
-          <div>
-            <img
-              :src="`${feed.profile_image_url}`"
-              class="user-profile-image"
-              alt="..."
-            />
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                style="cursor: pointer"
+                :src="`${feed.profile_image_url}`"
+                class="user-profile-image"
+                alt="..."
+              />
+            </div>
+
+            <div class="user-profile-username fs-5" style="cursor: pointer">
+              {{ feed.first_name }}
+            </div>
           </div>
-          <div class="user-profile-username fs-5">{{ feed.first_name }}</div>
-          <div class="user-feed-alert">follow</div>
+          <feed-dropdown></feed-dropdown>
+          <!-- <div v-if="followed == 0" @click="follow" class="user-feed-alert">
+            <i class="bi bi-person-plus fs-4"></i>
+          </div>
+          <div v-else class="user-feed-alert">
+            <i class="bi bi-person-check-fill fs-4"></i> -->
+          <!-- </div> -->
         </div>
       </div>
 
@@ -34,6 +46,7 @@
         <!-- 밑에 삽입 예정 
           @click="[changedheart(), heartcount()]"-->
         <span
+          style="cursor: pointer"
           class="heart-box d-flex my-auto"
           @click="changedheart(feed)"
           v-if="heartclick == 1"
@@ -42,6 +55,7 @@
           <p class="fs-6 my-auto">{{ feed.likecount }}</p>
         </span>
         <span
+          style="cursor: pointer"
           class="heart-box d-flex my-auto"
           @click="changedheart(feed)"
           v-else
@@ -56,6 +70,7 @@
             <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
             <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
             <b-icon
+              style="cursor: pointer"
               icon="chat-dots"
               font-size="25px"
               :class="visible ? null : 'collapsed'"
@@ -113,10 +128,11 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import FeedDropdown from "./FeedDropdown.vue";
 import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
 
 export default {
-  components: { FeedListItemCarousel },
+  components: { FeedListItemCarousel, FeedDropdown },
   name: "FeedListItems",
 
   props: {
@@ -128,6 +144,7 @@ export default {
       visible: true,
       heartclick: 1,
       heartcount: 0,
+      followed: 0,
       // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
       // likecount = 0
     };
@@ -153,6 +170,12 @@ export default {
       //       heartcount + 1;
       //     }
       //   },
+    },
+    follow() {
+      if (this.followed == 0) {
+        this.followed = 1;
+      } else this.followed == 1;
+      alert("정말 취소하시겠나요?");
     },
   },
   computed: {
@@ -224,5 +247,6 @@ export default {
   margin: 0px 20px 0px 0px;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 </style>
