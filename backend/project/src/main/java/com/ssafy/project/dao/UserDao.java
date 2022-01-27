@@ -20,10 +20,10 @@ public interface UserDao {
     public int userUpdateCamp(UserDto userDto);
 
     // 가입 시 mbti
-    public int userUpdateMBTI(String userMBTI);
+    public int userUpdateMBTI(UserDto userDto);
 
-    // 가입 시 이미지 등록
-    // public int userUpdateProfileImage();
+    // 유저 이미지 등록
+    public int userUpdateProfileImage(UserDto userDto);
 
     // userEmail에 해당하는 user 삭제
     public int userDelete(String userEmail);

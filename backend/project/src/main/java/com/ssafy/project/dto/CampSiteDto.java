@@ -74,4 +74,5 @@ public class CampSiteDto {
     private int siteMg1Co; // 사이트 크기 1 수량
     private int siteMg2Co; // 사이트 크기 2 수량
     private int siteMg3Co; // 사이트 크기 3 수량
+    private int siteMgCo;
 }

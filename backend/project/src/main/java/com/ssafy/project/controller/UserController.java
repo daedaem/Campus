@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.dto.UserRateDto;
@@ -63,9 +65,7 @@ public class UserController {
 
     // 가입 시 user 세부 정보 입력
     @PutMapping(value = "/user/camp")
-    public ResponseEntity<UserResultDto> updateCamp(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
-                                                                                    // 같이
-        // 넘겨준다.
+    public ResponseEntity<UserResultDto> updateCamp(@RequestBody UserDto userDto) {
         UserResultDto userResultDto = userService.userUpdateCamp(userDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
@@ -75,12 +75,9 @@ public class UserController {
     }
 
     // 가입 시 mbti
-    @PutMapping(value = "/user/mbti/{userMBTI}")
-    public ResponseEntity<UserResultDto> updateMBTI(@PathVariable String userMBTI) { // restapi를 이용해서 http 상태코드를 성공
-                                                                                     // 실패여부로
-                                                                                     // 같이
-        // 넘겨준다.
-        UserResultDto userResultDto = userService.userUpdateMBTI(userMBTI);
+    @PutMapping(value = "/user/mbti")
+    public ResponseEntity<UserResultDto> updateMBTI(@RequestBody UserDto userDto) {
+        UserResultDto userResultDto = userService.userUpdateMBTI(userDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
         } else {
@@ -88,20 +85,29 @@ public class UserController {
         }
     }
 
-    // 가입 시 이미지 등록
+    // 이미지 업로드 테스트
     // @PutMapping(value = "/user/image")
-    // public ResponseEntity<UserResultDto> updateImage(@RequestBody UserDto
-    // userDto) { // restapi를 이용해서 http 상태코드를 성공
-    // // 실패여부로 같이
-    // // 넘겨준다.
-    // UserResultDto userResultDto = userService.userUpdateProfileImage(userDto);
-    // if (userResultDto.getResult() == SUCCESS) {
-    // return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<UserResultDto>(userResultDto,
-    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // public String updateImage(@RequestParam("userProfileImage") MultipartFile
+    // multipartFile) {
+    // System.out.println(multipartFile.getOriginalFilename());
+    // String result = userService.userUpdateProfileImage(multipartFile);
+    // return result;
     // }
-    // }
+
+    // 가입 시 이미지 등록
+    @PutMapping(value = "/user/image/{userEmail}")
+    public ResponseEntity<UserResultDto> updateImage(@PathVariable String userEmail,
+            @RequestParam("userProfileImage") MultipartFile multipartFile) {
+        System.out.println(multipartFile.getOriginalFilename());
+        UserResultDto userResultDto = userService.userUpdateProfileImage(userEmail,
+                multipartFile);
+        if (userResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<UserResultDto>(userResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // userEmail에 해당하는 user 탈퇴
     @DeleteMapping(value = "/user/{userEmail}")

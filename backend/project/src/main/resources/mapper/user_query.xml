@@ -4,9 +4,10 @@
 
     <!-- 회원가입 -->
     <!-- campStyle, campEquip -> default Null -->
+    <!-- userProfileImage 제외 -->
     <insert id="userInsert" parameterType="com.ssafy.project.dto.UserDto">
-        INSERT INTO user(userEmail, userPassword, userName, userProfileImage, userLocation, userAge, userGender, userNickname, userMBTI)
-            VALUES( #{userEmail}, #{userPassword}, #{userName}, #{userProfileImage}, #{userLocation}, #{userAge}, #{userGender}, #{userNickname}, #{userMBTI} );
+        INSERT INTO user(userEmail, userPassword, userName, userLocation, userAge, userGender, userNickname, userMBTI)
+            VALUES( #{userEmail}, #{userPassword}, #{userName}, #{userLocation}, #{userAge}, #{userGender}, #{userNickname}, #{userMBTI} );
         INSERT INTO campStyle(userNo, campStyle1, campStyle2, campStyle3, campStyle4, campStyle5, campStyle6)
             VALUES ( (SELECT userNo FROM user WHERE userEmail = #{userEmail}), #{campStyle1}, #{campStyle2}, #{campStyle3}, #{campStyle4}, #{campStyle5}, #{campStyle6} );
         INSERT INTO campEquip(userNo, campEquipTent, campEquipSleepingbag, campEquipBurner, campEquipBrazier, campEquipTableChair, campEquipPot, campEquipLantern, campEquipReel, campEquipIcebox, campEquipTarp, campEquipEtc1, campEquipEtc2, campEquipEtc3, campEquipEtc4, campEquipEtc5)
@@ -31,7 +32,7 @@
     <!-- 유저 정보 업데이트 -->
     <update id="userUpdate" parameterType="com.ssafy.project.dto.UserDto">
         UPDATE user u, campStyle s, campEquip e
-        SET u.userProfileImage = #{userProfileImage}, u.userLocation = #{userLocation}, u.userAge = #{userAge}, u.userGender = #{userGender}, u.userNickname = #{userNickname}, u.userMBTI = #{userMBTI},
+        SET u.userLocation = #{userLocation}, u.userAge = #{userAge}, u.userGender = #{userGender}, u.userNickname = #{userNickname}, u.userMBTI = #{userMBTI},
             s.campStyle1 = #{campStyle1}, s.campStyle2 = #{campStyle2}, s.campStyle3 = #{campStyle3}, s.campStyle4 = #{campStyle4}, s.campStyle5 = #{campStyle5}, s.campStyle6 = #{campStyle6},
                 e.campEquipTent = #{campEquipTent}, e.campEquipSleepingbag = #{campEquipSleepingbag}, e.campEquipBurner = #{campEquipBurner}, e.campEquipBrazier = #{campEquipBrazier}, e.campEquipTableChair = #{campEquipTableChair},
                 e.campEquipPot = #{campEquipPot}, e.campEquipLantern = #{campEquipLantern}, e.campEquipReel = #{campEquipReel}, e.campEquipIcebox = #{campEquipIcebox}, e.campEquipTarp = #{campEquipTarp},
@@ -54,18 +55,18 @@
     </update>
 
     <!-- 가입 시 mbti -->
-    <update id="userUpdateMBTI" parameterType="String">
+    <update id="userUpdateMBTI" parameterType="com.ssafy.project.dto.UserDto">
         UPDATE user u
         SET u.userMBTI = #{userMBTI}
         WHERE u.userEmail = #{userEmail};
     </update>
 
-    <!-- 가입 시 이미지 등록 -->
-    <!-- <update id="userUpdateProfileImage" parameterType="String">
+    <!-- 유저 이미지 등록 -->
+    <update id="userUpdateProfileImage" parameterType="com.ssafy.project.dto.UserDto">
         UPDATE user u
         SET u.userProfileImage = #{userProfileImage}
         WHERE u.userEmail = #{userEmail};
-    </update> -->
+    </update>
 
     <!-- 유저 정보 삭제 -->
     <delete id="userDelete" parameterType="String">
