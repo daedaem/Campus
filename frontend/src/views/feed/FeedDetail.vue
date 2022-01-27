@@ -1,5 +1,5 @@
 <template>
-  <div class="Detail">
+  <div class="FeedDetail">
     <div
       class="FeedDetailTotal d-flex justify-content-center align-items-center"
     >
