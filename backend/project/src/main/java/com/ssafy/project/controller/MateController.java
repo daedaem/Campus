@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 		methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
 				RequestMethod.HEAD, RequestMethod.OPTIONS}
 		)
+// @CrossOrigin(
+//     origins = "http://localhost:5500") 
 
 @RestController
 public class MateController {

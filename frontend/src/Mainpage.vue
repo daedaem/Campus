@@ -1,7 +1,7 @@
 <template>
   <body>
-    <div class="box">
-      <img width="768" height="384" src="@/assets/images/bonfire-gab201fb38_1920.jpg" alt="">
+    <div class="box" style="width:100%; height:100vh;">
+      <img width="100%" height="100%" src="@/assets/images/bonfire-gab201fb38_1920.jpg" alt="">
       <div class="overlay"> 
         <div>오른쪽으로 스와이프</div>  
           <a class="btn btn-lg" href="#">
@@ -10,41 +10,79 @@
       </div>
     </div>
     <div class="filterbox">
-      <div style="float:left; margin-left:20px; margin-top:50px;">지금 뜨는 메이트 모집</div>
+      <div style="float:left; margin-left:20px; margin-top:50px; margin-bottom:30px;">지금 뜨는 메이트 모집</div>
       <div style="float:right; margin-right:20px; margin-top:50px;">전체보기</div>
     </div>
     <Maincarousel/>
+    
+    
+  
+  
   </body>
 </template>
 
 <script>
 import Maincarousel from '@/components/mateparty/Maincarousel.vue'
+import axios from 'axios'
+// import {useStore} from 'vuex'
 
 export default {
   name : 'Mainpage',
   components : {
     Maincarousel
-}
+  },
+// const changeName = e => store.dispatch('person/changeName', e.target.value); /
+  setup() { 
+    // const store = useStore()
+
+    axios({
+      methods: 'get',
+      url : 'http://localhost:8080/mate',
+    })
+    .then(res => {
+      console.log(res.data.list)
+      const data = res.data.list
+    
+      this.$store.dispatch('viewMate',data)
+    })
+
+    .catch(err =>{
+      console.log(err)
+    })
+  
+    return {
+      
+    }
+  }
 
 }
 </script>
 
 <style scoped>
 body {
-  width: 768px;
-  margin: 0 auto;
+  /* width: 100vw;
+  height: 100vh; */
+  /* margin: 0 auto; */
   /* padding: 0 20px; */
-  background: beige;
+  /* background: beige; */
 }
 
+p {
+  line-height: 6px;
+}
 .box {
   position : relative;
 }
 
 .overlay {
   position: absolute;
-  top: 50%;
-  left: 20%;
+  /* display: flex;
+  height : 100vh;
+  justify-content: center;
+  align-items: center; */
+ top: 50%;
+	left: 50%;
+	transform: translate( -50%, -50% );
   padding: 5px;
   color : white;
   font-size : 50px;
@@ -106,6 +144,9 @@ body {
 .filterbox{
   overflow: hidden;
 }
+
+
+
 
 
 </style>
