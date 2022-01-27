@@ -1,9 +1,8 @@
 <template>
-  <div class="FeedDetail">
+  <div class="Detail">
     <div
       class="FeedDetailTotal d-flex justify-content-center align-items-center"
     >
-      dddd
       <div class="FeedDetailTotalFrame">
         <div
           class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
