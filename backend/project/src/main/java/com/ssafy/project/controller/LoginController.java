@@ -43,7 +43,7 @@ public class LoginController {
     }
 
     // login 성공 -> session에 등록
-    @PostMapping(value = "/login") // post 방식으로 들어옴
+    @PostMapping(value = "/login")
     public ResponseEntity<UserDto> login(@RequestBody UserDto dto, HttpSession session) {
         UserDto userDto = loginService.login(dto);
         System.out.println(userDto);
@@ -55,19 +55,21 @@ public class LoginController {
         }
     }
 
+    // 카카오 로그인 요청
     @GetMapping(value = "/login/kakao/oauth")
     public String kakaoConnect() {
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "f7e4963d83bf571c5cdbf7870045979d");
-        // url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
-        url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
+        url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
+        // url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
         url.append("&response_type=code");
 
         System.out.println("kakao login");
         return "redirect:" + url.toString();
     }
 
+    // 카카오 로그인 callback -> 유저 정보를 불러온다
     @RequestMapping(value = "/login/kakao/callback", produces = "application/json", method = { RequestMethod.GET,
             RequestMethod.POST })
     public ResponseEntity<UserDto> kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra,
@@ -145,11 +147,14 @@ public class LoginController {
         }
     }
 
-    // @RequestMapping(value = "/logout")
-    // public String logout(HttpSession session) {
+    // 로그아웃 리턴?
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("userDto");
+        return "redirect:/";
+    }
 
-    // }
-
+    // 카카오 로그아웃 리턴?
     @RequestMapping(value = "/logout/kakao")
     public String logoutKakao(HttpSession session) {
         String access_token = (String) session.getAttribute("access_token");
