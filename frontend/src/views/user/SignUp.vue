@@ -3,134 +3,139 @@
 		<div class="wrap-contact3">
 			<h1 class="contact3-form-title">회원가입</h1>
 			<!-- input만들기 -->
-			<b-col>			
-				<b-row>
-					<b-col>
-						<b-form-group>
-							<label style="float:left"
-							>이메일</label>
-							<b-form-input
-								type="email"
-								style="width:50%; float: left"
-								placeholder="이메일을 입력하세요"
-								v-model="credentials.email"
-								required
-								@keypress.enter="check_user_email"
-								autofocus
-								@blur="emailValid">
-							</b-form-input>
-							
-							<b-button
-								@click="check_user_email"
-								>인증</b-button>
-							<div v-if="!emailValidFlag">
-								유효하지 않은 이메일 입니다.
-							</div>
-						</b-form-group>
-					</b-col>
-				</b-row>
-
-				<!-- 이메일 인증번호 확인 -->
-				<b-row>
-					<b-col>
-						<b-form-group>
-							<label style="float:left"
-							>인증번호</label>
-							<b-form-input
-							type="text"
-							style="width:50%; float: left"
-							placeholder="인증번호를 입력하세요"
-							v-model="emailCode"
-							autofocus
-							@keypress.enter="check_user_emailCode">
-							</b-form-input>
-							<b-button
-							@click="check_user_emailCode"
-							>확인</b-button>
-						</b-form-group>
-					</b-col>
-				</b-row>
-
-				<!-- 닉네임 중복확인 -->
-				<b-row>
-					<b-col>
-						<b-form-group>
-							<label style="float:left"
-							>닉네임</label>
-							<b-form-input
-							type="text"
-							style="width:50%; float: left"
-							placeholder="닉네임을 입력하세요"
-							v-model="credentials.nickname"
-							autofocus>
-							</b-form-input>
-							<b-button
-								@click="check_user_nickname"
-							>중복확인</b-button>
-						</b-form-group>
-					</b-col>
-				</b-row>
-
-				<!-- 비밀번호 -->
-				<b-row>
-					<b-col>
-						<b-form-group>
-							<label style="float:left"
-							>비밀번호</label>
-							<b-form-input
-							type="password"
-							style="width:50%; float: left"
-							placeholder='비밀번호를 입력하세요'
-							v-model="credentials.password"
-							@keypress.enter="onSubmit()"
-							autofocus
-							@blur="passwordValid"
-							>
-							</b-form-input>
-							<!-- 대문자/소문자/숫자가 1개이상 존재하고 8-16자리 -->
-							<div v-if="!passwordValidFlag">
-								유효하지 않은 비밀번호 입니다.
-							</div>
-						</b-form-group>
-					</b-col>
-				</b-row>
-
-				<!-- 비밀번호 확인 -->
-				<b-row>
-					<b-col>
-						<b-form-group>
-							<label style="float:left"
-							>비밀번호 확인</label>
-							<b-form-input
-							type="password"
-							style="width:50%; float: left"
-							placeholder="비밀번호를 한번 더 입력하세요"
-							v-model="credentials.password_confirmation"
-							@keypress.enter="onSubmit()"
-							autofocus
-							@blur="passwordCheckValid"
-							>
-							</b-form-input>
-							<div v-if="!passwordCheckFlag">
-								비밀번호가 다릅니다.
-							</div>
-						</b-form-group>
-					</b-col>
-				</b-row>
-			</b-col>
-
-
 			
+			<!-- 이메일 입력 -->
+			<div class="email-container">
+				<h6 align="left">
+					이메일
+				</h6>
+				<div class="form-group">
+					<b-form-input
+						type="email"
+						style="width:50%; float: left"
+						placeholder="이메일을 입력하세요"
+						v-model="credentials.email"
+						required
+						@keypress.enter="check_user_email"
+						autofocus
+						@blur="emailValid">
+					</b-form-input>
+					
+					<b-button
+						@click="check_user_email"
+						>인증</b-button>
+				</div>
+				<div align="left" v-if="!emailValidFlag" class="check-form">
+					유효하지 않은 이메일 입니다.
+				</div>
+			</div>
 
-			<label>
+			<!-- 인증번호 입력 -->
+			<div class="emailcode-container mt-2">
+				<h6 align="left">
+					인증번호
+				</h6>
+				<div class="form-group">
+					<b-form-input
+						type="text"
+						style="width:50%; float: left"
+						placeholder="인증번호를 입력하세요"
+						v-model="emailCode"
+						autofocus
+						@keypress.enter="check_user_emailCode">
+					</b-form-input>
+					<b-button
+					@click="check_user_emailCode"
+					>확인</b-button>
+				</div>
+				<div align="left">
+				</div>
+			</div>
+
+			<!-- 닉네임 입력 -->
+			<div class="nickname-container mt-2">
+				<h6 align="left">
+					닉네임
+				</h6>
+				<div class="form-group">
+					<b-form-input
+						type="text"
+						style="width:50%; float: left"
+						placeholder="닉네임을 입력하세요"
+						v-model="credentials.nickname"
+						autofocus
+						@blur="nicknameValid">
+					</b-form-input>
+					<b-button
+						@click="check_user_nickname"
+					>중복확인</b-button>
+				</div>
+				<div align="left" v-if="!nicknameValidFlag" class="check-form">
+					특수문자를 사용할 수 없습니다.
+				</div>
+			</div>
+
+			<!-- 비밀번호 입력 -->
+			<div class="password-container mt-2">
+				<h6 align="left">
+					비밀번호
+				</h6>
+				<div class="form-group">
+					<b-form-input
+						type="password"
+						style="width:50%; float: left"
+						placeholder='비밀번호를 입력하세요'
+						v-model="credentials.password"
+						@keypress.enter="onSubmit()"
+						autofocus
+						@blur="passwordValid"
+						>
+					</b-form-input>
+				</div>
+				<!-- 대문자/소문자/숫자가 1개이상 존재하고 8-16자리 -->
+				<div align="left" v-if="!passwordValidFlag" class="check-form">
+					유효하지 않은 비밀번호 입니다.
+				</div>
+			</div>
+
+			<!-- 비밀번호 확인 -->
+			<div class="passwordconfirm-container mt-3">
+				<h6 align="left">
+					비밀번호확인
+				</h6>
+				<div class="form-group">
+					<b-form-input
+						type="password"
+						style="width:50%; float: left"
+						placeholder="비밀번호를 한번 더 입력하세요"
+						v-model="credentials.password_confirmation"
+						@keypress.enter="onSubmit()"
+						autofocus
+						@blur="passwordCheckValid"
+						>
+					</b-form-input>
+				</div>
+				<div align="left" v-if="!passwordCheckFlag" class="check-form">
+					비밀번호가 다릅니다.
+				</div>
+			</div>
+			
+			<!--  약관동의 -->
+			<div class="form-group mt-3" align="left">
 				<input type="checkbox" id="term" />
 				<span>약관을 동의합니다.</span>
-			</label>
-			<span>약관보기</span>
+				<span>약관보기</span>
+			</div>
+			
 
-			<div>
-				<b-button class="send-button" variant="success">가입하기</b-button>
-				
+			<!-- 가입 버튼 -->
+			<div class="d-flex justify-content-between mx-3 mt-3">
+				<b-button 
+					class="send-button" 
+					variant="success" 
+					@keypress.enter="onSubmit()">
+					가입하기
+				</b-button>		
 				<b-button variant="success"><router-link class="text-decoration-none text-white" to="addSign">추가정보입력</router-link></b-button>
 			</div>
 		</div>
@@ -171,6 +176,7 @@ export default {
 			emailValidFlag: true,
 			passwordValidFlag: true,
 			passwordCheckFlag: true,
+			nicknameValidFlag: true,
 
 			
 			emailCode: "",
@@ -191,7 +197,13 @@ export default {
 				this.emailValidFlag = false
 			}
 		},
-
+		nicknameValid() {
+			if (!/[~!@#$%^&*()_+|<>?:{}]/.test(this.credentials.nickname)) {
+				this.nicknameValidFlag = true
+			} else {
+				this.nicknameValidFlag = false
+			}
+		},
 		passwordValid() {
 			if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.credentials.password)) { 
 				this.passwordValidFlag = true 
@@ -324,7 +336,7 @@ export default {
   color: #fff;
   line-height: 1.2;
   text-align: center;
-  padding-bottom: 70px;
+  padding-bottom: 30px;
 }
 
 .filterbox1 {
@@ -343,6 +355,15 @@ export default {
   color: #fff;
   line-height: 1.5;
   padding: 0 5px;
+}
+
+.form-group {
+	position: relative;
+	overflow: hidden;
+}
+
+.check-form {
+	color: red;
 }
 
 </style>
