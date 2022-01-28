@@ -3,21 +3,22 @@
 		<div class="wrap-contact3">
 			<h1>추가정보입력</h1>
 
-
-      <div class="w-32 h-32 border-2 border-dotted border-blue-500">
-				<div>
-					<form align="left" class="filterbox1" method="post" enctype="multipart/form-data">
-						<div>
-							<label for="chooseFile">
-								Click
-							</label>
-						</div>
-					<input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
-					</form>
-					<img :src="image" alt="" class="">
-				</div>
-			</div>
-      <br>
+      <div class="item-box">
+        <div class="w-32 h-32 border-2 border-dotted border-blue-500">
+          <div>
+            <form align="left" class="filterbox1" method="post" enctype="multipart/form-data">
+              <div>
+                <label for="chooseFile">
+                  Click
+                </label>
+              </div>
+            <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
+            </form>
+            <img :src="image" alt="" class="">
+          </div>
+        </div>
+        <br>
+      </div>
 
       <div class="item-box">
         <div class="d-flex">
@@ -91,9 +92,28 @@
         <EquipInput/>
         <EquipList/>
       </div>
-      <div class="item-box mt-3">
+      <div class="item-box2 mt-3">
         <style_Dropdown/>
+        
       </div>
+      
+
+      <!-- Modal -->
+      <div>
+        <button type="button" class="btn btn-primary launch filterbox1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 설문조사
+        </button>
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body ">
+                      <Survey @date-check="dateCheck"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
       <br>
       <button class="btn-success">제출완료</button>
 		</div>
@@ -104,9 +124,8 @@
 import Items from '@/components/user/Items.vue'
 import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
-// import area_Dropdown from '../../components/user/area_Dropdown.vue'
-// import age_Dropdown from '../../components/user/age_Dropdown.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
+import Survey from '@/components/user/Survey.vue'
 
 export default {
 	name: 'addSign',
@@ -114,9 +133,8 @@ export default {
 		Items,
 		EquipInput,
 		EquipList,
-    // area_Dropdown,
-		// age_Dropdown,
     style_Dropdown,
+    Survey
 	},
   data: function () {
     return {
@@ -232,6 +250,16 @@ body {
   border-radius: 45px;
   padding: 20px;
   width: 100%;
+}
+
+
+.item-box2 {
+  border-style: solid;
+  border-color: rgb(204, 123, 123);
+  border-radius: 45px;
+  padding: 20px;
+  width: 100%;
+  height:300px;
 }
 
 .filterbox1 {
