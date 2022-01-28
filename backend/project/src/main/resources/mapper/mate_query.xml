@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.project.dao.MateDao">
+
+<!-- 게시물 등록과 파일 첨부 -->
+<insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
+    insert into mate(mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle, mateCampstart,
+                        mateCampend, userNo, fileId, fileName, fileSize, fileContentType, fileUrlm , mateCamptype )
+                    values(#{mateTitle}, #{mateCampsite}, #{lowestAge}, #{highestAge}, #{mateContent}, 
+                        #{mateCampstyle}, #{mateCampstart}, #{mateCampend}, #{userNo},
+                         #{fileId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl}, #{mateCamptype} )
+</insert>
+
+<!-- 모든 게시물 조회 -->
+<select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
+    select mateNo, mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle,
+        mateCampstart, mateCampend, userNo, mateCreateTime, mateUpdateTime, fileId, fileName, fileSize, fileContentType, fileUrl, mateCamptype
+        from mate
+        order by mateNo desc;
+</select>
+
+<!-- 게시물 삭제 -->
+<delete id="mateDelete" parameterType="int">
+    delete from mate where mateNo = #{mateNo}
+</delete>
+
+<select id="mateFileUrlDeleteList" parameterType="int" resultType="string">
+    select fileUrl from mate where mateNo = #{mateNo}
+</select>
+
+<select id="mateListTotalCount" resultType="int">
+    select count(*) from mate
+</select>
+
+
+
+</mapper>
