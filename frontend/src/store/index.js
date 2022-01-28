@@ -1,11 +1,13 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
+  plugins: [createPersistedState()],
+
   state: {
     equipLists: [],
     mateList: [],
-    isUser: false,
     uploadimages: "",
     feeddetailnum: 0,
     isLogin: localStorage.getItem("jwt") ? true : false,

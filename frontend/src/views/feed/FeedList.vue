@@ -43,6 +43,19 @@ export default {
   //   console.log(this.feeds)
   // }
 };
+
+// let pagNum = 0
+// 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
+// document.addEventListener("scroll", () => {
+//   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+//   if (scrollHeight - Math.round(scrollTop) === clientHeight) {
+//     axios({
+//       method: 'get',
+//       url:`/feed/?page=${pageNum}`,
+//     })
+//     }
+//   }
+// });
 </script>
 
 <style scoped>
