@@ -25,8 +25,8 @@ public class LikeServiceImpl implements LikeService{
     }
 
     @Override
-    public List<SnsDto> likeList(int snsNo) {
-        return dao.likeList(snsNo);
+    public List<SnsDto> likeList(int userNo) {
+        return dao.likeList(userNo);
     }
 
     @Override

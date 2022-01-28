@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 import com.ssafy.project.dto.LikeDto;
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
 import com.ssafy.project.dto.SnsReplyResultDto;
 import com.ssafy.project.dto.SnsResultDto;
+import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.LikeService;
 import com.ssafy.project.service.SnsReplyService;
 import com.ssafy.project.service.SnsService;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -67,13 +71,13 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
-
-    @PostMapping(value="/sns") // 등록
+    // sns 글 등록
+    @PostMapping(value="/sns")
     private ResponseEntity<SnsResultDto> snsInsert(SnsDto snsDto, MultipartHttpServletRequest request){
 
-        //HttpSession session = request.getSession();
+        // HttpSession session = request.getSession();
 
-        //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
 
         SnsResultDto snsResultDto = snsService.snsInsert(snsDto, request);
 
@@ -83,8 +87,8 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
-
-    @PostMapping(value="/sns/{snsNo}") // 수정
+    // 글 수정
+    @PostMapping(value="/sns/{snsNo}")
     private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto, MultipartHttpServletRequest request){
 
         //HttpSession session = request.getSession();
@@ -99,7 +103,7 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
-
+    // sns글 삭제
     @DeleteMapping(value="/sns/{snsNo}")
     private ResponseEntity<SnsResultDto> snsDelete(@PathVariable(value="snsNo") int snsNo){
         SnsResultDto snsResultDto = snsService.snsDelete(snsNo);
@@ -141,45 +145,45 @@ public class SnsController {
         }
     }
     
-    // sns 댓글 입력
-    // @PostMapping(value="/sns/reply")
-    // public ResponseEntity<SnsReplyResultDto> snsReplyInsert(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
+    //sns 댓글 입력
+    @PostMapping(value="/sns/reply")
+    public ResponseEntity<SnsReplyResultDto> snsReplyInsert(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
         
-    //     //UserDto userDto = (UserDto) session.getAttribute("userDto");
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-    //     snsReplyDto.setUserNo(userDto.getUserNo());
+        snsReplyDto.setUserNo(userDto.getUserNo());
 
-    //     SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
 
-    //     if(snsReplyResultDto.getResult() == SUCCESS){
-    //         return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
-    //     }else{
-    //         return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
-    //     }
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
 
-    // }
-    // // sns 댓글 수정
-    // @PutMapping(value="/sns/reply")
-    // public ResponseEntity<SnsReplyResultDto> snsReplyUpdate(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
+    }
+    // sns 댓글 수정
+    @PutMapping(value="/sns/reply")
+    public ResponseEntity<SnsReplyResultDto> snsReplyUpdate(@RequestBody SnsReplyDto snsReplyDto, HttpSession session){
         
-    //     //UserDto userDto = (UserDto) session.getAttribute("userDto");
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-    //     snsReplyDto.setUserNo(userDto.getUserNo());
+        snsReplyDto.setUserNo(userDto.getUserNo());
 
-    //     SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyUpdate(snsReplyDto);
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyUpdate(snsReplyDto);
 
-    //     if(snsReplyResultDto.getResult() == SUCCESS){
-    //         return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
-    //     }else{
-    //         return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
-    //     }
+        if(snsReplyResultDto.getResult() == SUCCESS){
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.INTERNAL_SERVER_ERROR);// 에러
+        }
 
-    // }
-
+    }
+    // 댓글 삭제
     @DeleteMapping(value="/sns/reply/{snsReplyNo}")
     public ResponseEntity<SnsReplyResultDto> snsReplyDelete(@PathVariable(value="snsNo") int snsReplyNo){
         
-        SnsReplyResultDto snsReplyResultDto = snsReplyService.SnsReplyDelete(snsReplyNo);
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyDelete(snsReplyNo);
 
         if(snsReplyResultDto.getResult() == SUCCESS){
             return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
@@ -189,20 +193,38 @@ public class SnsController {
 
     }
 
-    
-    @PostMapping(value = "/sns/like/{snsNo}")
-    public ResponseEntity<Integer> likeInsert(int snsNo, int userNo){
+    // 좋아요 입력
+    @PostMapping(value = "/sns/like/{snsNo}/{userNo}")
+    public ResponseEntity<Integer> likeInsert(@PathVariable int snsNo,@PathVariable int userNo){
         if(likeService.likeInsert(snsNo, userNo) == SUCCESS){
             return new ResponseEntity<Integer>(SUCCESS, HttpStatus.OK);
         }else{
             return new ResponseEntity<Integer>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @GetMapping(value = "/sns/like/{snsNo}")
-    public ResponseEntity<LikeDto> likeList(@PathVariable int snsNo){
+    
+    // 좋아요 삭제
+    @DeleteMapping(value = "/sns/like/{snsNo}/{userNo}")
+    public ResponseEntity<Integer> likeDelete(@PathVariable int snsNo,@PathVariable int userNo){
+        if(likeService.likeDelete(snsNo, userNo) == SUCCESS){
+            return new ResponseEntity<Integer>(SUCCESS, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Integer>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    // 좋아요 리스트 -> 글 목록에서 좋아요 확인용
+    @GetMapping(value = "/sns/like/{userNo}")
+    public ResponseEntity<LikeDto> likeList(@PathVariable int userNo){
         LikeDto like = new LikeDto();
-        like.setLike(likeService.likeList(snsNo));
+        like.setLike(likeService.likeList(userNo));
+        return new ResponseEntity<LikeDto>(like, HttpStatus.OK);
+    }
+
+    // 좋아요 수 표현
+    @GetMapping(value = "/sns/likecount/{snsNo}")
+    public ResponseEntity<LikeDto> likeCount(@PathVariable int snsNo) {
+        LikeDto like = new LikeDto();
+        like.setLikeCount(likeService.likeCount(snsNo));
         return new ResponseEntity<LikeDto>(like, HttpStatus.OK);
     }
     
