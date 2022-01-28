@@ -72,7 +72,7 @@ public class SnsController {
         }
     }
     // sns 글 등록
-    @PostMapping(value="/sns")
+    @PostMapping(value="/sns/create")
     private ResponseEntity<SnsResultDto> snsInsert(SnsDto snsDto, MultipartHttpServletRequest request){
 
         // HttpSession session = request.getSession();
@@ -82,6 +82,7 @@ public class SnsController {
         SnsResultDto snsResultDto = snsService.snsInsert(snsDto, request);
 
         if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
         }else{
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
@@ -134,9 +135,9 @@ public class SnsController {
 
     // sns 댓글 리스트 생성
     @GetMapping(value="/sns/reply/{snsNo}")
-    public ResponseEntity<SnsReplyResultDto> snsReplyList(@PathVariable int snsReplyNo){
+    public ResponseEntity<SnsReplyResultDto> snsReplyList(@PathVariable int snsNo){
         
-        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyList(snsReplyNo);
+        SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyList(snsNo);
 
         if(snsReplyResultDto.getResult() == SUCCESS){
             return new ResponseEntity<SnsReplyResultDto>(snsReplyResultDto, HttpStatus.OK);// 성공
@@ -181,7 +182,7 @@ public class SnsController {
     }
     // 댓글 삭제
     @DeleteMapping(value="/sns/reply/{snsReplyNo}")
-    public ResponseEntity<SnsReplyResultDto> snsReplyDelete(@PathVariable(value="snsNo") int snsReplyNo){
+    public ResponseEntity<SnsReplyResultDto> snsReplyDelete(@PathVariable int snsReplyNo){
         
         SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyDelete(snsReplyNo);
 
