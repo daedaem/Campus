@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.CampRateDao">
+
+    <select id="campRateList" parameterType="String" resultType="com.ssafy.project.dto.CampRateDto">
+        SELECT c.campRateNo, c.contentId, c.campRateCleanliness, c.campRatePrice, c.campRateFacility, c.userNo, c.campRateContent,
+                c.campRateCreateTime, c.campRateUpdateTime, c.campRateTitle, u.userNickname
+        FROM campRate c, user u
+        WHERE c.userNo = u.userNo
+        AND contentId = #{contentId};
+    </select>
+
+    <select id="campRateListTotalCount" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM campRate
+        WHERE contentId = #{contentId};
+    </select>
+
+    <select id="campRateDetail" parameterType="int" resultType="com.ssafy.project.dto.CampRateDto">
+        SELECT c.campRateNo, c.contentId, c.campRateCleanliness, c.campRatePrice, c.campRateFacility, c.userNo, c.campRateContent,
+                c.campRateCreateTime, c.campRateUpdateTime, c.campRateTitle, u.userNickname
+        FROM campRate c, user u
+        WHERE c.userNo = u.userNo
+        AND campRateNo = #{campRateNo};
+    </select>
+
+    <insert id="campRateInsert" parameterType="com.ssafy.project.dto.CampRateDto">
+        INSERT INTO campRate(contentId, campRateCleanliness, campRatePrice, campRateFacility, userNo, campRateContent, campRateTitle)
+            VALUES( #{contentId}, #{campRateCleanliness}, #{campRatePrice}, #{campRateFacility}, #{userNo}, #{campRateContent}, #{campRateTitle} );
+    </insert>
+
+    <update id="campRateUpdate" parameterType="com.ssafy.project.dto.CampRateDto">
+        UPDATE campRate
+        SET campRateCleanliness = #{campRateCleanliness}, campRatePrice = #{campRatePrice}, campRateFacility = #{campRateFacility},
+            campRateContent = #{campRateContent}, campRateUpdateTime = CURRENT_TIMESTAMP(), campRateTitle = #{campRateTitle}
+        WHERE campRateNo = #{campRateNo};
+    </update>
+
+    <delete id="campRateDelete" parameterType="int">
+        DELETE FROM campRate
+        WHERE campRateNo = #{campRateNo};
+    </delete>
+
+</mapper>
