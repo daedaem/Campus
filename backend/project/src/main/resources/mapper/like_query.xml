@@ -17,8 +17,8 @@
         WHERE snsNo = #{snsNo}
     </select>
 
-    <select id="likeList" parameterType="int" resultType="com.ssafy.project.dto.LikeDto">
-        SELECT userNo
-        WHERE snsNo = #{snsNo}
+    <select id="likeList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT snsNo
+        WHERE userNo = #{userNo}
     </select>
 </mapper>

@@ -7,9 +7,9 @@ public interface SnsReplyService {
     
     public SnsReplyResultDto snsReplyList(int snsReplyNo);
     
-    public SnsReplyResultDto SnsReplyInsert(SnsReplyDto dto);
+    public SnsReplyResultDto snsReplyInsert(SnsReplyDto dto);
     
-    public SnsReplyResultDto SnsReplyDelete(int snsReplyNo);
+    public SnsReplyResultDto snsReplyDelete(int snsReplyNo);
     
-    public SnsReplyResultDto SnsReplyUpdate(SnsReplyDto dto);
+    public SnsReplyResultDto snsReplyUpdate(SnsReplyDto dto);
 }

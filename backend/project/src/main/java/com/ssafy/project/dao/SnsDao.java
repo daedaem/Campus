@@ -32,6 +32,7 @@ public interface SnsDao {
         @Param("userNo") int userNo
     );
     public int snsLikeDelete(int snsNo, int userNo);
+    public List<SnsDto> likeList(int userNo);
 
     public SnsDto snsDetail(SnsParamDto snsParamDto);
 
