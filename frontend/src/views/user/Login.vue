@@ -1,168 +1,328 @@
-
-
 <template>
-  <div class="user" id="login">
-    <div class="wrapC">
-      <h1>
-        로그인을 하고 나면
-        <br />좋은 일만 있을 거예요.
-      </h1>
+  <div class="wrapC">
+    <div class="wrap-contact3">
+      <form class="contact3-form validate-form">
+        <h1 class="contact3-form-title">Camp-Us</h1>
+        <!-- 로그인 -->
+        <div class="login-header">
+          <!-- 이메일 -->
+          <div class="email-container">
+            <div align="left">
+              이메일
+            </div>
+            <div class="wrap-input3">
+              <input 
+              class="input3"
+              type="text"
+              placeholder="example@google.com"
+              v-model="credentials.email"
+              id="email"
+              @keypress.enter="login"
+              >
+            </div>
+          </div>
+          <!-- 패스워드 -->
+          <div class="password-container">
+            <div align="left">
+              패스워드
+            </div>
+            <div class="wrap-input3">
+              <input 
+              class="input3"
+              type="password"
+              placeholder="Password"
+              v-model="credentials.password"
+              id="password"
+              @keypress.enter="login"
+              >
+            </div>
+          </div>
 
-      <div class="input-with-label">
-        <input
-          v-model="email"
-          v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-          @keyup.enter="Login"
-          id="email"
-          placeholder="이메일을 입력하세요."
-          type="text"
-        />
-        <label for="email">이메일</label>
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
-      </div>
+          <!-- 로그인버튼 -->
+          <div class="container-contact3-form-btn">
+            <button 
+              class="login-button"
+              @click="login"
+              type="submit">
+              로그인
+            </button>
+          </div>
 
-      <div class="input-with-label">
-        <input
-          v-model="password"
-          type="password"
-          v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
-          id="password"
-          @keyup.enter="Login"
-          placeholder="비밀번호를 입력하세요."
-        />
-        <label for="password">비밀번호</label>
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-      </div>
-      <button
-        class="btn btn--back btn--login"
-        @click="onLogin"
-        :disabled="!isSubmit"
-        :class="{disabled : !isSubmit}"
-      >로그인</button>
+          <!-- 구글 로그인 -->
+          <div class="d-flex justify-content-between mx-3 mt-3">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <button @click="signout" align="left" class="btn-primary">로그아웃</button>
+          </div>
 
-      <div class="sns-login">
-        <div class="text">
-          <p>SNS 간편 로그인</p>
-          <div class="bar"></div>
-        </div>
+          <!-- 카카오 -->
+          <div class="d-flex justify-content-between mx-3 mt-3">
+            <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png" 
+              @click="kakaoLogin"
+              alt="">
+          </div>
+          
 
-        <kakaoLogin :component="component" />
-        <GoogleLogin :component="component" />
-      </div>
-      <div class="add-option">
-        <div class="text">
-          <p>혹시</p>
-          <div class="bar"></div>
+
+          <!-- 회원가입 및 비밀번호 찾기 -->
+          <div class="d-flex justify-content-between mx-3 mt-3">
+            <button class="btn-primary" @click="moveToSignUp">회원가입</button>
+            <button class="btn-primary" @click="movetofindPw">비밀번호</button>
+          </div>
         </div>
-        <div class="wrap">
-          <p>비밀번호를 잊으셨나요?</p>
-        </div>
-        <div class="wrap">
-          <p>아직 회원이 아니신가요?</p>
-          <router-link to="/user/join" class="btn--text">가입하기</router-link>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-import "../../components/css/user.scss";
-import PV from "password-validator";
-import * as EmailValidator from "email-validator";
-import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
-import GoogleLogin from "../../components/user/snsLogin/Google.vue";
-import UserApi from "../../api/UserApi";
+import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
-  components: {
-    KakaoLogin,
-    GoogleLogin
-  },
-  created() {
-    this.component = this;
-
-    this.passwordSchema
-      .is()
-      .min(8)
-      .is()
-      .max(100)
-      .has()
-      .digits()
-      .has()
-      .letters();
-  },
-  watch: {
-    password: function(v) {
-      this.checkForm();
-    },
-    email: function(v) {
-      this.checkForm();
-    }
-  },
-  methods: {
-    checkForm() {
-      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
-        this.error.email = "이메일 형식이 아닙니다.";
-      else this.error.email = false;
-
-      if (
-        this.password.length >= 0 &&
-        !this.passwordSchema.validate(this.password)
-      )
-        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
-      else this.error.password = false;
-
-      let isSubmit = true;
-      Object.values(this.error).map(v => {
-        if (v) isSubmit = false;
-      });
-      this.isSubmit = isSubmit;
-    },
-    onLogin() {
-      if (this.isSubmit) {
-        let { email, password } = this;
-        let data = {
-          email,
-          password
-        };
-
-        //요청 후에는 버튼 비활성화
-        this.isSubmit = false;
-
-        UserApi.requestLogin(
-          data,
-          res => {
-            //통신을 통해 전달받은 값 콘솔에 출력
-            //console.log(res);
-
-            //요청이 끝나면 버튼 활성화
-            this.isSubmit = true;
-
-            this.$router.push("/main");
-          },
-          error => {
-            //요청이 끝나면 버튼 활성화
-            this.isSubmit = true;
-          }
-        );
-      }
-    }
-  },
+  name: "Login",
   data: () => {
     return {
-      email: "",
-      password: "",
-      passwordSchema: new PV(),
-      error: {
-        email: false,
-        passowrd: false
+      credentials: {
+        email: "",
+        password: "",
       },
-      isSubmit: false,
-      component: this
+      error_check_login: true,
+      googleUser: null,
+      value: "",
+      rules: {
+        required: (value) => !!value || "Required.",
+        lengthValid: (value) => (value && value.length >= 5 || "MIN 5 characters")
+      },
     };
+  },
+
+  // 구글 
+  mounted() {
+    window.addEventListener('google-oauth-library-load', this.renderSignInButton);
+  },
+  
+  methods: {
+    ...mapActions(["login"]),
+    login: function () {
+      axios({
+        method: "POST",
+        url: `${process.env.VUE_APP_URL}/accounts/api-token-auth/`,
+        data: this.credentials,
+      })
+        .then((res) => {
+          localStorage.setItem('jwt', res.data.token);
+          this.logIn();
+          this.$router.push({name: 'Home'})
+        })
+        .catch(() => {
+          alert('이메일과 비밀번호를 확인해주세요')
+        })
+    },
+
+    // 회원가입 이동
+    moveToSignUp: function () {
+      this.$router.push({ name: 'Signup'})
+    },
+
+    // 비밀번호 찾기
+    movetofindPw: function () {
+      this.$router.push({ name: 'findPw'})
+    },
+
+    // 구글
+    renderSignInButton() {
+      window.gapi.signin2.render('my-signin2', {
+        scope: 'profile email',
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: 'dark',
+        onsuccess: this.onSuccess,
+        onfailure: this.onFailure,
+      });
+    },
+    kakaoLogin() {
+        // console.log(window.Kakao);
+        window.Kakao.Auth.login({
+            scope : 'account_email, gender',
+            success: this.GetMe,
+        });
+    },
+    GetMe(authObj){
+        console.log(authObj);
+        window.Kakao.API.request({
+            url:'/v2/user/me',
+            success : res => {
+                const kakao_account = res.kakao_account;
+                const userInfo = {
+                    nickname : kakao_account.profile.nickname,
+                    email : kakao_account.email,
+                    password : '',
+                    account_type : 2,
+                }
+
+                  axios.post(`http://localhost:8080/account/kakao`,{
+                      email : userInfo.email,
+                      nickname : userInfo.nickname
+                  })
+                  .then(res => {
+                    console.log(res);
+                    console.log("데이터베이스에 회원 정보가 있음!");
+                  })
+                  .catch(err => {
+                      console.log(err);
+                    console.log("데이터베이스에 회원 정보가 없음!");
+                  })
+                console.log(userInfo);
+                alert("로그인 성공!");
+                this.$bvModal.hide("bv-modal-example");
+            },
+            fail : error => {
+                this.$router.push("/errorPage");
+                console.log(error);
+            }
+        })
+    },
+
+    onSuccess(googleUser) {
+      console.log(googleUser)
+      this.googleUser = googleUser.getBasicProfile();
+      this.$router.push({name: 'Home'})
+    },
+    onFailure(error) {
+      console.log(error)
+    },
+    
+    // 구글 로그아웃
+    signout() {
+      const authInst = window.gapi.auth2.getAuthInstance();
+      authInst.signOut().then(() => {
+        console.log('User Signed Out!!!')
+      });
+    }
+
   }
-};
+}
 </script>
 
+<style scoped>
+.test{ display:flex;
+  justify-content: center;
+align-items: center;
+margin-top: 1vh;
+}
 
+.google{ 
+  width: 200px;
+  height:40px;
+  background-color:#ffffff;
+  border:1px #a8a8a8 solid;
+  color:black;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  cursor:pointer; 
+}
+
+  
+.wrapC {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+  justify-content: top;
+  padding: 0 4vw;
+  min-height: 100vh;
+}
+
+  .wrap-contact3 {
+    width: 500px;
+    background: #80c64a;
+    background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
+    background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
+    background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
+    background: linear-gradient(45deg, #56ab2f, #a8e063);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 72px 55px 65px 55px;
+  }
+  .login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5vh;
+  padding: 0 15vw;
+  /* align-items: center; */
+  }
+
+  .contact3-form {
+    width: 100%;
+  }
+
+  .contact3-form-title {
+  display: block;
+  font-family: Poppins-Bold;
+  font-size: 39px;
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 70px;
+}
+
+.login-button {
+  width: 100%;
+  margin-top: 2vh;
+  background-color: white;
+  color: green;
+  border: 0.3vw solid;
+  border-color: green;
+  font-weight: bold;
+  font-size: 1vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  transition-duration: 0.5s;
+}
+input {
+	outline: none;
+	border: none;
+}
+
+.wrap-input3 {
+  width: 100%;
+  position: relative;
+  border-bottom: 2px solid rgba(255,255,255,0.24);
+  border-top: 2px solid #f3a90800;
+  margin-bottom: 27px;
+}
+
+.input3 {
+  display: block;
+  width: 100%;
+  background: transparent;
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.2;
+  padding: 0 5px;
+}
+
+.focus-input3 {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.validate-input {
+  position: relative;
+}
+
+.container-contact3-form-btn {
+  padding-top: 23px;
+}
+
+</style>

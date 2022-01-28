@@ -1,0 +1,114 @@
+<template>
+<div class="filterbox">
+  <button type="button" class="btn btn-secondary launch filterbox1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 날짜
+</button>
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ">
+              <Modal1 @date-check="dateCheck"/>
+            </div>
+        </div>
+    </div>
+</div>
+  <button type="button" class="btn btn-secondary launch filterbox1" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"> <i class="fa fa-info"></i> 유형
+</button>
+<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ">
+              <Modal2 @camp-check="campCheck"/>
+            </div>
+        </div>
+    </div>
+</div>
+  <button type="button" class="btn btn-secondary launch filterbox1" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"> <i class="fa fa-info"></i> 스타일
+</button>
+<div class="modal fade" id="staticBackdrop3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ">
+              <Modal3 @style-check="styleCheck"/>
+            </div>
+        </div>
+    </div>
+</div>
+  <button type="button" class="btn btn-secondary launch filterbox1" data-bs-toggle="modal" data-bs-target="#staticBackdrop4"> <i class="fa fa-info"></i> 정렬
+</button>
+<div class="modal fade" id="staticBackdrop4" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ">
+              <Modal4/>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</template>
+
+<script>
+import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
+import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
+import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
+import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
+import {ref} from 'vue'
+
+
+export default {
+  name : 'Filters',
+  components : {
+    Modal1,
+    Modal2,
+    Modal3,
+    Modal4,
+
+  },
+  setup() {
+    const allData = ref([])
+
+    const campCheck = (box) => {
+      console.log(box)
+      // allData.value.push(box)
+      // console.log(allData.value)
+    }
+    const styleCheck = (box2) => {
+      console.log(box2)
+    }
+    const dateCheck = (box3) => {
+      console.log(box3)
+    }
+
+
+    return {
+      campCheck,
+      styleCheck,
+      dateCheck,
+      allData,
+    }
+  }
+}
+</script>
+
+<style scoped>
+.filterbox {
+  overflow: hidden;
+}
+
+.filterbox1 {
+  float: left;
+  width: 100px;
+  height: 40px;
+  margin-left: 0px;
+} 
+
+.modal-content{
+   border-radius: 45px;
+}
+
+.modal-body {
+
+  border-radius: 45px;
+  background: linear-gradient(#3a7bd5, #3a6073);
+}
+</style>
