@@ -5,30 +5,23 @@
 
 <!-- 게시물 등록과 파일 첨부 -->
 <insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
-    insert into mate(mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle, mateCampstart,
-                        mateCampend, userNo, fileId, fileName, fileSize, fileContentType, fileUrlm , mateCamptype )
-                    values(#{mateTitle}, #{mateCampsite}, #{lowestAge}, #{highestAge}, #{mateContent}, 
-                        #{mateCampstyle}, #{mateCampstart}, #{mateCampend}, #{userNo},
-                         #{fileId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl}, #{mateCamptype} )
+    
 </insert>
 
 <!-- 모든 게시물 조회 -->
 <select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
-    select mateNo, mateCreateTime, mateUpdateTime, mateImageUrl, mateCampsite, mateCampstyle,
-        mateCamptype, mateCampstart, mateCampend, contentId, mateStatus, userNo, lowestAge, mateContent,
-        highestAge, mateTitle
-        from mate
-        order by mateNo desc;
+    select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
+        m.mateCamptype, m.mateCampstart, m.mateCampend, m.contentId, m.mateStatus, m.userNo, m.lowestAge, m.mateContent,
+        m.highestAge, m.mateTitle, u.userNickname
+        from mate m, user u
+        where m.userNo = u.userNo
+        order by m.mateNo desc;
 </select>
 
 <!-- 게시물 삭제 -->
 <delete id="mateDelete" parameterType="int">
     delete from mate where mateNo = #{mateNo}
 </delete>
-
-<select id="mateFileUrlDeleteList" parameterType="int" resultType="string">
-    select fileUrl from mate where mateNo = #{mateNo}
-</select>
 
 <select id="mateListTotalCount" resultType="int">
     select count(*) from mate

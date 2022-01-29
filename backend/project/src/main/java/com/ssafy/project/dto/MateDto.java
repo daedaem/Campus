@@ -17,6 +17,7 @@ public class MateDto {
     private Date mateCampstart;
     private Date mateCampend;
     private int userNo;
+    private String userNickName;
     private int contentId;
     private String mateStatus;
 
