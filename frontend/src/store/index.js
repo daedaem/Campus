@@ -1,7 +1,11 @@
 import { createStore } from "vuex";
 import axios from "axios";
+<<<<<<< HEAD
 import createPersistedState from 'vuex-persistedstate'
 
+=======
+import createPersistedState from "vuex-persistedstate";
+>>>>>>> f91720690837946d2f34154fe114edb37e84d72a
 
 export default createStore({
   plugins: [
@@ -186,7 +190,7 @@ export default createStore({
     deleteEquip: function ({ commit }, equipItem) {
       commit('DELETE_EQUIP', equipItem)
     },
-    login: function ({ commit }) {
+    logIn: function ({ commit }) {
       commit("LOGIN")
     },
     logout: function ({ commit }) {
@@ -194,7 +198,10 @@ export default createStore({
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
+<<<<<<< HEAD
      
+=======
+>>>>>>> f91720690837946d2f34154fe114edb37e84d72a
     },
     //mate
     viewMate({commit}, data) {

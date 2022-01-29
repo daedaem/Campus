@@ -54,6 +54,14 @@
             <button @click="signout" align="left" class="btn-primary">로그아웃</button>
           </div>
 
+          <!-- 카카오 -->
+          <div class="d-flex justify-content-between mx-3 mt-3">
+            <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png" 
+              @click="kakaoLogin"
+              alt="">
+          </div>
+          
+
 
           <!-- 회원가입 및 비밀번호 찾기 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
@@ -133,6 +141,49 @@ export default {
         onfailure: this.onFailure,
       });
     },
+    kakaoLogin() {
+        // console.log(window.Kakao);
+        window.Kakao.Auth.login({
+            scope : 'account_email, gender',
+            success: this.GetMe,
+        });
+    },
+    GetMe(authObj){
+        console.log(authObj);
+        window.Kakao.API.request({
+            url:'/v2/user/me',
+            success : res => {
+                const kakao_account = res.kakao_account;
+                const userInfo = {
+                    nickname : kakao_account.profile.nickname,
+                    email : kakao_account.email,
+                    password : '',
+                    account_type : 2,
+                }
+
+                  axios.post(`http://localhost:8080/account/kakao`,{
+                      email : userInfo.email,
+                      nickname : userInfo.nickname
+                  })
+                  .then(res => {
+                    console.log(res);
+                    console.log("데이터베이스에 회원 정보가 있음!");
+                  })
+                  .catch(err => {
+                      console.log(err);
+                    console.log("데이터베이스에 회원 정보가 없음!");
+                  })
+                console.log(userInfo);
+                alert("로그인 성공!");
+                this.$bvModal.hide("bv-modal-example");
+            },
+            fail : error => {
+                this.$router.push("/errorPage");
+                console.log(error);
+            }
+        })
+    },
+
     onSuccess(googleUser) {
       console.log(googleUser)
       this.googleUser = googleUser.getBasicProfile();
