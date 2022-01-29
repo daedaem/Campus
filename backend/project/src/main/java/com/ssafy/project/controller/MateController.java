@@ -29,6 +29,7 @@ public class MateController {
 
     private static final int SUCCESS = 1;
 
+    //메이트 리스트 띄우기
     @GetMapping(value = "/mate")
     private ResponseEntity<MateResultDto> mateList(MateParamDto mateParamDto) {
 
