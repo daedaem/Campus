@@ -14,8 +14,9 @@
 
 <!-- 모든 게시물 조회 -->
 <select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
-    select mateNo, mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle,
-        mateCampstart, mateCampend, userNo, mateCreateTime, mateUpdateTime, fileId, fileName, fileSize, fileContentType, fileUrl, mateCamptype
+    select mateNo, mateCreateTime, mateUpdateTime, mateImageUrl, mateCampsite, mateCampstyle,
+        mateCamptype, mateCampstart, mateCampend, contentId, mateStatus, userNo, lowestAge, mateContent,
+        highestAge, mateTitle
         from mate
         order by mateNo desc;
 </select>

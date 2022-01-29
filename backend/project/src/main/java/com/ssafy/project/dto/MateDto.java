@@ -17,15 +17,13 @@ public class MateDto {
     private Date mateCampstart;
     private Date mateCampend;
     private int userNo;
+    private int contentId;
+    private String mateStatus;
 
     private Date mateCreateTime;
     private Date mateUpdateTime;
 
-    private int fileId;
-    private String fileName;
-    private long fileSize;
-    private String fileContentType;
-	private String fileUrl;
+    private String mateImageUrl;
 
     
 }
