@@ -3,10 +3,19 @@
 
 
     <b-row :per-page="perPage" :current-page="currentPage"> 
-      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx" >
-        <b-card class="mb-5" :title="item.first_name" :img-src="item.imgurl" img-alt="Image" img-top>
-          <b-card-text>
-            {{item.last_name}}
+      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
+        
+        <b-card class="mb-5" :title="item.mateTitle" img-src='https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg' img-alt="Image" img-top>
+          <b-card-text >
+            <div align="left">
+              {{item.mateCampstyle}}
+            </div>
+            <div align="left">
+              {{item.mateCampsite}}
+            </div>
+            <div align="left">
+              {{item.userNo}}
+            </div>
           </b-card-text>
           <template #footer>
             <small class="text-muted">Last updated 3 mins ago</small>
@@ -32,61 +41,59 @@
 <script>
 
 
-const items = [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  }
-        ]
 export default {
+  props : {
+      matelists : Array,
+      filterlist : Array,
+    },
   name : 'Pagination',
   components : {
-
+    
   },
   data() {
     return {
-      items : items,
-      paginatedItems: items,
-      totalRows: items.length,
+      filterItems : this.filterlist,
+      items : this.matelists,
+      paginatedItems: '',
+      totalRows: this.matelists.length,
       perPage: 6,
       currentPage: 1,
-      pageNum : 3,
+  
 
     }
   },
   methods: {
+    
     paginate (page_size, page_number) {
-     
+        
         let itemsToParse = this.items
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
     },
     onPageChanged() {
-      console.log(this.currentPage)
+      
       this.paginate(this.perPage, this.currentPage - 1)
     },
 
   },
   mounted(){
-
-    this.paginate(this.perPage, 0)
+    
+    if (this.matelists) {
+      this.paginate(this.perPage, 0)
+    }
   },
-  computed: {
-    rows() {
-      return this.items.length
-    },
-    pageCount() {
-      let l = this.totalRows,
-        s = this.perPage;
-      return Math.floor(l / s);
-    },
 
+  
+  // computed: {
+  //   filterItems() {
+  //     return this.items.filter(item => )
+  //   }
 
-  },
+  // },
+  // filterSearch() {
+  //      return this.products
+  //                 .filter(product => product.topic.toLowerCase().match(this.search.toLowerCase()))
+  //                 .filter(product => product.price < checkbox.Value)
+  //   } 
 
 }
 </script>

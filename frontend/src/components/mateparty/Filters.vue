@@ -52,10 +52,11 @@ import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
 import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
-import {ref} from 'vue'
+import {ref,watch } from 'vue'
 
 
 export default {
+  emits : ['filter-data'],
   name : 'Filters',
   components : {
     Modal1,
@@ -64,20 +65,37 @@ export default {
     Modal4,
 
   },
-  setup() {
-    const allData = ref([])
+  
+  setup(props,{emit}) {
+
+    const allData = ref({
+      date : ref(null),
+      camp : ref(null),
+      style : ref(null),
+    })
+    // const endData = ref([])
 
     const campCheck = (box) => {
-      console.log(box)
-      // allData.value.push(box)
-      // console.log(allData.value)
+      allData.value.camp= box
+      
     }
     const styleCheck = (box2) => {
-      console.log(box2)
+      allData.value.camp= box2
+      
     }
     const dateCheck = (box3) => {
-      console.log(box3)
+      allData.value.date= box3
+     
     }
+
+  watch(
+  () => allData,
+  (state) => {
+    // console.log('deep', state.value)
+    emit('filter-data',state.value)
+  },
+  { deep: true }
+  )
 
 
     return {

@@ -13,6 +13,7 @@ import Matematch from "../views/matematch/Matematch.vue";
 import Mainpage from "../Mainpage.vue" 
 import findPw from "../views/user/FindPassword.vue";
 
+
 const routes = [
   {
     path: "/",
