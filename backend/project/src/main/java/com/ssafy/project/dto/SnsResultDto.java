@@ -9,6 +9,7 @@ public class SnsResultDto {
     private int result;
     private SnsDto dto;
     private List<SnsDto> list;
+    private List<SnsImageDto> imageList;
     //private 
     private int count;
 }
