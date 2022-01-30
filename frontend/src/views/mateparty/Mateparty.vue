@@ -1,43 +1,209 @@
 <template>
   <body>
     <h1>Mate party</h1>
-    <div class="filterbox">
-      <div class="filterbox1">1</div>
-      <div class="filterbox2">2</div>
-      <div class="filterbox3">3</div>
+    <Searchbar style="margin:20px 0;"/>
+    <Filters @filter-data="filterData"/>
+    <Newmodal/>
+    
+    <div>
+      <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;"  clcik="goMakeparty">글 작성</b-button></span>
     </div>
+    <Pagination v-if="matelists.length != 0" :matelists="matelists"/>    
+    <!-- {{matelists}} -->
+    
   </body>
 </template>
 
 <script>
+import Pagination from '../../components/mateparty/Pagination.vue'
+import Filters from '@/components/mateparty/Filters.vue'
+import Newmodal from '@/components/mateparty/Newmodal.vue'
+import Searchbar from '../../components/mateparty/Searchbar.vue'
+// import {mapState} from 'vuex'
+import router from "@/router";
+import { ref, } from 'vue'
+import { useStore } from 'vuex'
+// import {mapState} from 'vuex'
+// import axios from 'axios'
+
+
+
 export default {
-  name : 
+  props : {
+    filterlist : Array,
+  },
+  components: { 
+    Pagination,
+    Filters,
+    Newmodal,
+    Searchbar
+  },
+
+  name :
     'Mateparty'
   ,
+
+  setup() {
+    const store = useStore()
+    const goMakeparty = () => { router.push({name: 'Makeparty'})}
+    
+    const matelists =  ref(store.state.mateList)
+    const filterlist = ref('')
+    const test = ref([])
+    console.log(matelists.value)
+
+    
+
+    const filterData = (val) => {
+      filterlist.value = val
+
+      if (filterlist.value.date) {
+        // const month = val.date[0].toString().substring(4,7)
+        if (val.date[0].toString().substring(4,7) === 'Jan') {
+          var startMonth = '01'
+        }
+        if (val.date[0].toString().substring(4,7) === 'Feb') {
+          startMonth = '02'
+        } else if (val.date[0].toString().substring(4,7) === 'Feb') {
+          startMonth = '02'
+        } else if (val.date[0].toString().substring(4,7) === 'Mar') {
+          startMonth = '03'
+        } else if (val.date[0].toString().substring(4,7) === 'Apr') {
+          startMonth = '04'
+        } else if (val.date[0].toString().substring(4,7) === 'May') {
+          startMonth = '05'
+        } else if (val.date[0].toString().substring(4,7) === 'Jun') {
+          startMonth = '06'
+        } else if (val.date[0].toString().substring(4,7) === 'Jul') {
+          startMonth = '07'
+        } else if (val.date[0].toString().substring(4,7) === 'Aug') {
+          startMonth = '08'
+        } else if (val.date[0].toString().substring(4,7) === 'Sep') {
+          startMonth = '09'
+        } else if (val.date[0].toString().substring(4,7) === 'Oct') {
+          startMonth = '10'
+        } else if (val.date[0].toString().substring(4,7) === 'Nov') {
+          startMonth = '11'
+        } else if (val.date[0].toString().substring(4,7) === 'Dec') {
+          startMonth = '12'
+        }
+
+        if (val.date[1].toString().substring(4,7) === 'Jan') {
+          var endMonth = '01'
+        }
+        if (val.date[1].toString().substring(4,7) === 'Feb') {
+          endMonth = '02'
+        } else if (val.date[1].toString().substring(4,7) === 'Mar') {
+          endMonth = '03'
+        } else if (val.date[1].toString().substring(4,7) === 'Apr') {
+          endMonth = '04'
+        } else if (val.date[1].toString().substring(4,7) === 'May') {
+          endMonth = '05'
+        } else if (val.date[1].toString().substring(4,7) === 'Jun') {
+          endMonth = '06'
+        } else if (val.date[1].toString().substring(4,7) === 'Jul') {
+          endMonth = '07'
+        } else if (val.date[1].toString().substring(4,7) === 'Aug') {
+          endMonth = '08'
+        } else if (val.date[1].toString().substring(4,7) === 'Sep') {
+          endMonth = '09'
+        } else if (val.date[1].toString().substring(4,7) === 'Oct') {
+          endMonth = '10'
+        } else if (val.date[1].toString().substring(4,7) === 'Nov') {
+          endMonth = '11'
+        } else if (val.date[1].toString().substring(4,7) === 'Dec') {
+          endMonth = '12'
+        } 
+
+        const startYear = val.date[0].toString().substring(11,15)
+        const startDay = val.date[0].toString().substring(8,10)
+        const startDate = (startYear+'-'+startMonth+'-'+startDay)
+
+        const endYear = val.date[1].toString().substring(11,15)
+        const endDay = val.date[1].toString().substring(8,10)
+        const endDate = endYear+'-'+endMonth+'-'+endDay
+        
+        console.log((startDate))
+        console.log((endDate))
+      
+        matelists.value = matelists.value.filter(function(item) {
+          return (item.mateCampstart >= startDate && item.mateCampstart <= endDate)
+        })
+      
+
+      }
+
+      
+      if (filterlist.value.camp) {
+        matelists.value = matelists.value.filter(function(item) {
+          return item.mateCamptype === filterlist.value.camp[0]
+        })
+      }
+     
+      if (filterlist.value.style) {
+        if (filterlist.value.style.length === 1) {
+          matelists.value = matelists.value.filter(function(item) {
+            return item.mateCampstyle === filterlist.value.style[0];
+            })
+            
+        } else if (filterlist.value.style.length === 2) {
+          matelists.value = matelists.value.filter(function(item) {
+            
+            return item.mateCampstyle === filterlist.value.style[0] || item.mateCampstyle ===filterlist.value.style[1]
+          })
+        } else if (filterlist.value.style.length === 3) {
+          matelists.value = matelists.value.filter(function(item) {
+            
+            return item.mateCampstyle === filterlist.value.style[0] || item.mateCampstyle ===filterlist.value.style[1] || item.mateCampstyle ===filterlist.value.style[2]
+          })
+        }
+      } 
+      
+      
+
+    
+    console.log(matelists.value)
+    
+    
+    }
+ 
+    
+    
+    
+   
+    
+  
+    return {
+      matelists,
+      goMakeparty,
+      filterData,
+      test
+      
+      
+      
+    }
+    
+    
+
+  }
+
+  
+  
 }
 </script>
 
 <style scoped>
-body {
-  width: 768px;
-  margin: 0 auto;
-  padding: 0 20px;
-  background: beige;
+@media (min-width: 768px) {
+  body {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: beige; }
+  }
+
+
+.test {
+  width :100%;
 }
 
-.filterbox {
-  display: flex;
-}
-.filterbox1 {
-  float: left;
-  background: red;
-}
-.filterbox2 {
-  float: left;
-  background: blue;
-}
-.filterbox3 {
-  float: left;
-  background: green;
-}
 </style>

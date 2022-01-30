@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.project.dao.MateDao">
+
+<!-- 게시물 등록과 파일 첨부 -->
+<insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
+    
+</insert>
+
+<!-- 모든 게시물 조회 -->
+<select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
+    select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
+        m.mateCamptype, m.mateCampstart, m.mateCampend, m.contentId, m.mateStatus, m.userNo, m.lowestAge, m.mateContent,
+        m.highestAge, m.mateTitle, u.userNickname
+        from mate m, user u
+        where m.userNo = u.userNo
+        order by m.mateNo desc;
+</select>
+
+<!-- 게시물 삭제 -->
+<delete id="mateDelete" parameterType="int">
+    delete from mate where mateNo = #{mateNo}
+</delete>
+
+<select id="mateListTotalCount" resultType="int">
+    select count(*) from mate
+</select>
+
+
+
+</mapper>

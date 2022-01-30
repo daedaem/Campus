@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+	<!-- mapper 설정 -->
+	<mappers>
+	    <mapper resource="mapper/user_query.xml" />
+        <mapper resource="mapper/login_query.xml" />
+        <mapper resource="mapper/follow_query.xml" />
+        <mapper resource="mapper/camp_query.xml" />
+        <mapper resource="mapper/camp_rate_query.xml" />
+        <mapper resource="mapper/camp_rate_reply_query.xml" />
+        <mapper resource="mapper/like_query.xml" />
+        <mapper resource="mapper/mate_query.xml" />
+        <mapper resource="mapper/sns_query.xml" />
+        <mapper resource="mapper/sns_reply_query.xml" />
+	</mappers>	
+</configuration>
