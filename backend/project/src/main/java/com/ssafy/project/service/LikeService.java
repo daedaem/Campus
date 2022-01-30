@@ -11,4 +11,5 @@ public interface LikeService {
     public List<SnsDto> likeList(int userNo);
 
     public int likeCount(int snsNo);
+
 }

@@ -40,6 +40,36 @@
     select count(*) from mate
 </select>
 
+<!-- detail -->
+<select id="mateDetail" parameterType="int" resultType="com.ssafy.project.dto.MateDto">
+    select mateCreateTime, mateUpdateTime, mateImageUrl, mateCampsite, mateCampstart, mateCampend, userNo, 
+            lowestAge, highestAge, mateTitle, mateContent, mateAccompanyNum, mateNum
+    FROM mate
+    WHERE mateNo = #{mateNo}
+</select>
 
+<select id="mateCampStyleList" parameterType="int" resultType="com.ssafy.project.dto.MateCampStyleDto">
+    SELECT mCampStyle1, mCampStyle2, mCampStyle3
+    FROM mateCampStyle
+    WHERE mateNo = #{mateNo}
+</select>
 
+<select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
+    SELECT mateListNo, userNo, mateListNum, mateListAge, mateGender
+    FROM mateList
+    WHERE mateNo = #{mateNo}
+</select>
+
+<select id="mateCampEquipRequiredList" parameterType="int" resultType="com.ssafy.project.dto.MateCampEquipRequiredDto">
+    SELECT mRequire1, mRequire2, mRequire3, mRequire4, mRequire5,
+                mRequire6, mRequire7, mRequire8, mRequire9, mRequire10
+    FROM mateCampEquipRequire
+    WHERE mateNo = #{mateNo}
+</select>
+
+<select id="mateSnsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
+    SELECT snsImageNo, snsImageUrl, snsNo FROM snsImage
+    WHERE snsNo IN (select snsNo FROM sns
+		            WHERE userNo = #{userNo});
+</select>
 </mapper>
