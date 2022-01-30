@@ -78,4 +78,21 @@ public class MateController {
         }
     }
 
+    @GetMapping(value = "/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateDetail(@PathVariable int mateNo) {
+
+        MateResultDto mateResultDto;
+
+        // call mateList from MateService
+        mateResultDto = service.mateDetail(mateNo);
+        System.out.println(mateResultDto.toString());
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+
+    }
+
 }

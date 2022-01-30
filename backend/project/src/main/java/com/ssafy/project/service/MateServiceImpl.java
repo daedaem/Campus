@@ -15,9 +15,14 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.ssafy.project.dao.MateDao;
+import com.ssafy.project.dao.SnsDao;
+import com.ssafy.project.dto.MateCampEquipRequiredDto;
+import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
+import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
+import com.ssafy.project.dto.SnsImageDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -29,6 +34,9 @@ public class MateServiceImpl implements MateService {
 
     @Autowired
     MateDao dao;
+
+    @Autowired
+    SnsDao snsdao;
 
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
@@ -129,6 +137,39 @@ public class MateServiceImpl implements MateService {
             mateResultDto.setResult(FAIL);
         }
 
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateDetail(int mateNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+            dao.mateDetail(mateNo);
+
+             MateDto mateDto = dao.mateDetail(mateNo);
+
+            // 지원한사람 리스트
+            List<MateListDto> mateApplyList = dao.mateApplyList(mateNo);
+            mateDto.setMateList(mateApplyList);
+            // 캠프스타일 리스트
+            List<MateCampStyleDto> campStyleList = dao.mateCampStyleList(mateNo);
+            mateDto.setCampStyleList(campStyleList);
+            // 장비 리스트
+            List<MateCampEquipRequiredDto> mateCampEquipRequired= dao.mateCampEquipRequiredList(mateNo);
+            mateDto.setCampEquipRequiredList(mateCampEquipRequired);
+            // 작성자 피드 리스트 이미지?
+            List<SnsImageDto> snsImageList = dao.mateSnsImageList(mateDto.getUserNo());
+            mateDto.setImageList(snsImageList);
+            
+
+            mateResultDto.setDto(mateDto);
+            mateResultDto.setResult(SUCCESS);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
         return mateResultDto;
     }
 

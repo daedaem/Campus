@@ -23,20 +23,20 @@ public class MateDto {
     private String mateStatus;
     private int mateAccompanyNum;
 
-    private String mCampStyle1;
-    private String mCampStyle2;
-    private String mCampStyle3;
+    // private String mCampStyle1;
+    // private String mCampStyle2;
+    // private String mCampStyle3;
 
-    private int mRequire1;
-    private int mRequire2;
-    private int mRequire3;
-    private int mRequire4;
-    private int mRequire5;
-    private int mRequire6;
-    private int mRequire7;
-    private int mRequire8;
-    private int mRequire9;
-    private int mRequire10;
+    // private int mRequire1;
+    // private int mRequire2;
+    // private int mRequire3;
+    // private int mRequire4;
+    // private int mRequire5;
+    // private int mRequire6;
+    // private int mRequire7;
+    // private int mRequire8;
+    // private int mRequire9;
+    // private int mRequire10;
 
 
     private Date mateCreateTime;
@@ -47,6 +47,7 @@ public class MateDto {
     private List<MateListDto> mateList;
     private List<SnsImageDto> imageList;
     private List<MateCampStyleDto> campStyleList;
+    private List<MateCampEquipRequiredDto> campEquipRequiredList;
 
     private String firstImageUrl;
     private String facltNm; // 야영장 명
