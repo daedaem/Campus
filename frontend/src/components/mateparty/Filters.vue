@@ -44,6 +44,8 @@
         </div>
     </div>
 </div>
+<button @click="cancleFilter">취소 </button>
+    
 </div>
 </template>
 
@@ -53,7 +55,7 @@ import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
 import {ref,watch } from 'vue'
-
+import { useRouter } from "vue-router";
 
 export default {
   emits : ['filter-data'],
@@ -67,7 +69,7 @@ export default {
   },
   
   setup(props,{emit}) {
-
+    const router = useRouter()
     const allData = ref({
       date : ref(null),
       camp : ref(null),
@@ -80,14 +82,17 @@ export default {
       
     }
     const styleCheck = (box2) => {
-      allData.value.camp= box2
+      allData.value.style= box2
       
     }
     const dateCheck = (box3) => {
       allData.value.date= box3
      
     }
-
+    const cancleFilter = () => {
+      
+      router.go();
+    }
   watch(
   () => allData,
   (state) => {
@@ -103,6 +108,7 @@ export default {
       styleCheck,
       dateCheck,
       allData,
+      cancleFilter
     }
   }
 }

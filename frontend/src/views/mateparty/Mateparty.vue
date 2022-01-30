@@ -8,7 +8,7 @@
     <div>
       <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;"  clcik="goMakeparty">글 작성</b-button></span>
     </div>
-    <Pagination v-if="matelists" :matelists="matelists" :filterlist="filterlist"/>    
+    <Pagination v-if="matelists.length != 0" :matelists="matelists"/>    
     <!-- {{matelists}} -->
     
   </body>
@@ -21,7 +21,7 @@ import Newmodal from '@/components/mateparty/Newmodal.vue'
 import Searchbar from '../../components/mateparty/Searchbar.vue'
 // import {mapState} from 'vuex'
 import router from "@/router";
-import { ref,  } from 'vue'
+import { ref, } from 'vue'
 import { useStore } from 'vuex'
 // import {mapState} from 'vuex'
 // import axios from 'axios'
@@ -47,35 +47,126 @@ export default {
     const store = useStore()
     const goMakeparty = () => { router.push({name: 'Makeparty'})}
     
-    const matelists =  store.state.mateList
+    const matelists =  ref(store.state.mateList)
     const filterlist = ref('')
-    const test = ref(matelists)
+    const test = ref([])
+    console.log(matelists.value)
+
+    
 
     const filterData = (val) => {
-      
       filterlist.value = val
-      console.log(filterlist.value)
 
+      if (filterlist.value.date) {
+        // const month = val.date[0].toString().substring(4,7)
+        if (val.date[0].toString().substring(4,7) === 'Jan') {
+          var startMonth = '01'
+        }
+        if (val.date[0].toString().substring(4,7) === 'Feb') {
+          startMonth = '02'
+        } else if (val.date[0].toString().substring(4,7) === 'Feb') {
+          startMonth = '02'
+        } else if (val.date[0].toString().substring(4,7) === 'Mar') {
+          startMonth = '03'
+        } else if (val.date[0].toString().substring(4,7) === 'Apr') {
+          startMonth = '04'
+        } else if (val.date[0].toString().substring(4,7) === 'May') {
+          startMonth = '05'
+        } else if (val.date[0].toString().substring(4,7) === 'Jun') {
+          startMonth = '06'
+        } else if (val.date[0].toString().substring(4,7) === 'Jul') {
+          startMonth = '07'
+        } else if (val.date[0].toString().substring(4,7) === 'Aug') {
+          startMonth = '08'
+        } else if (val.date[0].toString().substring(4,7) === 'Sep') {
+          startMonth = '09'
+        } else if (val.date[0].toString().substring(4,7) === 'Oct') {
+          startMonth = '10'
+        } else if (val.date[0].toString().substring(4,7) === 'Nov') {
+          startMonth = '11'
+        } else if (val.date[0].toString().substring(4,7) === 'Dec') {
+          startMonth = '12'
+        }
+
+        if (val.date[1].toString().substring(4,7) === 'Jan') {
+          var endMonth = '01'
+        }
+        if (val.date[1].toString().substring(4,7) === 'Feb') {
+          endMonth = '02'
+        } else if (val.date[1].toString().substring(4,7) === 'Mar') {
+          endMonth = '03'
+        } else if (val.date[1].toString().substring(4,7) === 'Apr') {
+          endMonth = '04'
+        } else if (val.date[1].toString().substring(4,7) === 'May') {
+          endMonth = '05'
+        } else if (val.date[1].toString().substring(4,7) === 'Jun') {
+          endMonth = '06'
+        } else if (val.date[1].toString().substring(4,7) === 'Jul') {
+          endMonth = '07'
+        } else if (val.date[1].toString().substring(4,7) === 'Aug') {
+          endMonth = '08'
+        } else if (val.date[1].toString().substring(4,7) === 'Sep') {
+          endMonth = '09'
+        } else if (val.date[1].toString().substring(4,7) === 'Oct') {
+          endMonth = '10'
+        } else if (val.date[1].toString().substring(4,7) === 'Nov') {
+          endMonth = '11'
+        } else if (val.date[1].toString().substring(4,7) === 'Dec') {
+          endMonth = '12'
+        } 
+
+        const startYear = val.date[0].toString().substring(11,15)
+        const startDay = val.date[0].toString().substring(8,10)
+        const startDate = (startYear+'-'+startMonth+'-'+startDay)
+
+        const endYear = val.date[1].toString().substring(11,15)
+        const endDay = val.date[1].toString().substring(8,10)
+        const endDate = endYear+'-'+endMonth+'-'+endDay
+        
+        console.log((startDate))
+        console.log((endDate))
+      
+        matelists.value = matelists.value.filter(function(item) {
+          return (item.mateCampstart >= startDate && item.mateCampstart <= endDate)
+        })
       
 
-      if (filterlist.value.camp) {
-        filterlist.value.camp.forEach((item) => {
-
-        test.value = test.value.camp.includes(item)
-          
-        })
       }
 
-      // const filterUtil = computed(() => {
-      //   filterlist.value.date.forEach((item) => {
-      //     console.log(item)
-      //   })
-      // })
-      // return console.log(1)
+      
+      if (filterlist.value.camp) {
+        matelists.value = matelists.value.filter(function(item) {
+          return item.mateCamptype === filterlist.value.camp[0]
+        })
+      }
+     
+      if (filterlist.value.style) {
+        if (filterlist.value.style.length === 1) {
+          matelists.value = matelists.value.filter(function(item) {
+            return item.mateCampstyle === filterlist.value.style[0];
+            })
+            
+        } else if (filterlist.value.style.length === 2) {
+          matelists.value = matelists.value.filter(function(item) {
+            
+            return item.mateCampstyle === filterlist.value.style[0] || item.mateCampstyle ===filterlist.value.style[1]
+          })
+        } else if (filterlist.value.style.length === 3) {
+          matelists.value = matelists.value.filter(function(item) {
+            
+            return item.mateCampstyle === filterlist.value.style[0] || item.mateCampstyle ===filterlist.value.style[1] || item.mateCampstyle ===filterlist.value.style[2]
+          })
+        }
+      } 
       
       
+
+    
+    console.log(matelists.value)
+    
+    
     }
-      
+ 
     
     
     

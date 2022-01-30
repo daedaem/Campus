@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-auto">
 
-
+    <button @click="cancleFilter">취소 </button>
     <b-row :per-page="perPage" :current-page="currentPage"> 
       <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
         
@@ -39,12 +39,11 @@
 </template>
 
 <script>
-
+import {mapState} from 'vuex'
 
 export default {
   props : {
       matelists : Array,
-      filterlist : Array,
     },
   name : 'Pagination',
   components : {
@@ -52,8 +51,8 @@ export default {
   },
   data() {
     return {
-      filterItems : this.filterlist,
-      items : this.matelists,
+    
+     
       paginatedItems: '',
       totalRows: this.matelists.length,
       perPage: 6,
@@ -65,23 +64,46 @@ export default {
   methods: {
     
     paginate (page_size, page_number) {
-        
-        let itemsToParse = this.items
+        console.log(this.matelists)
+        let itemsToParse = this.matelists
+        console.log(itemsToParse)
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
+        console.log(this.paginatedItems)
+        console.log(page_number)
+        console.log(page_size)
     },
     onPageChanged() {
       
       this.paginate(this.perPage, this.currentPage - 1)
     },
 
+    cancleFilter() {
+      
+      this.$router.go();
+    }
+
   },
   mounted(){
-    
+   
     if (this.matelists) {
       this.paginate(this.perPage, 0)
     }
   },
 
+  watch : {
+    matelists : {
+      handler() {
+        this.paginate(this.perPage, 0)
+      },
+      deep : true
+    },
+    
+  },
+
+  computed : {
+    ...mapState['mateList']
+  }
+  
   
   // computed: {
   //   filterItems() {
