@@ -54,8 +54,8 @@ export default {
     
     const campCheck = ref([])
     const submit = () => {
-      // console.log(campCheck.value)
-      // this.$emit('camp-check',campCheck)
+    //   console.log(campCheck.value)
+    //   this.$emit('camp-check',campCheck)
     }
     return {
       campCheck,

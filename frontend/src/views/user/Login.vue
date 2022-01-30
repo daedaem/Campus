@@ -65,7 +65,7 @@
 
           <!-- 회원가입 및 비밀번호 찾기 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
-            <button class="btn-primary" @click="moveToSignUp">회원가입</button>
+            <button type="button" class="btn-primary" @click="moveToSignUp">회원가입</button>
             <button class="btn-primary" @click="movetofindPw">비밀번호</button>
           </div>
         </div>
@@ -76,7 +76,8 @@
 
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "Login",
@@ -102,20 +103,22 @@ export default {
   },
   
   methods: {
-    ...mapActions(["login"]),
+    // ...mapActions(["login"]),
     login: function () {
+      // console.log(this.credentials)
       axios({
         method: "POST",
-        url: `${process.env.VUE_APP_URL}/accounts/api-token-auth/`,
+        url: `${SERVER_URL}/accounts/api-token-auth/`,
         data: this.credentials,
       })
         .then((res) => {
-          localStorage.setItem('jwt', res.data.token);
-          this.logIn();
-          this.$router.push({name: 'Home'})
+          this.$store.state.user = this.credentials.email;
+          localStorage.setItem('jwt', res.data.token)
+          this.$router.push({name: 'Mainpage'})
         })
-        .catch(() => {
-          alert('이메일과 비밀번호를 확인해주세요')
+        .catch((err) => {
+          alert("이메일과 비밀번호를 확인해주세요")
+          console.log(err)
         })
     },
 

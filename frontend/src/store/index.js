@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
@@ -7,13 +7,19 @@ export default createStore({
     createPersistedState(),
   ],
   state: {
+    user: null,
+    token: localStorage.getItem("jwt"),
+    usernumber: "",
     equipLists: [],
     mateList : [],
     isUser: false,
     uploadimages: "",
     feeddetailnum: 0,
-    isLogin: localStorage.getItem('jwt') ? true : false,
     nickname: null,
+    myProfile: {
+      myNum: "",
+      img: "",
+    },
     feeds: [
       {
         id: 1,
@@ -150,27 +156,15 @@ export default createStore({
     //mate
     VIEW_MATE(state,data) {
       state.mateList = data
-    
     },
+
+    // 로그인
     LOGIN: function (state) {
-      state.isLogin = true;
-      const token = localStorage.getItem('jwt');
-      axios ({
-        method: 'get',
-        url: `${process.env.VUE_APP_MCS_URL}/accounts/profile/`,
-        headers: { Authorization: `JWT ${token}`},
-      }) .then((res) => {
-        this.commit("SET_PROFILE", res.data)
-      })
+      state.token = localStorage.getItem("jwt");
     },
     LOGOUT: function (state) {
-      state.nickname = null;
-      state.isLogin = false;
-      localStorage.removeItem('jwt')
+      state.token = null;
     },
-    SET_PROFILE: function (state, res) {
-      state.nickname = res.nickname;
-    }
 
   },
   actions: {
@@ -180,11 +174,12 @@ export default createStore({
     deleteEquip: function ({ commit }, equipItem) {
       commit('DELETE_EQUIP', equipItem)
     },
-    logIn: function ({ commit }) {
-      commit("LOGIN")
+    // 로그인
+    login: function ({ commit }) {
+      commit("LOGIN");
     },
     logout: function ({ commit }) {
-      commit("LOGOUT")       
+      commit("LOGOUT");
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
@@ -195,12 +190,14 @@ export default createStore({
     },
   
   },
+  getters: {
+    config: function (state) {
+      return {
+        Authorization: `JWT ${state.token}`,
+      };
+    },
+  },
   
-   
-
-    
-  
-
   modules: {
 
   }
