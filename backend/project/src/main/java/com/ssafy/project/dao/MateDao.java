@@ -2,6 +2,7 @@ package com.ssafy.project.dao;
 
 import java.util.List;
 
+
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateParamDto;
 
@@ -18,5 +19,9 @@ public interface MateDao {
     public List<String> mateFileUrlDeleteList(int mataNo);
 
     public int mateListTotalCount();
+
+    public List<MateDto> campStyleListInsert(MateDto dto);
+
+    public List<MateDto> campEquipReuireListInsert(MateDto dto);
     
 }
