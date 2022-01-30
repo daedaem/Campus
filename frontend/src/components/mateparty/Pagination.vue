@@ -1,43 +1,121 @@
 <template>
   <div class="overflow-auto">
-    <b-pagination
+
+    <button @click="cancleFilter">취소 </button>
+    <b-row :per-page="perPage" :current-page="currentPage"> 
+      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
+        
+        <b-card class="mb-5" :title="item.mateTitle" img-src='https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg' img-alt="Image" img-top>
+          <b-card-text >
+            <div align="left">
+              {{item.mateCampstyle}}
+            </div>
+            <div align="left">
+              {{item.mateCampsite}}
+            </div>
+            <div align="left">
+              {{item.userNo}}
+            </div>
+          </b-card-text>
+          <template #footer>
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </template>
+        </b-card>
+      
+      </b-card-group>
+    </b-row>
+      <b-pagination
+      align="center"
+      @click="onPageChanged"
       v-model="currentPage"
-      :total-rows="rows"
+      :total-rows="totalRows"
       :per-page="perPage"
       aria-controls="my-table"
-    ></b-pagination>
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
+      ></b-pagination>
 
 
   </div>
+
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  name : 'Pagination',
-    data() {
-      return {
-        perPage: 3,
-        currentPage: 1,
-        items: [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-        ]
-      }
+  props : {
+      matelists : Array,
     },
-    computed: {
-      rows() {
-        return this.items.length
-      }
+  name : 'Pagination',
+  components : {
+    
+  },
+  data() {
+    return {
+    
+     
+      paginatedItems: '',
+      totalRows: this.matelists.length,
+      perPage: 6,
+      currentPage: 1,
+  
+
     }
+  },
+  methods: {
+    
+    paginate (page_size, page_number) {
+        console.log(this.matelists)
+        let itemsToParse = this.matelists
+        console.log(itemsToParse)
+        this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
+        console.log(this.paginatedItems)
+        console.log(page_number)
+        console.log(page_size)
+    },
+    onPageChanged() {
+      
+      this.paginate(this.perPage, this.currentPage - 1)
+    },
+
+    cancleFilter() {
+      
+      this.$router.go();
+    }
+
+  },
+  mounted(){
+   
+    if (this.matelists) {
+      this.paginate(this.perPage, 0)
+    }
+  },
+
+  watch : {
+    matelists : {
+      handler() {
+        this.paginate(this.perPage, 0)
+      },
+      deep : true
+    },
+    
+  },
+
+  computed : {
+    ...mapState['mateList']
+  }
+  
+  
+  // computed: {
+  //   filterItems() {
+  //     return this.items.filter(item => )
+  //   }
+
+  // },
+  // filterSearch() {
+  //      return this.products
+  //                 .filter(product => product.topic.toLowerCase().match(this.search.toLowerCase()))
+  //                 .filter(product => product.price < checkbox.Value)
+  //   } 
 
 }
 </script>

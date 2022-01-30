@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.CampRateDao">
+
+    <select id="campRateReplyList" parameterType="int" resultType="com.ssafy.project.dto.CampRateReplyDto">
+        SELECT u.userNickname, u.userProfileImage, r.campRateReplyNo, r.campRateReplyCreateTime, r.campRateReplyUpdateTime,
+                r.campRateReplyContent, r.userNo, r.campRateNo
+        FROM user u, campRateReply r
+        WHERE r.userNo = u.userNo
+        AND campRateNo = #{campRateNo};
+    </select>
+
+    <select id="campRateReplyListTotalCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM campRateReply
+        WHERE campRateNo = #{campRateNo};
+    </select>
+
+    <insert id="campRateReplyInsert" parameterType="com.ssafy.project.dto.CampRateReplyDto">
+        INSERT INTO campRateReply(campRateReplyContent, userNo, campRateNo)
+            VALUES( #{campRateReplyContent}, #{userNo}, #{campRateNo} );
+    </insert>
+
+    <update id="campRateReplyUpdate" parameterType="com.ssafy.project.dto.CampRateReplyDto">
+        UPDATE campRateReply
+        SET campRateReplyContent = #{campRateReplyContent}, campRateReplyUpdateTime = CURRENT_TIMESTAMP()
+        WHERE campRateReplyNo = #{campRateReplyNo};
+    </update>
+
+    <delete id="campRateReplyDelete" parameterType="int">
+        DELETE FROM campRateReply
+        WHERE campRateReplyNo = #{campRateReplyNo};
+    </delete>
+
+</mapper>
