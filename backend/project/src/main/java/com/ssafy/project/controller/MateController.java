@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
@@ -47,23 +48,22 @@ public class MateController {
 
     }
 
-    // @PostMapping(value="/mate")
-    // private ResponseEntity<MateResultDto> mateInsert(MateDto mateDto,
-    // MultipartHttpServletRequest request){
+    @PostMapping(value="/mate")
+    private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto, MultipartFile multipartFile ){
 
-    // //로그인 했을시 session 처리 작성해주기
-    // //미작성
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
 
-    // //call mateInsert from MateService
-    // MateResultDto mateResultDto = service.mateInsert(mateDto, request);
+    //call mateInsert from MateService
+    MateResultDto mateResultDto = service.mateInsert(mateDto, multipartFile);
 
-    // if( mateResultDto.getResult() == SUCCESS ){
-    // return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-    // }else{
-    // return new ResponseEntity<MateResultDto>(mateResultDto,
-    // HttpStatus.INTERNAL_SERVER_ERROR); // 에러
-    // }
-    // }
+    if( mateResultDto.getResult() == SUCCESS ){
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
 
     @DeleteMapping(value = "/mate/{mateNo}")
     private ResponseEntity<MateResultDto> mateDelete(@PathVariable(value = "mateNo") int mateNo) {
