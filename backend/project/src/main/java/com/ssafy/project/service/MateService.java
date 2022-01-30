@@ -14,4 +14,6 @@ public interface MateService {
 
     public MateResultDto mateList(MateParamDto mateParamDto);
 
+    public MateResultDto mateDetail(int mateNo);
+
 }
