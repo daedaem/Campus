@@ -33,7 +33,10 @@
 
 <!-- 게시물 삭제 -->
 <delete id="mateDelete" parameterType="int">
-    delete from mate where mateNo = #{mateNo}
+    DELETE FROM mateCampEquipRequire WHERE mateNo = #{mateNo};
+    DELETE FROM mateCampStyle WHERE mateNo = #{mateNo};
+    DELETE FROM mateList WHERE mateNo = #{mateNo};
+    DELETE FROM mate WHERE mateNo = #{mateNo};
 </delete>
 
 <select id="mateListTotalCount" resultType="int">
@@ -72,4 +75,5 @@
     WHERE snsNo IN (select snsNo FROM sns
 		            WHERE userNo = #{userNo});
 </select>
+
 </mapper>
