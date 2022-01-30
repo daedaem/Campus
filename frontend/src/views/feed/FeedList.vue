@@ -14,7 +14,11 @@
       >
         <div class="total-frame">
           <div>
-            <feed-list-items v-for="(feed, i) in feeds" :key="i" :feed="feed">
+            <feed-list-items
+              v-for="(feed, i) in feedList"
+              :key="i"
+              :feed="feed"
+            >
             </feed-list-items>
           </div>
         </div>
@@ -26,6 +30,7 @@
 <script>
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default {
   name: "FeedList",
@@ -33,11 +38,23 @@ export default {
     // FeedListItemModal,
     FeedListItems,
   },
+  created: function () {
+    axios("http://localhost:8080/sns")
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   // created: function () {
   //   this.$store.dispatch("LoadFeedListItems");
   // },
   computed: {
-    ...mapState(["feeds"]),
+    ...mapState(["feedList"]),
   },
   // created: function() {
   //   console.log(this.feeds)

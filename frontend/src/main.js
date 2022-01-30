@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faImages as fasImages } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 library.add(faPhone, fasImages, faUser);
 
 createApp(App)
@@ -22,5 +24,5 @@ createApp(App)
   .use(router)
   .use(BootstrapVue3)
   .use(VueUniversalModal, { teleportTarget: "#modals" })
-  .component("font-awesome-icon", FontAwesomeIcon)
+  .component("font-awesome-icon", FontAwesomeIcon, "infinite-loading", InfiniteLoading)
   .mount("#app");
