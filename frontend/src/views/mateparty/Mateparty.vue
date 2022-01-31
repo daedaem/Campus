@@ -6,7 +6,7 @@
     <Newmodal/>
     
     <div>
-      <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;"  clcik="goMakeparty">글 작성</b-button></span>
+      <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;"  @click="goMakeparty">글 작성</b-button></span>
     </div>
     <Pagination v-if="matelists.length != 0" :matelists="matelists"/>    
     <!-- {{matelists}} -->
@@ -51,19 +51,16 @@ export default {
     const filterlist = ref('')
     const test = ref([])
     console.log(matelists.value)
-
     
-
     const filterData = (val) => {
+      console.log(val)
       filterlist.value = val
 
       if (filterlist.value.date) {
         // const month = val.date[0].toString().substring(4,7)
         if (val.date[0].toString().substring(4,7) === 'Jan') {
           var startMonth = '01'
-        }
-        if (val.date[0].toString().substring(4,7) === 'Feb') {
-          startMonth = '02'
+      
         } else if (val.date[0].toString().substring(4,7) === 'Feb') {
           startMonth = '02'
         } else if (val.date[0].toString().substring(4,7) === 'Mar') {
@@ -123,9 +120,7 @@ export default {
         const endDay = val.date[1].toString().substring(8,10)
         const endDate = endYear+'-'+endMonth+'-'+endDay
         
-        console.log((startDate))
-        console.log((endDate))
-      
+       
         matelists.value = matelists.value.filter(function(item) {
           return (item.mateCampstart >= startDate && item.mateCampstart <= endDate)
         })
@@ -159,14 +154,26 @@ export default {
         }
       } 
       
+      if (filterlist.value.sortList) {
+        if (filterlist.value.sortList[0] === '빠른') {
+            matelists.value.sort(function (a,b) {
+              return a.mateCampstart < b.mateCampstart ? -1 : a.mateCampstart > b.mateCampstart ? 1 : 0
+            })
+          
+        } else if (filterlist.value.sortList[0] === '최신') {
+          matelists.value.sort(function (a,b) {
+            return a.mateCreateTime < b.mateCreateTime ? -1 : a.mateCreateTime > b.mateCreateTime ? 1 : 0
+          })
+        }
+      }
+      
       
 
-    
     console.log(matelists.value)
-    
-    
     }
- 
+
+    
+
     
     
     
@@ -177,7 +184,8 @@ export default {
       matelists,
       goMakeparty,
       filterData,
-      test
+      test,
+      
       
       
       

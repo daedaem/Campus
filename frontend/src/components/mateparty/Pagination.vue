@@ -1,11 +1,11 @@
 <template>
   <div class="overflow-auto">
 
-    <button @click="cancleFilter">취소 </button>
+    
     <b-row :per-page="perPage" :current-page="currentPage"> 
       <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
         
-        <b-card class="mb-5" :title="item.mateTitle" img-src='https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg' img-alt="Image" img-top>
+        <b-card class="mb-5" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})">
           <b-card-text >
             <div align="left">
               {{item.mateCampstyle}}
@@ -66,21 +66,18 @@ export default {
     paginate (page_size, page_number) {
         console.log(this.matelists)
         let itemsToParse = this.matelists
-        console.log(itemsToParse)
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
-        console.log(this.paginatedItems)
-        console.log(page_number)
-        console.log(page_size)
+       
     },
     onPageChanged() {
       
       this.paginate(this.perPage, this.currentPage - 1)
     },
 
-    cancleFilter() {
+    // goMatedetail() {
       
-      this.$router.go();
-    }
+    // }
+
 
   },
   mounted(){
