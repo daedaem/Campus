@@ -1,16 +1,15 @@
 package com.ssafy.project.dto;
 
-import java.time.LocalDateTime;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SnsImageDto {
     private int snsImageNo;
     private int snsNo;
-    private String snsImageName;
-    private long snsImageSize;
-    private String snsImageContentType;
     private String snsImageUrl;
-    private LocalDateTime regDt;
+    
 }

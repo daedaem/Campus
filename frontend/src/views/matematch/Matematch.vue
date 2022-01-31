@@ -65,12 +65,24 @@
     </div>
 </div>
   </body>
+  {{mateList}}
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  name : 'Matematch'
+  name : 'Matematch',
+
+  computed : {
+      ...mapState(['mateList'])
+  }
+  
+
+
+
 }
+
 </script>
 
 <style scoped>

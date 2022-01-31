@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.CampSiteDao">
+
+    <!-- 캠핑장 전체 리스트 -->
+	<select id="campSiteList" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
+		SELECT *
+		FROM camp_site
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+
+	<select id="campSiteListTotalCount" resultType="int">
+		SELECT COUNT(*) FROM camp_site;
+	</select>
+
+    <!-- 캠핑장 검색 리스트 -->
+	<!-- private int toilet; // 화장실 - INT
+    private int shower; // 샤워실 - INT
+    private int sink; // 개수대 - INT
+    private char trailer; // 개인 트레일러 - ENUM('Y', 'N')
+    private char caravan; // 개인 카라반 - ENUM('Y', 'N')
+    private String pet; // 반려견 동반 - VARCHAR(100)
+    private char program; // 체험프로그램 - ENUM('Y', 'N')
+    private char event; // 자체 문화 행사 - ENUM('Y', 'N')
+    private String rent; // 캠핑 장비 대여 - VARCHAR(100)
+    private int parking; // 사이트 주차 - INT -->
+	<select id="campSiteSearch" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
+		SELECT *
+		FROM camp_site
+        WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
+		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
+		AND sigungu_nm LIKE CONCAT('%', #{sigunguNm}, '%')
+		AND toilet_co >= #{toiletCo}
+		AND swrm_co >= #{swrmCo}
+		AND wtrpl_co >= #{wtrplCo}
+		ANd trler_acmpny_at = #{trlerAcmpnyAt}
+		AND carav_acmpny_at = #{caravAcmpnyAt}
+		AND animal_cmg_cl LIKE CONCAT('%', #{animalCmgCl}, '%')
+		AND exprn_progrm_at = #{exprnProgrmAt}
+		AND cltur_event_at = #{clturEventAt}
+		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
+		AND site_mg1_co >= #{siteMgCo} OR site_mg2_co >= #{siteMgCo} OR site_mg3_mo >= #{siteMgCo}
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+
+	<select id="campSiteSearchTotalCount" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="int">
+		SELECT COUNT(*)
+		FROM camp_site
+        WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
+		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
+		AND sigungu_nm LIKE CONCAT('%', #{sigunguNm}, '%')
+		AND toilet_co >= #{toiletCo}
+		AND swrm_co >= #{swrmCo}
+		AND wtrpl_co >= #{wtrplCo}
+		ANd trler_acmpny_at = #{trlerAcmpnyAt}
+		AND carav_acmpny_at = #{caravAcmpnyAt}
+		AND animal_cmg_cl LIKE CONCAT('%', #{animalCmgCl}, '%')
+		AND exprn_progrm_at = #{exprnProgrmAt}
+		AND cltur_event_at = #{clturEventAt}
+		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
+		AND site_mg1_co >= #{siteMgCo} OR site_mg2_co >= #{siteMgCo} OR site_mg3_mo >= #{siteMgCo}
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+
+	<!-- 캠핑장 상세정보 -->
+	<select id="campSiteDetail" parameterType="String" resultType="com.ssafy.project.dto.CampSiteDto">
+		SELECT *
+		FROM camp_site
+		WHERE content_id = #{contentId};
+	</select>
+
+	<!-- 도 이름을 가져온다 -->
+	<select id="campSiteDo" resultType="String">
+		SELECT DISTINCT do_nm
+		FROM camp_site;
+	</select>
+
+	<!-- 도에 해당하는 시, 군, 구 이름을 가져온다 -->
+	<select id="campSiteSigungu" parameterType="String" resultType="String">
+		SELECT DISTINCT sigungu_nm
+		FROM camp_site
+        WHERE do_nm = #{doNm};
+	</select>
+
+</mapper>
