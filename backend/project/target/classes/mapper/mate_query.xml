@@ -66,8 +66,8 @@
     </select>
 
     <select id="mateCampEquipRequiredList" parameterType="int" resultType="com.ssafy.project.dto.MateCampEquipRequiredDto">
-        SELECT mRequire1, mRequire2, mRequire3, mRequire4, mRequire5,
-                    mRequire6, mRequire7, mRequire8, mRequire9, mRequire10
+        SELECT brazier, burner, chair, icebox, lantern,
+                    powerstrip, sleepingbag, table, tarp, tent
         FROM mateCampEquipRequire
         WHERE mateNo = #{mateNo}
     </select>
