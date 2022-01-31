@@ -66,7 +66,7 @@ public class MateController {
     }
 
     @DeleteMapping(value = "/mate/{mateNo}")
-    private ResponseEntity<MateResultDto> mateDelete(@PathVariable(value = "mateNo") int mateNo) {
+    private ResponseEntity<MateResultDto> mateDelete(@PathVariable int mateNo) {
 
         // call mateDelete from MateService
         MateResultDto mateResultDto = service.mateDelete(mateNo);

@@ -102,13 +102,6 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
 
         try {
-            // List<String> fileUrlList = dao.mateFileUrlDeleteList(mateNo);
-            // for(String fileUrl : fileUrlList) { // file 물리적 삭제
-            // File file = new File(uploadPath + File.separator, fileUrl);
-            // if(file.exists()) {
-            // file.delete();
-            // }
-            // }
 
             dao.mateDelete(mateNo);
             mateResultDto.setResult(SUCCESS);
