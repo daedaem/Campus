@@ -46,10 +46,11 @@
 
     <!-- detail -->
     <select id="mateDetail" parameterType="int" resultType="com.ssafy.project.dto.MateDto">
-        select mateCreateTime, mateUpdateTime, mateImageUrl, mateCampsite, mateCampstart, mateCampend, userNo, 
-                lowestAge, highestAge, mateTitle, mateContent, mateAccompanyNum, mateNum
-        FROM mate
-        WHERE mateNo = #{mateNo}
+        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, 
+                m.lowestAge, m.highestAge, m.mateTitle, m.mateContent, m.mateAccompanyNum, m.mateNum, u.userProfileImage, u.userNickName
+        FROM mate m, user u
+        WHERE m.userNo = u.userNo
+            AND mateNo = #{mateNo}
     </select>
 
     <select id="mateCampStyleList" parameterType="int" resultType="com.ssafy.project.dto.MateCampStyleDto">
