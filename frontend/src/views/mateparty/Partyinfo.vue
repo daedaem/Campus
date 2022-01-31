@@ -4,7 +4,7 @@
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div>
     <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;">
-      <h4 style="font-weight:1000; font-size:25px;">{{$route.params.mateNo}}</h4>
+      <h4 style="font-weight:1000; font-size:25px;"></h4>
       <font-awesome-icon :icon="['fas','user']" size="lg"/>&nbsp;&nbsp;&nbsp;<span style="font-weight:500; font-size:20px;">2/4</span>
       <br>
       <br>
@@ -49,8 +49,9 @@ import Carousel2 from '../../components/mateparty/Carousel2.vue'
 import Cards from '../../components/mateparty/Cards.vue'
 import Items from '../../components/mateparty/Items.vue'
 import Members from '../../components/mateparty/Members.vue'
-import {useStore} from 'vuex'
-import {computed} from 'vue'
+import axios from 'axios'
+// import {useStore} from 'vuex'
+// import {computed} from 'vue'
 
 
 export default {
@@ -65,17 +66,23 @@ export default {
     Members,
   },
   setup(props) {
-    const store = useStore()     
-    console.log(store.state.mateList[1])
-    console.log(Number(props.mateNo))
-    
-    const myMate = computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo)))
-    console.log(myMate.value)  
-
-
+    // const store = useStore()         
+    // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
+    // const Mate = myMate.value[0]
+    axios({
+      method: 'get',
+      url : `http://localhost:8080/mate/${props.mateNo}`
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err =>{
+      console.log(err)
+    })
 
     return {
-      myMate
+      // myMate,
+      // Mate
     }
   }
 }
