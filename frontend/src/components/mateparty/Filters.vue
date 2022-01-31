@@ -39,13 +39,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body ">
-              <Modal4/>
+              <Modal4 @sortListcheck="sortListCheck"/>
             </div>
         </div>
     </div>
 </div>
-<button @click="cancleFilter">취소 </button>
-    
+<button type="button" class="btn btn-danger" @click="cancleFilter">필터 취소</button>
 </div>
 </template>
 
@@ -74,6 +73,7 @@ export default {
       date : ref(null),
       camp : ref(null),
       style : ref(null),
+      sortList : ref(null),
     })
     // const endData = ref([])
 
@@ -87,6 +87,10 @@ export default {
     }
     const dateCheck = (box3) => {
       allData.value.date= box3
+     
+    }
+    const sortListCheck = (box4) => {
+      allData.value.sortList= box4
      
     }
     const cancleFilter = () => {
@@ -107,6 +111,7 @@ export default {
       campCheck,
       styleCheck,
       dateCheck,
+      sortListCheck,
       allData,
       cancleFilter
     }

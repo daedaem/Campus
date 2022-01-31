@@ -83,9 +83,10 @@ const routes = [
     component: findPw,
   },
   {
-    path: "/mateparty/partyinfo",
+    path: "/mateparty/:mateNo",
     name: "Partyinfo",
     component: Partyinfo,
+    props: true,
   },
   {
     path: "/matematch/",
