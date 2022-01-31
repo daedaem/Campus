@@ -26,6 +26,7 @@
     "jquery": "^3.6.0",
     "password-validator": "^5.2.1",
     "v-pagination-3": "^0.1.7",
+    "v3-infinite-loading": "^1.0.1",
     "vee-validate": "^4.5.8",
     "vue": "^3.0.0",
     "vue-next-select": "^2.10.2",

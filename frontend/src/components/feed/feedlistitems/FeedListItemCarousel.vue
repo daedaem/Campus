@@ -1,14 +1,18 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
+    <div class="feed-picture-box d-flex" v-if="feed.imageList.length == 1">
       <div class="feed-picture">
-        <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
+        <img
+          :src="`${feed.imageList[0].snsImageUrl}`"
+          class="d-block w-100"
+          alt="..."
+        />
       </div>
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
+    <div class="feed-picture-box" v-else-if="feed.imageList.length == 2">
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -18,7 +22,7 @@
         >
           <div class="carousel-indicators">
             <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
-            v-for="indicator in feed.imgurl.length"
+            v-for="indicator in feed.imageList.length"
             :key="indicator.key" -->
             <button
               type="button"
@@ -39,10 +43,18 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img :src="`${feed.imgurl[0]}`" class="d-block w-100" alt="..." />
+              <img
+                :src="`${feed.imageList[0].snsImageUrl}`"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
             <div class="carousel-item">
-              <img :src="`${feed.imgurl[1]}`" class="d-block w-100" alt="..." />
+              <img
+                :src="`${feed.imageList[1].snsImageUrl}`"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
           </div>
           <button
@@ -68,7 +80,7 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-else-if="feed.imgurl.length == 3">
+    <div class="feed-picture-box" v-else-if="feed.imageList.length == 3">
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -78,7 +90,7 @@
         >
           <div class="carousel-indicators">
             <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
-            v-for="indicator in feed.imgurl.length"
+            v-for="indicator in feed.imageList.length"
             :key="indicator.key" -->
             <button
               type="button"
@@ -106,13 +118,25 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img :src="`${feed.imgurl[0]}`" class="d-block w-100" alt="..." />
+              <img
+                :src="`${feed.imageList[0].snsImageUrl}`"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
             <div class="carousel-item">
-              <img :src="`${feed.imgurl[1]}`" class="d-block w-100" alt="..." />
+              <img
+                :src="`${feed.imageList[1].snsImageUrl}`"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
             <div class="carousel-item">
-              <img :src="`${feed.imgurl[2]}`" class="d-block w-100" alt="..." />
+              <img
+                :src="`${feed.imageList[2].snsImageUrl}`"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
           </div>
           <button
