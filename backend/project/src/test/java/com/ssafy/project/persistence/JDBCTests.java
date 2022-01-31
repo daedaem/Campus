@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class JDBCTests {
     static {
 		try {
-			Class.forName("org.mariadb.cj.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -21,9 +21,9 @@ public class JDBCTests {
 		
 		try(Connection con = 
 				DriverManager.getConnection(
-						"jdbc:mariadb://localhost:3306/ssafy?serverTimezone=Asia/Seoul",
-						"root",
-						"root")){
+						"jdbc:mysql://i6e102.p.ssafy.io:3306/ssafy?serverTimezone=Asia/Seoul",
+						"team02",
+						"ssafycampus")){
 			System.out.println(con);
             System.out.println("성공");
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
-import createPersistedState from "vuex-persistedstate";
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   plugins: [
@@ -145,12 +145,17 @@ export default createStore({
     TODETAIL: function (state, feeddetailnum) {
       state.feeddetailnum = feeddetailnum;
     },
+  
 
 
     //mate
     VIEW_MATE(state,data) {
+      // console.log(data)
+      // state.mateList.push(data)
+      // state.mateList.push(2)
+      // console.log(state.mateList)
       state.mateList = data
-    
+      
     },
     LOGIN: function (state) {
       state.isLogin = true;
@@ -188,6 +193,7 @@ export default createStore({
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
+     
     },
     //mate
     viewMate({commit}, data) {
