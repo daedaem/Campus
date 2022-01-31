@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    
+    <Navbar/>   
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
 </template>
 
 <script>
-// import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name : 'App',
   components : {
-    // Navbar,
+    Navbar,
   }
 }
 </script>

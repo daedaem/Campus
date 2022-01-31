@@ -4,61 +4,61 @@
 
     <div class="filterbox">
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="액티비티" id="flexCheckDefault5">
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('액티비티')" class="form-check-input" v-model="styleCheck" type="checkbox" value="액티비티" id="flexCheckDefault5">
         <label class="form-check-label" for="flexCheckDefault5">
           액티비티
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="힐링" id="flexCheckChecked6" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('힐링')" class="form-check-input" v-model="styleCheck" type="checkbox" value="힐링" id="flexCheckChecked6" >
         <label class="form-check-label" for="flexCheckChecked6">
           힐링
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="요리" id="flexCheckChecked7" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('요리')" class="form-check-input" v-model="styleCheck" type="checkbox" value="요리" id="flexCheckChecked7" >
         <label class="form-check-label" for="flexCheckChecked7">
           요리
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="음주" id="flexCheckChecked8" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('음주')" class="form-check-input" v-model="styleCheck" type="checkbox" value="음주" id="flexCheckChecked8" >
         <label class="form-check-label" for="flexCheckChecked8">
           음주
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="독서" id="flexCheckChecked20" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('독서')" class="form-check-input" v-model="styleCheck" type="checkbox" value="독서" id="flexCheckChecked20" >
         <label class="form-check-label" for="flexCheckChecked20">
           독서
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="낚시" id="flexCheckChecked21" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('낚시')" class="form-check-input" v-model="styleCheck" type="checkbox" value="낚시" id="flexCheckChecked21" >
         <label class="form-check-label" for="flexCheckChecked21">
           낚시
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="하이킹" id="flexCheckChecked22" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('하이킹')" class="form-check-input" v-model="styleCheck" type="checkbox" value="하이킹" id="flexCheckChecked22" >
         <label class="form-check-label" for="flexCheckChecked22">
           하이킹
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="물놀이" id="flexCheckChecked23" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('물놀이')" class="form-check-input" v-model="styleCheck" type="checkbox" value="물놀이" id="flexCheckChecked23" >
         <label class="form-check-label" for="flexCheckChecked23">
           물놀이
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="등산" id="flexCheckChecked24" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('등산')"  class="form-check-input" v-model="styleCheck" type="checkbox" value="등산" id="flexCheckChecked24" >
         <label class="form-check-label" for="flexCheckChecked24">
           등산
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="styleCheck" type="checkbox" value="불멍" id="flexCheckChecked25" >
+        <input :disabled="styleCheck.length > 2 && !styleCheck.includes('불멍')" class="form-check-input" v-model="styleCheck" type="checkbox" value="불멍" id="flexCheckChecked25" >
         <label class="form-check-label" for="flexCheckChecked25">
           불멍
         </label>
@@ -67,7 +67,7 @@
    
     <div align="center">
         <div class="col-sm-3">
-        <a class="btn btn-lg" href="#" @click="$emit('style-check',styleCheck)">
+        <a data-bs-dismiss="modal" class="btn btn-lg" href="#" @click="$emit('style-check',styleCheck)">
             <span>button</span>
         </a>
     </div>
