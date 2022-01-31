@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface SnsDao {
-    public int snsInsert(SnsDto snsNo);
+    public int snsInsert(SnsDto dto);
     public int snsDelete(int snsNo);
     public int snsUpdate(SnsDto dto);
 
@@ -22,15 +22,18 @@ public interface SnsDao {
     public List<SnsDto> snsListSearchWord(SnsParamDto dto);
     public int snsListSearchWordTotalCount();
 
-    public List<SnsImageDto> snsImageList(int snsImageNo);
     public int snsImageInsert(SnsImageDto dto);
-    public int snsImageDelete(int snsNo);
-    public List<String> snsImageUrlDeleteList(int snsNo);
+    public List<SnsImageDto> snsImageList(int snsNo);
+    // public int snsImageDelete(int snsNo);
+    // public List<String> snsImageUrlDeleteList(int snsNo);
     // 이미지 업데이트는 지우고 다시 넣는 방식으로
     public int snsLikeInsert(
-            @Param("snsNo") int snsNo,
-            @Param("userNo") int userNo
+        @Param("snsNo") int snsNo,
+        @Param("userNo") int userNo
     );
     public int snsLikeDelete(int snsNo, int userNo);
+    public List<SnsDto> likeList(int userNo);
+
+    public SnsDto snsDetail(SnsParamDto snsParamDto);
 
 }

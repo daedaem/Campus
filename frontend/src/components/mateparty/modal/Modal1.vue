@@ -7,11 +7,12 @@
     <div align="center">
         <div class="col-sm-3">
         <a class="btn btn-lg" href="#" @click="sendData" @date-in="dateIn">
-            <span>button</span>
+            <span data-bs-dismiss="modal">button</span>
         </a>
     </div>
 </div>
 </div>
+
 </template>
 
 
@@ -39,6 +40,7 @@ export default {
   return {
     dateIn,
     sendData,
+  
  
   }
   

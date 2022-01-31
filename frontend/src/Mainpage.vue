@@ -17,33 +17,40 @@
     
     
   
-  
+
   </body>
 </template>
 
 <script>
 import Maincarousel from '@/components/mateparty/Maincarousel.vue'
 import axios from 'axios'
-// import {useStore} from 'vuex'
+import {useStore, } from 'vuex'
+import {computed,  } from 'vue'
 
 export default {
   name : 'Mainpage',
   components : {
     Maincarousel
   },
-// const changeName = e => store.dispatch('person/changeName', e.target.value); /
-  setup() { 
-    // const store = useStore()
 
+  setup() { 
+    const store = useStore()
+    // const ab = ref('')
+    const viewFunc =  (data) => {
+      // console.log(data)
+      store.dispatch('viewMate',data)
+      
+    }
+   
+    const matelist = computed(() => store.state.mateList)
     axios({
       methods: 'get',
       url : 'http://localhost:8080/mate',
     })
     .then(res => {
       console.log(res.data.list)
-      const data = res.data.list
-    
-      this.$store.dispatch('viewMate',data)
+      viewFunc(res.data.list)
+      
     })
 
     .catch(err =>{
@@ -51,10 +58,11 @@ export default {
     })
   
     return {
-      
+      matelist,
+     
     }
   }
-
+  
 }
 </script>
 

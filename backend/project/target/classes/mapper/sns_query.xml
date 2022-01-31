@@ -10,10 +10,11 @@
 
     <select id="snsList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
+            LIMIT 10
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
@@ -25,6 +26,18 @@
     <delete id="snsDelete" parameterType="int">
         DELETE FROM sns WHERE snsNo = #{snsNo}
     </delete>
+
+    <select id="snsDetail" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime
+        FROM sns s, user u
+        WHERE s.snsNo = #{snsNo}
+        AND s.userNo = u.userNo
+    </select>
+
+    <select id="snsListTotalCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM sns
+    </select>
 
     <!-- search word-->
     <select id="snsListSearchList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
@@ -40,13 +53,13 @@
     <!-- snsImage -->
 
     <insert id="snsImageInsert" parameterType="com.ssafy.project.dto.SnsImageDto">
-        INSERT INTO snsImage ( snsNo, snsImageName, snsImageSize, snsImageContentType, snsImageUrl)
-                    VALUES ( #{snsNo}, #{snsImageName}, #{snsImageSize}, #{snsImageContentType}, #{snsImageUrl} )
+        INSERT INTO snsImage ( snsImageNo, snsImageUrl )
+                VALUES ( #{snsImageNo}, #{snsImageUrl} )
     </insert>
 
+
     <select id="snsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
-        SELECT snsNo, snsImageNo, snsImageName, snsImageSize, snsImageContentType,
-                snsImageUrl, regDt
+        SELECT snsImageNo, snsImageUrl
             FROM snsImage
             WHERE snsNo = #{snsNo}
     </select>
@@ -58,15 +71,7 @@
     </delete>
 
     <!--<delete id="snsImageUrlDeleteList" parameterType="int" resultType="string">-->
-
-    <insert id="snsLikeInsert" parameterType="map">
-        INSERT INTO snsLike ( snsNo, userNo )
-                    VALUES ( #{snsNo}, #{userNo} )
-    </insert>
-
-    <delete id="snsLikeDelete" parameterType="int">
-        DELETE FROM snsLike where userNo = #{userNo}
-    </delete>
+    
 
 </mapper>
 
