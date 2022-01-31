@@ -83,6 +83,7 @@ import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
   name: "Carousel2",
+  props : ['mateDetail'],
   components: {
     Carousel,
     Slide,
@@ -91,8 +92,13 @@ export default defineComponent({
   data() {
     return {
       items: items,
+      mateData : this.mateDetail
     };
   },
+  mounted() {
+    console.log(this.mateData)
+  }
+  
 });
 </script>
 

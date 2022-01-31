@@ -12,7 +12,7 @@ public class MateCampEquipRequiredDto {
     private int lantern;
     private int powerstrip;
     private int sleepingbag;
-    private int table;
+    private int table1;
     private int tarp;
     private int tent;
 
