@@ -5,7 +5,7 @@
       <Fileupload @image="uploadedImage"/>
       
         <div style="margin-left: 30px;">
-          <Filtermake @drink-check="drinkCheck" @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
+          <Filtermake @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
 
           <div align="left" class="filterbox">
             <div align="left" class="filterbox2">
@@ -32,13 +32,13 @@
             <div >
                 <p align="left">제목</p>
                 <div class="form-group">
-                    <input v-model="title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
+                    <input v-model="partyData.title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
                 </div>
             </div>
             <div >
                 <p align="left">메이트 소개</p>
                 <div class="form-group">
-                    <textarea v-model="content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    <textarea v-model="partyData.content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
                 </div>
             </div>
             
@@ -75,6 +75,30 @@ export default {
     Fileupload,
     Datepicker,
   },
+  data: function() {
+    return {
+        title : '',
+        content : '',
+        partyData : {
+          kind : null,
+          friendlimit : null,
+          style : null,
+          memberlimit : null,
+          startage : null,
+          endage : null,
+          campingsite : null,
+          startdate : null,
+          enddate : null,
+          partytitle : null,
+          partycontent : null,
+          camptype: null,
+          items : null,
+          image : null,
+          title : null,
+          content: null,
+        },
+      }
+  },
   methods: {
   //image upload and preview methods
     selectImage () {
@@ -92,39 +116,104 @@ export default {
         this.$emit('input', file[0])
       }
     },
-    drinkCheck(text) {
-      console.log(text)
-    },
+    
     styleCheck(text) {
-      console.log(text)
+      this.partyData.style = text
     },
     limitCheck(text) {
-      console.log(text)
+      this.partyData.friendlimit = Number(text[0])
     },
     campCheck(text) {
-      console.log(text)
+      this.partyData.camptype = text[0]
     },
     memberValue(text) {
-      console.log(text)
+      this.partyData.memberlimit = Number(text)
     },
     ageValue1(text) {
-      console.log(text)
+      this.partyData.startage = Number(text)
     },
     ageValue2(text) {
-      console.log(text)
+      this.partyData.endage = Number(text)
     },
     imgStatus(text) {
-      console.log(text)
+      this.partyData.items = text
     },
     uploadedImage(file) {
-      console.log(file)
+      this.partyData.image = file
     },
     dateIn(value) {
       console.log(value)
+        
+      if (value[0].toString().substring(4,7) === 'Jan') {
+        var startMonth = '01'
+      }
+      if (value[0].toString().substring(4,7) === 'Feb') {
+        startMonth = '02'
+      } else if (value[0].toString().substring(4,7) === 'Feb') {
+        startMonth = '02'
+      } else if (value[0].toString().substring(4,7) === 'Mar') {
+        startMonth = '03'
+      } else if (value[0].toString().substring(4,7) === 'Apr') {
+        startMonth = '04'
+      } else if (value[0].toString().substring(4,7) === 'May') {
+        startMonth = '05'
+      } else if (value[0].toString().substring(4,7) === 'Jun') {
+        startMonth = '06'
+      } else if (value[0].toString().substring(4,7) === 'Jul') {
+        startMonth = '07'
+      } else if (value[0].toString().substring(4,7) === 'Aug') {
+        startMonth = '08'
+      } else if (value[0].toString().substring(4,7) === 'Sep') {
+        startMonth = '09'
+      } else if (value[0].toString().substring(4,7) === 'Oct') {
+        startMonth = '10'
+      } else if (value[0].toString().substring(4,7) === 'Nov') {
+        startMonth = '11'
+      } else if (value[0].toString().substring(4,7) === 'Dec') {
+        startMonth = '12'
+      }
+
+      if (value[1].toString().substring(4,7) === 'Jan') {
+        var endMonth = '01'
+      }
+      if (value[1].toString().substring(4,7) === 'Feb') {
+        endMonth = '02'
+      } else if (value[1].toString().substring(4,7) === 'Mar') {
+        endMonth = '03'
+      } else if (value[1].toString().substring(4,7) === 'Apr') {
+        endMonth = '04'
+      } else if (value[1].toString().substring(4,7) === 'May') {
+        endMonth = '05'
+      } else if (value[1].toString().substring(4,7) === 'Jun') {
+        endMonth = '06'
+      } else if (value[1].toString().substring(4,7) === 'Jul') {
+        endMonth = '07'
+      } else if (value[1].toString().substring(4,7) === 'Aug') {
+        endMonth = '08'
+      } else if (value[1].toString().substring(4,7) === 'Sep') {
+        endMonth = '09'
+      } else if (value[1].toString().substring(4,7) === 'Oct') {
+        endMonth = '10'
+      } else if (value[1].toString().substring(4,7) === 'Nov') {
+        endMonth = '11'
+      } else if (value[1].toString().substring(4,7) === 'Dec') {
+        endMonth = '12'
+      }
+      const startYear = value[0].toString().substring(11,15)
+      const startDay = value[0].toString().substring(8,10)
+      const startDate = (startYear+'-'+startMonth+'-'+startDay)
+
+      const endYear = value[1].toString().substring(11,15)
+      const endDay = value[1].toString().substring(8,10)
+      const endDate = endYear+'-'+endMonth+'-'+endDay
+
+      this.partyData.startdate = startDate
+      this.partyData.enddate = endDate
     },
+    
 
     test() {
-      console.log('test')
+      console.log(this.partyData)
       axios({
         method: 'get',
         url : 'http://localhost:8080/mate',
@@ -143,24 +232,7 @@ export default {
     
 
   },
-  data: function() {
-    return {
-        title : '',
-        content : '',
-        partyData : {
-          kind : null,
-          friendimit : null,
-          style : null,
-          memberlimit : null,
-          agelimit : null,
-          campingsite : null,
-          startdate : null,
-          enddate : null,
-          parttitle : null,
-          partycontent : null,
-        },
-      }
-  },
+  
   
  }  
 

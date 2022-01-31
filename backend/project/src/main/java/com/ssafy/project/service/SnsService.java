@@ -17,4 +17,7 @@ public interface SnsService {
     public SnsResultDto snsDelete(int snsNo);
 
     public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto);
+
+    public SnsResultDto snsDetail(SnsParamDto snsParamDto);
+
 }

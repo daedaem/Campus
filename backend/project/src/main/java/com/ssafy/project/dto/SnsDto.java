@@ -15,7 +15,7 @@ public class SnsDto {
     private LocalDateTime snsCreateTime;
     private LocalDateTime snsUpdateTime;
 
-    private String userProfileImageUrl;
+    private String userProfileImage;
 
     private List<SnsImageDto> ImageList;
 }
