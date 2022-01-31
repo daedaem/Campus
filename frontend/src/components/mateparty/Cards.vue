@@ -7,7 +7,7 @@
                 <div class="content">
                     <h6 class="category">Best cards</h6>
                     <h4 class="title"><a href="#">유형</a></h4>
-                    <p class="description">카라반 </p>
+                    <p class="description">!고쳐야함! </p>
                 </div>
             </div> <!-- end card -->
         </div>
@@ -19,7 +19,7 @@
                 <div class="content">
                     <h6 class="category">Best cards</h6>
                     <h4 class="title"><a href="#">스타일</a></h4>
-                    <p class="description">#낚시<br>어쩌구<br>저쩌구 </p>
+                    <p class="description" >{{`# `+cardData.campStyleList[0].mcampStyle1}}<br>{{`# `+cardData.campStyleList[0].mcampStyle2}}<br>{{`# `+cardData.campStyleList[0].mcampStyle3}}<br></p>
                 </div>
             </div> <!-- end card -->
         </div>
@@ -31,7 +31,8 @@
                 <div class="content">
                     <h6 class="category">Best cards</h6>
                     <h4 class="title"><a href="#">정보</a></h4>
-                    <p class="description">동행: 1인 <br>음주: 음주<br>인원: 6인 </p>
+                    <p class="description"># 연령대<br>{{cardData.lowestAge}}↑~ {{cardData.highestAge}}↓<br># 인원<br>!고쳐야함!<br># 지역<br>{{cardData.mateCampsite}}</p>
+                    
                 </div>
             </div> <!-- end card -->
         </div>
@@ -44,8 +45,49 @@
 </template>
 
 <script >
+import { ref} from 'vue'
+
 export default {
-  name : 'Cards'
+  name : 'Cards',
+  props : ['mateDetail'],
+  setup(props) {
+    // const cardData = ref({
+    //     campEquipRequiredList : null,
+    //     campStyleList : null,
+    //     contentId : null,
+    //     facltNm : null,
+    //     firstImageUrl: null,
+    //     highestAge: null,
+    //     imageList: null,
+    //     lowestAge: null,
+    //     mateAccompanyNum: null,
+    //     mateCampend: null,
+    //     mateCampsite: null,
+    //     mateCampstart: null,
+    //     mateCampstyle: null,
+    //     mateCamptype: null,
+    //     mateContent: null,
+    //     mateCreateTime: null,
+    //     mateImageUrl: null,
+    //     mateList: null,
+    //     mateNo: null,
+    //     mateStatus: null,
+    //     mateTitle: null,
+    //     mateUpdateTime: null,
+    //     userNickName: null,
+    //     userNo: null,
+    //     userProfileImage : null,
+    // })
+    const cardData = ref(props.mateDetail)
+    console.log(cardData.value)
+
+
+
+    return {
+        cardData,
+        // card,
+    }
+  }
 }
 </script>
 
@@ -79,7 +121,7 @@ body{margin-top:20px;}
     color: #FFFFFF;
 }
 .card.card-just-text .content {
-    padding: 50px 65px;
+    padding: 30px 40px;
     text-align: center;
 }
 .card .content {
