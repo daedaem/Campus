@@ -7,43 +7,36 @@
         <div class="login-header">
           <!-- 이메일 -->
           <div class="email-container">
-            <div align="left">
-              이메일
-            </div>
+            <div align="left">이메일</div>
             <div class="wrap-input3">
-              <input 
-              class="input3"
-              type="text"
-              placeholder="example@google.com"
-              v-model="credentials.email"
-              id="email"
-              @keypress.enter="login"
-              >
+              <input
+                class="input3"
+                type="text"
+                placeholder="example@google.com"
+                v-model="credentials.email"
+                id="email"
+                @keypress.enter="login"
+              />
             </div>
           </div>
           <!-- 패스워드 -->
           <div class="password-container">
-            <div align="left">
-              패스워드
-            </div>
+            <div align="left">패스워드</div>
             <div class="wrap-input3">
-              <input 
-              class="input3"
-              type="password"
-              placeholder="Password"
-              v-model="credentials.password"
-              id="password"
-              @keypress.enter="login"
-              >
+              <input
+                class="input3"
+                type="password"
+                placeholder="Password"
+                v-model="credentials.password"
+                id="password"
+                @keypress.enter="login"
+              />
             </div>
           </div>
 
           <!-- 로그인버튼 -->
           <div class="container-contact3-form-btn">
-            <button 
-              class="login-button"
-              @click="login"
-              type="submit">
+            <button class="login-button" @click="login" type="submit">
               로그인
             </button>
           </div>
@@ -51,7 +44,9 @@
           <!-- 구글 로그인 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <button @click="signout" align="left" class="btn-primary">로그아웃</button>
+            <button @click="signout" align="left" class="btn-primary">
+              로그아웃
+            </button>
           </div>
 
           <!-- 카카오 -->
@@ -92,16 +87,20 @@ export default {
       value: "",
       rules: {
         required: (value) => !!value || "Required.",
-        lengthValid: (value) => (value && value.length >= 5 || "MIN 5 characters")
+        lengthValid: (value) =>
+          (value && value.length >= 5) || "MIN 5 characters",
       },
     };
   },
 
-  // 구글 
+  // 구글
   mounted() {
-    window.addEventListener('google-oauth-library-load', this.renderSignInButton);
+    window.addEventListener(
+      "google-oauth-library-load",
+      this.renderSignInButton
+    );
   },
-  
+
   methods: {
     // ...mapActions(["login"]),
     login: function () {
@@ -124,22 +123,22 @@ export default {
 
     // 회원가입 이동
     moveToSignUp: function () {
-      this.$router.push({ name: 'Signup'})
+      this.$router.push({ name: "Signup" });
     },
 
     // 비밀번호 찾기
     movetofindPw: function () {
-      this.$router.push({ name: 'findPw'})
+      this.$router.push({ name: "findPw" });
     },
 
     // 구글
     renderSignInButton() {
-      window.gapi.signin2.render('my-signin2', {
-        scope: 'profile email',
+      window.gapi.signin2.render("my-signin2", {
+        scope: "profile email",
         width: 240,
         height: 50,
         longtitle: true,
-        theme: 'dark',
+        theme: "dark",
         onsuccess: this.onSuccess,
         onfailure: this.onFailure,
       });
@@ -188,46 +187,45 @@ export default {
     },
 
     onSuccess(googleUser) {
-      console.log(googleUser)
+      console.log(googleUser);
       this.googleUser = googleUser.getBasicProfile();
-      this.$router.push({name: 'Home'})
+      this.$router.push({ name: "Home" });
     },
     onFailure(error) {
-      console.log(error)
+      console.log(error);
     },
-    
+
     // 구글 로그아웃
     signout() {
       const authInst = window.gapi.auth2.getAuthInstance();
       authInst.signOut().then(() => {
-        console.log('User Signed Out!!!')
+        console.log("User Signed Out!!!");
       });
-    }
-
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-.test{ display:flex;
+.test {
+  display: flex;
   justify-content: center;
-align-items: center;
-margin-top: 1vh;
+  align-items: center;
+  margin-top: 1vh;
 }
 
-.google{ 
+.google {
   width: 200px;
-  height:40px;
-  background-color:#ffffff;
-  border:1px #a8a8a8 solid;
-  color:black;
-  display:flex;
+  height: 40px;
+  background-color: #ffffff;
+  border: 1px #a8a8a8 solid;
+  color: black;
+  display: flex;
   align-items: center;
   justify-content: center;
-  cursor:pointer; 
+  cursor: pointer;
 }
 
-  
 .wrapC {
   display: flex;
   width: 100%;
@@ -239,31 +237,31 @@ margin-top: 1vh;
   min-height: 100vh;
 }
 
-  .wrap-contact3 {
-    width: 500px;
-    background: #80c64a;
-    background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
-    background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
-    background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
-    background: linear-gradient(45deg, #56ab2f, #a8e063);
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 72px 55px 65px 55px;
-  }
-  .login-container {
+.wrap-contact3 {
+  width: 500px;
+  background: #80c64a;
+  background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
+  background: linear-gradient(45deg, #56ab2f, #a8e063);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 72px 55px 65px 55px;
+}
+.login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 5vh;
   padding: 0 15vw;
   /* align-items: center; */
-  }
+}
 
-  .contact3-form {
-    width: 100%;
-  }
+.contact3-form {
+  width: 100%;
+}
 
-  .contact3-form-title {
+.contact3-form-title {
   display: block;
   font-family: Poppins-Bold;
   font-size: 39px;
@@ -287,14 +285,14 @@ margin-top: 1vh;
   transition-duration: 0.5s;
 }
 input {
-	outline: none;
-	border: none;
+  outline: none;
+  border: none;
 }
 
 .wrap-input3 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid rgba(255,255,255,0.24);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.24);
   border-top: 2px solid #f3a90800;
   margin-bottom: 27px;
 }
@@ -327,5 +325,4 @@ input {
 .container-contact3-form-btn {
   padding-top: 23px;
 }
-
 </style>
