@@ -23,21 +23,6 @@ public class MateDto {
     private String mateStatus;
     private int mateAccompanyNum;
 
-    // private String mCampStyle1;
-    // private String mCampStyle2;
-    // private String mCampStyle3;
-
-    // private int mRequire1;
-    // private int mRequire2;
-    // private int mRequire3;
-    // private int mRequire4;
-    // private int mRequire5;
-    // private int mRequire6;
-    // private int mRequire7;
-    // private int mRequire8;
-    // private int mRequire9;
-    // private int mRequire10;
-
 
     private Date mateCreateTime;
     private Date mateUpdateTime;
