@@ -79,7 +79,7 @@ export default {
     return {
         partyData : {
           friendlimit : null,
-          style : null,
+          style : {},
           memberlimit : null,
           lowestAge : null,
           highestAge : null,
@@ -113,7 +113,14 @@ export default {
     },
     
     styleCheck(text) {
-      this.partyData.style = Object.assign({}, text);
+      if (text.length === 1) {
+        this.partyData.style.mCampStyle1 = text[0]
+      } else if (text.length === 2) {
+        this.partyData.style.mCampStyle1 = text[0], this.partyData.style.mCampStyle2 = text[1]
+      } else if (text.length === 3) {
+        this.partyData.style.mCampStyle1 = text[0], this.partyData.style.mCampStyle2 = text[1], this.partyData.style.mCampStyle3 = text[2]
+      }
+     
     },
     limitCheck(text) {
       this.partyData.friendlimit = Number(text[0])

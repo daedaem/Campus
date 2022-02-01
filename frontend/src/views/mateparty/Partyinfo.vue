@@ -24,8 +24,8 @@
 
     <Carousel2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     
-    <Cards v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <Items/>
+    <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
+    <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <div><Members/></div>
     <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
@@ -47,7 +47,7 @@
 <script>
 import Carousel2 from '../../components/mateparty/Carousel2.vue'
 import Cards from '../../components/mateparty/Cards.vue'
-import Items from '../../components/mateparty/Items.vue'
+import Items2 from '../../components/mateparty/Items2.vue'
 import Members from '../../components/mateparty/Members.vue'
 import axios from 'axios'
 import {ref} from 'vue'
@@ -63,7 +63,7 @@ export default {
   components: {
     Carousel2,
     Cards,
-    Items,
+    Items2,
     Members,
   },
   setup(props) {
@@ -93,14 +93,20 @@ export default {
 </script>
 
 <style scoped>
-body {
-  overflow: hidden;
-  width: 768px;
-  margin: 0 auto;
-  padding: 0 20px;
-  background: beige;
-}
 
+@media (min-width: 768px) {
+  body {
+    width: 768px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: beige; }
+  }
+
+@media (max-width: 768px) {
+  .mycard {
+    width : 100%;
+  }
+}
 .mainimage {
   
   border: solid;

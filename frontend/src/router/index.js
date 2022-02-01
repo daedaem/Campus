@@ -93,6 +93,11 @@ const routes = [
     name: "Matematch",
     component: Matematch,
   },
+  {
+    path: "/campsite/",
+    name: "Campsite",
+    component: Matematch,
+  },
 ];
   
   
