@@ -1,11 +1,11 @@
 <template>
   <div>
     <Carousel :itemsToShow="3.95" :wrapAround="true">
-      <Slide v-for="item in items" :key="item.id">
+      <Slide v-for="(item,idx) in mateData.imageList" :key="idx">
         <div class="carousel__item" style="width: 150px; height: 150px">
           <img
             style="width: 100%; height: 100%; border-radius: 10px"
-            :src="item.imgurl"
+            :src="item.snsImageUrl"
             alt="321"
           />
         </div>

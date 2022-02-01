@@ -3,7 +3,7 @@
 
     
     <b-row :per-page="perPage" :current-page="currentPage"> 
-      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
+      <b-card-group class ="col-md-4 col-sm-6 col-xs-12" v-for="(item,idx) in paginatedItems" :key="idx"  >
         
         <b-card class="mb-5" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})">
           <b-card-text >
