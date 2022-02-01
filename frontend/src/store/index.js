@@ -1,15 +1,13 @@
 import { createStore } from "vuex";
 import axios from "axios";
-import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from "vuex-persistedstate";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default createStore({
-  plugins: [
-    createPersistedState(),
-  ],
+  plugins: [createPersistedState()],
   state: {
     user: null,
     token: localStorage.getItem("jwt"),
-    usernumber: "",
     equipLists: [],
     mateList: [],
     uploadimages: "",
@@ -31,7 +29,7 @@ export default createStore({
     TODETAIL: function (state, feeddetailnum) {
       state.feeddetailnum = feeddetailnum;
     },
-  
+
     FEEDLIST: function (state, feedList) {
       state.feedList = feedList;
     },
@@ -44,11 +42,24 @@ export default createStore({
     // 로그인
     LOGIN: function (state) {
       state.token = localStorage.getItem("jwt");
+      state.isLogin = true;
+      const token = state.token;
+      axios({
+        method: "get",
+        url: `${SERVER_URL}/accounts/profile`,
+        headers: { Authorization: `JWT ${token}` },
+      }).then((res) => {
+        state.myProfileimageurl = res.image;
+        state.nickname = res.nickname;
+        state.myNum = res.id;
+      });
     },
     LOGOUT: function (state) {
+      state.myProfileimageurl = null;
       state.token = null;
+      state.nickname = null;
+      state.myNum = null;
     },
-
   },
   actions: {
     createEquip: function ({ commit }, equipItem) {
@@ -66,7 +77,6 @@ export default createStore({
     },
     toDetail: function ({ commit }, feeddetailnum) {
       commit("TODETAIL", feeddetailnum);
-     
     },
     feedList: function ({ commit }, feedList) {
       commit("FEEDLIST", feedList);
@@ -82,10 +92,6 @@ export default createStore({
         Authorization: `JWT ${state.token}`,
       };
     },
-  },
-  
-  modules: {
-
   },
 
   modules: {},

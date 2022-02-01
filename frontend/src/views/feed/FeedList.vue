@@ -1,5 +1,6 @@
 <template>
   <div class="FeedListTotalframe d-flex">
+    <!-- <infinite-scroll @infini></infinite-scroll> -->
     <div class="FeedListFrame">
       <router-link
         class="text-decoration-none fw-bold text-primary align-middle align-self-center"
@@ -31,14 +32,18 @@
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
+// import InfiniteScroll from "infinite-loading-vue3";
 
 export default {
   name: "FeedList",
   components: {
+    // InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
   },
   created: function () {
+    console.log(this.$store.state.user);
+
     axios("http://localhost:8080/sns")
       .then((res) => {
         // console.log(res.data.list);
@@ -50,11 +55,10 @@ export default {
         console.log(err);
       });
   },
-  // created: function () {
-  //   this.$store.dispatch("LoadFeedListItems");
-  // },
+
   computed: {
     ...mapState(["feedList"]),
+    ...mapState(["user"]),
   },
   // created: function() {
   //   console.log(this.feeds)
