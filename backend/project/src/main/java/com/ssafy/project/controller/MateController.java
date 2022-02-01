@@ -1,5 +1,8 @@
 package com.ssafy.project.controller;
 
+import java.util.List;
+
+import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
@@ -49,12 +52,14 @@ public class MateController {
     }
 
     @PostMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto, MultipartFile multipartFile ){
+    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, MultipartFile multipartFile ){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
-
     //call mateInsert from MateService
+    mateDto.setContentId(10);
+    mateDto.setUserNo(3);
+
     MateResultDto mateResultDto = service.mateInsert(mateDto, multipartFile);
 
     if( mateResultDto.getResult() == SUCCESS ){
