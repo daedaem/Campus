@@ -1,6 +1,7 @@
 package com.ssafy.project.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -17,15 +18,26 @@ public class MateDto {
     private Date mateCampstart;
     private Date mateCampend;
     private int userNo;
+    private String userNickName;
+    private int contentId;
+    private String mateStatus;
+    private int mateAccompanyNum;
+
 
     private Date mateCreateTime;
     private Date mateUpdateTime;
 
-    private int fileId;
-    private String fileName;
-    private long fileSize;
-    private String fileContentType;
-	private String fileUrl;
+    private String mateImageUrl;
+    private String userProfileImage;
+    private List<MateListDto> mateList;
+    private List<SnsImageDto> imageList;
+    private List<MateCampStyleDto> campStyleList;
+    private List<MateCampEquipRequiredDto> campEquipRequiredList;
 
+    private String firstImageUrl;
+    private String facltNm; // 야영장 명
+
+    // 캠핑장 평점 추가
+    // 장비 리스트
     
 }

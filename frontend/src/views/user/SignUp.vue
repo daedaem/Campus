@@ -4,7 +4,6 @@
 			<h1 class="contact3-form-title">회원가입</h1>
 			<!-- input만들기 -->
 			
-			<!-- 이메일 입력 -->
 			<div class="email-container">
 				<h6 align="left">
 					이메일
@@ -16,13 +15,11 @@
 						placeholder="이메일을 입력하세요"
 						v-model="credentials.email"
 						required
-						@keypress.enter="check_user_email"
 						autofocus
 						@blur="emailValid">
 					</b-form-input>
-					
+
 					<b-button
-						@click="check_user_email"
 						>인증</b-button>
 				</div>
 				<div align="left" v-if="!emailValidFlag" class="check-form">
@@ -40,12 +37,9 @@
 						type="text"
 						style="width:50%; float: left"
 						placeholder="인증번호를 입력하세요"
-						v-model="emailCode"
-						autofocus
-						@keypress.enter="check_user_emailCode">
+						autofocus>
 					</b-form-input>
 					<b-button
-					@click="check_user_emailCode"
 					>확인</b-button>
 				</div>
 				<div align="left">
@@ -67,7 +61,6 @@
 						@blur="nicknameValid">
 					</b-form-input>
 					<b-button
-						@click="check_user_nickname"
 					>중복확인</b-button>
 				</div>
 				<div align="left" v-if="!nicknameValidFlag" class="check-form">
@@ -75,7 +68,8 @@
 				</div>
 			</div>
 
-			<!-- 비밀번호 입력 -->
+
+			<!-- 비밀번호 -->
 			<div class="password-container mt-2">
 				<h6 align="left">
 					비밀번호
@@ -86,13 +80,12 @@
 						style="width:50%; float: left"
 						placeholder='비밀번호를 입력하세요'
 						v-model="credentials.password"
-						@keypress.enter="onSubmit()"
 						autofocus
 						@blur="passwordValid"
 						>
 					</b-form-input>
 				</div>
-				<!-- 대문자/소문자/숫자가 1개이상 존재하고 8-16자리 -->
+				<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
 				<div align="left" v-if="!passwordValidFlag" class="check-form">
 					유효하지 않은 비밀번호 입니다.
 				</div>
@@ -109,35 +102,36 @@
 						style="width:50%; float: left"
 						placeholder="비밀번호를 한번 더 입력하세요"
 						v-model="credentials.password_confirmation"
-						@keypress.enter="onSubmit()"
 						autofocus
 						@blur="passwordCheckValid"
 						>
 					</b-form-input>
 				</div>
+				<!-- 비밀번호 확인 -->
 				<div align="left" v-if="!passwordCheckFlag" class="check-form">
 					비밀번호가 다릅니다.
 				</div>
 			</div>
-			
+
 			<!--  약관동의 -->
 			<div class="form-group mt-3" align="left">
 				<input type="checkbox" id="term" />
 				<span>약관을 동의합니다.</span>
 				<span>약관보기</span>
 			</div>
-			
 
 			<!-- 가입 버튼 -->
 			<div class="d-flex justify-content-between mx-3 mt-3">
 				<b-button 
 					class="send-button" 
-					variant="success" 
-					@keypress.enter="onSubmit()">
+					variant="success"
+					@click="onSubmit()">
 					가입하기
-				</b-button>		
+				</b-button>
 				<b-button variant="success"><router-link class="text-decoration-none text-white" to="addSign">추가정보입력</router-link></b-button>
 			</div>
+
+		
 		</div>
 	</div>
 </template>
@@ -150,16 +144,16 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL
 export default {
   name: "Signup",
   data() {
-    return {
+		return {
 			credentials: {
-				userId: "",
-				nickname: "",
-				email: "",
-				password: "",
-				password_confirmation: "",
-				image: "",
-				user_gender: "",
-				user_area: "",
+				email: "", // 이메일
+				nickname: "", // 닉네임
+				password: "", // 패스워드
+				password_confirmation: "", // 패스워드확인 
+				image: "", // 이미지
+				user_gender: "", // 성별
+				user_area: "", // 지역
+				// 보유장비
 				imgStatus : {
 					lantern : 0,
 					powerstrip : 0,
@@ -173,30 +167,68 @@ export default {
 					brazier : 0,
 				}
 			},
-			emailValidFlag: true,
-			passwordValidFlag: true,
-			passwordCheckFlag: true,
-			nicknameValidFlag: true,
+			emailValidFlag: "", // 이메일 유효성 검사
+			nicknameValidFlag: "", // 닉네임 유효성 검사
+			passwordValidFlag: "", // 비밀번호 유효성검사
+			passwordCheckFlag: "", // 비밀번호 동일 검사
+		}
+	},
 
-			
-			emailCode: "",
-			possible_email: false,
+	methods: {
+		onSubmit() {
+			axios ({
+				method: "post",
+				url: `${SERVER_URL}/user/signup`,
+				data: this.credentials,
+			})
+				.then((res) => {
+					console.log(res)
+					alert("회원가입 성공")
+					this.$router.push({name: 'Login'})
+				})
+				.catch(() => {
+					console.log(this.credentials)
+					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+				})
+			// console.log(this.credentials)
+			// 유효성 통과못할 시
+			// if (this.emailValidFlag === true || this.nicknameValidFlag === true || this.passwordValidFlag === true || this.passwordCheckFlag === true) {
+			// 	console.log(this.emailValidFlag)
+			// 	console.log(this.nicknameValidFlag)
+			// 	console.log(this.passwordValidFlag)
+			// 	console.log(this.passwordCheckFlag)
+			// 	alert("유효성 검사 확인 부탁드립니다.")
+			// 유효성 통과 할시
+			// } else {
+			// 	axios ({
+			// 	method: "post",
+			// 	url: `${SERVER_URL}/user/signup`,
+			// 	data: this.credentials,
+			// })
+			// 	.then((res) => {
+			// 		console.log(res)
+			// 		alert("회원가입 성공")
+			// 		this.$router.push({name: 'Login'})
+			// 	})
+			// 	.catch(() => {
+			// 		console.log(this.credentials)
+			// 		alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+			// 	})
+			// }
+		},
 
-      // 체크하는것
-      checkId: false,
-      checkNickname: false,
-      checkEmail: false,
-      checkEmailCode: false,
-    };
-  },
-  methods: {
+		// 이메일 유효성 체크
 		emailValid() {
 			if (/^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+).(.[0-9a-zA-Z_-]+){1,2}$/.test(this.credentials.email)) {
 				this.emailValidFlag = true
+				console.log(this.emailValidFlag)
 			} else {
 				this.emailValidFlag = false
+				console.log(this.emailValidFlag)
 			}
 		},
+
+		// 닉네임 유효성 체크
 		nicknameValid() {
 			if (!/[~!@#$%^&*()_+|<>?:{}]/.test(this.credentials.nickname)) {
 				this.nicknameValidFlag = true
@@ -204,13 +236,17 @@ export default {
 				this.nicknameValidFlag = false
 			}
 		},
+
+		// 비밀번호 유효성 체크
 		passwordValid() {
-			if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.credentials.password)) { 
+			if (/^(?=.*[a-z])(?=.*[0-9]).{8,16}$/.test(this.credentials.password)) { 
 				this.passwordValidFlag = true 
 			} else { 
 				this.passwordValidFlag = false
 			}
 		},
+
+		// 비밀번호 확인 유효성 체크
 		passwordCheckValid() {
 			if (this.credentials.password === this.credentials.password_confirmation) {
 				this.passwordCheckFlag = true
@@ -218,90 +254,7 @@ export default {
 				this.passwordCheckFlag = false
 			}
 		},
-		
-
-
-		// 제출했을때
-		onSubmit() {
-			// 아이디 체크, 닉네임 체크, 이메일코드 체크
-			if ( this.checkId == false || this.checkNickname == false || this.checkEmail == false ||this.checkEmailCode == false || this.passwordValidFlag == true || this.passwordCheckFlag == true)	{
-				alert("중복체크 및 유효성 검사 확인 바랍니다.")
-			} else {
-				axios({
-					method: "POST",
-					url: `${SERVER_URL}/user/signup`,
-					data: this.credentials,
-				})
-					.then(() => {
-						alert("회원가입 성공")
-						this.$router.push({name: 'Home'})
-					})
-					.catch(() => {
-						alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
-					})
-			}
-		},
-		check_user_email: function() {
-			if (this.checkId == false || this.checkNickname == false || this.credentials.email == "") {
-				alert("닉네임, 아이디 중복체크 확인 및 이메일을 입력 바랍니다.")
-				this.credentials.email = "";
-			} else {
-				axios
-					.post(`${SERVER_URL}/user/email`, this.credentials)
-					.then(() => {
-						alert("사용 가능한 이메일 입니다. 인증코드를 입력 바랍니다.");
-						this.checkEmail = true;
-						this.possible_email = true;
-					})
-					.catch(() => {
-						if (this.credentials.email != "") {
-							alert("현재 사용중인 이메일 입니다.");
-							this.credentials.email = ""
-						}
-					})
-			}
-		},
-
-		check_user_emailCode: function () {
-			if (this.emailCode == "") {
-				alert("인증코드 다시 입력바랍니다.")
-			} else {
-					axios
-						.post(`${SERVER_URL}/user/email/${this.credentials.email}/${this.emailCode}`)
-						.then(() => {
-							this.checkEmailCode = true;
-							alert("인증 완료")
-						})
-						.catch(() => {
-							if (this.emailCode != "") {
-								alert("인증번호가 일치하지 않습니다.");
-								this.emailCode = "";
-							}
-						})
-			}
-		},
-
-		check_user_nickname: function () {
-			if (this.credentials.nickname == "" ) {
-				alert("닉네임을 다시 입력 바랍니다.")
-				this.credentials.nickname = "";
-			}
-			else {
-				axios
-					.get(`${SERVER_URL}/user/nickname/${this.credentials.nickname}`)
-					.then(() => {
-						alert("사용 가능한 닉네임입니다.")
-						this.checkNickname = true;
-					})
-					.catch(() => {
-						if (this.credentials.nickname != "") {
-							alert("현재 사용중인 닉네임 입니다.");
-							this.credentials.nickname = "";
-						}
-					})
-			}
-		}
-  }
+	}
 }
 </script>
 

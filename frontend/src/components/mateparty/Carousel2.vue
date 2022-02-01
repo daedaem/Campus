@@ -1,46 +1,104 @@
 <template>
-  <Carousel :itemsToShow="3.95" :wrapAround="true">
-    <Slide v-for="item in items" :key="item.id">
-      <div class="carousel__item" style="width:150px; height:150px;">
-        <img style="width:100%; height:100%; border-radius: 10px;" :src="item.imgurl" alt="321">
-      </div>
-    </Slide>
-
-
-  
-  </Carousel>
-  <Pagination/>
+  <div>
+    <Carousel :itemsToShow="3.95" :wrapAround="true">
+      <Slide v-for="(item,idx) in mateData.imageList" :key="idx">
+        <div class="carousel__item" style="width: 150px; height: 150px">
+          <img
+            style="width: 100%; height: 100%; border-radius: 10px"
+            :src="item.snsImageUrl"
+            alt="321"
+          />
+        </div>
+      </Slide>
+    </Carousel>
+    <Pagination />
+  </div>
 </template>
 
 <script>
 const items = [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone', imgurl: 'https://picsum.photos/id/973/200/300' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble', imgurl: 'https://picsum.photos/id/973/200/300'  },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone', imgurl: 'https://picsum.photos/id/973/200/300'  },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo', imgurl: 'https://picsum.photos/id/973/200/300'  },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate', imgurl: 'https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg'  },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople', imgurl: 'https://picsum.photos/id/973/200/300'  }
-        ]
-import { defineComponent } from 'vue'
-import { Carousel, Slide, Pagination } from 'vue3-carousel';
+  {
+    id: 1,
+    first_name: "Fred",
+    last_name: "Flintstone",
+    imgurl: "https://picsum.photos/id/973/200/300",
+  },
+  {
+    id: 2,
+    first_name: "Wilma",
+    last_name: "Flintstone",
+    imgurl:
+      "https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg",
+  },
+  {
+    id: 3,
+    first_name: "Barney",
+    last_name: "Rubble",
+    imgurl: "https://picsum.photos/id/973/200/300",
+  },
+  {
+    id: 4,
+    first_name: "Betty",
+    last_name: "Rubble",
+    imgurl:
+      "https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg",
+  },
+  {
+    id: 5,
+    first_name: "Pebbles",
+    last_name: "Flintstone",
+    imgurl: "https://picsum.photos/id/973/200/300",
+  },
+  {
+    id: 6,
+    first_name: "Bamm Bamm",
+    last_name: "Rubble",
+    imgurl:
+      "https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg",
+  },
+  {
+    id: 7,
+    first_name: "The Great",
+    last_name: "Gazzoo",
+    imgurl: "https://picsum.photos/id/973/200/300",
+  },
+  {
+    id: 8,
+    first_name: "Rockhead",
+    last_name: "Slate",
+    imgurl:
+      "https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg",
+  },
+  {
+    id: 9,
+    first_name: "Pearl",
+    last_name: "Slaghoople",
+    imgurl: "https://picsum.photos/id/973/200/300",
+  },
+];
+import { defineComponent } from "vue";
+import { Carousel, Slide, Pagination } from "vue3-carousel";
 
-import 'vue3-carousel/dist/carousel.css';
+import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
-  name: 'Carousel2',
+  name: "Carousel2",
+  props : ['mateDetail'],
   components: {
     Carousel,
     Slide,
-    Pagination
+    Pagination,
   },
   data() {
     return {
-      items : items,
-    }
+      items: items,
+      mateData : this.mateDetail
+    };
+  },
+  mounted() {
+    console.log(this.mateData)
   }
+  
 });
 </script>
 

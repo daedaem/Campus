@@ -10,10 +10,11 @@
 
     <select id="snsList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
+            LIMIT 10
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
@@ -27,10 +28,15 @@
     </delete>
 
     <select id="snsDetail" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
-        SELECT 
+        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime
         FROM sns s, user u
         WHERE s.snsNo = #{snsNo}
         AND s.userNo = u.userNo
+    </select>
+
+    <select id="snsListTotalCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM sns
     </select>
 
     <!-- search word-->

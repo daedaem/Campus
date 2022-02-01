@@ -40,7 +40,7 @@ public class SnsReplyServiceImpl implements SnsReplyService {
     }
 
     @Override
-    public SnsReplyResultDto SnsReplyInsert(SnsReplyDto dto) {
+    public SnsReplyResultDto snsReplyInsert(SnsReplyDto dto) {
 
         SnsReplyResultDto snsReplyResultDto = new SnsReplyResultDto();
         
@@ -58,7 +58,7 @@ public class SnsReplyServiceImpl implements SnsReplyService {
     }
 
     @Override
-    public SnsReplyResultDto SnsReplyDelete(int snsReplyNo) {
+    public SnsReplyResultDto snsReplyDelete(int snsReplyNo) {
 
         SnsReplyResultDto snsReplyResultDto = new SnsReplyResultDto();
 
@@ -75,7 +75,7 @@ public class SnsReplyServiceImpl implements SnsReplyService {
     }
 
     @Override
-    public SnsReplyResultDto SnsReplyUpdate(SnsReplyDto dto) {
+    public SnsReplyResultDto snsReplyUpdate(SnsReplyDto dto) {
 
         SnsReplyResultDto snsReplyResultDto = new SnsReplyResultDto();
 
