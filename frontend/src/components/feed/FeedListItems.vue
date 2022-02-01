@@ -13,7 +13,10 @@
               />
             </div>
 
-            <div class="user-profile-username fs-5" style="cursor: pointer">
+            <div
+              class="user-profile-username fs-6 fw-bold"
+              style="cursor: pointer"
+            >
               {{ feed.userNickname }}
             </div>
           </div>
@@ -31,7 +34,9 @@
       <feed-list-item-carousel v-bind:feed="feed"></feed-list-item-carousel>
       <!-- 피드 게시글 내용 -->
       <div class="feed-text">
-        <p class="fs-6">{{ feed.snsContent }}</p>
+        <p class="fs-6" style="overflow: auto; word-break: break-all">
+          {{ feed.snsContent }}
+        </p>
       </div>
 
       <!-- 피드 게시글 밑 버튼들 -->
@@ -39,7 +44,7 @@
         <span
           style="cursor: pointer"
           class="heart-box d-flex my-auto"
-          @click="giveHeart(feed)"
+          @click="giveHeart"
           v-if="amiliked == 0"
         >
           <i class="bi bi-heart me-3"></i>
@@ -48,7 +53,7 @@
         <span
           style="cursor: pointer"
           class="heart-box d-flex my-auto"
-          @click="cancelHeart(feed)"
+          @click="cancelHeart"
           v-else
         >
           <i class="bi bi-heart-fill me-3"></i>
@@ -88,27 +93,77 @@
               alt="..."
             /> -->
           </div>
-          <div class="my-auto col-10">
+          <div class="my-auto col-12">
             <div class="form-floating">
-              <div class="d-flex">
+              <div
+                v-for="(comment, i) in this.comments"
+                :key="i"
+                :comment="comment"
+              >
+                <div v-if="this.comments">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div
+                      class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
+                    >
+                      <img
+                        :src="`${comment.userProfileImage}`"
+                        alt=""
+                        class="user-comment-profile-image"
+                      />
+                      <div class="fw-bold">
+                        {{ comment.userNickname }}
+                      </div>
+                      <div
+                        class="FeedListItems-commentContent col mx-3 text-start"
+                        style="overflow: auto; word-break: break-all"
+                      >
+                        {{ comment.snsReplyContent }}
+                      </div>
+                    </div>
+                    <div
+                      class="col"
+                      style="overflow: auto; word-break: break-all"
+                    >
+                      {{ comment.snsReplyCreateTime }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-around align-items-center my-3"
+              >
                 <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
+                <div class="col-2 ms-2">
+                  <div class="d-flex justify-content-center">
+                    <img
+                      :src="`${myProfileimageurl}`"
+                      alt=""
+                      class="user-profile-image"
+                    />
 
+                    <div>{{ nickname }}</div>
+                  </div>
+                </div>
                 <textarea
-                  v-model="commentcontent"
+                  v-model="my_comment.snsReplyContent"
                   id="commentcontent"
                   ref="textarea"
-                  rows="1"
-                  class="d-flex col-10 me-2"
+                  rows="2"
+                  class="d-flex col"
                   placeholder="댓글을 입력하세요"
+                  style="overflow: auto; word-break: break-all"
                 >
                 </textarea>
-                <button
-                  class="btn btn-outline-secondary fs-6 me-1"
+                <p
+                  @click="leaveComment"
+                  class="btn-sm btn-outline-transparent col-2 text-primary"
                   type="button"
                   id="commentcontent"
                 >
                   게시
-                </button>
+                </p>
               </div>
             </div>
           </div>
@@ -132,7 +187,14 @@ export default {
   },
   data() {
     return {
-      commentcontent: [],
+      my_comment: {
+        snsReplyContent: "",
+      },
+      // snsReplyContent: {
+
+      //   commentcontent:""
+      // },
+      comments: [],
       visible: true,
       likeCount: 0,
       // follow했는지 여부
@@ -142,6 +204,7 @@ export default {
       likedpeople: [],
       amiliked: 0,
       heartstatus: 0,
+      // commentCreateTime: this.comment.snsReplyCreateTime,
       myProfileNum: this.$store.state.myNum,
 
       // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
@@ -164,7 +227,7 @@ export default {
     // 좋아요 여부 확인
     likedCheck() {
       axios
-        .get(`http://localhost:8080/sns/like/${this.feed.userNo}/`)
+        .get(`http://localhost:8080/sns/like/${this.feed.userNo}`)
         .then((res) => {
           // console.log("좋아요했는지 체크", res);
           // 좋아요 한 사람들 리스트
@@ -177,74 +240,108 @@ export default {
           }
         });
     },
-    // 좋아요 숫자 세기
+    giveHeart: function () {
+      // console.log("너", this.$store.state.myNum);
+      console.log("나", this.feed.snsNo);
+      const credentials = {
+        // userNo: this.$store.state.myNum,
+        snsNo: this.feed.snsNo,
+      };
 
-    giveHeart() {
-      axios
-        .post(
-          // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.myProfileNum}`
-          // 내 유저넘버 저장되고 나면 밑에 주석
-          `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
-        )
+      axios({
+        method: "post",
+        url: `http://localhost:8080/sns/like/${this.feed.snsNo}/2`,
+        // headers: { "Access-Control-Allow-Origin": "*" },
+        // data: this.my_comment,
+        credentials,
+        // headers: this.$store.getters.config,
+      })
         .then(() => {
-          // console.log(res);
+          this.amiliked = 1;
           this.likeCount += 1;
-          // this.likeCount.push;
-          // this.$store.dispatch("feedList", data);
+          //
         })
-
         .catch((err) => {
           console.log(err);
         });
+      // 내 유저넘버 저장되고 나면 밑에 주석
+      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
+      // this.likeCount += 1;
+      // this.heartstatus = 1;
+      // this.likeCount.push;
+      // this.$store.dispatch("feedList", data);
     },
     cancelHeart() {
-      axios
-        .delete(
-          // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.myProfileNum}`
-          // 내 유저넘버 저장되고 나면 밑에 주석
-          `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
-        )
-        .then(() => {
-          // console.log(res);
-          this.likeCount -= 1;
-          // this.likeCount.push;
-          // this.$store.dispatch("feedList", data);
-        })
+      axios({
+        method: "delete",
+        url: `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
+        headers: { "Access-Control-Allow-Origin": "*" },
 
+        // data: this.my_comment,
+        // headers: this.$store.getters.config,
+      })
+        .then(() => {
+          this.amiliked = 0;
+          this.likeCount -= 1;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // 내 유저넘버 저장되고 나면 밑에 주석
+      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
+      // this.likeCount += 1;
+      // this.heartstatus = 1;
+      // this.likeCount.push;
+      // this.$store.dispatch("feedList", data);
+      // 내 유저넘버 저장되고 나면 밑에 주석
+      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
+      // console.log(res);
+
+      // this.heartstatus = 0;
+      // this.likeCount.push;
+      // this.$store.dispatch("feedList", data);
+    },
+    leaveComment() {
+      if (this.my_comment.snsReplyContent) {
+        if (this.my_comment.snsReplyContent.trim()) {
+          axios({
+            method: "post",
+            url: "http://localhost:8080/sns/reply",
+            data: this.my_comment,
+            headers: this.$store.getters.config,
+          })
+            .then(() => {
+              this.my_comment.snsReplyContent = null;
+              this.snsComments();
+              // console.log("댓글남기자");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          alert(`Please input content.`);
+        }
+      } else {
+        alert(`Please input content.`);
+      }
+    },
+    snsComments() {
+      axios
+        .get(`http://localhost:8080/sns/reply/${this.feed.snsNo}`)
+        .then((res) => {
+          if (res.data.list.length > 0) {
+            for (let i = 0; i < res.data.list.length; i++) {
+              this.comments.unshift(res.data.list[i]);
+              // console.log(this.comments);
+            }
+          }
+          // console.log("snscomments", this.comments)}};
+        })
         .catch((err) => {
           console.log(err);
         });
     },
-    // 좋아요 했는지 여부는
-    // 해당 글의 좋아요 리스트에서 내 유저 넘버있는지 여부 확인
 
-    //       // this.likeCount.push;
-    //       // this.$store.dispatch("feedList", data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // 만약 좋아요를 했다면 좋아요 취소
-    // changedheart() {
-    // if (this.heartclick > 0) {
-    // this.heartclick = 0;
-    //     this.$store.state.feeds[feed.id - 1].likecount += 1;
-    //     // this.heartcount = this.$store.state.feeds[feed.id].likecount
-    //   } else {
-    //     this.heartclick = 1;
-    //     this.$store.state.feeds[feed.id - 1].likecount -= 1;
-    // this.heartcount = this.$store.state.feeds[feed.id].likecount
-
-    //   },
-    //   heartcount() {
-    //     if (heart == null) {
-    //       console.log("heart is null");
-    //     } else {
-    //       console.log("heart is filled");
-    //       heartcount + 1;
-    //     }
-    //   },
     follow() {
       if (this.followed == 0) {
         this.followed = 1;
@@ -255,10 +352,13 @@ export default {
   created: function () {
     this.likedCheck();
     this.likesCountCheck();
+    this.snsComments();
   },
 
   computed: {
-    ...mapState(["myProfile"]),
+    ...mapState(["myNum"]),
+    ...mapState(["nickname"]),
+    ...mapState(["myProfileimageurl"]),
   },
 };
 </script>
@@ -284,6 +384,7 @@ export default {
   margin: 0px 20px 0px 0px;
   width: 42px;
   height: 42px;
+  cursor: pointer;
 }
 
 .user-profile-username {
@@ -310,14 +411,17 @@ export default {
   font-size: 16px;
   padding: 20px 20px;
 }
-
+/* .FeedListItems-commentContent { */
+/* border: 0.5px solid; */
+/* padding: 5px; */
+/* } */
 .user-feed-buttons {
   /* margin: 10px 0px; */
   padding: 10px 0px;
   border: 1px solid #dbdbdb;
 }
 .collapsed-comment {
-  height: 80px;
+  min-height: 80px;
   /* margin: auto; */
 }
 .user-comment-profile-image {
