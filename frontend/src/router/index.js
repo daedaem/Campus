@@ -13,6 +13,7 @@ import Matematch from "../views/matematch/Matematch.vue";
 import Mainpage from "../Mainpage.vue" 
 import findPw from "../views/user/FindPassword.vue";
 
+
 const routes = [
   {
     path: "/",
@@ -82,13 +83,19 @@ const routes = [
     component: findPw,
   },
   {
-    path: "/mateparty/partyinfo",
+    path: "/mateparty/:mateNo",
     name: "Partyinfo",
     component: Partyinfo,
+    props: true,
   },
   {
     path: "/matematch/",
     name: "Matematch",
+    component: Matematch,
+  },
+  {
+    path: "/campsite/",
+    name: "Campsite",
     component: Matematch,
   },
 ];

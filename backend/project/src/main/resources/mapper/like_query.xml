@@ -11,14 +11,15 @@
         DELETE FROM snsLike where userNo = #{userNo} and snsNo = #{snsNo}
     </delete>
 
-    <select id="likeCount" parameterType="int">
+    <select id="likeCount" parameterType="int" resultType="int">
         SELECT COUNT(*)
         FROM snsLike
         WHERE snsNo = #{snsNo}
     </select>
 
-    <select id="likeList" parameterType="int" resultType="com.ssafy.project.dto.LikeDto">
-        SELECT userNo
-        WHERE snsNo = #{snsNo}
+    <select id="likeList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT snsNo
+        FROM snsLike
+        WHERE userNo = #{userNo}
     </select>
 </mapper>

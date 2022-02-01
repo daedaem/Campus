@@ -33,6 +33,8 @@ public class SnsServiceImpl implements SnsService{
     @Autowired
     SnsDao dao;
 
+
+
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
 
@@ -115,11 +117,17 @@ public class SnsServiceImpl implements SnsService{
         try{
             System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
-            //List<>
+            
             int count = dao.snsListTotalCount();
+            for(int i = 0 ; i < count; i++){
+                List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
+                list.get(i).setImageList(imageList);
+                //System.out.println(snsResultDto);
+            }
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
+            System.out.println(list.get(0));
         
         }catch(Exception e){
             e.printStackTrace();
