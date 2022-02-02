@@ -113,6 +113,7 @@ export default {
     },
     
     styleCheck(text) {
+      
       if (text.length === 1) {
         this.partyData.style.mCampStyle1 = text[0]
       } else if (text.length === 2) {
