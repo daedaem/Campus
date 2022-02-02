@@ -27,6 +27,7 @@ public class MateDto {
     private String mateStatus;
     private int friendlimit;
     private int memberlimit;
+    private String mateGender;
 
 
     private Date mateCreateTime;

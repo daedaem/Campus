@@ -180,4 +180,19 @@ public class MateServiceImpl implements MateService {
         return mateResultDto;
     }
 
+    @Override
+    public MateResultDto mateListInsert(MateListDto dto) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+        
+        try {
+           dao.mateApplyInsert(dto);
+           mateResultDto.setResult(SUCCESS);
+       } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+       }
+        return mateResultDto;
+    }
+
 }

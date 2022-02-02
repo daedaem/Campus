@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ssafy.project.dao.MateDao">
 
-    <!-- 게시물 등록과 파일 첨부 -->
+    <!-- mate 등록 -->
     <insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
         INSERT INTO mate( mateCreateTime, mateUpdateTime, mateCampsite, mateCamptype, mateCampstart, mateCampend, lowestAge, highestAge,
                             mateTitle, mateContent, friendlimit, memberlimit, contentId, userNo )
@@ -69,7 +69,7 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        SELECT mateListNo, userNo, mateListNum, mateListAge, mateGender
+        SELECT mateListNo, userNo, mateListNum, userAge, userGender
         FROM mateList
         WHERE mateNo = #{mateNo}
     </select>
@@ -87,4 +87,9 @@
                         WHERE userNo = #{userNo});
     </select>
 
+    <!-- mate apply insert -->
+    <insert id="mateApplyInsert" parameterType="com.ssafy.project.dto.MateCampStyleDto">
+        INSERT INTO mateList (userNo, mateListNum, userAge, mateNo, userGender)
+                VALUES (#{userNo}, #{mateListNum}, #{userAge}, #{mateNo}, #{userGender})
+    </insert>
 </mapper>

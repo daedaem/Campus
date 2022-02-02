@@ -11,7 +11,7 @@ public class MateListDto {
     private int mateNo;
     private int userNo;
     private int mateListNo;
-    private int mateListAge;
+    private int userAge;
     private int mateListNum;
-    private String mateGender;
+    private String userGender;
 }
