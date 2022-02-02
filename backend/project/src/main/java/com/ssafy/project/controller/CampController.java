@@ -64,6 +64,7 @@ public class CampController {
     public ResponseEntity<CampSiteResultDto> campList(CampSiteParamDto campSiteParamDto) {
 
         CampSiteResultDto campSiteResultDto;
+        System.out.println(campSiteParamDto);
 
         if (!campSiteParamDto.getSearchWord().isEmpty() || !campSiteParamDto.getDoNm().isEmpty()) {
             campSiteResultDto = campSiteService.campSiteSearch(campSiteParamDto);
