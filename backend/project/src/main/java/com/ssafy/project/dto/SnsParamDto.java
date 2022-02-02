@@ -13,4 +13,5 @@ public class SnsParamDto {
     private String searchWord;
     private int snsNo;
     private int userNo;
+    //test
 }
