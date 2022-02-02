@@ -41,5 +41,7 @@ public interface MateDao {
     public int mateNoselect();
 
     public int mateCheck(int mateNo);
+
+    public void mateApplyInsert(MateListDto dto);
     
 }
