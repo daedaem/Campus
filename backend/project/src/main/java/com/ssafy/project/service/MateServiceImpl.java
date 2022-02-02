@@ -136,6 +136,16 @@ public class MateServiceImpl implements MateService {
             List<MateDto> list = dao.mateList(mateParamDto);
             int count = dao.mateListTotalCount();
             mateResultDto.setList(list);
+            for (MateDto mateDto : list) {
+                //mateDto.getMateNo()
+                MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());
+                mateDto.setCampStyleList(campStyleList);
+
+                List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                mateDto.setMateList(mateApplyList);
+
+
+            }
             mateResultDto.setCount(count);
             mateResultDto.setResult(SUCCESS);
 
