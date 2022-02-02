@@ -54,19 +54,19 @@ export default {
   },
   methods: {
     uploadImg() {
-      console.log("들어왔다");
+      // console.log("들어왔다");
       var image = this.$refs["image"].files[0];
 
       const url = URL.createObjectURL(image);
       this.image = url;
-      console.log(url);
-      console.log(this.image);
+      // console.log(url);
+      // console.log(this.image);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 @media screen {
 }
 .total {

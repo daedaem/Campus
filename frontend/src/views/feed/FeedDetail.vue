@@ -1,8 +1,6 @@
 <template>
   <div class="FeedDetail">
-    <div
-      class="FeedDetailTotal d-flex justify-content-center align-items-center"
-    >
+    <div class="FeedDetailTotal">
       <div class="FeedDetailTotalFrame">
         <div
           class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
@@ -11,11 +9,10 @@
             class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
           >
             <div>
-              <img
+              <feed-list-item-carousel
                 class="FeedDetail-Leftbox-Image"
-                src="http://placehold.it/800x800"
-                alt=""
-              />
+                v-bind:feed="this.detailFeed"
+              ></feed-list-item-carousel>
             </div>
           </div>
           <div class="FeedDetail-RightBox col d-flex flex-column">
@@ -28,28 +25,35 @@
                 >
                   <img
                     style="cursor: pointer"
-                    src="http://placehold.it/800x800"
+                    :src="`${this.detailFeed.userProfileImage}`"
                     class="FeedDetail-user-profile-image"
                     alt="..."
                   />
                   <div
-                    class="FeedDetail-ProfileBox-Username py-4"
+                    class="FeedDetail-ProfileBox-Username py-4 fs-6 fw-bold"
                     style="cursor: pointer"
                   >
-                    username
+                    {{ this.detailFeed.userNickname }}
                   </div>
                 </div>
                 <div
                   class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
                 >
-                  <feed-dropdown></feed-dropdown>
+                  <feed-detail-dropdown
+                    v-bind:feed="this.detailFeed"
+                  ></feed-detail-dropdown>
                 </div>
               </div>
             </div>
-            <div class="FeedDetail-RightBox-ContentBox p-4">작성자 글 내용</div>
-            <div class="FeedDetail-RightBox-CommentBox p-4">
-              <div>댓글 내용</div>
+            <div class="FeedDetail-RightBox-ContentBox text-start p-3">
+              <div class="fs-6" style="overflow: auto">
+                {{ this.detailFeed.snsContent }}
+              </div>
             </div>
+            <div class="FeedDetail-RightBox-CommentBox p-4">
+              <div>{{ this.detailFeed.snsReplyContent }}</div>
+            </div>
+
             <div
               class="FeedDetail-RightBox-ButtonBox d-flex justify-content-around fs-4 py-3"
             >
@@ -156,25 +160,34 @@
 </template>
 
 <script>
-import FeedDropdown from "../../components/feed/FeedDropdown.vue";
+import { mapState } from "vuex";
+import axios from "axios";
+
+import FeedListItemCarousel from "../../components/feed/feedlistitems/FeedListItemCarousel.vue";
+import FeedDetailDropdown from "../../components/feed/FeedDetailDropdown.vue";
+
 export default {
   name: "FeedDetail",
   components: {
-    FeedDropdown,
+    FeedListItemCarousel,
+    FeedDetailDropdown,
+  },
+  props: {
+    feed: Object,
   },
   data() {
     return {
-      commentcontent: [],
+      // feedinfo: this.feed,
       visible: true,
-
       heartclick: 1,
       heartcount: 0,
+      feedDetailContents: "",
     };
   },
   mehtods: {
     changedheart(feed) {
       if (this.heartclick > 0) {
-        console.log(feed);
+        // console.log(feed);
         this.heartclick = 0;
         this.$store.state.feeds[feed.id - 1].likecount += 1;
         // this.heartcount = this.$store.state.feeds[feed.id].likecount
@@ -183,8 +196,28 @@ export default {
         this.$store.state.feeds[feed.id - 1].likecount -= 1;
         // this.heartcount = this.$store.state.feeds[feed.id].likecount
       }
-      console.log(feed);
+      // console.log(feed);
     },
+  },
+  created: function () {
+    axios
+      .get(`http://localhost:8080/sns/${this.detailFeed.snsNo}`)
+      .then((res) => {
+        console.log(res);
+        // this.feedDetailContents = res.data.dto;
+        // console.log(this.feedDetailContents);
+        // if (res.data.rate) {
+        //   this.currentRate = res.data.rate;
+        //   this.ratingDone = 1;
+        // }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("실패하였습니다.");
+      });
+  },
+  computed: {
+    ...mapState(["detailFeed"]),
   },
 };
 </script>
@@ -203,8 +236,35 @@ export default {
     border: 1px#000000;
     /* background-color: rgba(0, 0, 0, 0.85); */
   }
+  .FeedDetailTotalFrame {
+    margin: auto;
+    width: 80%;
+    /* height: 80%; */
+    margin-top: 2%;
+    border-radius: 15px;
+  }
+  .FeedDetailContentsFrame {
+    width: 100%;
+    background-color: #ffff;
+    border-radius: 15px;
+    border: 1px solid #eee;
+  }
 }
 @media (max-width: 574px) {
+  .FeedDetailTotalFrame {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+  }
+  .FeedDetailContentsFrame {
+    width: 100%;
+    background-color: #ffff;
+    height: 100%;
+    border-radius: 15px;
+    border: 1px solid #eee;
+  }
+
   .FeedDetail-RightBox-CommentBox {
     display: none;
   }
@@ -244,16 +304,6 @@ export default {
   width: 100%;
   height: 100%;
 } */
-.FeedDetailTotalFrame {
-  margin: auto;
-  /* width: 90%; */
-  /* height: 90%; */
-  border-radius: 15px;
-}
-.FeedDetailContentsFrame {
-  width: 100%;
-  border-radius: 15px;
-}
 
 .FeedDetailContentsFrame {
   border-bottom: 1px solid #eee;
@@ -270,7 +320,6 @@ export default {
   /* flex-grow: 1; */
   min-height: 300px;
 
-  background-color: #ffff;
   border: 1px solid #eee;
   /* width: 100%; */
 }

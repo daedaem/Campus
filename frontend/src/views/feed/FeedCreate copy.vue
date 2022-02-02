@@ -26,6 +26,9 @@
         <!-- 이미지 업로드 -->
 
         <div class="FeedCreate-leftbox">
+          <feed-create-carousel
+            :imageList="feedCreateContent.imageList"
+          ></feed-create-carousel>
           <div
             v-if="feedCreateContent.imageList.length > 0"
             class="d-flex justify-content-center align-items-center"
@@ -104,11 +107,12 @@ import { mapState } from "vuex";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
+import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 
 export default {
   name: "FeedCreate",
   components: {
-    // FeedCreateCarousel,
+    FeedCreateCarousel,
   },
   props: {
     feed: Object,
@@ -142,7 +146,6 @@ export default {
         // url 주소를 각 이미지별로 생성해서
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
         // imageList 폴더에 넣어둠
-
         this.feedCreateContent.imageList.push(url);
         // console.log(this.feedCreateContent.imageList[0]);
         // axios({
@@ -192,8 +195,7 @@ export default {
             data: this.feedCreateContent,
           })
             .then((res) => {
-              console.log(res.data);
-              this.$store.dispatch("toDetail", this.feed);
+              this.$store.dispatch("toDetail", res.data.id);
               this.$router.push({ name: "FeedDetail" });
             })
             .catch((err) => {
