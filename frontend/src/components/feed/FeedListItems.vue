@@ -20,7 +20,7 @@
               {{ feed.userNickname }}
             </div>
           </div>
-          <feed-dropdown></feed-dropdown>
+          <feed-list-item-dropdown v-bind:feed="feed"></feed-list-item-dropdown>
           <!-- <div v-if="followed == 0" @click="follow" class="user-feed-alert">
             <i class="bi bi-person-plus fs-4"></i>
           </div>
@@ -34,7 +34,7 @@
       <feed-list-item-carousel v-bind:feed="feed"></feed-list-item-carousel>
       <!-- 피드 게시글 내용 -->
       <div class="feed-text">
-        <p class="fs-6" style="overflow: auto; word-break: break-all">
+        <p class="fs-6 text-start" style="overflow: auto">
           {{ feed.snsContent }}
         </p>
       </div>
@@ -117,15 +117,12 @@
                       </div>
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
-                        style="overflow: auto; word-break: break-all"
+                        style="overflow: auto"
                       >
                         {{ comment.snsReplyContent }}
                       </div>
                     </div>
-                    <div
-                      class="col"
-                      style="overflow: auto; word-break: break-all"
-                    >
+                    <div class="col" style="overflow: auto">
                       {{ comment.snsReplyCreateTime }}
                     </div>
                   </div>
@@ -152,8 +149,8 @@
                   ref="textarea"
                   rows="2"
                   class="d-flex col"
-                  placeholder="댓글을 입력하세요"
-                  style="overflow: auto; word-break: break-all"
+                  placeholder=" 댓글을 입력하세요"
+                  style="overflow: auto"
                 >
                 </textarea>
                 <p
@@ -174,13 +171,13 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import FeedDropdown from "./FeedDropdown.vue";
-import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
 import axios from "axios";
+import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
+import FeedListItemDropdown from "./feedlistitems/FeedListItemDropdown.vue";
 
 export default {
-  components: { FeedListItemCarousel, FeedDropdown },
   name: "FeedListItems",
+  components: { FeedListItemCarousel, FeedListItemDropdown },
 
   props: {
     feed: Object,
@@ -203,7 +200,6 @@ export default {
       userNum: "",
       likedpeople: [],
       amiliked: 0,
-      heartstatus: 0,
       // commentCreateTime: this.comment.snsReplyCreateTime,
       myProfileNum: this.$store.state.myNum,
 
@@ -243,17 +239,20 @@ export default {
     giveHeart: function () {
       // console.log("너", this.$store.state.myNum);
       console.log("나", this.feed.snsNo);
-      const credentials = {
-        // userNo: this.$store.state.myNum,
-        snsNo: this.feed.snsNo,
-      };
+      // const credentials = {
+      //   // userNo: this.$store.state.myNum,
+      //   snsNo: this.feed.snsNo,
+      // };
 
       axios({
         method: "post",
+        // url: `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
+
+        // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
         url: `http://localhost:8080/sns/like/${this.feed.snsNo}/2`,
         // headers: { "Access-Control-Allow-Origin": "*" },
         // data: this.my_comment,
-        credentials,
+        // credentials,
         // headers: this.$store.getters.config,
       })
         .then(() => {
@@ -264,18 +263,11 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // 내 유저넘버 저장되고 나면 밑에 주석
-      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
-      // this.likeCount += 1;
-      // this.heartstatus = 1;
-      // this.likeCount.push;
-      // this.$store.dispatch("feedList", data);
     },
     cancelHeart() {
       axios({
         method: "delete",
         url: `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
-        headers: { "Access-Control-Allow-Origin": "*" },
 
         // data: this.my_comment,
         // headers: this.$store.getters.config,
@@ -287,19 +279,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // 내 유저넘버 저장되고 나면 밑에 주석
-      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
-      // this.likeCount += 1;
-      // this.heartstatus = 1;
-      // this.likeCount.push;
-      // this.$store.dispatch("feedList", data);
-      // 내 유저넘버 저장되고 나면 밑에 주석
-      // `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.feed.userNo}`
-      // console.log(res);
-
-      // this.heartstatus = 0;
-      // this.likeCount.push;
-      // this.$store.dispatch("feedList", data);
     },
     leaveComment() {
       if (this.my_comment.snsReplyContent) {

@@ -10,9 +10,8 @@ import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
-import Mainpage from "../Mainpage.vue" 
+import Mainpage from "../Mainpage.vue";
 import findPw from "../views/user/FindPassword.vue";
-
 
 const routes = [
   {
@@ -41,18 +40,18 @@ const routes = [
     component: Makeparty,
   },
   {
-    path: "/feed",
+    path: "/sns",
     name: "FeedList",
     component: FeedList,
   },
   {
-    path: "/feed/detail",
-    // path: "/feed/:feed_id",
+    // path: "/sns/:snsNo",
+    path: "/sns/:snsNo",
     name: "FeedDetail",
     component: FeedDetail,
   },
   {
-    path: "/feed/create",
+    path: "/sns/create",
     name: "FeedCreate",
     component: FeedCreate,
   },
@@ -94,15 +93,6 @@ const routes = [
     component: Matematch,
   },
 ];
-  
-  
-
-
-
-
-
-
-
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

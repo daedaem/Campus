@@ -11,11 +11,12 @@ export default createStore({
     equipLists: [],
     mateList: [],
     uploadimages: "",
-    feeddetailnum: 0,
+    // feeddetailnum: 0,
+    detailFeed: "",
     isLogin: localStorage.getItem("jwt") ? true : false,
     nickname: null,
     feedList: [],
-    myNum: "",
+    myNum: "2",
     myProfileimageurl: "",
   },
   mutations: {
@@ -26,8 +27,8 @@ export default createStore({
       const index = state.equipLists.indexOf(equipItem);
       state.equipLists.splice(index, 1);
     },
-    TODETAIL: function (state, feeddetailnum) {
-      state.feeddetailnum = feeddetailnum;
+    TODETAIL: function (state, detailFeed) {
+      state.detailFeed = detailFeed;
     },
 
     FEEDLIST: function (state, feedList) {
@@ -75,8 +76,8 @@ export default createStore({
     logout: function ({ commit }) {
       commit("LOGOUT");
     },
-    toDetail: function ({ commit }, feeddetailnum) {
-      commit("TODETAIL", feeddetailnum);
+    toDetail: function ({ commit }, detailFeed) {
+      commit("TODETAIL", detailFeed);
     },
     feedList: function ({ commit }, feedList) {
       commit("FEEDLIST", feedList);

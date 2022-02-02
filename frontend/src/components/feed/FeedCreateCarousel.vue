@@ -26,7 +26,7 @@
             :key="indicator.key" -->
                 <button
                   type="button"
-                  @click="carouselidadd(feed)"
+                  @click="carouselidadd(imageList)"
                   :data-bs-target="feedlink"
                   data-bs-slide-to="0"
                   class="active"
@@ -35,7 +35,7 @@
                 ></button>
                 <button
                   type="button"
-                  @click="carouselidadd(feed)"
+                  @click="carouselidadd(imageList)"
                   :data-bs-target="feedlink"
                   data-bs-slide-to="1"
                   aria-label="Slide 2"
@@ -60,7 +60,7 @@
               <button
                 class="carousel-control-prev"
                 type="button"
-                @click="carouselidadd(feed)"
+                @click="carouselidadd(imageList)"
                 :data-bs-target="feedlink"
                 data-bs-slide="prev"
               >
@@ -72,7 +72,7 @@
               </button>
               <button
                 class="carousel-control-next"
-                @click="carouselidadd(feed)"
+                @click="carouselidadd(imageList)"
                 :data-bs-target="feedlink"
                 data-bs-slide="next"
               >
@@ -100,7 +100,7 @@
             :key="indicator.key" -->
                 <button
                   type="button"
-                  @click="carouselidadd(feed)"
+                  @click="carouselidadd(imageList)"
                   :data-bs-target="feedlink"
                   data-bs-slide-to="0"
                   class="active"
@@ -109,14 +109,14 @@
                 ></button>
                 <button
                   type="button"
-                  @click="carouselidadd(feed)"
+                  @click="carouselidadd(imageList)"
                   :data-bs-target="feedlink"
                   data-bs-slide-to="1"
                   aria-label="Slide 2"
                 ></button>
                 <button
                   type="button"
-                  @click="carouselidadd(feed)"
+                  @click="carouselidadd(imageList)"
                   :data-bs-target="feedlink"
                   data-bs-slide-to="2"
                   aria-label="Slide 3"
@@ -160,7 +160,7 @@
               </button>
               <button
                 class="carousel-control-next"
-                @click="carouselidadd(feed)"
+                @click="carouselidadd(imageList)"
                 :data-bs-target="feedlink"
                 data-bs-slide="next"
               >
@@ -185,7 +185,7 @@ export default {
   name: "FeedCreateCarousel",
   props: {
     // feeds: Object,
-    feed: Object,
+    imageList: Object,
   },
   data() {
     return {
@@ -194,19 +194,21 @@ export default {
     };
   },
   methods: {
-    carouselidadd: function (feed) {
+    carouselidadd: function () {
       this.feedid = "feed" + feed.id;
       this.feedlink = "#" + this.feedid;
     },
   },
-
+  // created() {
+  // console.log(this.imageList);
+  // },
   // computed: {
   //   ...mapState(["feeds"]),
   // },
 };
 </script>
 
-<style>
+<style scoped>
 /* .total-feed-box { */
 /* } */
 .feed-picture-box {

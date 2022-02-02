@@ -15,12 +15,14 @@
       >
         <div class="total-frame">
           <div>
-            <feed-list-items
-              v-for="(feed, i) in feedList"
-              :key="i"
-              :feed="feed"
-            >
-            </feed-list-items>
+            <infinite-scroll @infinite-scroll="feed">
+              <feed-list-items
+                v-for="(feed, i) in feedList"
+                :key="i"
+                :feed="feed"
+              >
+              </feed-list-items>
+            </infinite-scroll>
           </div>
         </div>
       </div>
@@ -32,19 +34,27 @@
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
-// import InfiniteScroll from "infinite-loading-vue3";
+// import { ref } from "vue";
+import InfiniteScroll from "infinite-loading-vue3";
+
+// import FeedDetail from "./FeedDetail.vue";
+// import InfiniteLoading from "v3-infinite-loading";
+// import "v3-infinite-loading/lib/style.css";
 
 export default {
   name: "FeedList",
   components: {
-    // InfiniteScroll,
+    InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
-  },
-  created: function () {
-    console.log(this.$store.state.user);
 
-    axios("http://localhost:8080/sns")
+    // FeedDetail
+  },
+  methods: {},
+  created: function () {
+    // console.log(this.$store.state.user);
+    axios
+      .get("http://localhost:8080/sns")
       .then((res) => {
         // console.log(res.data.list);
         const data = res.data.list;
