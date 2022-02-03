@@ -5,14 +5,17 @@
     >
       <div class="total-feed-box">
         <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-        <div class="feed-picture-box d-flex" v-if="feed.imgurl.length == 1">
+        <div
+          class="feed-picture-box d-flex"
+          v-if="imageList.imgurl.length == 1"
+        >
           <div class="feed-picture">
-            <img :src="`${feed.imgurl}`" class="d-block w-100" alt="..." />
+            <img :src="`${imageList.imgurl}`" class="d-block w-100" alt="..." />
           </div>
         </div>
-        <!-- 두개이상일 때 -->
+        <!-- 두개이상일 때 -->`
         <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-        <div class="feed-picture-box" v-else-if="feed.imgurl.length == 2">
+        <div class="feed-picture-box" v-if="imageList.imgurl.length == 2">
           <div class="feed-picture">
             <div
               :id="feedid"
@@ -44,14 +47,14 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img
-                    :src="`${feed.imgurl[0]}`"
+                    :src="`${imageList.imgurl[0]}`"
                     class="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div class="carousel-item">
                   <img
-                    :src="`${feed.imgurl[1]}`"
+                    :src="`${imageList.imgurl[1]}`"
                     class="d-block w-100"
                     alt="..."
                   />
@@ -86,7 +89,7 @@
           </div>
         </div>
         <!-- 세장일 때 -->
-        <div class="feed-picture-box" v-else-if="feed.imgurl.length == 3">
+        <div class="feed-picture-box" v-if="imageList.imgurl.length == 3">
           <div class="feed-picture">
             <div
               :id="feedid"
@@ -125,21 +128,21 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img
-                    :src="`${feed.imgurl[0]}`"
+                    :src="`${imageList.imgurl[0]}`"
                     class="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div class="carousel-item">
                   <img
-                    :src="`${feed.imgurl[1]}`"
+                    :src="`${imageList.imgurl[1]}`"
                     class="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div class="carousel-item">
                   <img
-                    :src="`${feed.imgurl[2]}`"
+                    :src="`${imageList.imgurl[2]}`"
                     class="d-block w-100"
                     alt="..."
                   />
@@ -148,7 +151,7 @@
               <button
                 class="carousel-control-prev"
                 type="button"
-                @click="carouselidadd(feed)"
+                @click="carouselidadd(imageList)"
                 :data-bs-target="feedlink"
                 data-bs-slide="prev"
               >
@@ -189,19 +192,21 @@ export default {
   },
   data() {
     return {
+      imageinfo: [],
       feedid: "",
       feedlink: "",
     };
   },
   methods: {
     carouselidadd: function () {
-      this.feedid = "feed" + feed.id;
-      this.feedlink = "#" + this.feedid;
+      // this.feedid = "feed" + feed.id;
+      // this.feedlink = "#" + this.feedid;
     },
   },
-  // created() {
-  // console.log(this.imageList);
-  // },
+  created: function () {
+    this.imageinfo = this.imageList;
+    // console.log(this.imageList);
+  },
   // computed: {
   //   ...mapState(["feeds"]),
   // },

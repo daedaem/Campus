@@ -15,14 +15,14 @@
       >
         <div class="total-frame">
           <div>
-            <!-- <infinite-scroll @infinite-scroll="feed"> -->
-            <feed-list-items
-              v-for="(feed, i) in feedList"
-              :key="i"
-              :feed="feed"
-            >
-            </feed-list-items>
-            <!-- </infinite-scroll> -->
+            <infinite-scroll @infinite-scroll="feed">
+              <feed-list-items
+                v-for="(feed, i) in feedList"
+                :key="i"
+                :feed="feed"
+              >
+              </feed-list-items>
+            </infinite-scroll>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 // import { ref } from "vue";
-// import InfiniteScroll from "infinite-loading-vue3";
+import InfiniteScroll from "infinite-loading-vue3";
 
 // import FeedDetail from "./FeedDetail.vue";
 // import InfiniteLoading from "v3-infinite-loading";
@@ -44,27 +44,48 @@ import axios from "axios";
 export default {
   name: "FeedList",
   components: {
-    // InfiniteScroll,
+    InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
 
     // FeedDetail
   },
-  methods: {},
+  methods: {
+    async loadFeed() {
+      try {
+        const result = await axios.get(
+          `https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc&page=${this.page}`
+        );
+        if (result.data.items.length) {
+          this.trendingRepos.push(...result.data.items);
+          this.page++;
+        } else {
+          this.noResult = true;
+          this.message = "No result found";
+        }
+      } catch (err) {
+        this.noResult = true;
+        this.message = "Error loading data";
+      }
+    },
+  },
   created: function () {
     // console.log(this.$store.state.user);
     axios
-      .get("http://192.168.1.8:5500/sns")
+      .get("http://localhost:8080/sns")
       .then((res) => {
         // console.log(res.data.list);
         const data = res.data.list;
         this.$store.dispatch("feedList", data);
       })
+
       .catch((err) => {
         console.log(err);
       });
   },
-
+  mounted() {
+    this.loadFeed();
+  },
   computed: {
     ...mapState(["feedList"]),
     ...mapState(["user"]),
@@ -73,6 +94,7 @@ export default {
   //   console.log(this.feeds)
   // }
 };
+
 // let pagNum = 0
 // 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
 // document.addEventListener("scroll", () => {
