@@ -149,6 +149,7 @@ export default {
       this.partyData.campEquipRequiredList = text
     },  
     uploadedImage(file) {
+      console.log(file)
       this.partyData.mateImageUrl = file
     },
     dateIn(value) {
@@ -226,6 +227,7 @@ export default {
       console.log(this.partyData)
       axios({
         method: 'post',
+        headers: { 'Content-Type': 'multipart/form-data' },
         url : 'http://localhost:8080/mate',
         data : this.partyData,
    
