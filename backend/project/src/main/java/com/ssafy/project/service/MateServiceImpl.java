@@ -82,12 +82,13 @@ public class MateServiceImpl implements MateService {
     try {
         //dto에 이미지 set
         System.out.println("!!");
-        // String fileName = multipartFile.getOriginalFilename();
-        // System.out.println(fileName);
-        // fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
-        // File file = this.convertToFile(multipartFile, fileName);
-        // String TEMP_URL = this.uploadFile(file, fileName);
-        // dto.setMateImageUrl(TEMP_URL);
+        String fileName = multipartFile.getOriginalFilename();
+        System.out.println(fileName);
+        fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+        File file = this.convertToFile(multipartFile, fileName);
+        String TEMP_URL = this.uploadFile(file, fileName);
+        System.out.println(TEMP_URL);
+        dto.setMateImageUrl(TEMP_URL);
         System.out.println(dto.toString());
         dao.mateInsert(dto);
         

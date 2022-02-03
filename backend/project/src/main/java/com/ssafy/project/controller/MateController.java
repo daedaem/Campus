@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,7 +51,7 @@ public class MateController {
     }
 
     @PostMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, MultipartFile multipartFile ){
+    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, @RequestParam("mateImageUrl") MultipartFile multipartFile ){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
