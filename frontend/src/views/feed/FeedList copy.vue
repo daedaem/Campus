@@ -50,25 +50,7 @@ export default {
 
     // FeedDetail
   },
-  methods: {
-    async loadFeed() {
-      try {
-        const result = await axios.get(
-          `https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc&page=${this.page}`
-        );
-        if (result.data.items.length) {
-          this.trendingRepos.push(...result.data.items);
-          this.page++;
-        } else {
-          this.noResult = true;
-          this.message = "No result found";
-        }
-      } catch (err) {
-        this.noResult = true;
-        this.message = "Error loading data";
-      }
-    },
-  },
+  methods: {},
   created: function () {
     // console.log(this.$store.state.user);
     axios
@@ -83,9 +65,7 @@ export default {
         console.log(err);
       });
   },
-  mounted() {
-    this.loadFeed();
-  },
+
   computed: {
     ...mapState(["feedList"]),
     ...mapState(["user"]),
