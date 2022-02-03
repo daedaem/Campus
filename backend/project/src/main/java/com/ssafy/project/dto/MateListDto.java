@@ -14,4 +14,12 @@ public class MateListDto {
     private int userAge;
     private int mateListNum;
     private String userGender;
+    private String userMBTI;
+    private int userRatePoint;
+    private char campStyle1;
+    private char campStyle2;
+    private char campStyle3;
+    private char campStyle4;
+    private char campStyle5;
+    private char campStyle6;
 }
