@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default createStore({
   plugins: [createPersistedState()],
