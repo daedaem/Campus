@@ -15,7 +15,6 @@
                 placeholder="example@google.com"
                 v-model="credentials.userEmail"
                 id="email"
-                @keypress.enter="login"
               />
             </div>
           </div>
@@ -29,7 +28,6 @@
                 placeholder="Password"
                 v-model="credentials.userPassword"
                 id="password"
-                @keypress.enter="login"
               />
             </div>
           </div>
@@ -55,14 +53,13 @@
               @click="kakaoLogin"
               alt="">
           </div> -->
-          <button @click="logout">
-            로그아웃
-          </button>
-
+          <button @click="logout">로그아웃</button>
 
           <!-- 회원가입 및 비밀번호 찾기 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
-            <button type="button" class="btn-primary" @click="moveToSignUp">회원가입</button>
+            <button type="button" class="btn-primary" @click="moveToSignUp">
+              회원가입
+            </button>
             <button class="btn-primary" @click="movetofindPw">비밀번호</button>
           </div>
         </div>
@@ -74,7 +71,7 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
 
 export default {
   name: "Login",
@@ -106,31 +103,32 @@ export default {
   methods: {
     // ...mapActions(["login"]),
     login: function () {
-      console.log(this.credentials)
+      console.log(this.credentials);
       axios({
         method: "POST",
         url: `${SERVER_URL}/login`,
         data: this.credentials,
       })
         .then((res) => {
-          console.log("가나다")
-          alert("로그인")
+          console.log("가나다");
+          alert("로그인");
           this.$store.state.user = this.credentials.userEmail;
-          localStorage.setItem('jwt', res.data.token)
-          this.$store.dispatch("login"); 
-          this.$router.push({name: 'Mainpage'})
+          this.$store.state.myNum = res.data.userNo;
+          localStorage.setItem("jwt", res.data.token);
+          this.$store.dispatch("login");
+          this.$router.push({ name: "Mainpage" });
         })
         .catch((err) => {
-          alert("이메일과 비밀번호를 확인해주세요")
-          console.log(err)
-        })
+          alert("이메일과 비밀번호를 확인해주세요");
+          console.log(err);
+        });
     },
-    logout: function() {
-      localStorage.removeItem('jwt');
-      this.$store.dispatch("logout")
-      alert("로그아웃")
-      this.$router.push({name: 'login'})
-    },
+    // logout: function () {
+    //   localStorage.removeItem("jwt");
+    //   this.$store.dispatch("logout");
+    //   alert("로그아웃");
+    //   this.$router.push({ name: "login" });
+    // },
 
     // 회원가입 이동
     moveToSignUp: function () {

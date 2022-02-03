@@ -6,6 +6,9 @@
       v-if="this.imageinfo.imageList.length == 1"
     >
       <div class="feed-picture">
+        <div>
+          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
+        </div>
         <img
           :src="`${imageinfo.imageList[0]}`"
           class="d-block w-100 h-100"
@@ -20,6 +23,9 @@
       v-if="this.imageinfo.imageList.length == 2"
     >
       <div class="feed-picture">
+        <div>
+          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
+        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -88,6 +94,9 @@
     <!-- 세장일 때 -->
     <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
       <div class="feed-picture">
+        <div>
+          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
+        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -194,9 +203,22 @@ export default {
   methods: {
     carouselidadd: function (nums) {
       // for (let i; 0 < this.imageinfo.length; i++){
-      console.log(nums);
+      // console.log(nums);
       this.feedid = "feed" + nums;
       this.feedlink = "#" + this.feedid;
+      // console.logf(this.imageinfo);
+      // console.log(;
+    },
+    cancelUploadImage() {
+      // console.log('안녕');
+      // console.log(this.$refs["image"]);
+      // console.log(this.image);
+      // console.log(this.imageList);
+
+      // this.clearImage();
+      this.imageinfo.imageList = [];
+      // this.imageinfo.imageList.splice(this.feedid, 1); // this.image = null;
+      // this.imageList = null;
     },
   },
 
@@ -205,7 +227,7 @@ export default {
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
 
-    console.log(this.imageinfo);
+    // console.log(this.imageinfo);
   },
   // computed: {
   //   ...mapState(["feeds"]),
@@ -232,6 +254,12 @@ export default {
   /* height: 500px; */
   /* min-height: 400 px; */
   /* max-height: 400 px; */
+}
+.bi-x-circle {
+  position: absolute;
+  z-index: 1000;
+  top: 2%;
+  right: 2%;
 }
 /* .carousel-control-prev{
 width: 100%;
