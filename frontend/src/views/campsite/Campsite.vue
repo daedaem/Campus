@@ -46,53 +46,107 @@
 
 <script>
 import axios from 'axios'
+import {ref, onMounted} from 'vue'
+// import {useRouter} from 'vue-router'
 
 export default {
   name: 'Campsite',
-  data () {
-    return {
-      articles: [],
-      limit : 10,
-      offset : 0,
-    }
-  },
-  methods : {
-    getDatas() {
+  setup() {
+    // const router = useRouter()
+    const articles = ref([])
+    const limit = ref(10)
+    const offset = ref(0)
+    // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
+    const getDatas = () => {
+
       axios({
       methods: 'get',
       url : 'http://localhost:8080/camp',
       params : {
-        limit :this.limit,
-        offset : this.offset,
+        limit :limit.value,
+        offset : offset.value,
         // searchWord : '',
         // doNm : '',
       }
-    })
-    .then(res => {
-      this.articles.push(...res.data.list)
-      console.log(this.articles)
-    })
+      })
+      .then(res => {
+        articles.value.push(...res.data.list)
+        console.log(articles.value)
+      })
 
-    .catch(err =>{
-      console.log(err)
-    })
-    }
-  },
-  mounted() {
-    this.getDatas()
-    window.addEventListener("scroll",() =>{
-      let scrollTop = document.documentElement.scrollTop
-      let scrollHeight = document.documentElement.scrollHeight
-      let clientHeight = document.documentElement.clientHeight
-
-      if (scrollTop+clientHeight>=scrollHeight-10) {
-        this.offset += 10
-        // this.limit += 10
-        this.getDatas()
-      
+      .catch(err =>{
+        console.log(err)
+      })
       }
+   
+    onMounted(() => {
+      getDatas()
+      window.addEventListener("scroll",() =>{
+        let scrollTop = document.documentElement.scrollTop
+        let scrollHeight = document.documentElement.scrollHeight
+        let clientHeight = document.documentElement.clientHeight
+
+        if (scrollTop+clientHeight>=scrollHeight-10) {
+          offset.value += 10
+          // this.limit += 10
+          getDatas()
+        
+        }
+        })
     })
+    
+
+    return {
+      articles,
+      limit,
+      offset,
+      getDatas,
+    }
   }
+  // data () {
+  //   return {
+  //     articles: [],
+  //     limit : 10,
+  //     offset : 0,
+  //   }
+  // },
+  // methods : {
+  //   getDatas() {
+  //     axios({
+  //     methods: 'get',
+  //     url : 'http://localhost:8080/camp',
+  //     params : {
+  //       limit :this.limit,
+  //       offset : this.offset,
+  //       // searchWord : '',
+  //       // doNm : '',
+  //     }
+  //   })
+  //   .then(res => {
+  //     this.articles.push(...res.data.list)
+  //     console.log(this.articles)
+  //   })
+
+  //   .catch(err =>{
+  //     console.log(err)
+  //   })
+  //   }
+  // },
+  // mounted() {
+  //   this.getDatas()
+  //   window.addEventListener("scroll",() =>{
+  //     let scrollTop = document.documentElement.scrollTop
+  //     let scrollHeight = document.documentElement.scrollHeight
+  //     let clientHeight = document.documentElement.clientHeight
+
+  //     if (scrollTop+clientHeight>=scrollHeight-10) {
+  //       this.offset += 10
+  //       // this.limit += 10
+  //       this.getDatas()
+      
+  //     }
+  //   })
+  // }
 }
 </script>
 

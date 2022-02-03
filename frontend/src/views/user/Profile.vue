@@ -1,12 +1,15 @@
 <template>
 	<div>
+		<div>
+			Debug: {{ person }}
+		</div>
 		<section class="profile-container">
 			<section class="profile-grid">
 				<div class="photo">
 					<img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지">
 				</div>
 				<div class="name-buttons d-flex justify-content-between">
-					<h1>Winter</h1>
+					<h1>{{ person.userNickname }}</h1>
 					<div class="">
 						<button @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 					</div>

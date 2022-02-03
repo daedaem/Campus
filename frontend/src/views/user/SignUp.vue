@@ -18,7 +18,6 @@
 									style="width:50%; float: left"
 									placeholder="이메일을 입력하세요"
 									v-model="credentials.userEmail"
-									required
 									autofocus
 									@blur="emailValid">
 								</b-form-input>
@@ -261,7 +260,7 @@
 							<style_Dropdown @style-status="styleStatus" />	
 						</div>
 						<div class="mt-3">
-							<Items @img-status="imgStatus" />
+							<Items @img-status="imgStatus"/>
 						</div>
 						<div class="item-box mt-3">
 							<div align="left">
@@ -321,19 +320,34 @@ export default {
 				userLocation: "", // 지역
 				userAge: "", // 나이
 				userMBTI: "",
-
+				campEquipLantern : 0,
+				campEquipReel : 0,
+				campEquipBurner : 0,
+				campEquipicebox : 0,
+				campEquipTableChair : 0,
+				campEquipSleepingbag : 0,
+				campEquipTarp : 0,
+				table : 0,
+				campEquipTent : 0,
+				campEquipBrazier : 0,
+				campStyle1 : 0,
+					campStyle2 : 0,
+					campStyle3: 0,
+					campStyle4 : 0,
+					campStyle5 : 0,
+					campStyle6 : 0,
 				// 보유장비
 				imgStatus : {
-					campEquipLantern : "N",
-					campEquipReel : "N",
-					campEquipBurner : "N",
-					campEquipicebox : "N",
-					campEquipTableChair : "N",
-					campEquipSleepingbag : "N",
-					campEquipTarp : "N",
-					table : "N",
-					campEquipTent : "N",
-					campEquipBrazier : "N",
+					campEquipLantern : 0,
+					campEquipReel : 0,
+					campEquipBurner : 0,
+					campEquipicebox : 0,
+					campEquipTableChair : 0,
+					campEquipSleepingbag : 0,
+					campEquipTarp : 0,
+					table : 0,
+					campEquipTent : 0,
+					campEquipBrazier : 0,
 				},
 				styleStatus : {
 					campStyle1 : 0,
@@ -355,6 +369,7 @@ export default {
 			},
     }
   },
+
   methods:{
     prev() {
       this.step--;
@@ -364,6 +379,14 @@ export default {
     },
 
 		onSubmit() {
+			axios ({
+				method: "post",
+				url: `${SERVER_URL}/user/image/${this.userEmail}`,
+				data: this.userProfileImage
+			})
+				.catch(() => {
+					alert("이미지 업로드 오류")
+				})
 			axios ({
 				method: "post",
 				url: `${SERVER_URL}/user`,
@@ -475,92 +498,124 @@ export default {
 
 		imgStatus(text) {
       if (text.campEquipLantern === 1) {
-				this.credentials.imgStatus.campEquipLantern = "Y"
+				this.credentials.imgStatus.campEquipLantern = 1
+				this.credentials.campEquipLantern = 1
 			} else {
-				this.credentials.imgStatus.campEquipLantern = "N"
+				this.credentials.imgStatus.campEquipLantern = 0
+				this.credentials.campEquipLantern = 0
 			}
 			if (text.campEquipReel === 1) {
-				this.credentials.imgStatus.campEquipReel = "Y"
+				this.credentials.imgStatus.campEquipReel = 1
+				this.credentials.campEquipReel = 1
 			} else {
-				this.credentials.imgStatus.campEquipReel = "N"
+				this.credentials.imgStatus.campEquipReel = 0
+				this.credentials.campEquipReel = 0
 			}
 			if (text.campEquipBurner === 1) {
-				this.credentials.imgStatus.campEquipBurner = "Y"
+				this.credentials.imgStatus.campEquipBurner = 1
+				this.credentials.campEquipBurner = 1
 			} else {
-				this.credentials.imgStatus.campEquipBurner = "N"
+				this.credentials.imgStatus.campEquipBurner = 0
+				this.credentials.campEquipBurner = 0
 			}
 			if (text.campEquipicebox === 1) {
-				this.credentials.imgStatus.campEquipicebox = "Y"
+				this.credentials.imgStatus.campEquipicebox = 1
+				this.credentials.campEquipicebox = 1
 			} else {
-				this.credentials.imgStatus.campEquipicebox = "N"
+				this.credentials.imgStatus.campEquipicebox = 0
+				this.credentials.campEquipicebox = 0
 			}
 			if (text.campEquipTableChair === 1) {
-				this.credentials.imgStatus.campEquipTableChair = "Y"
+				this.credentials.imgStatus.campEquipTableChair = 1
+				this.credentials.campEquipTableChair = 1
 			} else {
-				this.credentials.imgStatus.campEquipTableChair = "N"
+				this.credentials.imgStatus.campEquipTableChair = 0
+				this.credentials.campEquipTableChair = 0
 			}
 			if (text.campEquipSleepingbag === 1) {
-				this.credentials.imgStatus.campEquipSleepingbag = "Y"
+				this.credentials.imgStatus.campEquipSleepingbag = 1
+				this.credentials.campEquipSleepingbag = 1
 			} else {
-				this.credentials.imgStatus.campEquipSleepingbag = "N"
+				this.credentials.imgStatus.campEquipSleepingbag = 0
+				this.credentials.campEquipSleepingbag = 0
 			}
 			if (text.campEquipTarp === 1) {
-				this.credentials.imgStatus.campEquipTarp = "Y"
+				this.credentials.imgStatus.campEquipTarp = 1
+				this.credentials.campEquipTarp = 1
 			} else {
-				this.credentials.imgStatus.campEquipTarp = "N"
+				this.credentials.imgStatus.campEquipTarp = 0
+				this.credentials.campEquipTarp = 0
 			}
 			if (text.table === 1) {
-				this.credentials.imgStatus.table = "Y"
+				this.credentials.imgStatus.table = 1
+				this.credentials.table = 1
 			} else {
-				this.credentials.imgStatus.table = "N"
+				this.credentials.imgStatus.table = 0
+				this.credentials.table = 0
 			}
 			if (text.campEquipTent === 1) {
-				this.credentials.imgStatus.campEquipTent = "Y"
+				this.credentials.imgStatus.campEquipTent = 1
+				this.credentials.campEquipTent = 1
 			} else {
-				this.credentials.imgStatus.campEquipTent = "N"
+				this.credentials.imgStatus.campEquipTent = 0
+				this.credentials.campEquipTent = 0
 			}
 			if (text.campEquipBrazier === 1) {
-				this.credentials.imgStatus.campEquipBrazier = "Y"
+				this.credentials.imgStatus.campEquipBrazier = 1
+				this.credentials.campEquipBrazier = 1
 			} else {
-				this.credentials.imgStatus.campEquipBrazier = "N"
+				this.credentials.imgStatus.campEquipBrazier = 0
+				this.credentials.campEquipBrazier = 0
 			}
     },
 
 		styleStatus(text) {
 			if (text.campStyle1 === 1) {
 				this.credentials.styleStatus.campStyle1 = "Y"
+				this.credentials.campStyle1 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle1 = "N"
+				this.credentials.campStyle1 = "N"
 			}
 
 			if (text.campStyle2 === 1) {
 				this.credentials.styleStatus.campStyle2 = "Y"
+				this.credentials.campStyle2 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle2 = "N"
+				this.credentials.campStyle2 = "N"
 			}
 
 			if (text.campStyle3 === 1) {
 				this.credentials.styleStatus.campStyle3 = "Y"
+				this.credentials.campStyle3 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle3 = "N"
+				this.credentials.campStyle3 = "N"
 			}
 
 			if (text.campStyle4 === 1) {
 				this.credentials.styleStatus.campStyle4 = "Y"
+				this.credentials.campStyle4 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle4 = "N"
+				this.credentials.campStyle4 = "N"
 			}
 
 			if (text.campStyle5 === 1) {
 				this.credentials.styleStatus.campStyle5 = "Y"
+				this.credentials.campStyle5 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle5 = "N"
+				this.credentials.campStyle5 = "N"
 			}
 
 			if (text.campStyle6 === 1) {
 				this.credentials.styleStatus.campStyle6 = "Y"
+				this.credentials.campStyle6 = "Y"
 			} else {
 				this.credentials.styleStatus.campStyle6 = "N"
+				this.credentials.campStyle6 = "N"
 			}
 		},
 		uploadImg() {
