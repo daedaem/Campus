@@ -75,20 +75,13 @@ public class MateServiceImpl implements MateService {
     }
 
     @Override
-    public MateResultDto mateInsert(MateDto dto, MultipartFile multipartFile) {
+    public MateResultDto mateInsert(MateDto dto) {
 
     MateResultDto mateResultDto = new MateResultDto();
 
     try {
         //dto에 이미지 set
-        System.out.println("!!");
-        // String fileName = multipartFile.getOriginalFilename();
-        // System.out.println(fileName);
-        // fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
-        // File file = this.convertToFile(multipartFile, fileName);
-        // String TEMP_URL = this.uploadFile(file, fileName);
-        // dto.setMateImageUrl(TEMP_URL);
-        System.out.println(dto.toString());
+
         dao.mateInsert(dto);
         
         dto.setMateNo(dao.mateNoselect());
@@ -109,6 +102,35 @@ public class MateServiceImpl implements MateService {
     }
 
     return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateImageInsert(int mateNo, MultipartFile multipartFile) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+        
+        try {
+            System.out.println("!!");
+            String fileName = multipartFile.getOriginalFilename();
+            System.out.println(fileName);
+            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+            File file = this.convertToFile(multipartFile, fileName);
+            String TEMP_URL = this.uploadFile(file, fileName);
+            MateDto dto = new MateDto();
+            dto.setMateNo(mateNo);
+            dto.setMateImageUrl(TEMP_URL);
+            
+            dao.mateImageInsert(dto);
+
+            System.out.println(dto.toString());
+
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
     }
 
     @Override
@@ -204,5 +226,7 @@ public class MateServiceImpl implements MateService {
        }
         return mateResultDto;
     }
+
+
 
 }
