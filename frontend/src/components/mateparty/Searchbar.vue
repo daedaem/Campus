@@ -64,9 +64,13 @@ export default {
 </script>
 
 <style scoped>
-.container {
+@media (min-width: 768px) {
+  .container {
   width : 50%;
+  }
 }
+
+
 
 .height {
   background-color:white;
