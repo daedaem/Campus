@@ -10,13 +10,16 @@
         <template #button-content>
           &#x2026;<span class="sr-only"></span>
         </template>
-        <b-dropdown-item-button @click="modifyFeed"
+        <b-dropdown-item-button
+          @click="modifyFeed"
+          v-if="this.myNum === this.feed.userNo"
           >수정</b-dropdown-item-button
         >
         <b-dropdown-item-button
           variant="danger"
           text="Outline Danger"
           @click="deleteFeed"
+          v-if="this.myNum === this.feed.userNo"
           >삭제</b-dropdown-item-button
         >
         <b-dropdown-item-button>취소</b-dropdown-item-button>
@@ -60,20 +63,42 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
-  name: "FeedDropDown",
+  name: "FeedDetailDropDown",
   // components: {},
   // data() {},
   props: {
     feed: Object,
   },
-
+  data() {
+    return {
+      feedinfo: "",
+    };
+  },
   methods: {
     deleteFeed() {
-      this.$router.push({ name: "Reviews" });
+      axios
+        .delete(`http://localhost:8080/sns/${this.feed.snsNo}`)
+        .then(() => {
+          // console.log(res);
+          this.$router.push({ name: "FeedList" });
+          // this.feedDetailContents = res.data.dto;
+          // console.log(this.feedDetailContents);
+          // if (res.data.rate) {
+          //   this.currentRate = res.data.rate;
+          //   this.ratingDone = 1;
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("실패하였습니다.");
+        });
     },
     modifyFeed() {
-      this.$router.push({ name: "Reviews" });
+      this.$router.push({ name: "FeedDetail" });
     },
     spamReport() {
       // this.$router.push({ name: "Reviews" });
@@ -83,11 +108,9 @@ export default {
     //   this.$router.push({ name: "Reviews" });
     // },
   },
-
-  // setup(props){
-  //   const {} = toRefs
-
-  // }
+  computed: {
+    ...mapState(["myNum"]),
+  },
 };
 </script>
 
