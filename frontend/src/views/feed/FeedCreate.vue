@@ -26,18 +26,22 @@
         <!-- 이미지 업로드 -->
 
         <div class="FeedCreate-leftbox">
+          <!-- carousel로 바꾸기 -->
           <div
             v-if="feedCreateContent.imageList.length > 0"
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
-              <img
+              <feed-create-carousel
+                :imageList="this.feedCreateContent.imageList"
+              ></feed-create-carousel>
+              <!-- <img
                 v-for="(image, index) in feedCreateContent.imageList"
                 :key="index"
                 :src="`${feedCreateContent.imageList[index]}`"
                 alt=""
                 class="FeedCreate-UploadImage"
-              />
+              /> -->
               <!-- 업로드 사진 취소 마크 -->
               <div>
                 <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
@@ -101,6 +105,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
@@ -108,6 +113,7 @@ import { mapState } from "vuex";
 export default {
   name: "FeedCreate",
   components: {
+    FeedCreateCarousel,
     // FeedCreateCarousel,
   },
   props: {
@@ -191,8 +197,8 @@ export default {
             // headers: this.$store.getters.config,
             data: this.feedCreateContent,
           })
-            .then((res) => {
-              console.log(res.data);
+            .then(() => {
+              // console.log(res.data);
               this.$store.dispatch("toDetail", this.feed);
               this.$router.push({ name: "FeedDetail" });
             })
