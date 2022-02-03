@@ -66,7 +66,7 @@ public class CampController {
         CampSiteResultDto campSiteResultDto;
         System.out.println(campSiteParamDto);
 
-        if (!campSiteParamDto.getSearchWord().isEmpty() || !campSiteParamDto.getDoNm().isEmpty()) {
+        if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             campSiteResultDto = campSiteService.campSiteSearch(campSiteParamDto);
         } else {
             campSiteResultDto = campSiteService.campSiteList(campSiteParamDto);
