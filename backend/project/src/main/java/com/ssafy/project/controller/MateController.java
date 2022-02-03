@@ -50,7 +50,7 @@ public class MateController {
     }
 
     @PostMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto){
+    private ResponseEntity<MateResultDto> mateInsert(MateDto mateDto){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
@@ -59,6 +59,23 @@ public class MateController {
     mateDto.setUserNo(3);
 
     MateResultDto mateResultDto = service.mateInsert(mateDto);
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @PostMapping(value="/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo, MultipartFile multipartFile){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+
+    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
 
     if( mateResultDto.getResult() == SUCCESS ){
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
