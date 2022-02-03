@@ -69,9 +69,21 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        SELECT mateListNo, userNo, mateListNum, userAge, userGender
-        FROM mateList
-        WHERE mateNo = #{mateNo}
+        select u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        from user u, userRate r, campStyle c, mateList m
+        where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
+            and u.userNo = r.userNo
+            and u.userNo = c.userNo
+            and u.userNo = m.userNo
+            and m.mateNo = #{mateNo};
+
+        
+    </select>
+
+    <select id="userCampStyle" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
+        SELECT u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6 
+        FROM user u, userRate r, campStyle c 
+        WHERE u.userNo = #{userNo} and r.userNo = #{userNo} and c.userNo = #{userNo}
     </select>
 
     <select id="mateCampEquipRequiredList" parameterType="int" resultType="com.ssafy.project.dto.MateCampEquipRequiredDto">
