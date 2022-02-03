@@ -15,7 +15,6 @@
                 placeholder="example@google.com"
                 v-model="credentials.userEmail"
                 id="email"
-                @keypress.enter="login"
               />
             </div>
           </div>
@@ -29,7 +28,6 @@
                 placeholder="Password"
                 v-model="credentials.userPassword"
                 id="password"
-                @keypress.enter="login"
               />
             </div>
           </div>
@@ -55,9 +53,9 @@
               @click="kakaoLogin"
               alt="">
           </div> -->
-          <button @click="logout">
+          <!-- <button @click="logout">
             로그아웃
-          </button>
+          </button> -->
 
 
           <!-- 회원가입 및 비밀번호 찾기 -->
@@ -93,6 +91,7 @@ export default {
           (value && value.length >= 5) || "MIN 5 characters",
       },
     };
+    
   },
 
   // 구글
@@ -106,18 +105,22 @@ export default {
   methods: {
     // ...mapActions(["login"]),
     login: function () {
-      console.log(this.credentials)
       axios({
         method: "POST",
         url: `${SERVER_URL}/login`,
         data: this.credentials,
       })
         .then((res) => {
-          console.log("가나다")
           alert("로그인")
-          this.$store.state.user = this.credentials.userEmail;
+          this.$store.state.user = this.credentials.userEmail
+          this.$store.state.myNum = res.data.userNo
+          this.$store.state.userList = res.data
+          console.log(this.$store.state.userList)
+          // console.log(this.$store.state.user)
+          // console.log(this.$store.state.myNum)
           localStorage.setItem('jwt', res.data.token)
           this.$store.dispatch("login"); 
+        
           this.$router.push({name: 'Mainpage'})
         })
         .catch((err) => {
@@ -125,12 +128,12 @@ export default {
           console.log(err)
         })
     },
-    logout: function() {
-      localStorage.removeItem('jwt');
-      this.$store.dispatch("logout")
-      alert("로그아웃")
-      this.$router.push({name: 'login'})
-    },
+    // logout: function() {
+    //   localStorage.removeItem('jwt');
+    //   this.$store.dispatch("logout")
+    //   alert("로그아웃")
+    //   this.$router.push({name: 'login'})
+    // },
 
     // 회원가입 이동
     moveToSignUp: function () {
