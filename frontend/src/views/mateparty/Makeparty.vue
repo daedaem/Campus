@@ -88,10 +88,11 @@ export default {
           mateCampend : null,
           mateCamptype: null,
           campEquipRequiredList : null,
-          mateImageUrl : null,
+
           mateTitle : null,
           mateContent: null,
         },
+        mateImageUrl : null,
       }
   },
   methods: {
@@ -150,7 +151,7 @@ export default {
     },  
     uploadedImage(file) {
       console.log(file)
-      this.partyData.mateImageUrl = file
+      this.mateImageUrl = file
     },
     dateIn(value) {
       console.log(value)
@@ -224,23 +225,40 @@ export default {
     
 
     test() {
-      console.log(this.partyData)
+      // console.log(this.partyData)
+      console.log(2)
       axios({
         method: 'post',
-        headers: { 'Content-Type': 'multipart/form-data' },
+        
         url : 'http://localhost:8080/mate',
         data : this.partyData,
-   
-
+  
       })
-
       .then((res) => {
-        console.log(res.data.list)
+        // console.log(res.dada.dto.mateNo)
+        console.log(res.data.dto.mateNo)
+        axios({
+        method: 'post',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        data : this.mateImageUrl
+        
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
       })
 
       .catch(err => {
         console.log(err)
       })
+      
+
+    
+      
     }
     
     
