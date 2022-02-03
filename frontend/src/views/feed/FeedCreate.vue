@@ -22,7 +22,7 @@
           업로드
         </p>
       </div>
-      <div class="FeedCreate-contentbox d-flex ">
+      <div class="FeedCreate-contentbox d-flex">
         <!-- 이미지 업로드 -->
 
         <div class="FeedCreate-leftbox">
@@ -32,7 +32,8 @@
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
-              <feed-create-carousel class="feed-create-carousel"
+              <feed-create-carousel
+                class="feed-create-carousel"
                 :imageList="feedCreateContent"
               ></feed-create-carousel>
               <!-- <img
@@ -229,17 +230,19 @@ export default {
 <style scoped>
 @media (min-width: 574px) {
   .FeedCreate-contentbox {
-    max-width:800px
-  /* flex-wrap: wrap; */
-/* min-width: 400px; */
-/* } */
-  }}
-  @media (max-width: 574px) {
-    .FeedCreate-contentbox {
-  flex-wrap: wrap;
-/* min-width: 400px; */
-/* } */}
+    max-width: 800px;
+    /* flex-wrap: wrap; */
+    /* min-width: 400px; */
+    /* } */
   }
+}
+@media (max-width: 574px) {
+  .FeedCreate-contentbox {
+    flex-wrap: wrap;
+    /* min-width: 400px; */
+    /* } */
+  }
+}
 .FeedCreate-TotalFrame {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.85);
@@ -273,11 +276,10 @@ export default {
   max-width: 460px;
   background-color: #ffff;
   padding: 10px;
-    flex-grow: 1;
-
+  flex-grow: 1;
 }
-.feed-create-carousel{
-  width:100%;
+.feed-create-carousel {
+  width: 100%;
   /* height:100%; */
 }
 .FeedCreate-rightbox {
