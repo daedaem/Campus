@@ -12,6 +12,7 @@ import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
 import Mainpage from "../Mainpage.vue" 
 import findPw from "../views/user/FindPassword.vue";
+import Campsite from "../views/campsite/Campsite.vue";
 
 
 const routes = [
@@ -92,6 +93,11 @@ const routes = [
     path: "/matematch/",
     name: "Matematch",
     component: Matematch,
+  },
+  {
+    path: "/campsite/",
+    name: "Campsite",
+    component: Campsite,
   },
 ];
   
