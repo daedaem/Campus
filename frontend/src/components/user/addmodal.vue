@@ -1,16 +1,14 @@
 <template>
-	<div>
-		<h1>비밀번호 찾자</h1>
-
+  <div>
+		ㅎㅇ
 	</div>
 </template>
-
 <script>
 export default {
-	name: 'findPw'
+
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
