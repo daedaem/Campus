@@ -43,7 +43,7 @@
             </div>
             
             <div class="form-group">
-                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test" />
+                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test"  />
             </div>
         </div>
       </div>
@@ -150,8 +150,9 @@ export default {
       this.partyData.campEquipRequiredList = text
     },  
     uploadedImage(file) {
-      console.log(file)
+      
       this.mateImageUrl = file
+      console.log(this.mateImageUrl)
     },
     dateIn(value) {
       console.log(value)
@@ -237,6 +238,7 @@ export default {
       .then((res) => {
         // console.log(res.dada.dto.mateNo)
         console.log(res.data.dto.mateNo)
+        console.log(this.mateImageUrl)
         axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -246,6 +248,7 @@ export default {
       })
       .then(res => {
         console.log(res)
+        this.$router.push({name:'Mateparty'})
       })
       .catch(err => {
         console.log(err)

@@ -16,6 +16,7 @@ import Survey from "../views/user/Survey.vue";
 import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
+import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 
 const routes = [
   {
@@ -115,6 +116,11 @@ const routes = [
     path: "/campsite/",
     name: "Campsite",
     component: Campsite,
+  },
+  {
+    path: "/campsitedetail/",
+    name: "Campsitedetail",
+    component: Campsitedetail,
   },
 ];
 
