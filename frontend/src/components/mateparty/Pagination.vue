@@ -3,22 +3,22 @@
 
     
     <b-row :per-page="perPage" :current-page="currentPage"> 
-      <b-card-group class ="col-lg-4 col-sm-6" v-for="(item,idx) in paginatedItems" :key="idx"  >
+      <b-card-group class ="col-md-4 col-sm-6 col-xs-12" v-for="(item,idx) in paginatedItems" :key="idx"  >
         
         <b-card class="mb-5" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})">
           <b-card-text >
-            <div align="left">
-              {{item.mateCampstyle}}
+            <div align="left" v-if="item.campStyleList" >
+              <span>{{'#'+item.campStyleList.style1}}</span><span>{{'#'+item.campStyleList.style2}}</span><span>{{'#'+item.campStyleList.style3}}</span>
             </div>
             <div align="left">
               {{item.mateCampsite}}
             </div>
-            <div align="left">
-              {{item.userNo}}
+            <div align="right">
+              {{item.userNickName}}
             </div>
           </b-card-text>
           <template #footer>
-            <small class="text-muted">Last updated 3 mins ago</small>
+            <small class="text-muted">{{item.mateUpdateTime}}</small>
           </template>
         </b-card>
       
@@ -44,6 +44,7 @@ import {mapState} from 'vuex'
 export default {
   props : {
       matelists : Array,
+      filterlist : Array,
     },
   name : 'Pagination',
   components : {
@@ -70,13 +71,9 @@ export default {
        
     },
     onPageChanged() {
-      
+      console.log(2)
       this.paginate(this.perPage, this.currentPage - 1)
     },
-
-    // goMatedetail() {
-      
-    // }
 
 
   },
@@ -98,7 +95,10 @@ export default {
   },
 
   computed : {
-    ...mapState['mateList']
+    ...mapState['mateList'],
+    // filterItems() {
+    //   return this.paginatedItems.filter(item => {return item.})
+    // }
   }
   
   

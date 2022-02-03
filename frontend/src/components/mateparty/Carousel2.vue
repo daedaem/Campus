@@ -1,11 +1,11 @@
 <template>
   <div>
     <Carousel :itemsToShow="3.95" :wrapAround="true">
-      <Slide v-for="item in items" :key="item.id">
+      <Slide v-for="(item,idx) in mateData.imageList" :key="idx">
         <div class="carousel__item" style="width: 150px; height: 150px">
           <img
             style="width: 100%; height: 100%; border-radius: 10px"
-            :src="item.imgurl"
+            :src="item.snsImageUrl"
             alt="321"
           />
         </div>
@@ -83,6 +83,7 @@ import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
   name: "Carousel2",
+  props : ['mateDetail'],
   components: {
     Carousel,
     Slide,
@@ -91,8 +92,13 @@ export default defineComponent({
   data() {
     return {
       items: items,
+      mateData : this.mateDetail
     };
   },
+  mounted() {
+    console.log(this.mateData)
+  }
+  
 });
 </script>
 

@@ -1,6 +1,7 @@
 package com.ssafy.project.controller;
 
 import com.ssafy.project.dto.MateDto;
+import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.service.MateService;
@@ -49,12 +50,14 @@ public class MateController {
     }
 
     @PostMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto, MultipartFile multipartFile ){
+    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, MultipartFile multipartFile ){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
-
     //call mateInsert from MateService
+    mateDto.setContentId(10);
+    mateDto.setUserNo(3);
+
     MateResultDto mateResultDto = service.mateInsert(mateDto, multipartFile);
 
     if( mateResultDto.getResult() == SUCCESS ){
@@ -93,6 +96,25 @@ public class MateController {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
 
+    }
+
+    @PostMapping(value="/mate/apply")
+    private ResponseEntity<MateResultDto> mateApplyInsert(@RequestBody MateListDto matelistDto){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+    // matelistDto.setMateNo(56);
+    // matelistDto.setUserNo(3);
+
+    MateResultDto mateResultDto = service.mateListInsert(matelistDto);
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
     }
 
 }

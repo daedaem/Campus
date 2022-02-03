@@ -15,6 +15,8 @@ import findPw from "../views/user/FindPassword.vue";
 import Survey from "../views/user/Survey.vue";
 import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
+import Campsite from "../views/campsite/Campsite.vue";
+
 
 const routes = [
   {
@@ -109,7 +111,12 @@ const routes = [
     path: '/modifyuser',
     name: "Modify",
     component: Modify,
-  }
+  },
+  {
+    path: "/campsite/",
+    name: "Campsite",
+    component: Campsite,
+  },
 ];
   
   
