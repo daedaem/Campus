@@ -12,7 +12,9 @@ import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
 import Mainpage from "../Mainpage.vue" 
 import findPw from "../views/user/FindPassword.vue";
-
+import Survey from "../views/user/Survey.vue";
+import Profile from "../views/user/Profile.vue";
+import Modify from "../views/user/ModifyUser.vue";
 
 const routes = [
   {
@@ -93,6 +95,21 @@ const routes = [
     name: "Matematch",
     component: Matematch,
   },
+  {
+    path: "/survey/",
+    name: "Survey",
+    component: Survey,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: '/modifyuser',
+    name: "Modify",
+    component: Modify,
+  }
 ];
   
   
