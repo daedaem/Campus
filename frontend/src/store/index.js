@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
 
 // import axios from "axios";
-import createPersistedState from 'vuex-persistedstate'
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+import createPersistedState from "vuex-persistedstate";
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
 import axios from "axios";
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -112,8 +112,6 @@ export default createStore({
       };
     },
   },
-  
-  
 
   modules: {},
 });
