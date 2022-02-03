@@ -22,7 +22,7 @@
           업로드
         </p>
       </div>
-      <div class="FeedCreate-contentbox d-flex flex-wrap">
+      <div class="FeedCreate-contentbox d-flex ">
         <!-- 이미지 업로드 -->
 
         <div class="FeedCreate-leftbox">
@@ -32,8 +32,8 @@
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
-              <feed-create-carousel
-                :imageList="this.feedCreateContent.imageList"
+              <feed-create-carousel class="feed-create-carousel"
+                :imageList="feedCreateContent"
               ></feed-create-carousel>
               <!-- <img
                 v-for="(image, index) in feedCreateContent.imageList"
@@ -103,6 +103,8 @@
 </template>
 
 <script>
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
+
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
@@ -164,6 +166,7 @@ export default {
       // console.log(imageList);
     },
     cancelUploadImage() {
+      // console.log('안녕');
       // console.log(this.$refs["image"]);
       // console.log(this.image);
       // console.log(this.imageList);
@@ -192,7 +195,7 @@ export default {
           axios({
             method: "post",
             // url도 받아오는대로 확인
-            url: "http://localhost:8080/sns/create",
+            url: `${SERVER_URL}/sns/create`,
             // headers는 토큰 어떻게 하냐에 따라 달라질것
             // headers: this.$store.getters.config,
             data: this.feedCreateContent,
@@ -224,6 +227,19 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 574px) {
+  .FeedCreate-contentbox {
+    max-width:800px
+  /* flex-wrap: wrap; */
+/* min-width: 400px; */
+/* } */
+  }}
+  @media (max-width: 574px) {
+    .FeedCreate-contentbox {
+  flex-wrap: wrap;
+/* min-width: 400px; */
+/* } */}
+  }
 .FeedCreate-TotalFrame {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.85);
@@ -235,7 +251,7 @@ export default {
   /* height: 60vh; */
   width: 768px;
   position: relative;
-  height: auto;
+  height: 100%;
   /* padding: 10px; */
   margin: auto;
   /* padding-top: 10%; */
@@ -249,16 +265,20 @@ export default {
 
   border: 1px solid #dbdbdb;
 }
-/* .FeedCreate-contentbox { */
-/* min-width: 400px; */
-/* } */
+
 .FeedCreate-leftbox {
   border: 1px solid #dbdbdb;
   border-radius: 3px;
-  min-height: 400px;
+  /* min-height: 400px; */
+  max-width: 460px;
   background-color: #ffff;
   padding: 10px;
-  flex-grow: 1;
+    flex-grow: 1;
+
+}
+.feed-create-carousel{
+  width:100%;
+  /* height:100%; */
 }
 .FeedCreate-rightbox {
   border: 1px solid #dbdbdb;
@@ -302,7 +322,7 @@ export default {
 }
 .bi-x-circle {
   position: absolute;
-  z-index: auto;
+  z-index: 100;
   top: 2%;
   right: 2%;
 }
