@@ -186,6 +186,8 @@ export default {
     return {
       my_comment: {
         snsReplyContent: "",
+        userNo: "myProfileNum",
+        snsNo: this.feed.snsNo,
       },
       // snsReplyContent: {
 
@@ -287,7 +289,7 @@ export default {
             method: "post",
             url: "http://localhost:8080/sns/reply",
             data: this.my_comment,
-            headers: this.$store.getters.config,
+            // headers: this.$store.getters.config,
           })
             .then(() => {
               this.my_comment.snsReplyContent = null;

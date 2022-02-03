@@ -9,10 +9,10 @@
             class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
           >
             <div>
-              <feed-list-item-carousel
+              <feed-detail-carousel
                 class="FeedDetail-Leftbox-Image"
                 v-bind:feed="this.detailFeed"
-              ></feed-list-item-carousel>
+              ></feed-detail-carousel>
             </div>
           </div>
           <div class="FeedDetail-RightBox col d-flex flex-column">
@@ -105,7 +105,9 @@
               >
                 <div class="my-auto col-10">
                   <div class="form-floating">
-                    <div class="d-flex">
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                    >
                       <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
 
                       <textarea
@@ -115,15 +117,16 @@
                         rows="1"
                         class="d-flex col-10 p-1"
                         placeholder="댓글을 입력하세요"
+                        style="overflow: auto"
                       >
                       </textarea>
-                      <button
-                        class="btn btn-outline-secondary fs-6 me-1"
+                      <p
+                        class="btn-sm btn-outline-transparent col-2 text-primary fs-6 me-1"
                         type="button"
                         id="commentcontent"
                       >
                         게시
-                      </button>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -163,13 +166,13 @@
 import { mapState } from "vuex";
 import axios from "axios";
 
-import FeedListItemCarousel from "../../components/feed/feedlistitems/FeedListItemCarousel.vue";
-import FeedDetailDropdown from "../../components/feed/FeedDetailDropdown.vue";
+import FeedDetailCarousel from "../../components/feed/feeddetailitems/FeedDetailCarousel.vue";
+import FeedDetailDropdown from "../../components/feed/feeddetailitems/FeedDetailDropdown.vue";
 
 export default {
   name: "FeedDetail",
   components: {
-    FeedListItemCarousel,
+    FeedDetailCarousel,
     FeedDetailDropdown,
   },
   props: {
