@@ -19,7 +19,7 @@
                 <div class="content">
                     <h6 class="category">Best cards</h6>
                     <h4 class="title"><a href="#">스타일</a></h4>
-                    <p class="description" >{{`# `+cardData.campStyleList[0].mcampStyle1}}<br>{{`# `+cardData.campStyleList[0].mcampStyle2}}<br>{{`# `+cardData.campStyleList[0].mcampStyle3}}<br></p>
+                    <p class="description" >{{`# `+cardData.campStyleList.style1}}<br>{{`# `+cardData.campStyleList.style2}}<br>{{`# `+cardData.campStyleList.style3}}<br></p>
                 </div>
             </div> <!-- end card -->
         </div>

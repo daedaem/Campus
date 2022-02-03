@@ -26,7 +26,7 @@
     
     <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <div><Members/></div>
+    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail"/></div>
     <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div>
@@ -61,7 +61,7 @@ export default {
     mateNo : String,
   },
   components: {
-    Carousel2,
+    Carousel2,    
     Cards,
     Items2,
     Members,
