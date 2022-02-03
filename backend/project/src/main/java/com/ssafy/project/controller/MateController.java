@@ -52,6 +52,7 @@ public class MateController {
 
     @PostMapping(value="/mate")
     private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto,  MultipartFile multipartFile ){
+    private ResponseEntity<MateResultDto> mateInsert( MateDto mateDto){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
@@ -59,7 +60,8 @@ public class MateController {
     mateDto.setContentId(10);
     mateDto.setUserNo(3);
     System.out.println(mateDto.toString());
-    MateResultDto mateResultDto = service.mateInsert(mateDto, multipartFile);
+
+    MateResultDto mateResultDto = service.mateInsert(mateDto);
 
     if( mateResultDto.getResult() == SUCCESS ){
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공

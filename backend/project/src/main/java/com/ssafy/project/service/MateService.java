@@ -9,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MateService {
 
-    public MateResultDto mateInsert(MateDto dto, MultipartFile multipartFile);
+    public MateResultDto mateInsert(MateDto dto);
+
+    public MateResultDto mateImageInsert(int mateNo, MultipartFile multipartFile);
 
     public MateResultDto mateDelete(int mateNo);
 

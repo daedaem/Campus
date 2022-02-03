@@ -46,5 +46,7 @@ public interface MateDao {
     public void mateApplyInsert(MateListDto dto);
 
     public List<MateListDto> userCampStyle(int userNo);
+
+    public void mateImageInsert(MateDto dto);
     
 }
