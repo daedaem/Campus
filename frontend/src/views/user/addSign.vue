@@ -112,20 +112,36 @@
       </div>
       
 
-      <!-- Modal -->
       <div>
+        <button type="button" class="btn btn-primary launch filterbox1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 추가
+        </button>
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                      <addModal/>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      
+      
+      <!-- Modal -->
+      <!-- <div>
         <button type="button" class="btn btn-primary launch filterbox1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 설문조사
         </button>
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body ">
-                      <Survey @date-check="dateCheck"/>
+                      <Survey/>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
+      </div> -->
 
 
       <br>
@@ -139,7 +155,7 @@ import Items from '@/components/user/Items.vue'
 import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
-import Survey from '@/components/user/Survey.vue'
+import addModal from '@/components/user/addmodal.vue'
 
 export default {
 	name: 'addSign',
@@ -148,10 +164,16 @@ export default {
 		EquipInput,
 		EquipList,
     style_Dropdown,
-    Survey
+    addModal
 	},
   data: function () {
     return {
+      maleButton: false,
+      femaleButton: false,
+      user_gender: false,
+      user_age: "",
+      user_area: "",
+      image: "",
       myProfileInfos: {
         image: "",
         maleButton: false,
@@ -312,5 +334,10 @@ body {
   padding: 0.5vw;
   border-radius: 1vw;
   transition-duration: 0.5s;
+}
+
+.modal-body {
+  height: 200px;
+  width: 100%;
 }
 </style>

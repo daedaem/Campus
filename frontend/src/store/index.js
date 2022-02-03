@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
-import axios from "axios";
+
+// import axios from "axios";
 import createPersistedState from 'vuex-persistedstate'
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
 
 export default createStore({
   plugins: [
@@ -9,7 +11,6 @@ export default createStore({
   state: {
     user: null,
     token: localStorage.getItem("jwt"),
-    usernumber: "",
     equipLists: [],
     mateList: [],
     uploadimages: "",
@@ -45,8 +46,26 @@ export default createStore({
     LOGIN: function (state) {
       state.token = localStorage.getItem("jwt");
     },
+    // LOGIN: function (state) {
+    //   state.token = localStorage.getItem("jwt");
+    //   state.isLogin = true
+    //   const token = state.token
+    //   axios({
+    //     method: "get",
+    //     url: `${SERVER_URL}/user/userEmail`,
+    //     headers: { Authorization: `JWT ${token}`},
+    //   })
+    //     .then((res) => {
+    //       state.myProfileimageurl = res.image
+    //       state.nickname = res.nickname
+    //       state.myNum = res.id
+    //     })
+    // },
     LOGOUT: function (state) {
+      state.myProfileimageurl = null;
       state.token = null;
+      state.nickname = null;
+      state.myNum = null;
     },
 
   },
@@ -87,6 +106,4 @@ export default createStore({
   modules: {
 
   },
-
-  modules: {},
 });
