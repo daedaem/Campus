@@ -170,6 +170,8 @@
   </div>
 </template>
 <script>
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
+
 import { mapState } from "vuex";
 import axios from "axios";
 import FeedListItemCarousel from "./feedlistitems/FeedListItemCarousel.vue";
@@ -211,7 +213,7 @@ export default {
   methods: {
     likesCountCheck() {
       axios
-        .get(`http://localhost:8080/sns/likecount/${this.feed.snsNo}/`)
+        .get(`${SERVER_URL}/sns/likecount/${this.feed.snsNo}/`)
         .then((res) => {
           // console.log(res);
           const likeCount = res.data.likeCount;
@@ -224,19 +226,17 @@ export default {
     },
     // 좋아요 여부 확인
     likedCheck() {
-      axios
-        .get(`http://localhost:8080/sns/like/${this.feed.userNo}`)
-        .then((res) => {
-          // console.log("좋아요했는지 체크", res);
-          // 좋아요 한 사람들 리스트
-          // console.log(res);
-          const likedpeople = res.data.like;
-          if (likedpeople.includes(this.myProfileNum)) {
-            this.amiliked = 1;
-          } else {
-            this.amiliked = 0;
-          }
-        });
+      axios.get(`${SERVER_URL}/sns/like/${this.feed.userNo}`).then((res) => {
+        // console.log("좋아요했는지 체크", res);
+        // 좋아요 한 사람들 리스트
+        // console.log(res);
+        const likedpeople = res.data.like;
+        if (likedpeople.includes(this.myProfileNum)) {
+          this.amiliked = 1;
+        } else {
+          this.amiliked = 0;
+        }
+      });
     },
     giveHeart: function () {
       // console.log("너", this.$store.state.myNum);
@@ -248,10 +248,10 @@ export default {
 
       axios({
         method: "post",
-        // url: `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
+        // url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
 
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
-        url: `http://localhost:8080/sns/like/${this.feed.snsNo}/2`,
+        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/2`,
         // headers: { "Access-Control-Allow-Origin": "*" },
         // data: this.my_comment,
         // credentials,
@@ -269,7 +269,7 @@ export default {
     cancelHeart() {
       axios({
         method: "delete",
-        url: `http://localhost:8080/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
+        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
 
         // data: this.my_comment,
         // headers: this.$store.getters.config,
@@ -287,7 +287,7 @@ export default {
         if (this.my_comment.snsReplyContent.trim()) {
           axios({
             method: "post",
-            url: "http://localhost:8080/sns/reply",
+            url: `${SERVER_URL}/sns/reply`,
             data: this.my_comment,
             // headers: this.$store.getters.config,
           })
@@ -308,7 +308,7 @@ export default {
     },
     snsComments() {
       axios
-        .get(`http://localhost:8080/sns/reply/${this.feed.snsNo}`)
+        .get(`${SERVER_URL}/sns/reply/${this.feed.snsNo}`)
         .then((res) => {
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {

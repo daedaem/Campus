@@ -63,6 +63,8 @@
 </template>
 
 <script>
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
+
 import axios from "axios";
 import { mapState } from "vuex";
 
@@ -81,7 +83,7 @@ export default {
   methods: {
     deleteFeed() {
       axios
-        .delete(`http://localhost:8080/sns/${this.feed.snsNo}`)
+        .delete(`${SERVER_URL}/sns/${this.feed.snsNo}`)
         .then(() => {
           // console.log(res);
           this.$router.push({ name: "FeedList" });
