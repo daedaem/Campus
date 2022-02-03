@@ -1,6 +1,7 @@
 package com.ssafy.project.service;
 
 import com.ssafy.project.dto.MateDto;
+import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
 
@@ -15,5 +16,7 @@ public interface MateService {
     public MateResultDto mateList(MateParamDto mateParamDto);
 
     public MateResultDto mateDetail(int mateNo);
+
+    public MateResultDto mateListInsert(MateListDto dto);
 
 }

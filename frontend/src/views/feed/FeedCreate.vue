@@ -26,21 +26,25 @@
         <!-- 이미지 업로드 -->
 
         <div class="FeedCreate-leftbox">
+          <!-- carousel로 바꾸기 -->
           <div
-            v-if="image"
+            v-if="feedCreateContent.imageList.length > 0"
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
-              <img
-                v-for="(image, index) in images"
+              <feed-create-carousel
+                :imageList="this.feedCreateContent.imageList"
+              ></feed-create-carousel>
+              <!-- <img
+                v-for="(image, index) in feedCreateContent.imageList"
                 :key="index"
-                :src="images[index]"
+                :src="`${feedCreateContent.imageList[index]}`"
                 alt=""
                 class="FeedCreate-UploadImage"
-              />
+              /> -->
               <!-- 업로드 사진 취소 마크 -->
               <div>
-                <i class="bi bi-x-circle fs-4" @click="cancelUploadImage()"></i>
+                <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
               </div>
             </div>
           </div>
@@ -48,7 +52,7 @@
           <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
               ref="image"
-              @change="uploadImg()"
+              @change="uploadImg"
               type="file"
               multiple="multiple"
               id="chooseFile"
@@ -63,7 +67,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex justify-content-center">
                   <img
-                    :src="profileimage"
+                    :src="`${{ myProfileimageurl }}`"
                     class="FeedCreate-user-profile-image"
                     alt="..."
                   />
@@ -71,7 +75,9 @@
                 <div class="FeedCreate-user-profile-username fs-5">
                   <!-- {{ feed.first_name }} -->
                 </div>
-                <div class="FeedCreate-user-feed-alert fw-bold">username</div>
+                <div class="FeedCreate-user-feed-alert fw-bold">
+                  {{ nickname }}
+                </div>
               </div>
             </div>
           </div>
@@ -86,6 +92,7 @@
                 id="textarea-rows"
                 placeholder="당신의 캠프여정을 공유하세요."
                 rows="8"
+                v-model="feedCreateContent.snsContent"
               ></b-form-textarea>
             </div>
           </div>
@@ -97,6 +104,8 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
+import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
@@ -104,6 +113,7 @@ import axios from "axios";
 export default {
   name: "FeedCreate",
   components: {
+    FeedCreateCarousel,
     // FeedCreateCarousel,
   },
   props: {
@@ -111,21 +121,17 @@ export default {
   },
   data() {
     return {
-      credentials: {
-        userId: "",
-        nickname: "",
-        email: "",
-        password: "",
+      // credentials: {
+      //   "userNo": this.$store.state.myNum,
+      //   nickname: "",
+      //   email: "",
+      //   password: "",
+      // },
+      feedCreateContent: {
+        imageList: [],
+        snsContent: "",
+        userNo: this.$store.state.myNum,
       },
-      feedcreatecontent: {
-        images: [],
-        contents: "",
-      },
-
-      // uploadReady: true,
-
-      profileimage:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     };
   },
   methods: {
@@ -135,14 +141,16 @@ export default {
       // const url = URL.createObjectURL(image);
       // this.image = url;
       // console.log(url);
-      // console.log(this.image);
+      // console.log(this.$refs["image"].files.length);
 
       // 업로드하기 위해 올린 파일 길이를 인덱스로
       for (let i = 0; i < this.$refs["image"].files.length; i++) {
         // url 주소를 각 이미지별로 생성해서
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
-        // images 폴더에 넣어둠
-        this.images.push(url);
+        // imageList 폴더에 넣어둠
+
+        this.feedCreateContent.imageList.push(url);
+        // console.log(this.feedCreateContent.imageList[0]);
         // axios({
         //   method: "post",
         //   url: "",
@@ -152,18 +160,17 @@ export default {
       }
       // this.$refs.image.value = "";
 
-      // images.push(this.$refs["image"].files[i]);
-      // console.log(images);
+      // imageList.push(this.$refs["image"].files[i]);
+      // console.log(imageList);
     },
     cancelUploadImage() {
       // console.log(this.$refs["image"]);
       // console.log(this.image);
-      // console.log(this.images);
+      // console.log(this.imageList);
 
       // this.clearImage();
-      this.$refs.image = null;
-      // this.image = null;
-      // this.images = null;
+      this.feedCreateContent.imageList = []; // this.image = null;
+      // this.imageList = null;
     },
     // clearImage() {
     //   this.uploadReady = false;
@@ -172,27 +179,32 @@ export default {
     //   });
     // },
     CreateFeed() {
-      if (this.feedcreatecontent.contents && this.feedcreatecontent.images) {
+      console.log(this.feedCreateContent);
+      if (
+        this.feedCreateContent.snsContent &&
+        this.feedCreateContent.imageList
+      ) {
         if (
           // 문자열 양끝 공백 제거
-          // feedcreatecontent.images도 trim해야하는지확인해보자
-          this.feedcreatecontent.contents.trim()
+          // feedCreateContent.images도 trim해야하는지확인해보자
+          this.feedCreateContent.snsContent.trim()
         ) {
           axios({
             method: "post",
             // url도 받아오는대로 확인
-            url: "",
+            url: "http://localhost:8080/sns/create",
             // headers는 토큰 어떻게 하냐에 따라 달라질것
-            headers: this.$store.getters.config,
-            data: this.feedcreatecontent,
+            // headers: this.$store.getters.config,
+            data: this.feedCreateContent,
           })
-            .then((res) => {
-              this.$store.dispatch("toDetail", res.data.id);
+            .then(() => {
+              // console.log(res.data);
+              this.$store.dispatch("toDetail", this.feed);
               this.$router.push({ name: "FeedDetail" });
             })
             .catch((err) => {
               console.log(err);
-              alert("Please check Movie title");
+              alert("실패하였습니다.");
             });
         } else {
           alert(`There's an empty box`);
@@ -201,6 +213,11 @@ export default {
         alert(`There's an empty box`);
       }
     },
+  },
+  computed: {
+    ...mapState(["myNum"]),
+    ...mapState(["nickname"]),
+    ...mapState(["myProfileimageurl"]),
   },
   // 제출했을때
 };

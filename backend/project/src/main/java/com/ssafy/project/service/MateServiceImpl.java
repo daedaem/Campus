@@ -38,6 +38,12 @@ public class MateServiceImpl implements MateService {
     @Autowired
     SnsDao snsdao;
 
+    // @Autowired
+    // MateCampEquipRequiredDto mateCampEquipRequiredDto;
+    
+    // @Autowired
+    // MateCampStyleDto mateCampStyleDto;
+
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
 
@@ -75,19 +81,28 @@ public class MateServiceImpl implements MateService {
 
     try {
         //dto에 이미지 set
+        System.out.println("!!");
         String fileName = multipartFile.getOriginalFilename();
+        System.out.println(fileName);
         fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
         File file = this.convertToFile(multipartFile, fileName);
         String TEMP_URL = this.uploadFile(file, fileName);
+        System.out.println(TEMP_URL);
         dto.setMateImageUrl(TEMP_URL);
+        System.out.println(dto.toString());
         dao.mateInsert(dto);
-        // 캠프 스타일 리스트 insert
-        dao.campStyleListInsert(dto);
-        dao.campEquipReuireListInsert(dto);
+        
+        dto.setMateNo(dao.mateNoselect());
+        dao.mateCheck(dao.mateNoselect());
 
-    
+        dto.getCampStyleList().setMateNo(dto.getMateNo());
+        dao.campStyleListInsert(dto.getCampStyleList());
 
-    mateResultDto.setResult(SUCCESS);
+        dto.getCampEquipRequiredList().setMateNo(dto.getMateNo());
+        dao.campEquipReuireListInsert(dto.getCampEquipRequiredList());
+        
+        
+        mateResultDto.setResult(SUCCESS);
 
     } catch (Exception e) {
     e.printStackTrace();
@@ -122,6 +137,16 @@ public class MateServiceImpl implements MateService {
             List<MateDto> list = dao.mateList(mateParamDto);
             int count = dao.mateListTotalCount();
             mateResultDto.setList(list);
+            for (MateDto mateDto : list) {
+                //mateDto.getMateNo()
+                MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());
+                mateDto.setCampStyleList(campStyleList);
+
+                List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                mateDto.setMateList(mateApplyList);
+
+
+            }
             mateResultDto.setCount(count);
             mateResultDto.setResult(SUCCESS);
 
@@ -146,10 +171,10 @@ public class MateServiceImpl implements MateService {
             List<MateListDto> mateApplyList = dao.mateApplyList(mateNo);
             mateDto.setMateList(mateApplyList);
             // 캠프스타일 리스트
-            List<MateCampStyleDto> campStyleList = dao.mateCampStyleList(mateNo);
+            MateCampStyleDto campStyleList = dao.mateCampStyleList(mateNo);
             mateDto.setCampStyleList(campStyleList);
             // 장비 리스트
-            List<MateCampEquipRequiredDto> mateCampEquipRequired= dao.mateCampEquipRequiredList(mateNo);
+            MateCampEquipRequiredDto mateCampEquipRequired= dao.mateCampEquipRequiredList(mateNo);
             mateDto.setCampEquipRequiredList(mateCampEquipRequired);
             // 작성자 피드 리스트 이미지?
             List<SnsImageDto> snsImageList = dao.mateSnsImageList(mateDto.getUserNo());
@@ -163,6 +188,21 @@ public class MateServiceImpl implements MateService {
             e.printStackTrace();
             mateResultDto.setResult(FAIL);
         }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateListInsert(MateListDto dto) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+        
+        try {
+           dao.mateApplyInsert(dto);
+           mateResultDto.setResult(SUCCESS);
+       } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+       }
         return mateResultDto;
     }
 

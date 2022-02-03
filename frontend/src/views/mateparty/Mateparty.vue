@@ -11,7 +11,7 @@
         <b-button pill style="width: 100px; height: 40px; margin-bottom:20px;"  @click="goMakeparty">글 작성</b-button>
       </div>
     </div>
-    <Pagination v-if="matelists.length != 0" :matelists="matelists"/>    
+    <Pagination v-if="matelists.length != 0" :matelists="matelists"  :filterlist="filterlist"/>    
     <!-- {{matelists}} -->
     
   </body>

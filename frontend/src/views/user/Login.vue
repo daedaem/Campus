@@ -13,7 +13,7 @@
                 class="input3"
                 type="text"
                 placeholder="example@google.com"
-                v-model="credentials.email"
+                v-model="credentials.userEmail"
                 id="email"
                 @keypress.enter="login"
               />
@@ -27,7 +27,7 @@
                 class="input3"
                 type="password"
                 placeholder="Password"
-                v-model="credentials.password"
+                v-model="credentials.userPassword"
                 id="password"
                 @keypress.enter="login"
               />
@@ -36,26 +36,28 @@
 
           <!-- 로그인버튼 -->
           <div class="container-contact3-form-btn">
-            <button class="login-button" @click="login" type="submit">
+            <button class="login-button" @click="login" type="button">
               로그인
             </button>
           </div>
 
           <!-- 구글 로그인 -->
-          <div class="d-flex justify-content-between mx-3 mt-3">
+          <!-- <div class="d-flex justify-content-between mx-3 mt-3">
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <button @click="signout" align="left" class="btn-primary">
               로그아웃
             </button>
-          </div>
+          </div> -->
 
           <!-- 카카오 -->
-          <div class="d-flex justify-content-between mx-3 mt-3">
+          <!-- <div class="d-flex justify-content-between mx-3 mt-3">
             <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png" 
               @click="kakaoLogin"
               alt="">
-          </div>
-          
+          </div> -->
+          <button @click="logout">
+            로그아웃
+          </button>
 
 
           <!-- 회원가입 및 비밀번호 찾기 -->
@@ -72,15 +74,15 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
-const SERVER_URL = process.env.VUE_APP_SERVER_URL
+const SERVER_URL = `http://i6e102.p.ssafy.io`
 
 export default {
   name: "Login",
   data: () => {
     return {
       credentials: {
-        email: "",
-        password: "",
+        userEmail: "",
+        userPassword: "",
       },
       error_check_login: true,
       googleUser: null,
@@ -94,31 +96,40 @@ export default {
   },
 
   // 구글
-  mounted() {
-    window.addEventListener(
-      "google-oauth-library-load",
-      this.renderSignInButton
-    );
-  },
+  // mounted() {
+  //   window.addEventListener(
+  //     "google-oauth-library-load",
+  //     this.renderSignInButton
+  //   );
+  // },
 
   methods: {
     // ...mapActions(["login"]),
     login: function () {
-      // console.log(this.credentials)
+      console.log(this.credentials)
       axios({
         method: "POST",
-        url: `${SERVER_URL}/accounts/api-token-auth/`,
+        url: `${SERVER_URL}/login`,
         data: this.credentials,
       })
         .then((res) => {
-          this.$store.state.user = this.credentials.email;
+          console.log("가나다")
+          alert("로그인")
+          this.$store.state.user = this.credentials.userEmail;
           localStorage.setItem('jwt', res.data.token)
+          this.$store.dispatch("login"); 
           this.$router.push({name: 'Mainpage'})
         })
         .catch((err) => {
           alert("이메일과 비밀번호를 확인해주세요")
           console.log(err)
         })
+    },
+    logout: function() {
+      localStorage.removeItem('jwt');
+      this.$store.dispatch("logout")
+      alert("로그아웃")
+      this.$router.push({name: 'login'})
     },
 
     // 회원가입 이동
@@ -132,59 +143,59 @@ export default {
     },
 
     // 구글
-    renderSignInButton() {
-      window.gapi.signin2.render("my-signin2", {
-        scope: "profile email",
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: "dark",
-        onsuccess: this.onSuccess,
-        onfailure: this.onFailure,
-      });
-    },
-    kakaoLogin() {
-        // console.log(window.Kakao);
-        window.Kakao.Auth.login({
-            scope : 'account_email, gender',
-            success: this.GetMe,
-        });
-    },
-    GetMe(authObj){
-        console.log(authObj);
-        window.Kakao.API.request({
-            url:'/v2/user/me',
-            success : res => {
-                const kakao_account = res.kakao_account;
-                const userInfo = {
-                    nickname : kakao_account.profile.nickname,
-                    email : kakao_account.email,
-                    password : '',
-                    account_type : 2,
-                }
+    // renderSignInButton() {
+    //   window.gapi.signin2.render("my-signin2", {
+    //     scope: "profile email",
+    //     width: 240,
+    //     height: 50,
+    //     longtitle: true,
+    //     theme: "dark",
+    //     onsuccess: this.onSuccess,
+    //     onfailure: this.onFailure,
+    //   });
+    // },
+    // kakaoLogin() {
+    //     // console.log(window.Kakao);
+    //     window.Kakao.Auth.login({
+    //         scope : 'account_email, gender',
+    //         success: this.GetMe,
+    //     });
+    // },
+    // GetMe(authObj){
+    //     console.log(authObj);
+    //     window.Kakao.API.request({
+    //         url:'/v2/user/me',
+    //         success : res => {
+    //             const kakao_account = res.kakao_account;
+    //             const userInfo = {
+    //                 nickname : kakao_account.profile.nickname,
+    //                 email : kakao_account.email,
+    //                 password : '',
+    //                 account_type : 2,
+    //             }
 
-                  axios.post(`http://localhost:8080/account/kakao`,{
-                      email : userInfo.email,
-                      nickname : userInfo.nickname
-                  })
-                  .then(res => {
-                    console.log(res);
-                    console.log("데이터베이스에 회원 정보가 있음!");
-                  })
-                  .catch(err => {
-                      console.log(err);
-                    console.log("데이터베이스에 회원 정보가 없음!");
-                  })
-                console.log(userInfo);
-                alert("로그인 성공!");
-                this.$bvModal.hide("bv-modal-example");
-            },
-            fail : error => {
-                this.$router.push("/errorPage");
-                console.log(error);
-            }
-        })
-    },
+    //               axios.post(`http://localhost:8080/account/kakao`,{
+    //                   email : userInfo.email,
+    //                   nickname : userInfo.nickname
+    //               })
+    //               .then(res => {
+    //                 console.log(res);
+    //                 console.log("데이터베이스에 회원 정보가 있음!");
+    //               })
+    //               .catch(err => {
+    //                   console.log(err);
+    //                 console.log("데이터베이스에 회원 정보가 없음!");
+    //               })
+    //             console.log(userInfo);
+    //             alert("로그인 성공!");
+    //             this.$bvModal.hide("bv-modal-example");
+    //         },
+    //         fail : error => {
+    //             this.$router.push("/errorPage");
+    //             console.log(error);
+    //         }
+    //     })
+    // },
 
     onSuccess(googleUser) {
       console.log(googleUser);
