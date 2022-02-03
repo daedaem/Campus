@@ -34,7 +34,8 @@ public class UserController {
     // 회원가입
     @PostMapping(value = "/user")
     public ResponseEntity<UserResultDto> register(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
-                                                                                  // 같이 넘겨준다.
+        // 같이 넘겨준다.
+        System.out.println(userDto);
         UserResultDto userResultDto = userService.userRegister(userDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
