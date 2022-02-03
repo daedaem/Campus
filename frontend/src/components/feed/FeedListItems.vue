@@ -188,7 +188,7 @@ export default {
     return {
       my_comment: {
         snsReplyContent: "",
-        userNo: "myProfileNum",
+        userNo: this.myProfileNum,
         snsNo: this.feed.snsNo,
       },
       // snsReplyContent: {
@@ -251,7 +251,7 @@ export default {
         // url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
 
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
-        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/2`,
+        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.userNo}`,
         // headers: { "Access-Control-Allow-Origin": "*" },
         // data: this.my_comment,
         // credentials,
@@ -334,6 +334,7 @@ export default {
     this.likedCheck();
     this.likesCountCheck();
     this.snsComments();
+    console.log(this.$store.state.myNum);
   },
 
   computed: {

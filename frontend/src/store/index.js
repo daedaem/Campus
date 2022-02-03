@@ -2,7 +2,8 @@ import { createStore } from "vuex";
 
 // import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 import axios from "axios";
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -19,7 +20,7 @@ export default createStore({
     isLogin: localStorage.getItem("jwt") ? true : false,
     nickname: null,
     feedList: [],
-    myNum: "2",
+    myNum: "",
     myProfileimageurl: "",
   },
   mutations: {
@@ -55,7 +56,7 @@ export default createStore({
       }).then((res) => {
         state.myProfileimageurl = res.image;
         state.nickname = res.nickname;
-        state.myNum = res.id;
+        state.myNum = res.userNo;
       });
     },
     // LOGIN: function (state) {
@@ -78,6 +79,8 @@ export default createStore({
       state.token = null;
       state.nickname = null;
       state.myNum = null;
+      state.isLogin = false;
+      state.user = "";
     },
   },
   actions: {

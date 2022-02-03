@@ -2,12 +2,13 @@
   <div
     class="FeedCreate-TotalFrame d-flex flex-row justify-content-center align-items-start"
   >
-    <router-link :to="{ name: 'FeedList' }"
+    <!-- <router-link :to="{ name: 'FeedList' }"
       ><i class="bi bi-x-lg fs-2"></i
-    ></router-link>
+    ></router-link> -->
     <div class="FeedCreate-Frame">
       <!-- 작성 게시글 타이틀 -->
       <div class="d-flex justify-content-between FeedCreate-title py-2">
+        <!-- <feed-create-modal></feed-create-modal> -->
         <router-link
           class="text-decoration-none text-black"
           :to="{ name: 'FeedList' }"
@@ -28,13 +29,13 @@
         <div class="FeedCreate-leftbox">
           <!-- carousel로 바꾸기 -->
           <div
-            v-if="feedCreateContent.imageList.length > 0"
+            v-if="feedCreateImageList.imageList.length > 0"
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
               <feed-create-carousel
                 class="feed-create-carousel"
-                :imageList="feedCreateContent"
+                :imageList="feedCreateImageList"
               ></feed-create-carousel>
               <!-- <img
                 v-for="(image, index) in feedCreateContent.imageList"
@@ -44,13 +45,21 @@
                 class="FeedCreate-UploadImage"
               /> -->
               <!-- 업로드 사진 취소 마크 -->
-              <div>
-                <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-              </div>
             </div>
           </div>
           <!-- 이미지 업로드 없다면 업로드 -->
           <form v-else align="left" method="post" enctype="multipart/form-data">
+            <input
+              ref="image"
+              type="file"
+              multiple="multiple"
+              id="fileName"
+              accept="image/*"
+              @change="uploadImg"
+            />
+          </form>
+
+          <!-- <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
               ref="image"
               @change="uploadImg"
@@ -60,7 +69,7 @@
               name="chooseFile"
               accept="image/*"
             />
-          </form>
+          </form> -->
         </div>
         <div class="FeedCreate-rightbox">
           <div class="FeedCreate-item2 d-flex my-2">
@@ -104,11 +113,13 @@
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
+// import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
@@ -117,6 +128,7 @@ export default {
   name: "FeedCreate",
   components: {
     FeedCreateCarousel,
+    // FeedCreateModal,
     // FeedCreateCarousel,
   },
   props: {
@@ -131,18 +143,38 @@ export default {
       //   password: "",
       // },
       feedCreateContent: {
-        imageList: [],
+        // imageList: [],
         snsContent: "",
         userNo: this.$store.state.myNum,
+      },
+      frm: "",
+      feedCreateImageList: {
+        imageList: [],
       },
     };
   },
   methods: {
     uploadImg() {
-      // var image = this.$refs["image"].files[0];
-      // // console.log(image);
-      // const url = URL.createObjectURL(image);
-      // this.image = url;
+      // 전송용
+      var frm = new FormData();
+      var photoFile = document.getElementById("fileName");
+      // console.log(photoFile.files);
+      // frm.append("fileName", photoFile.files[0]);
+      // console.log(merong);
+      // console.log(2);
+      // console.log(frm);
+      var cnt = photoFile.files.length;
+      for (var i = 0; i < cnt; i++) {
+        frm.append("fileName", photoFile.files[i]);
+      }
+      this.frm = frm;
+      console.log(frm);
+
+      // 업로드 이미지 확인
+      var image = this.$refs["image"].files[0];
+      // console.log(image);
+      const url = URL.createObjectURL(image);
+      this.image = url;
       // console.log(url);
       // console.log(this.$refs["image"].files.length);
 
@@ -150,32 +182,12 @@ export default {
       for (let i = 0; i < this.$refs["image"].files.length; i++) {
         // url 주소를 각 이미지별로 생성해서
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
-        // imageList 폴더에 넣어둠
+        //   // imageList 폴더에 넣어둠
 
-        this.feedCreateContent.imageList.push(url);
-        // console.log(this.feedCreateContent.imageList[0]);
-        // axios({
-        //   method: "post",
-        //   url: "",
-        // }).then((res) => {
-        //   this.$store.dispatch("uploadimages", res.data.id);
-        // });
+        this.feedCreateImageList.imageList.push(url);
       }
-      // this.$refs.image.value = "";
-
-      // imageList.push(this.$refs["image"].files[i]);
-      // console.log(imageList);
     },
-    cancelUploadImage() {
-      // console.log('안녕');
-      // console.log(this.$refs["image"]);
-      // console.log(this.image);
-      // console.log(this.imageList);
 
-      // this.clearImage();
-      this.feedCreateContent.imageList = []; // this.image = null;
-      // this.imageList = null;
-    },
     // clearImage() {
     //   this.uploadReady = false;
     //   this.$nextTick(() => {
@@ -184,9 +196,12 @@ export default {
     // },
     CreateFeed() {
       console.log(this.feedCreateContent);
+      // console.log(frm);
+      console.log(this.frm);
+      // console.log(this.feedCreateContent);
       if (
         this.feedCreateContent.snsContent &&
-        this.feedCreateContent.imageList
+        this.feedCreateImageList.imageList
       ) {
         if (
           // 문자열 양끝 공백 제거
@@ -200,12 +215,25 @@ export default {
             // headers는 토큰 어떻게 하냐에 따라 달라질것
             // headers: this.$store.getters.config,
             data: this.feedCreateContent,
+            // headers: { "content-type": "multipart/form-data" },
           })
-            .then(() => {
-              // console.log(res.data);
-              this.$store.dispatch("toDetail", this.feed);
-              this.$router.push({ name: "FeedDetail" });
+            .then((res) => {
+              // console.log(frm);
+              console.log(this.frm);
+              // console.log("1", res.data.dto.snsNo);
+
+              axios({
+                method: "post",
+                url: `${SERVER_URL}/sns/create/${res.data.dto.snsNo}`,
+                headers: { "content-type": "multipart/form-data" },
+                data: this.frm,
+                // params: { snsNo: res.data.dto.snsNo },
+              });
             })
+            // .then(() => {
+            //   this.$store.dispatch("toDetail", this.feed);
+            //   this.$router.push({ name: "FeedDetail" });
+            // })
             .catch((err) => {
               console.log(err);
               alert("실패하였습니다.");
@@ -235,6 +263,24 @@ export default {
     /* min-width: 400px; */
     /* } */
   }
+  .FeedCreate-Frame {
+    /* height: 60vh; */
+    width: 768px;
+    position: relative;
+    height: 100%;
+    /* padding: 10px; */
+    margin: auto;
+    /* padding-top: 10%; */
+  }
+  .FeedCreate-leftbox {
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    min-height: 400px;
+    max-width: 460px;
+    background-color: #ffff;
+    padding: 10px;
+    flex-grow: 1;
+  }
 }
 @media (max-width: 574px) {
   .FeedCreate-contentbox {
@@ -242,24 +288,37 @@ export default {
     /* min-width: 400px; */
     /* } */
   }
+  .FeedCreate-Frame {
+    /* height: 60vh; */
+    width: 768px;
+    position: relative;
+    height: 100%;
+    /* padding: 10px; */
+    margin: auto;
+    padding-top: 5%;
+  }
+  .FeedCreate-leftbox {
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    min-height: 400px;
+    /* max-width: 460px; */
+    background-color: #ffff;
+    padding: 10px;
+    flex-grow: 1;
+  }
+}
+.navbar {
+  display: none;
 }
 .FeedCreate-TotalFrame {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.85);
+  padding-top: 5%;
   /* width: 768px; */
   /* padding: 0 20px; */
   /* background: beige; */
 }
-.FeedCreate-Frame {
-  /* height: 60vh; */
-  width: 768px;
-  position: relative;
-  height: 100%;
-  /* padding: 10px; */
-  margin: auto;
-  /* padding-top: 10%; */
-  /* padding-top: 10%; */
-}
+
 .FeedCreate-title {
   background-color: #ffff;
   border-top-left-radius: 5px;
@@ -269,15 +328,6 @@ export default {
   border: 1px solid #dbdbdb;
 }
 
-.FeedCreate-leftbox {
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
-  /* min-height: 400px; */
-  max-width: 460px;
-  background-color: #ffff;
-  padding: 10px;
-  flex-grow: 1;
-}
 .feed-create-carousel {
   width: 100%;
   /* height:100%; */
@@ -322,19 +372,15 @@ export default {
   width: 42px;
   height: 42px;
 }
-.bi-x-circle {
-  position: absolute;
-  z-index: 100;
-  top: 2%;
-  right: 2%;
-}
-.bi-x-lg {
+
+/* .bi-x-lg {
   position: absolute;
   /* z-index: auto; */
-  right: 5%;
-  top: 5%;
-  color: white; /* z-index: 100; */
-  /* position: absolute; */
-  /* top: 0%; */
-}
+/* right: 5%; */
+/* top: 5%; */
+/* color: white;  */
+/* z-index: 100; */
+/* position: absolute; */
+/* top: 0%; */
+/* } */
 </style>
