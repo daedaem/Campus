@@ -93,7 +93,7 @@ public class MateServiceImpl implements MateService {
         dao.campEquipReuireListInsert(dto.getCampEquipRequiredList());
         
         mateResultDto.setDto(dto);
-        System.out.println(mateResultDto.toString());
+ 
         mateResultDto.setResult(SUCCESS);
 
     } catch (Exception e) {

@@ -40,7 +40,7 @@ public class MateController {
 
         // call mateList from MateService
         mateResultDto = service.mateList(mateParamDto);
-        System.out.println(mateResultDto.toString());
+      
 
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -59,13 +59,12 @@ public class MateController {
     //call mateInsert from MateService
     mateDto.setContentId(10);
     mateDto.setUserNo(3);
-    System.out.println(mateDto.toString());
+
 
     MateResultDto mateResultDto = service.mateInsert(mateDto);
 
     if( mateResultDto.getResult() == SUCCESS ){
-        System.out.println('1');
-        System.out.println(mateResultDto.getDto().toString());
+        
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         }else{
         return new ResponseEntity<MateResultDto>(mateResultDto,
@@ -74,12 +73,12 @@ public class MateController {
     }
 
     @PostMapping(value="/mate/{mateNo}")
-    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo, MultipartFile multipartFile){
+    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
     //call mateInsert from MateService
-
+    System.out.println(multipartFile);
     MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
 
     if( mateResultDto.getResult() == SUCCESS ){
