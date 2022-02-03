@@ -2,9 +2,8 @@ import { createStore } from "vuex";
 
 // import axios from "axios";
 import createPersistedState from 'vuex-persistedstate'
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = `http://i6e102.p.ssafy.io`
 import axios from "axios";
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default createStore({
   plugins: [createPersistedState()],
@@ -19,8 +18,9 @@ export default createStore({
     isLogin: localStorage.getItem("jwt") ? true : false,
     nickname: null,
     feedList: [],
-    myNum: "2",
+    myNum: "",
     myProfileimageurl: "",
+    userList: {},
   },
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
@@ -50,12 +50,13 @@ export default createStore({
       const token = state.token;
       axios({
         method: "get",
-        url: `${SERVER_URL}/accounts/profile`,
+        url: `${SERVER_URL}/user/${state.user}`,
         headers: { Authorization: `JWT ${token}` },
       }).then((res) => {
-        state.myProfileimageurl = res.image;
-        state.nickname = res.nickname;
-        state.myNum = res.id;
+        state.myProfileimageurl = res.data.image;
+        state.nickname = res.data.nickname;
+        state.myNum = res.data.userNo;
+        state.userList = res.data
       });
     },
     // LOGIN: function (state) {
@@ -78,6 +79,8 @@ export default createStore({
       state.token = null;
       state.nickname = null;
       state.myNum = null;
+      state.isLogin = false;
+      state.user = "";
     },
   },
   actions: {
