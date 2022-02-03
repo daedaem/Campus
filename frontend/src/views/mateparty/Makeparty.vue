@@ -79,7 +79,7 @@ export default {
     return {
         partyData : {
           friendlimit : null,
-          style : {},
+          campStyleList : null,
           memberlimit : null,
           lowestAge : null,
           highestAge : null,
@@ -87,7 +87,7 @@ export default {
           mateCampstart : null,
           mateCampend : null,
           mateCamptype: null,
-          items : null,
+          campEquipRequiredList : null,
           mateImageUrl : null,
           mateTitle : null,
           mateContent: null,
@@ -113,18 +113,25 @@ export default {
     },
     
     styleCheck(text) {
-      
-      if (text.length === 1) {
-        this.partyData.style.mCampStyle1 = text[0]
-      } else if (text.length === 2) {
-        this.partyData.style.mCampStyle1 = text[0], this.partyData.style.mCampStyle2 = text[1]
-      } else if (text.length === 3) {
-        this.partyData.style.mCampStyle1 = text[0], this.partyData.style.mCampStyle2 = text[1], this.partyData.style.mCampStyle3 = text[2]
+      const temp = {
+        style1 : null,
+        style2 : null,
+        style3 : null,
+
       }
-     
+
+      if (text.length === 1) {
+        temp.style1 = text[0]
+      } else if (text.length === 2) {
+        temp.style1 = text[0], temp.style2 = text[1]
+      } else if (text.length === 3) {
+        temp.style1 = text[0], temp.style2 = text[1], temp.style3 = text[2]
+      }
+      this.partyData.campStyleList = temp
     },
+    
     limitCheck(text) {
-      this.partyData.friendlimit = Number(text[0])
+      this.partyData.friendlimit = Number(text)
     },
     campCheck(text) {
       this.partyData.mateCamptype = text[0]
@@ -139,8 +146,8 @@ export default {
       this.partyData.highestAge = Number(text)
     },
     imgStatus(text) {
-      this.partyData.items = text
-    },
+      this.partyData.campEquipRequiredList = text
+    },  
     uploadedImage(file) {
       this.partyData.mateImageUrl = file
     },

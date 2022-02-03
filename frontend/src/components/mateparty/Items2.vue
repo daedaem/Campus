@@ -63,13 +63,13 @@ export default {
   data() {
     return {
       previewImage: null,
-      imgStatus : this.mateDetail.campEquipRequiredList[0]
+      imgStatus : this.mateDetail.campEquipRequiredList
       
     }
   },
   
   created() {
-    console.log(this.equipData)
+    console.log(this.mateDetail)
   }
 
 }
