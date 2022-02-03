@@ -4,7 +4,6 @@ import Makeparty from "../views/mateparty/Makeparty.vue";
 import Mateparty from "../views/mateparty/Mateparty.vue";
 import Signup from "../views/user/SignUp.vue";
 import Login from "../views/user/Login.vue";
-import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
 import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
@@ -74,11 +73,6 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
-  },
-  {
-    path: "/addsign",
-    name: "addSign",
-    component: addSign,
   },
   {
     path: "/findPw",
