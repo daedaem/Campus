@@ -1,7 +1,5 @@
 package com.ssafy.project.dto;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +42,7 @@ public class CampSiteDto {
     private int toiletCo; // 화장실 개수
     private int swrmCo; // 샤워실 개수
     private int wtrplCo; // 개수대 개수
-    private int brazierCl; // 화로대
+    private String brazierCl; // 화로대
     private String sbrsCl; // 부대시설
     private String sbrsEtc; // 부대시설 기타
     private String posblFcltyCl; // 주변이용가능시설
@@ -62,8 +60,8 @@ public class CampSiteDto {
     private String animalCmgCl; // 애완동물출입
     private String tourEraCl; // 여행시기
     private String firstImageUrl; // 대표이미지
-    private Date createdtime; // 등록일
-    private Date modifiedtime; // 수정일
+    private String createdtime; // 등록일
+    private String modifiedtime; // 수정일
     private int sitedStnc; // 사이트간 거리
     private int siteMg1Width; // 사이트 크기 1 가로
     private int siteMg2Width; // 사이트 크기 2 가로
