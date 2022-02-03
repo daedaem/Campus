@@ -30,6 +30,7 @@
     "v3-infinite-loading": "^1.0.1",
     "vee-validate": "^4.5.8",
     "vue": "^3.0.0",
+    "vue-form-wizard": "^0.8.4",
     "vue-next-select": "^2.10.2",
     "vue-router": "^4.0.0-0",
     "vue-universal-modal": "^1.1.3",

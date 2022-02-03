@@ -32,13 +32,13 @@
             <div >
                 <p align="left">제목</p>
                 <div class="form-group">
-                    <input v-model="partyData.title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
+                    <input v-model="partyData.mateTitle" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
                 </div>
             </div>
             <div >
                 <p align="left">메이트 소개</p>
                 <div class="form-group">
-                    <textarea v-model="partyData.content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    <textarea v-model="partyData.mateContent" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
                 </div>
             </div>
             
@@ -77,25 +77,20 @@ export default {
   },
   data: function() {
     return {
-        title : '',
-        content : '',
         partyData : {
-          kind : null,
           friendlimit : null,
-          style : null,
+          campStyleList : null,
           memberlimit : null,
-          startage : null,
-          endage : null,
+          lowestAge : null,
+          highestAge : null,
           campingsite : null,
-          startdate : null,
-          enddate : null,
-          partytitle : null,
-          partycontent : null,
-          camptype: null,
-          items : null,
-          image : null,
-          title : null,
-          content: null,
+          mateCampstart : null,
+          mateCampend : null,
+          mateCamptype: null,
+          campEquipRequiredList : null,
+          mateImageUrl : null,
+          mateTitle : null,
+          mateContent: null,
         },
       }
   },
@@ -118,28 +113,43 @@ export default {
     },
     
     styleCheck(text) {
-      this.partyData.style = text
+      const temp = {
+        style1 : null,
+        style2 : null,
+        style3 : null,
+
+      }
+
+      if (text.length === 1) {
+        temp.style1 = text[0]
+      } else if (text.length === 2) {
+        temp.style1 = text[0], temp.style2 = text[1]
+      } else if (text.length === 3) {
+        temp.style1 = text[0], temp.style2 = text[1], temp.style3 = text[2]
+      }
+      this.partyData.campStyleList = temp
     },
+    
     limitCheck(text) {
-      this.partyData.friendlimit = Number(text[0])
+      this.partyData.friendlimit = Number(text)
     },
     campCheck(text) {
-      this.partyData.camptype = text[0]
+      this.partyData.mateCamptype = text[0]
     },
     memberValue(text) {
       this.partyData.memberlimit = Number(text)
     },
     ageValue1(text) {
-      this.partyData.startage = Number(text)
+      this.partyData.lowestAge = Number(text)
     },
     ageValue2(text) {
-      this.partyData.endage = Number(text)
+      this.partyData.highestAge = Number(text)
     },
     imgStatus(text) {
-      this.partyData.items = text
-    },
+      this.partyData.campEquipRequiredList = text
+    },  
     uploadedImage(file) {
-      this.partyData.image = file
+      this.partyData.mateImageUrl = file
     },
     dateIn(value) {
       console.log(value)
@@ -201,22 +211,24 @@ export default {
       }
       const startYear = value[0].toString().substring(11,15)
       const startDay = value[0].toString().substring(8,10)
-      const startDate = (startYear+'-'+startMonth+'-'+startDay)
+      const mateCampstart = (startYear+'-'+startMonth+'-'+startDay)
 
       const endYear = value[1].toString().substring(11,15)
       const endDay = value[1].toString().substring(8,10)
-      const endDate = endYear+'-'+endMonth+'-'+endDay
+      const mateCampend = endYear+'-'+endMonth+'-'+endDay
 
-      this.partyData.startdate = startDate
-      this.partyData.enddate = endDate
+      this.partyData.mateCampstart = mateCampstart
+      this.partyData.mateCampend = mateCampend
     },
     
 
     test() {
       console.log(this.partyData)
       axios({
-        method: 'get',
+        method: 'post',
         url : 'http://localhost:8080/mate',
+        data : this.partyData,
+   
 
       })
 

@@ -1,14 +1,17 @@
 <template>
   <body>
     <h1>Mate party</h1>
-    <Searchbar style="margin:20px 0;"/>
+    <Searchbar class="col" style="margin:20px 0;"/>
     <Filters @filter-data="filterData"/>
     <Newmodal/>
     
-    <div>
-      <div style="margin-top:20px" align="left">캠핑 검색 결과</div><span style="margin-left: 500px;"><b-button pill style="width: 100px; height: 40px;"  @click="goMakeparty">글 작성</b-button></span>
+    <div style="overflow:hidden ">
+      <div style="float:left; margin-top:20px;" >캠핑 검색 결과</div>
+      <div style="float:right; margin-top:20px; margin-:20px;">
+        <b-button pill style="width: 100px; height: 40px; margin-bottom:20px;"  @click="goMakeparty">글 작성</b-button>
+      </div>
     </div>
-    <Pagination v-if="matelists.length != 0" :matelists="matelists"/>    
+    <Pagination v-if="matelists.length != 0" :matelists="matelists"  :filterlist="filterlist"/>    
     <!-- {{matelists}} -->
     
   </body>
@@ -203,15 +206,18 @@ export default {
 <style scoped>
 @media (min-width: 768px) {
   body {
-    width: 100%;
+    width: 768px;
     margin: 0 auto;
     padding: 0 20px;
     background: beige; }
   }
 
 
+
 .test {
   width :100%;
 }
 
+
+  
 </style>
