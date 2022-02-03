@@ -271,10 +271,10 @@
 							<EquipList />
 						</div>
 
-						<di class="d-flex justify-content-between mt-5">
+						<div class="d-flex justify-content-between mt-5">
 							<button @click.prevent="prev()">Previous</button>
 							<button @click.prevent="onSubmit()">Save</button>
-						</di>
+						</div>
 
 
 					</div>
