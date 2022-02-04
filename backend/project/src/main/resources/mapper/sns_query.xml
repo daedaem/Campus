@@ -14,7 +14,6 @@
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
-            LIMIT 10
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
@@ -53,8 +52,8 @@
     <!-- snsImage -->
 
     <insert id="snsImageInsert" parameterType="com.ssafy.project.dto.SnsImageDto">
-        INSERT INTO snsImage ( snsImageNo, snsImageUrl )
-                VALUES ( #{snsImageNo}, #{snsImageUrl} )
+        INSERT INTO snsImage ( snsNo, snsImageUrl )
+                VALUES ( #{snsNo}, #{snsImageUrl} )
     </insert>
 
 
