@@ -68,6 +68,9 @@
 
 <script>
 import { mapState } from "vuex";
+import axios from "axios";
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "FeedListItemDropDown",
@@ -89,15 +92,34 @@ export default {
       });
     },
     deleteFeed() {
-      this.$router.push({ name: "Reviews" });
+      axios
+        .delete(`${SERVER_URL}/sns/${this.feed.snsNo}`)
+        .then(() => {
+          console.log("삭제완료요");
+          location.reload();
+
+          // this.$router.push({ name: "FeedList" });
+
+          // this.feedDetailContents = res.data.dto;
+          // console.log(this.feedDetailContents);
+          // if (res.data.rate) {
+          //   this.currentRate = res.data.rate;
+          //   this.ratingDone = 1;
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("실패하였습니다.");
+        });
     },
+
     modifyFeed() {
-      this.$router.push({ name: "Reviews" });
+      this.$router.push({ name: "FeedDetail" });
     },
-    spamReport() {
-      // this.$router.push({ name: "Reviews" });
-    },
-    cancelFollow() {},
+    // spamReport() {
+    // this.$router.push({ name: "Reviews" });
+    // },
+    // cancelFollow() {},
     // FeedDetail() {
     //   this.$router.push({ name: "Reviews" });
     // },
@@ -105,6 +127,7 @@ export default {
   computed: {
     ...mapState(["myNum"]),
   },
+
   // setup(props){
   //   const {} = toRefs
 

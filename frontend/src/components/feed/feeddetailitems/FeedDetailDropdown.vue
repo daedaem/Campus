@@ -119,13 +119,13 @@ export default {
         });
       this.$router.push({ name: "FeedDetail" });
     },
-    spamReport() {
-      // this.$router.push({ name: "Reviews" });
-    },
-    cancelFollow() {},
-    // FeedDetail() {
-    //   this.$router.push({ name: "Reviews" });
+    // spamReport() {
+    //   // this.$router.push({ name: "Reviews" });
     // },
+    // cancelFollow() {},
+    // // FeedDetail() {
+    // //   this.$router.push({ name: "Reviews" });
+    // // },
   },
   computed: {
     ...mapState(["myNum"]),

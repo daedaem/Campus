@@ -11,7 +11,7 @@
             <div>
               <feed-detail-carousel
                 class="FeedDetail-Leftbox-Image"
-                v-bind:feed="this.detailFeed"
+                v-bind:feed="this.feedDetailContents"
               ></feed-detail-carousel>
             </div>
           </div>
@@ -23,35 +23,70 @@
                 <div
                   class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
                 >
-                  <img
+                  <!-- 프로필이미지넣어지면 -->
+                  <!-- <img
                     style="cursor: pointer"
-                    :src="`${this.detailFeed.userProfileImage}`"
+                    :src="`${this.feedDetailContents.userProfileImage}`"
                     class="FeedDetail-user-profile-image"
                     alt="..."
-                  />
+                  /> -->
                   <div
                     class="FeedDetail-ProfileBox-Username py-4 fs-6 fw-bold"
                     style="cursor: pointer"
                   >
-                    {{ this.detailFeed.userNickname }}
+                    {{ this.feedDetailContents.userNickname }}
                   </div>
                 </div>
                 <div
                   class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
                 >
                   <feed-detail-dropdown
-                    v-bind:feed="this.detailFeed"
+                    v-bind:feed="this.feedDetailContents"
                   ></feed-detail-dropdown>
                 </div>
               </div>
             </div>
             <div class="FeedDetail-RightBox-ContentBox text-start p-3">
               <div class="fs-6" style="overflow: auto">
-                {{ this.detailFeed.snsContent }}
+                {{ this.feedDetailContents.snsContent }}
               </div>
             </div>
             <div class="FeedDetail-RightBox-CommentBox p-4">
-              <div>{{ this.detailFeed.snsReplyContent }}</div>
+              <div>
+                <div
+                  v-for="(comment, i) in this.comments"
+                  :key="i"
+                  :comment="comment"
+                >
+                  <div v-if="this.comments">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <div
+                        class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
+                      >
+                        <!-- <img
+                          :src="`${comment.userProfileImage}`"
+                          alt=""
+                          class="user-comment-profile-image"
+                        /> -->
+                        <div class="fw-bold">
+                          <!-- {{ comment.userNickname }} -->
+                        </div>
+                        <div
+                          class="FeedListItems-commentContent col mx-3 text-start"
+                          style="overflow: auto"
+                        >
+                          <!-- {{ comment.snsReplyContent }} -->
+                        </div>
+                      </div>
+                      <div class="col" style="overflow: auto">
+                        <!-- {{ comment.snsReplyCreateTime }} -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div
@@ -166,7 +201,7 @@
 // const SERVER_URL = `http://i6e102.p.ssafy.io`;
 const SERVER_URL = "http://localhost:8080";
 
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 import axios from "axios";
 
 import FeedDetailCarousel from "../../components/feed/feeddetailitems/FeedDetailCarousel.vue";
@@ -188,28 +223,71 @@ export default {
       heartclick: 1,
       heartcount: 0,
       feedDetailContents: "",
+      snsReplyContent: "",
+      comments: [],
+      detailFeedsnsNo: "",
+      commentContent: "",
     };
   },
-  mehtods: {
-    changedheart(feed) {
-      if (this.heartclick > 0) {
-        // console.log(feed);
-        this.heartclick = 0;
-        this.$store.state.feeds[feed.id - 1].likecount += 1;
-        // this.heartcount = this.$store.state.feeds[feed.id].likecount
-      } else {
-        this.heartclick = 1;
-        this.$store.state.feeds[feed.id - 1].likecount -= 1;
-        // this.heartcount = this.$store.state.feeds[feed.id].likecount
-      }
-      // console.log(feed);
-    },
+  methods: {
+    // changedheart(feed) {
+    //   if (this.heartclick > 0) {
+    //     // console.log(feed);
+    //     this.heartclick = 0;
+    //     this.$store.state.feeds[feed.id - 1].likecount += 1;
+    //     // this.heartcount = this.$store.state.feeds[feed.id].likecount
+    //   } else {
+    //     this.heartclick = 1;
+    //     this.$store.state.feeds[feed.id - 1].likecount -= 1;
+    //     // this.heartcount = this.$store.state.feeds[feed.id].likecount
+    //   }
+    //   // console.log(feed);
+    // },
+    // detailsnsComments() {
+    // axios
+    //     .get(`${SERVER_URL}/sns/reply/${this.detailfeed.snsNo}`)
+    //     .then((res) => {
+    //       if (res.data.list.length > 0) {
+    //         for (let i = 0; i < res.data.list.length; i++) {
+    //           this.comments.unshift(res.data.list[i]);
+    //           // console.log(this.comments);
+    //         }
+    //       }
+    //       // console.log("snscomments", this.comments)}};
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
+  // mounted() {
+  // },
+
   created: function () {
+    // this.detailsnsComments();
+    this.detailFeedsnsNo = this.$route.params.snsNo;
+    console.log(this.detailFeedsnsNo);
+
     axios
-      .get(`${SERVER_URL}/sns/${this.detailFeed.snsNo}`)
+      .get(`${SERVER_URL}/sns/${this.detailFeedsnsNo}`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.dto.replyList.length);
+        this.feedDetailContents = res.data.dto;
+        // 댓글 창 보기
+        if (res.data.dto.replyList.length > 0) {
+          for (let i = 0; i < res.data.dto.replyList.length; i++) {
+            this.comments.unshift(res.data.dto.replyList[i]);
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+
+        // console.log("이건", res);
+        // console.log(this.detailfeed);
+        // this.detailfeed = res;
+        // console.log(this.detailfeed);
+        // console.log(this.detailFeedsnsNo);
         // this.feedDetailContents = res.data.dto;
         // console.log(this.feedDetailContents);
         // if (res.data.rate) {
@@ -217,14 +295,16 @@ export default {
         //   this.ratingDone = 1;
         // }
       })
+      // .then(() => )
+
       .catch((err) => {
         console.log(err);
         alert("실패하였습니다.");
       });
   },
-  computed: {
-    ...mapState(["detailFeed"]),
-  },
+  // computed: {
+  //   ...mapState(["detailFeed"]),
+  // },
 };
 </script>
 
