@@ -170,6 +170,7 @@ public class MateServiceImpl implements MateService {
                 mateDto.setCampStyleList(campStyleList);
 
                 List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                System.out.println(mateApplyList);
                 mateDto.setMateList(mateApplyList);
 
 
