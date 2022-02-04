@@ -64,8 +64,10 @@
      
     </div>
 </div>
-  </body>
+  
   {{mateList}}
+
+  </body>
 </template>
 
 <script>
@@ -95,13 +97,13 @@ export default {
      font-family: 'Poppins', sans-serif
  }
 
-body {
-  width: 768px;
-  margin: 0 auto;
-  padding: 0 20px;
-  background: beige;
-  
-}
+@media (min-width: 768px) {
+  body {
+    width: 768px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: beige; }
+  }
 
  .container {
      margin-top: 100px
