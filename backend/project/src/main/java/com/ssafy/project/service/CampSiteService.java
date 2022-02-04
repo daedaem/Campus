@@ -12,6 +12,9 @@ public interface CampSiteService {
     // 캠핑장 검색
     public CampSiteResultDto campSiteSearch(CampSiteParamDto campSiteParamDto);
 
+    // 캠핑장 정보
+    public CampSiteResultDto campSiteDetail(String contentId);
+
     // 도 선택
     public List<String> campSiteDo();
 
