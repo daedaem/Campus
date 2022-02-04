@@ -46,9 +46,9 @@ public class LoginController {
     @PostMapping(value = "/login")
     public ResponseEntity<UserDto> login(@RequestBody UserDto dto, HttpSession session) {
         UserDto userDto = loginService.login(dto);
-        System.out.println(userDto);
         if (userDto != null) {
             session.setAttribute("userDto", userDto);
+            System.out.println(userDto);
             return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<UserDto>(userDto, HttpStatus.INTERNAL_SERVER_ERROR);
