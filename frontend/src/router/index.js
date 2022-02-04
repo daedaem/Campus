@@ -4,7 +4,6 @@ import Makeparty from "../views/mateparty/Makeparty.vue";
 import Mateparty from "../views/mateparty/Mateparty.vue";
 import Signup from "../views/user/SignUp.vue";
 import Login from "../views/user/Login.vue";
-import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
 import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
@@ -16,6 +15,7 @@ import Survey from "../views/user/Survey.vue";
 import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
+import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 
 const routes = [
   {
@@ -76,11 +76,6 @@ const routes = [
     component: Signup,
   },
   {
-    path: "/addsign",
-    name: "addSign",
-    component: addSign,
-  },
-  {
     path: "/findPw",
     name: "findPw",
     component: findPw,
@@ -115,6 +110,11 @@ const routes = [
     path: "/campsite/",
     name: "Campsite",
     component: Campsite,
+  },
+  {
+    path: "/campsitedetail/",
+    name: "Campsitedetail",
+    component: Campsitedetail,
   },
 ];
 
