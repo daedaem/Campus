@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div>
-			Debug: {{ person }}
+			Debug: {{ this.user_data }}
 		</div>
 		<section class="profile-container">
 			<section class="profile-grid">
@@ -9,7 +9,7 @@
 					<img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지">
 				</div>
 				<div class="name-buttons d-flex justify-content-between">
-					<h1>{{ person.userNickname }}</h1>
+					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
 					<div class="">
 						<button @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 					</div>
@@ -24,8 +24,9 @@
 					3.7 / 5
 				</div>
 				
-				<div>
-					<button>follow</button>
+				<div class="userInfo-follow">
+					<button class="userInfo-follow-btn-following">언팔로우</button>
+					<button class="userInfo-follow-btn" >팔로우</button>
 				</div>
 
 			</section>
@@ -51,7 +52,14 @@
 		</section>
 
 		<section class="instagram-container">
-			<footer class="image-footer ">
+			<footer class="image-footer">
+				<div id="tabs">
+					<div v-for="(tab, index) in tabs" :key="index"
+									v-bind:class="{active: currentTab === index}"
+									v-on:click="currentTab = index">{{ tab }}</div>
+				</div>
+				
+				
 				<div>
 					<a href=""><b>Profile</b></a>
 				</div>
@@ -62,6 +70,41 @@
 					<a href="">History</a>
 				</div>
 			</footer>
+
+			<div class="tab-content">
+				<div v-show="currentTab==0">
+					<div class="post">
+						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
+						<span class="hover-img">
+							<p class="icon-heart">02/12/20</p>
+						</span>
+					</div>
+				</div>
+				<div v-show="currentTab==1">
+					<div class="post">
+						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
+						<span class="hover-img">
+							<p class="icon-heart">02/12/20</p>
+						</span>
+					</div>
+
+					<div class="post">
+						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMTAw/MDAxNjE0NjUyODExMTIx.cAOLni0SBq4n5ON7OIK6sNJt9jLfsM_vJOW6yh3dZvcg.tLvkk0yYhHwel-RyapOkQBSNdmwi-czXXKWknhzJWS4g.JPEG.mckl795/IMG_5647.JPG?type=w800">
+						<span class="hover-img">
+							<p class="icon-heart">02/12/20</p>
+						</span>
+					</div>
+
+					<div class="post">
+						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMjIy/MDAxNjE0NjUyODEwMjIx.W9f2-zoExfTlaNrOz1uUteKxz8d6HqK5TLvbx_jmrlIg.zzj4DJc7Uq3-O7ng8ELzqX0SYRw_psnjz1tcti48NQ8g.JPEG.mckl795/IMG_5648.JPG?type=w800">
+						<span class="hover-img">
+							<p class="icon-heart">02/12/20</p>
+						</span>
+					</div>
+
+					
+				</div>
+			</div>
 
 			<div class="post">
 				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
@@ -114,25 +157,28 @@
 
 <script>
 import axios from "axios";
+// import FollowModal from '@/components/user/FollowModal.vue'
 
-const SERVER_URL = process.env.VUE_APP_SERVER_URL
+const SERVER_URL = `http://i6e102.p.ssafy.io`
 
 export default {
 	name: "Profile",
 	data() {
 		return {
 			user: this.$route.params.user,
-			person: null,
-			followingModal:false, //모달...
-      followerModal:false, //모달...
-			// followingList: [],
-			// followerList: [],
+			user_data: this.$store.state.userList,
+			userId: this.$store.state.myNum,
+			currentTab: 0,
+			tabs: ['Profile', 'FEED', 'History']
 
 		}
 	},
+	components: {
+		// FollowModal,
+	},
 
 	created: function () {
-		this.getProfile()
+		this.getProfile() // 유저 정보 가져오기
 	},
 
 	methods : {
@@ -144,18 +190,14 @@ export default {
 				headers: {Authorization: `JWT ${token}`},
 			})
 			.then(res => {
+				console.log()
 				this.person = res.data
 			})
 		},
 		moveToModify: function () {
       this.$router.push({ name: "Modify" });
     },
-		followingList() {
-			this.followingModal = !this.followingModal
-		},
-		followerList() {
-			this.followerModal = !this.followerModal
-		}
+		
 	}
 
 }
@@ -236,7 +278,6 @@ export default {
 }
 
 .instagram-container{
-
     display: grid;
     justify-content: center;
     grid-template-columns:repeat(3,minmax(auto,293px));
@@ -263,11 +304,11 @@ export default {
     font-weight: 300;
     text-align: center;
 }
-.instagram-container .image-footer a{
+.instagram-container .image-footer div{
     text-decoration: none;
     color: rgb(90, 90, 90);
 }
-.instagram-container .post{
+.instagram-container .post {
     cursor: pointer;
     position: relative; 
     display: block;
@@ -300,6 +341,48 @@ export default {
     content: '♥ ';
 }
 
+.userInfo-follow {
+  display: flex;
+  /* margin-left: 1vw; */
+}
+
+.userInfo-follow-btn {
+  width: 110px;
+	height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 3px solid;
+  border-color: mediumslateblue;
+  background-color: white;
+  color:mediumslateblue;
+  font-size: 15px;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+
+.userInfo-follow-btn:hover {
+  background-color:mediumslateblue;
+  color:white;
+}
+
+.userInfo-follow-btn-following {
+  width: 110px;
+	height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 3px solid;
+  border-color: gray;
+  background-color: white;
+  color:gray;
+  font-size: 15px;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+
+.userInfo-follow-btn-following:hover {
+  background-color:gray;
+  color:white;
+}
 
 
 
