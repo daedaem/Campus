@@ -163,6 +163,9 @@
 </template>
 
 <script>
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
+
 import { mapState } from "vuex";
 import axios from "axios";
 
@@ -204,7 +207,7 @@ export default {
   },
   created: function () {
     axios
-      .get(`http://localhost:8080/sns/${this.detailFeed.snsNo}`)
+      .get(`${SERVER_URL}/sns/${this.detailFeed.snsNo}`)
       .then((res) => {
         console.log(res);
         // this.feedDetailContents = res.data.dto;

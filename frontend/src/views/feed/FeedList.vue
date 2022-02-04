@@ -31,6 +31,9 @@
 </template>
 
 <script>
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = `http://localhost:8080`;
+
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
@@ -54,7 +57,7 @@ export default {
   created: function () {
     // console.log(this.$store.state.user);
     axios
-      .get("http://192.168.1.8:5500/sns")
+      .get(`${SERVER_URL}/sns`)
       .then((res) => {
         // console.log(res.data.list);
         const data = res.data.list;

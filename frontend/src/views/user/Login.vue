@@ -57,10 +57,13 @@
             로그아웃
           </button> -->
 
+      
 
           <!-- 회원가입 및 비밀번호 찾기 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
-            <button type="button" class="btn-primary" @click="moveToSignUp">회원가입</button>
+            <button type="button" class="btn-primary" @click="moveToSignUp">
+              회원가입
+            </button>
             <button class="btn-primary" @click="movetofindPw">비밀번호</button>
           </div>
         </div>
@@ -72,7 +75,9 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
+
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "Login",
@@ -105,9 +110,10 @@ export default {
   methods: {
     // ...mapActions(["login"]),
     login: function () {
+      console.log(this.credentials);
       axios({
         method: "POST",
-        url: 'http://localhost:8080/login',
+        url: `${SERVER_URL}/login`,
         data: this.credentials,
       })
         .then((res) => {

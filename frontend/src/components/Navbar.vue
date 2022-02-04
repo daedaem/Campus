@@ -1,95 +1,108 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-custom-2">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/sns">SNS</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/matematch">메이트(매칭)</a>
+              </li>
+              <!-- <li><hr class="dropdown-divider"></li> -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">캠핑장</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/feed">SNS</a>
+          <div v-if="this.$store.state.token">
+            <button @click="logout">로그아웃</button>
+            <!-- <a class="nav-link " href="/signup">회원가입</a> -->
+          </div>
+          <div v-if="this.$store.state.token === null">
+            <button @click="moveToLogin">로그인</button>
+            <button @click="moveToSignUp">회원가입</button>
+          </div>
         </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/mateparty">메이트(모집)</a></li>
-            <li><a class="dropdown-item" href="/matematch">메이트(매칭)</a></li>
-            <!-- <li><hr class="dropdown-divider"></li> -->
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">캠핑장</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
-      <li class="nav-item">
-        <div v-if="this.$store.state.token">
-          <button @click="logout">로그아웃</button>
-          <!-- <a class="nav-link " href="/signup">회원가입</a> -->
-        </div>
-        <div v-if="this.$store.state.token === null">
-          <button @click="moveToLogin">로그인</button>
-          <button @click="moveToSignUp">회원가입</button>
-        </div>
-      </li>
-      <!-- <li class="nav-item">
-        <div>
-          <a class="nav-link" href="/login">로그인</a>
-        </div>
-      </li> -->
+      
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 </template>
 
 <script>
 import { useRouter } from "vue-router";
-import {ref} from 'vue'
+import { ref } from "vue";
 export default {
-
-  name : 'Navbar',
+  name: "Navbar",
   setup() {
-    const router = useRouter()
-    const onoff = ref(0)
+    const router = useRouter();
+    const onoff = ref(0);
     const refresh = () => {
       if (onoff.value === 0) {
-        onoff.value +=1 
-        console.log(onoff.value)
-      } else { 
-        onoff.value -= 1
-        router.go()
-        console.log(onoff.value)
-        }
-  
-    }
-  
-  
-  
-  return {
-    refresh,
-    onoff,
-  }
-  
+        onoff.value += 1;
+        console.log(onoff.value);
+      } else {
+        onoff.value -= 1;
+        router.go();
+        console.log(onoff.value);
+      }
+    };
+
+    return {
+      refresh,
+      onoff,
+    };
   },
   methods: {
     logout: function () {
       this.$store.state.user = null;
-      this.$store.state.myNum = ""
-      this.$store.state.userList = {}
-      localStorage.removeItem('jwt');
-      this.$store.dispatch("logout")
-      alert("로그아웃")
-      this.$router.push({name: 'Login'})
+      localStorage.removeItem("jwt");
+      this.$store.dispatch("logout");
+      alert("로그아웃");
+      this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
       this.$router.push({ name: "Signup" });
@@ -100,25 +113,30 @@ export default {
   },
 
   created: function () {
-    const token = localStorage.getItem('jwt') ;
+    const token = localStorage.getItem("jwt");
     if (token) {
-      this.$store.dispatch("login")
+      this.$store.dispatch("login");
     }
-  }
+  
+  
+ 
+  
+  },
+  
 
 
 
 }
 
+ 
 </script>
 
 <style scoped>
-
 .bg-custom-1 {
   background-color: #85144b;
 }
 
 .bg-custom-2 {
-background-image: linear-gradient(180deg, #000000 0%, #757575 100%);
+  background-image: linear-gradient(180deg, #000000 0%, #757575 100%);
 }
 </style>
