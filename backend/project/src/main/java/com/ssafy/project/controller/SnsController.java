@@ -110,14 +110,14 @@ public class SnsController {
         }
     }
     // 글 수정
-    @PostMapping(value="/sns/{snsNo}")
-    private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto, MultipartHttpServletRequest request){
+    @PutMapping(value="/sns/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto){
 
         //HttpSession session = request.getSession();
 
         //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
 
-        SnsResultDto snsResultDto = snsService.snsUpdate(snsDto, request);
+        SnsResultDto snsResultDto = snsService.snsUpdate(snsDto);
 
         if( snsResultDto.getResult() == SUCCESS ){
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
