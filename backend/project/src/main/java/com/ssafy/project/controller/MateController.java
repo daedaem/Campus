@@ -2,6 +2,7 @@ package com.ssafy.project.controller;
 
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateListDto;
+import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.service.MateService;
@@ -136,6 +137,36 @@ public class MateController {
         return new ResponseEntity<MateResultDto>(mateResultDto,
         HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
+    }
+
+    @DeleteMapping(value = "/mate/apply/{mateListNo}")
+    private ResponseEntity<MateResultDto> mateApplyDelete(@PathVariable int mateListNo) {
+
+        // call mateDelete from MateService
+        MateResultDto mateResultDto = service.mateApplyDelete(mateListNo);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @GetMapping(value = "/mate/match/{userNo}")
+    private ResponseEntity<MateMatchResultDto> mateMatch(@PathVariable int userNo) {
+
+        MateMatchResultDto mateMatchResultDto;
+
+        // call mateList from MateService
+        mateMatchResultDto = service.mateMatch(userNo);
+        System.out.println(mateMatchResultDto.toString());
+
+        if (mateMatchResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+
     }
 
 }
