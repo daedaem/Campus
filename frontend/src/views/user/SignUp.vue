@@ -296,7 +296,8 @@ import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = 'http://localhost:8080'
 
 export default {
 	name: "Signup",
