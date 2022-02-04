@@ -63,7 +63,8 @@
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 import axios from "axios";
 import { mapState } from "vuex";
@@ -100,6 +101,22 @@ export default {
         });
     },
     modifyFeed() {
+      axios
+        .put(`${SERVER_URL}/sns/${this.feed.snsNo}`)
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "FeedList" });
+          // this.feedDetailContents = res.data.dto;
+          // console.log(this.feedDetailContents);
+          // if (res.data.rate) {
+          //   this.currentRate = res.data.rate;
+          //   this.ratingDone = 1;
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("실패하였습니다.");
+        });
       this.$router.push({ name: "FeedDetail" });
     },
     spamReport() {
