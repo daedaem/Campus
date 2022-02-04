@@ -30,6 +30,11 @@
         UPDATE mate SET mateCampstyle = '1' WHERE mateNo = #{mateNo}
     </update>
 
+    <update id="mateImageInsert" parameterType="com.ssafy.project.dto.MateDto" >
+        UPDATE  mate SET mateImageUrl = #{mateImageUrl}
+            WHERE mateNo = #{mateNo}
+    </update>
+
     <!-- 모든 게시물 조회 -->
     <select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
         select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,

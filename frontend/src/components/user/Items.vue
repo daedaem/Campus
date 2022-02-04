@@ -135,16 +135,16 @@ export default {
     return {
       previewImage: null,
       imgStatus : {
-        lantern : 0,
-        powerstrip : 0,
-        burner : 0,
-        icebox : 0,
-        chair : 0,
-        sleepingbag : 0,
-        tarp : 0,
+        campEquipLantern : 0,
+        campEquipReel : 0,
+        campEquipBurner : 0,
+        campEquipicebox : 0,
+        campEquipTableChair : 0,
+        campEquipSleepingbag : 0,
+        campEquipTarp : 0,
         table : 0,
-        tent : 0,
-        brazier : 0,
+        campEquipTent : 0,
+        campEquipBrazier : 0,
       }
     }
   },

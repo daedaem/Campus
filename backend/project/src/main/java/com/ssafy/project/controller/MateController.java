@@ -40,7 +40,7 @@ public class MateController {
 
         // call mateList from MateService
         mateResultDto = service.mateList(mateParamDto);
-        System.out.println(mateResultDto.toString());
+      
 
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -51,7 +51,8 @@ public class MateController {
     }
 
     @PostMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, @RequestParam("mateImageUrl") MultipartFile multipartFile ){
+    
+    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto){
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
@@ -59,7 +60,26 @@ public class MateController {
     mateDto.setContentId(10);
     mateDto.setUserNo(3);
 
-    MateResultDto mateResultDto = service.mateInsert(mateDto, multipartFile);
+
+    MateResultDto mateResultDto = service.mateInsert(mateDto);
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @PostMapping(value="/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+    System.out.println(multipartFile);
+    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
 
     if( mateResultDto.getResult() == SUCCESS ){
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -106,7 +126,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     // matelistDto.setMateNo(56);
-    // matelistDto.setUserNo(3);
+    matelistDto.setUserNo(3);
 
     MateResultDto mateResultDto = service.mateListInsert(matelistDto);
 
