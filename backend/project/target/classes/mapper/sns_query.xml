@@ -8,6 +8,19 @@
                     VALUES ( #{userNo}, #{snsContent}, now() )
     </insert>
 
+    <select id="snsNoselect" resultType="int">
+        SELECT snsNo FROM sns WHERE snsCheck is null
+    </select>
+
+    <update id="snsCheck" parameterType="int">
+        UPDATE sns SET snsCheck = 1 WHERE snsNo = #{snsNo}
+    </update>
+
+    <insert id="snsImageInsert" parameterType="com.ssafy.project.dto.SnsImageDto">
+        INSERT INTO snsImage ( snsNo, snsImageUrl )
+                VALUES ( #{snsNo}, #{snsImageUrl} )
+    </insert>
+
     <select id="snsList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
@@ -33,7 +46,7 @@
         AND s.userNo = u.userNo
     </select>
 
-    <select id="setReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
+    <select id="snsReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
             SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
                 u.userNickname, u.userProfileImage
                 FROM snsReply s, user u
@@ -58,11 +71,6 @@
 
 
     <!-- snsImage -->
-
-    <insert id="snsImageInsert" parameterType="com.ssafy.project.dto.SnsImageDto">
-        INSERT INTO snsImage ( snsImageNo, snsImageUrl )
-                VALUES ( #{snsImageNo}, #{snsImageUrl} )
-    </insert>
 
 
     <select id="snsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
