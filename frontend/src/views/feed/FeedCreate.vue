@@ -151,6 +151,7 @@ export default {
       feedCreateImageList: {
         imageList: [],
       },
+      nowfeed: "",
     };
   },
   methods: {
@@ -187,6 +188,9 @@ export default {
         this.feedCreateImageList.imageList.push(url);
       }
     },
+    // moveToDetail() {
+
+    // },
 
     // clearImage() {
     //   this.uploadReady = false;
@@ -218,6 +222,8 @@ export default {
             // headers: { "content-type": "multipart/form-data" },
           })
             .then((res) => {
+              this.nowfeed = res.data.dto.snsNo;
+              // console.log(res);
               // console.log(frm);
               console.log(this.frm);
               // console.log("1", res.data.dto.snsNo);
@@ -227,12 +233,17 @@ export default {
                 url: `${SERVER_URL}/sns/create/${res.data.dto.snsNo}`,
                 headers: { "content-type": "multipart/form-data" },
                 data: this.frm,
-                // params: { snsNo: res.data.dto.snsNo },
               });
             })
             .then(() => {
-              this.$store.dispatch("toDetail", this.feed);
-              this.$router.push({ name: "FeedDetail" });
+              // moveToDetail();
+              // console.log(res);
+              // console.log(this.feed);
+              this.$store.dispatch("toDetail", this.nowfeed);
+              this.$router.push({
+                name: "FeedDetail",
+                params: { snsNo: this.nowfeed },
+              });
             })
             .catch((err) => {
               console.log(err);

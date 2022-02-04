@@ -58,14 +58,14 @@ export default {
       methods: "get",
       url: "http://localhost:8080/mate",
     })
-    .then((res) => {
-      // console.log(res.data.list)
-      viewFunc(res.data.list);
-    })
+      .then((res) => {
+        // console.log(res.data.list)
+        viewFunc(res.data.list);
+      })
 
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch((err) => {
+        console.log(err);
+      });
 
     return {
       matelist,
@@ -75,13 +75,13 @@ export default {
 </script>
 
 <style scoped>
-body {
-  /* width: 100vw;
+/* body { */
+/* width: 100vw;
   height: 100vh; */
-  /* margin: 0 auto; */
-  /* padding: 0 20px; */
-  /* background: beige; */
-}
+/* margin: 0 auto; */
+/* padding: 0 20px; */
+/* background: beige; */
+/* } */
 
 p {
   line-height: 6px;
