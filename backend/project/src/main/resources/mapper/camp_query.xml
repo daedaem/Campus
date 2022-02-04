@@ -39,7 +39,7 @@
 		AND exprn_progrm_at = #{exprnProgrmAt}
 		AND cltur_event_at = #{clturEventAt}
 		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
-		AND site_mg1_co >= #{siteMgCo} OR site_mg2_co >= #{siteMgCo} OR site_mg3_mo >= #{siteMgCo}
+		AND site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo}
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
 
@@ -58,7 +58,7 @@
 		AND exprn_progrm_at = #{exprnProgrmAt}
 		AND cltur_event_at = #{clturEventAt}
 		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
-		AND site_mg1_co >= #{siteMgCo} OR site_mg2_co >= #{siteMgCo} OR site_mg3_mo >= #{siteMgCo}
+		AND site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo}
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
 

@@ -29,16 +29,16 @@ public class UserDto {
     private char campStyle6;
 
     // campEquip 테이블
-    private char campEquipTent;
-    private char campEquipSleepingbag;
-    private char campEquipBurner;
-    private char campEquipBrazier;
-    private char campEquipTableChair;
-    private char campEquipPot;
-    private char campEquipLantern;
-    private char campEquipReel;
-    private char campEquipIcebox;
-    private char campEquipTarp;
+    private int campEquipTent;
+    private int campEquipSleepingbag;
+    private int campEquipBurner;
+    private int campEquipBrazier;
+    private int campEquipTableChair;
+    private int campEquipPot;
+    private int campEquipLantern;
+    private int campEquipReel;
+    private int campEquipIcebox;
+    private int campEquipTarp;
     private String campEquipEtc1;
     private String campEquipEtc2;
     private String campEquipEtc3;

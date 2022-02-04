@@ -56,6 +56,22 @@ public class CampSiteServiceImpl implements CampSiteService {
     }
 
     @Override
+    public CampSiteResultDto campSiteDetail(String contentId) {
+        CampSiteResultDto campSiteResultDto = new CampSiteResultDto();
+
+        try {
+            CampSiteDto campSiteDto = campSiteDao.campSiteDetail(contentId);
+            campSiteResultDto.setDto(campSiteDto);
+            campSiteResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            campSiteResultDto.setResult(FAIL);
+        }
+
+        return campSiteResultDto;
+    }
+
+    @Override
     public List<String> campSiteDo() {
         return campSiteDao.campSiteDo();
     }
@@ -64,4 +80,5 @@ public class CampSiteServiceImpl implements CampSiteService {
     public List<String> campSiteSigungu(String doNm) {
         return campSiteDao.campSiteSigungu(doNm);
     }
+
 }
