@@ -71,6 +71,7 @@ export default {
       })
       .then(res => {
         articles.value.push(...res.data.list)
+        
         console.log(articles.value)
       })
 
