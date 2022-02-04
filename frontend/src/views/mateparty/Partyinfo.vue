@@ -27,14 +27,26 @@
     <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail"/></div>
-    <div style="float:center">
-      <button @click="join">메이트 참가</button>
-    </div>
     
+    <div>
+    <b-button
+      :class="visible ? null : 'collapsed'"
+      :aria-expanded="visible ? 'true' : 'false'"
+      aria-controls="collapse-4"
+      @click="visible = !visible"
+    >
+      Toggle Collapse
+    </b-button>
+    <b-collapse id="collapse-4" v-model="visible" class="mt-2">
+      <b-card><div style="float:center">
+      <input type="text" v-model="friendnum"><button @click="join">메이트 참가</button>
+    </div></b-card>
+    </b-collapse>
+    </div>
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div> -->
-    
+    <Matejoin/>
     
     
     <!-- <div align="left" style="margin-top: 20px; margin-left: 20px; width: 400px; height: 200px;  float: left; word-break:break-all;">
@@ -59,7 +71,7 @@ import Members from '../../components/mateparty/Members.vue'
 import axios from 'axios'
 import {ref, } from 'vue'
 import {useStore} from 'vuex'
-// import {computed} from 'vue'
+import Matejoin from '../../components/mateparty/Matejoin.vue'
 
 
 export default {
@@ -72,13 +84,18 @@ export default {
     Cards,
     Items2,
     Members,
+    Matejoin,
   },
   setup(props) {
-    const store = useStore()         
+    const store = useStore()    
+    console.log(store.state.mateList)     
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([])
     const me = ref(store.state.userList)
    
+    const visible = ref(false)
+    const friendnum = ref(5)
+    
 
     axios({
       method: 'get',
@@ -98,12 +115,12 @@ export default {
     const join = () => {
       console.log(me.value)
       const meList = {
-          // campStyle1: null,
-          // campStyle2: null,
-          // campStyle3: null,
-          // campStyle4: null,
-          // campStyle5: null,
-          // campStyle6: null,
+          campStyle1: null,
+          campStyle2: null,
+          campStyle3: null,
+          campStyle4: null,
+          campStyle5: null,
+          campStyle6: null,
           mateListNum: null,
           userGender : null,
           userMBTI : null,
@@ -118,23 +135,23 @@ export default {
       meList.campStyle4 = me.value.campStyle4
       meList.campStyle5 = me.value.campStyle5
       meList.campStyle6 = me.value.campStyle6
-      meList.mateListNum = null
+      meList.mateListNum = friendnum.value
       meList.userGender = me.value.userGender
       meList.userMBTI = me.value.userMBTI
       meList.userRatePoint = me.value.userRatePoint
       meList.userAge = me.value.userAge
       console.log(meList)
-      axios({
-        method : 'post',
-        url : 'http://localhost:8080/mate/apply',
-        data : meList
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      // axios({
+      //   method : 'post',
+      //   url : 'http://localhost:8080/mate/apply',
+      //   data : meList
+      // })
+      // .then(res => {
+      //   console.log(res)
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
       
       
       
@@ -147,9 +164,10 @@ export default {
       // myMate,
       // Mate
       mateDetail,
-  
+      visible,
       join,
       me,
+      friendnum,
     }
   }
 }
