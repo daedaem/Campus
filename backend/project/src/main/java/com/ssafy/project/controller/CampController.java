@@ -67,6 +67,7 @@ public class CampController {
         System.out.println(campSiteParamDto);
 
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
+
             campSiteResultDto = campSiteService.campSiteSearch(campSiteParamDto);
         } else {
             campSiteResultDto = campSiteService.campSiteList(campSiteParamDto);

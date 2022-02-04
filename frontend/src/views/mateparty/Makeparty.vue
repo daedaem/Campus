@@ -43,10 +43,11 @@
             </div>
             
             <div class="form-group">
-                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test" />
+                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test"  />
             </div>
         </div>
       </div>
+      
       
     </body>
   </div>
@@ -88,10 +89,11 @@ export default {
           mateCampend : null,
           mateCamptype: null,
           campEquipRequiredList : null,
-          mateImageUrl : null,
+
           mateTitle : null,
           mateContent: null,
         },
+        mateImageUrl : null,
       }
   },
   methods: {
@@ -149,8 +151,9 @@ export default {
       this.partyData.campEquipRequiredList = text
     },  
     uploadedImage(file) {
-      console.log(file)
-      this.partyData.mateImageUrl = file
+      
+      this.mateImageUrl = file
+      console.log(this.mateImageUrl)
     },
     dateIn(value) {
       console.log(value)
@@ -224,23 +227,42 @@ export default {
     
 
     test() {
-      console.log(this.partyData)
+      // console.log(this.partyData)
+      console.log(2)
       axios({
         method: 'post',
-        headers: { 'Content-Type': 'multipart/form-data' },
+        
         url : 'http://localhost:8080/mate',
         data : this.partyData,
-   
-
+  
       })
-
       .then((res) => {
-        console.log(res.data.list)
+        // console.log(res.dada.dto.mateNo)
+        console.log(res.data.dto.mateNo)
+        console.log(this.mateImageUrl)
+        axios({
+        method: 'post',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        data : this.mateImageUrl
+        
+      })
+        .then(res => {
+          console.log(res)
+          this.$router.push({name:'Mateparty'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
       })
 
       .catch(err => {
         console.log(err)
       })
+      
+
+    
+      
     }
     
     
