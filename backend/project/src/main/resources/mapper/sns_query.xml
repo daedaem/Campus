@@ -35,6 +35,10 @@
             WHERE snsNo = #{snsNo}
     </update>
 
+    <delete id="snsImageDelete" parameterType="int">
+        DELTE FROM snsImage WHERE snsNo = #{snsNo}
+    </delete>
+
     <delete id="snsDelete" parameterType="int">
         DELETE FROM sns WHERE snsNo = #{snsNo}
     </delete>
