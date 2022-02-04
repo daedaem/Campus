@@ -96,6 +96,10 @@ export default {
         mateImageUrl : null,
       }
   },
+  created () {
+    console.log(this.$store.state.userList)
+    console.log(this.$store.state.mateList)
+  },
   methods: {
   //image upload and preview methods
     selectImage () {
