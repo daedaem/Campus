@@ -36,7 +36,7 @@
     </update>
 
     <delete id="snsImageDelete" parameterType="int">
-        DELTE FROM snsImage WHERE snsNo = #{snsNo}
+        DELETE FROM snsImage WHERE snsNo = #{snsNo}
     </delete>
 
     <delete id="snsDelete" parameterType="int">
@@ -83,11 +83,6 @@
             WHERE snsNo = #{snsNo}
     </select>
 
-    <!-- update 추가? -->
-
-    <delete id="snsImageDelete" parameterType="int">
-        DELETE FROM snsImage WHERE snsNo = #{snsNo}
-    </delete>
 
     <!--<delete id="snsImageUrlDeleteList" parameterType="int" resultType="string">-->
     
