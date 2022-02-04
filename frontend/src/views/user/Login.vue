@@ -117,16 +117,17 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
+          console.log(res)
           alert("로그인")
-          this.$store.state.user = this.credentials.userEmail
-          this.$store.state.myNum = res.data.userNo
-          this.$store.state.userList = res.data
-          // console.log(this.$store.state.userList)
-          // console.log(this.$store.state.user)
-          // console.log(this.$store.state.myNum)
+          // this.$store.state.user = this.credentials.userEmail
+          // this.$store.state.myNum = res.data.userNo
+          // this.$store.state.userList = res.data
+          this.$store.dispatch('userList',res.data)
+          this.$store.dispatch('myNum',res.data.userNo)
+         
           localStorage.setItem('jwt', res.data.token)
           this.$store.dispatch("login"); 
-        
+          
           this.$router.push({name: 'Mainpage'})
         })
         .catch((err) => {

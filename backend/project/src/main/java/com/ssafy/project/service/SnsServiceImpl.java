@@ -63,40 +63,53 @@ public class SnsServiceImpl implements SnsService {
         return fileName.substring(fileName.lastIndexOf("."));
     }
 
-    @Override
+@Override
     @Transactional
-    public SnsResultDto snsInsert(SnsDto dto, MultipartHttpServletRequest request) {
+    public SnsResultDto snsInsert(SnsDto dto) {
+        
+        SnsResultDto snsResultDto = new SnsResultDto();
 
+        try{
+
+            dao.snsInsert(dto); //dto는 키값
+
+            dto.setSnsNo(dao.snsNoselect());
+            dao.snsCheck(dto.getSnsNo());
+
+            snsResultDto.setDto(dto); 
+            snsResultDto.setResult(SUCCESS);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
+    @Override
+    public SnsResultDto snsImageInsert(int snsNo, List<MultipartFile> multipartFile) {
+        
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
-
-            dao.snsInsert(dto); // dto는 키값
-
-            List<MultipartFile> fileList = request.getFiles("file");
-
-            for (MultipartFile file : fileList) {
-
-                int snsNo = dto.getSnsNo();
-                System.out.println(snsNo);
-
-                String fileName = file.getOriginalFilename();
+            for (MultipartFile files : multipartFile) {
+                
+                String fileName = files.getOriginalFilename();
                 fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
 
-                File fileO = this.convertToFile(file, fileName);
-                String TEMP_URL = this.uploadFile(fileO, fileName);
+                File file = this.convertToFile(files, fileName);
+                String TEMP_URL = this.uploadFile(file, fileName);
+                // 이미지 넣어버리기
                 SnsImageDto snsImageDto = new SnsImageDto();
                 snsImageDto.setSnsNo(snsNo);
                 snsImageDto.setSnsImageUrl(TEMP_URL);
-                fileO.delete();
-                if (dao.snsImageInsert(snsImageDto) == SUCCESS) {
-                    snsResultDto.setResult(SUCCESS);
-                } else {
-                    snsResultDto.setResult(FAIL);
-                }
-            }
-            snsResultDto.setResult(SUCCESS);
+                
+                dao.snsImageInsert(snsImageDto);
 
+                snsResultDto.setResult(SUCCESS);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);

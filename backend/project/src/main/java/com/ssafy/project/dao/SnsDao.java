@@ -36,5 +36,9 @@ public interface SnsDao {
     public List<SnsDto> likeList(int userNo);
 
     public SnsDto snsDetail(SnsParamDto snsParamDto);
+
     public List<SnsReplyDto> snsReplyList(int snsNo);
+    
+    public int snsNoselect();
+    public int snsCheck(int snsNo);
 }

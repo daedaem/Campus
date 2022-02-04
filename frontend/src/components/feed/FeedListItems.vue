@@ -336,6 +336,7 @@ export default {
     this.likesCountCheck();
     this.snsComments();
     console.log(this.$store.state.myNum);
+    
   },
 
   computed: {
