@@ -55,7 +55,7 @@ const routes = [
     component: FeedDetail,
   },
   {
-    path: "/sns/create",
+    path: "/create",
     name: "FeedCreate",
     component: FeedCreate,
   },
@@ -102,7 +102,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: '/modifyuser',
+    path: "/modifyuser",
     name: "Modify",
     component: Modify,
   },

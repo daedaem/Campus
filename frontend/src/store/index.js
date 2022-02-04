@@ -2,8 +2,10 @@ import { createStore } from "vuex";
 
 // import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
 
+
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 import axios from "axios";
 
 export default createStore({
