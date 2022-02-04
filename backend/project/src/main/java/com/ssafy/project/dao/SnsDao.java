@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsImageDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +25,8 @@ public interface SnsDao {
 
     public int snsImageInsert(SnsImageDto dto);
     public List<SnsImageDto> snsImageList(int snsNo);
+
+    public int snsImageDelete(int snsNo);
     // public int snsImageDelete(int snsNo);
     // public List<String> snsImageUrlDeleteList(int snsNo);
     // 이미지 업데이트는 지우고 다시 넣는 방식으로
@@ -36,4 +39,8 @@ public interface SnsDao {
 
     public SnsDto snsDetail(SnsParamDto snsParamDto);
 
+    public List<SnsReplyDto> snsReplyList(int snsNo);
+    
+    public int snsNoselect();
+    public int snsCheck(int snsNo);
 }
