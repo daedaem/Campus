@@ -197,6 +197,21 @@ public class CampController {
         return campSiteResultDto;
     }
 
+    // 캠핑장 detail
+    @GetMapping(value = "/camp/{contentId}")
+    public ResponseEntity<CampSiteResultDto> campDetail(@PathVariable String contentId) {
+
+        CampSiteResultDto campSiteResultDto;
+
+        campSiteResultDto = campSiteService.campSiteDetail(contentId);
+
+        if (campSiteResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<CampSiteResultDto>(campSiteResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<CampSiteResultDto>(campSiteResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // 도 list
     @GetMapping(value = "/camp/do")
     public ResponseEntity<List<String>> getDo() {
