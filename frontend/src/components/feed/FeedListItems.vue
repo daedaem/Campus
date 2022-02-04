@@ -299,9 +299,8 @@ export default {
           })
             .then(() => {
               // console.log(this.my_comment.snsNo);
-
               // console.log(this.$store.state.userList.userNo);
-              this.my_comment = null;
+              // this.my_comment = null;
               // console.log("댓글남기자");
             })
             .then(() => {
