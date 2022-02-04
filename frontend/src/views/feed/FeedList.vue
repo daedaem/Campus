@@ -50,7 +50,7 @@ export default {
     // InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
-
+    //
     // FeedDetail
   },
   methods: {},
