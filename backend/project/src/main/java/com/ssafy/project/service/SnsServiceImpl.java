@@ -208,7 +208,9 @@ public class SnsServiceImpl implements SnsService {
         try {
 
             SnsDto snsDto = dao.snsDetail(snsParamDto);
-
+            
+            snsDto.setImageList(dao.snsImageList(snsParamDto.getSnsNo()));
+            snsDto.setReplyList(dao.snsReplyList(snsParamDto.getSnsNo()));
             // 이미지 리스트 불러와주기
 
             snsResultDto.setDto(snsDto);

@@ -14,7 +14,6 @@
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
-            LIMIT 10
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
@@ -28,10 +27,18 @@
     </delete>
 
     <select id="snsDetail" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
-        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime
+        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime, s.snsUpdateTime, u.userNickname, u.userProfileImage
         FROM sns s, user u
         WHERE s.snsNo = #{snsNo}
         AND s.userNo = u.userNo
+    </select>
+
+    <select id="setReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
+            SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
+                u.userNickname, u.userProfileImage
+                FROM snsReply s, user u
+                WHERE s.userNo = u.userNo
+                AND snsNo = #{snsNo};
     </select>
 
     <select id="snsListTotalCount" parameterType="int" resultType="int">
