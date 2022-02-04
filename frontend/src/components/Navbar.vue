@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-custom-2 ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom-2">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,11 +33,20 @@
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
       <li class="nav-item">
-        <a class="nav-link " href="/signup">회원가입</a>
+        <div v-if="this.$store.state.token">
+          <button @click="logout">로그아웃</button>
+          <!-- <a class="nav-link " href="/signup">회원가입</a> -->
+        </div>
+        <div v-if="this.$store.state.token === null">
+          <button @click="moveToLogin">로그인</button>
+          <button @click="moveToSignUp">회원가입</button>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">로그인</a>
-      </li>
+      <!-- <li class="nav-item">
+        <div>
+          <a class="nav-link" href="/login">로그인</a>
+        </div>
+      </li> -->
     </div>
   </div>
 </nav>
@@ -71,6 +80,30 @@ export default {
     onoff,
   }
   
+  },
+  methods: {
+    logout: function () {
+      this.$store.state.user = null;
+      this.$store.state.myNum = ""
+      this.$store.state.userList = {}
+      localStorage.removeItem('jwt');
+      this.$store.dispatch("logout")
+      alert("로그아웃")
+      this.$router.push({name: 'Login'})
+    },
+    moveToSignUp: function () {
+      this.$router.push({ name: "Signup" });
+    },
+    moveToLogin: function () {
+      this.$router.push({ name: "Login" });
+    },
+  },
+
+  created: function () {
+    const token = localStorage.getItem('jwt') ;
+    if (token) {
+      this.$store.dispatch("login")
+    }
   }
 
 

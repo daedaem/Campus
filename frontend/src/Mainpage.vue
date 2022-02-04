@@ -58,14 +58,14 @@ export default {
       methods: "get",
       url: "http://localhost:8080/mate",
     })
-      .then((res) => {
-        // console.log(res.data.list)
-        viewFunc(res.data.list);
-      })
+    .then((res) => {
+      // console.log(res.data.list)
+      viewFunc(res.data.list);
+    })
 
-      .catch((err) => {
-        console.log(err);
-      });
+    .catch((err) => {
+      console.log(err);
+    });
 
     return {
       matelist,
