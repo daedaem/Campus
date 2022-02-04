@@ -22,6 +22,10 @@ public interface MateService {
 
     public MateResultDto mateListInsert(MateListDto dto);
 
+    public MateResultDto mateApplyDelete(int mateListNo);
+
     public MateMatchResultDto mateMatch(int userNo);
+
+    
 
 }
