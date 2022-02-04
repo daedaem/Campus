@@ -3,126 +3,219 @@
 		<div>
 			<h4 align="left">캠핑 스타일</h4>
 			<hr>
-			<div class="filterbox">
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="음식/음주" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						음식/음주
-					</label>
-				</div>
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="불멍/수다" id="flexCheckChecked2" >
-					<label class="form-check-label" for="flexCheckChecked2">
-						불멍/수다
-					</label>
-				</div>
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="캠프파이어" id="flexCheckChecked3" >
-					<label class="form-check-label" for="flexCheckChecked3">
-						캠프파이어
-					</label>
-				</div>
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="등산" id="flexCheckChecked4" >
-					<label class="form-check-label" for="flexCheckChecked4">
-						등산
-					</label>
-				</div>
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="사진찍기" id="flexCheckChecked5" >
-					<label class="form-check-label" for="flexCheckChecked5">
-						사진찍기
-					</label>
-				</div>
-				<div class="form-check filterbox1">
-					<input class="form-check-input" v-model="campCheck" type="checkbox" value="음악감상" id="flexCheckChecked6">
-					<label class="form-check-label" for="flexCheckChecked6">
-						음악감상
-					</label>
-				</div>
-			</div>
+			<ul class="list-inline">
+                <li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: foodbutton,
+                            modifycampButtonOff: !foodbutton,
+                        }"
+                        @click="styleControl('1')"
+                        type="button"
+                        >
+                        음식/음주
+                    </button> 
+                </li>
+
+                <li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: talkbutton,
+                            modifycampButtonOff: !talkbutton,
+                        }"
+                        @click="styleControl('2')"
+                        type="button"
+                        >
+                        불멍/수다
+                    </button> 
+                </li>
+
+				<li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: campfirebutton,
+                            modifycampButtonOff: !campfirebutton,
+                        }"
+                        @click="styleControl('3')"
+                        type="button"
+                        >
+                        캠프파이어
+                    </button> 
+                </li>
+				
+                <li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: climbbutton,
+                            modifycampButtonOff: !climbbutton,
+                        }"
+                        @click="styleControl('4')"
+                        type="button"
+                        >
+                        등산
+                    </button> 
+                </li>
+
+				<li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: photobutton,
+                            modifycampButtonOff: !photobutton,
+                        }"
+                        @click="styleControl('5')"
+                        type="button"
+                        >
+                        사진찍기
+                    </button> 
+                </li>
+				
+                <li class="list-inline-item">
+                    <button
+                        :class="{
+                            modifycampButtonOn: musicbutton,
+                            modifycampButtonOff: !musicbutton,
+                        }"
+                        @click="styleControl('6')"
+                        type="button"
+                        >
+                        음악감상
+                    </button> 
+                </li>
+			</ul>
 		</div>
 	</div>
 </template>
 
 <script>
-import {ref} from 'vue'
+// import {ref} from 'vue'
 export default {
 	name: 'campstyle',
-	emits : ['style-check'],
-	setup() {
-    
-    const campCheck = ref([])
-    const submit = () => {
-      // console.log(campCheck.value)
-      // this.$emit('camp-check',campCheck)
-    }
-    return {
-      campCheck,
-      submit
-    }
-  },
+    methods: {
+        styleControl(x) {
+            if ( x === '1') {
+                if (this.styleStatus.campStyle1 === 0) {
+                    this.styleStatus.campStyle1 = 1
+                    this.foodbutton = true
+                    console.log(this.styleStatus.campStyle1)
+                } else  {
+                    this.styleStatus.campStyle1 = 0
+                    this.foodbutton = false
+                }
+            }
+
+            if ( x === '2') {
+                if (this.styleStatus.campStyle2 === 0) {
+                    this.styleStatus.campStyle2 = 1
+                    this.talkbutton = true
+                    console.log(this.styleStatus.campStyle2)
+                } else  {
+                    this.styleStatus.campStyle2 = 0
+                    this.talkbutton = false
+                }
+            }
+
+            if ( x === '3') {
+                if (this.styleStatus.campStyle3 === 0) {
+                    this.styleStatus.campStyle3 = 1
+                    this.campfirebutton = true
+                    console.log(this.styleStatus.campStyle3)
+                } else  {
+                    this.styleStatus.campStyle3 = 0
+                    this.campfirebutton = false
+                }
+            }
+
+            if ( x === '4') {
+                if (this.styleStatus.campStyle4 === 0) {
+                    this.styleStatus.campStyle4 = 1
+                    this.climbbutton = true
+                    console.log(this.styleStatus.campStyle4)
+                } else  {
+                    this.styleStatus.campStyle4 = 0
+                    this.climbbutton = false
+                }
+            }
+
+            if ( x === '5') {
+                if (this.styleStatus.campStyle5 === 0) {
+                    this.styleStatus.campStyle5 = 1
+                    this.photobutton = true
+                    console.log(this.styleStatus.campStyle5)
+                } else  {
+                    this.styleStatus.campStyle5 = 0
+                    this.photobutton = false
+                }
+            }
+
+            if ( x === '6') {
+                if (this.styleStatus.campStyle6 === 0) {
+                    this.styleStatus.campStyle6 = 1
+                    this.musicbutton = true
+                    console.log(this.styleStatus.campStyle6)
+                } else  {
+                    this.styleStatus.campStyle6 = 0
+                    this.musicbutton = false
+                }
+            }
+
+
+            
+        }
+    },
+    data() {
+        return {
+            styleStatus : {
+                campStyle1 : 0,
+                campStyle2 : 0,
+                campStyle3: 0,
+                campStyle4 : 0,
+                campStyle5 : 0,
+                campStyle6 : 0,
+            },
+            foodbutton: false,
+            talkbutton: false,
+            campfirebutton : false,
+            climbbutton : false,
+            photobutton : false,
+            musicbutton : false,
+        }
+    },
+    watch : {
+        styleStatus: {
+            handler(text) {
+                this.$emit('style-status', text)
+            },
+            deep: true
+        }
+    },
 }
 </script>
 
 <style scoped>
-.form-check{
-    border-bottom: 1px dashed rgba(255,255,255,0.5);
-    padding: 5px 5px 9px 5px;
-    margin: 0 0 10px;
-    display: block;
+.modifycampButtonOn {
+  
+  color:black;
+  /* font-size: 20px;
+  line-height: 26px;
+  padding-left: 35px; */
+  background-color: blue;
+  /* margin: 0;
+  display: block;
+  border: 5px solid #fff;
+  border-top: none;
+  border-right: none; */
+  
 }
-.form-check input[type=checkbox]{
-    margin: 0;
-    visibility: hidden;
-    left: 1px;
-    top: 1px;
-}
-.form-check label{
-    color:black;
-    font-size: 20px;
-    line-height: 26px;
-    padding-left: 35px;
-    margin: 0;
-    display: block;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease 0s;
-}
-.form-check label:before,
-.form-check label:after{
-    content: "";
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
-    border-radius: 4px;
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    transition: all 0.25s;
-}
-.form-check label:after{
-    height: 10px;
-    width: 16px;
-    border-radius: 0 0 0 4px;
-    border: 5px solid #fff;
-    border-top: none;
-    border-right: none;
-    opacity: 0;
-    transform: rotate(-45deg);
-    top: 15px;
-    left: 6px;
-}
-.form-check input[type=checkbox]:checked+label{ font-weight: 600; }
-.form-check input[type=checkbox]:checked+label:before{
-    opacity: 0;
-    top: -10px;
-}
-.form-check input[type=checkbox]:checked+label:after{
-    opacity: 1;
-    top: 6px;
-}
-@media only screen and (max-width:767px){
-    .checkbox{ margin: 0 0 20px; }
+.modifycampButtonOff {
+  color:black;
+  /* font-size: 20px;
+  line-height: 26px;
+  padding-left: 35px; */
+  background-color: white;
+  /* margin: 0;
+  display: block;
+  border: 5px solid #fff;
+  border-top: none;
+  border-right: none; */
 }
 </style>

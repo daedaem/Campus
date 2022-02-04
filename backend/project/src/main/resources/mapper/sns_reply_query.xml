@@ -7,8 +7,8 @@
                         VALUES ( #{snsNo}, #{userNo}, #{snsReplyContent} );
     </insert>
 
-    <select id="snsReplyList" parameterType="com.ssafy.project.dto.SnsReplyDto">
-        SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
+    <select id="snsReplyList" parameterType="com.ssafy.project.dto.SnsReplyDto" resultType="com.ssafy.project.dto.SnsReplyDto">
+        SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
                 u.userNickname, u.userProfileImage
             FROM snsReply s, user u
             WHERE s.userNo = u.userNo
@@ -17,7 +17,7 @@
 
     <delete id="snsReplyDelete" parameterType="int">
         DELETE FROM snsReply
-        WHERE snsReplyNo = # {snsReplyNo}
+        WHERE snsReplyNo = #{snsReplyNo}
     </delete>
 
     <update id="snsReplyUpdate" parameterType="com.ssafy.project.dto.SnsReplyDto">
