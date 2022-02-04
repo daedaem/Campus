@@ -59,7 +59,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     mateDto.setContentId(10);
-    mateDto.setUserNo(3);
+    mateDto.setUserNo(25);
 
 
     MateResultDto mateResultDto = service.mateInsert(mateDto);
@@ -127,10 +127,10 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     // matelistDto.setMateNo(56);
-    matelistDto.setUserNo(3);
+    matelistDto.setUserNo(25);
 
     MateResultDto mateResultDto = service.mateListInsert(matelistDto);
-
+        
     if( mateResultDto.getResult() == SUCCESS ){
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         }else{
