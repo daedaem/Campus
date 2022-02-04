@@ -234,6 +234,23 @@ public class MateServiceImpl implements MateService {
     }
 
     @Override
+    public MateResultDto mateApplyDelete(int mateListNo) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+
+            dao.mateApplyDelete(mateListNo);
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
     public MateMatchResultDto mateMatch(int userNo) {
         MateMatchResultDto mateMatchResultDto = new MateMatchResultDto();
 
@@ -252,6 +269,8 @@ public class MateServiceImpl implements MateService {
 
         return mateMatchResultDto;
     }
+
+
 
 
 
