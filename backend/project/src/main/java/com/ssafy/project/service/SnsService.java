@@ -7,7 +7,6 @@ import com.ssafy.project.dto.SnsParamDto;
 import com.ssafy.project.dto.SnsResultDto;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface SnsService {
     // 글생성
@@ -15,7 +14,9 @@ public interface SnsService {
     // 리스트 보여주
     public SnsResultDto snsList(SnsParamDto snsParamDto);
 
-    public SnsResultDto snsUpdate(SnsDto dto, MultipartHttpServletRequest request);
+    public SnsResultDto snsUpdate(SnsDto dto);
+
+    public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile);
 
     public SnsResultDto snsDelete(int snsNo);
 

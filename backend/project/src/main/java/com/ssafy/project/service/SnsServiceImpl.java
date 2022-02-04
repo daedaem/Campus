@@ -118,6 +118,60 @@ public class SnsServiceImpl implements SnsService {
         return snsResultDto;
     }
 
+    @Override
+    @Transactional
+    public SnsResultDto snsUpdate(SnsDto dto) {
+
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            dao.snsUpdate(dto);
+
+
+            snsResultDto.setDto(dto); 
+            snsResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
+    @Override
+    public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile) {
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            dao.snsImageDelete(snsNo);
+
+
+            for (MultipartFile files : multipartFile) {
+                
+                String fileName = files.getOriginalFilename();
+                fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+
+                File file = this.convertToFile(files, fileName);
+                String TEMP_URL = this.uploadFile(file, fileName);
+                // 이미지 넣어버리기
+                SnsImageDto snsImageDto = new SnsImageDto();
+                snsImageDto.setSnsNo(snsNo);
+                snsImageDto.setSnsImageUrl(TEMP_URL);
+                
+                dao.snsImageInsert(snsImageDto);
+
+                snsResultDto.setResult(SUCCESS);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
     // 리스트를 생성하고 sns와 user를 join한 값들을 list에 순차적으로 저장(count는 sns에 있는 튜플의 개수로 지정)
     @Override
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
@@ -168,28 +222,7 @@ public class SnsServiceImpl implements SnsService {
         return snsResultDto;
     }
 
-    @Override
-    @Transactional
-    public SnsResultDto snsUpdate(SnsDto dto, MultipartHttpServletRequest request) {
 
-        SnsResultDto snsResultDto = new SnsResultDto();
-
-        try {
-            dao.snsUpdate(dto);
-
-            // 만약 로컬에 이미지를 저장하게되면
-            // 로컬에 있는 이미지를 삭제, db에 저장된 이미지 url삭제
-            // 이후 insert하는 방식
-
-            snsResultDto.setResult(SUCCESS);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            snsResultDto.setResult(FAIL);
-        }
-
-        return snsResultDto;
-    }
 
     @Override
     @Transactional
@@ -236,5 +269,7 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
+
+
 
 }
