@@ -81,8 +81,6 @@
             and u.userNo = c.userNo
             and u.userNo = m.userNo
             and m.mateNo = #{mateNo};
-
-        
     </select>
 
     <select id="userCampStyle" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
@@ -109,4 +107,20 @@
         INSERT INTO mateList (userNo, mateListNum, userAge, mateNo, userGender)
                 VALUES (#{userNo}, #{mateListNum}, #{userAge}, #{mateNo}, #{userGender})
     </insert>
+
+    <!-- mate match -->
+    <select id="userMBTIselect" parameterType="int" resultType="String">
+        SELECT userMBTI FROM user WHERE userNo = #{userNo}
+    </select>
+
+    <select id="mateMatchList" parameterType="com.ssafy.project.dto.MateMatchDto" resultType="com.ssafy.project.dto.MateMatchDto">
+    SELECT u.userNo, u.userNickname, u.userEmail, u.userGender, u.userMBTI, u.userProfileImage,c.campStyle1, c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6
+        FROM user u, campStyle c 
+        WHERE u.userNo IN (SELECT userNo FROM user WHERE userMBTI IN (SELECT mbti2 FROM mbti WHERE mbtiValue > 2 AND mbti1 = #{userMBTI})) 
+        AND c.userNo = u.userNo AND u.userNo != #{userNo}
+        ORDER BY rand()
+        LIMIT 4;
+    </select>
+
+
 </mapper>

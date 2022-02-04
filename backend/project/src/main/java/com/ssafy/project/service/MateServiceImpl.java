@@ -20,6 +20,8 @@ import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateListDto;
+import com.ssafy.project.dto.MateMatchDto;
+import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.dto.SnsImageDto;
@@ -229,6 +231,26 @@ public class MateServiceImpl implements MateService {
             mateResultDto.setResult(FAIL);
        }
         return mateResultDto;
+    }
+
+    @Override
+    public MateMatchResultDto mateMatch(int userNo) {
+        MateMatchResultDto mateMatchResultDto = new MateMatchResultDto();
+
+        try {
+            MateMatchDto matchDto = new MateMatchDto();
+            matchDto.setUserNo(userNo);
+            matchDto.setUserMBTI(dao.userMBTIselect(userNo));
+
+            mateMatchResultDto.setMatelist(dao.mateMatchList(matchDto));
+            
+            mateMatchResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateMatchResultDto.setResult(FAIL);
+        }
+
+        return mateMatchResultDto;
     }
 
 

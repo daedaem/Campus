@@ -6,9 +6,9 @@ import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateListDto;
+import com.ssafy.project.dto.MateMatchDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.SnsImageDto;
-import com.ssafy.project.dto.UserDto;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -41,6 +41,8 @@ public interface MateDao {
 
     public int mateNoselect();
 
+    public String userMBTIselect(int userNo);
+
     public int mateCheck(int mateNo);
 
     public void mateApplyInsert(MateListDto dto);
@@ -48,5 +50,7 @@ public interface MateDao {
     public List<MateListDto> userCampStyle(int userNo);
 
     public void mateImageInsert(MateDto dto);
+
+    public List<MateMatchDto> mateMatchList(MateMatchDto dto);
     
 }
