@@ -195,9 +195,9 @@ export default {
     //   });
     // },
     CreateFeed() {
-      console.log(this.feedCreateContent);
+      // console.log(this.feedCreateContent);
       // console.log(frm);
-      console.log(this.frm);
+      // console.log(this.frm);
       // console.log(this.feedCreateContent);
       if (
         this.feedCreateContent.snsContent &&
@@ -230,10 +230,10 @@ export default {
                 // params: { snsNo: res.data.dto.snsNo },
               });
             })
-            // .then(() => {
-            //   this.$store.dispatch("toDetail", this.feed);
-            //   this.$router.push({ name: "FeedDetail" });
-            // })
+            .then(() => {
+              this.$store.dispatch("toDetail", this.feed);
+              this.$router.push({ name: "FeedDetail" });
+            })
             .catch((err) => {
               console.log(err);
               alert("실패하였습니다.");
