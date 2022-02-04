@@ -115,7 +115,7 @@ export default {
           this.$store.state.user = this.credentials.userEmail
           this.$store.state.myNum = res.data.userNo
           this.$store.state.userList = res.data
-          console.log(this.$store.state.userList)
+          // console.log(this.$store.state.userList)
           // console.log(this.$store.state.user)
           // console.log(this.$store.state.myNum)
           localStorage.setItem('jwt', res.data.token)
