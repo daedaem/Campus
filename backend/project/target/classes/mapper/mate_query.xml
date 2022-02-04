@@ -108,6 +108,10 @@
                 VALUES (#{userNo}, #{mateListNum}, #{userAge}, #{mateNo}, #{userGender})
     </insert>
 
+    <delete id="mateApplyDelete" parameterType="int">
+       DELETE FROM mateList WHERE mateListNo = #{mateListNo};
+    </delete>
+
     <!-- mate match -->
     <select id="userMBTIselect" parameterType="int" resultType="String">
         SELECT userMBTI FROM user WHERE userNo = #{userNo}

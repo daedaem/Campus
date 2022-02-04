@@ -139,6 +139,19 @@ public class MateController {
         }
     }
 
+    @DeleteMapping(value = "/mate/apply/{mateListNo}")
+    private ResponseEntity<MateResultDto> mateApplyDelete(@PathVariable int mateListNo) {
+
+        // call mateDelete from MateService
+        MateResultDto mateResultDto = service.mateApplyDelete(mateListNo);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
     @GetMapping(value = "/mate/match/{userNo}")
     private ResponseEntity<MateMatchResultDto> mateMatch(@PathVariable int userNo) {
 
