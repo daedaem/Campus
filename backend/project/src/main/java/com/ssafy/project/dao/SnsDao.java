@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsImageDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,5 +36,5 @@ public interface SnsDao {
     public List<SnsDto> likeList(int userNo);
 
     public SnsDto snsDetail(SnsParamDto snsParamDto);
-
+    public List<SnsReplyDto> snsReplyList(int snsNo);
 }
