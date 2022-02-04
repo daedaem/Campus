@@ -48,6 +48,7 @@
         </div>
       </div>
       
+      
     </body>
   </div>
   
@@ -246,13 +247,13 @@ export default {
         data : this.mateImageUrl
         
       })
-      .then(res => {
-        console.log(res)
-        this.$router.push({name:'Mateparty'})
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          console.log(res)
+          this.$router.push({name:'Mateparty'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
       })
 
       .catch(err => {

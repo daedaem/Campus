@@ -72,7 +72,7 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
 
 export default {
   name: "Login",
@@ -107,7 +107,7 @@ export default {
     login: function () {
       axios({
         method: "POST",
-        url: `${SERVER_URL}/login`,
+        url: 'http://localhost:8080/login',
         data: this.credentials,
       })
         .then((res) => {
