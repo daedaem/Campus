@@ -1,216 +1,463 @@
 <template>
-	<div class="wrapC">
-		<div class="wrap-contact3">
-			<h1 class="contact3-form-title">회원가입</h1>
-			<!-- input만들기 -->
-			
-			<!-- 이메일 입력 -->
-			<div class="email-container">
-				<h6 align="left">
-					이메일
-				</h6>
-				<div class="form-group">
-					<b-form-input
-						type="email"
-						style="width:50%; float: left"
-						placeholder="이메일을 입력하세요"
-						v-model="credentials.email"
-						required
-						@keypress.enter="check_user_email"
-						autofocus
-						@blur="emailValid">
-					</b-form-input>
+	<div>
+		<form>
+			<div v-if="step === 1">
+				
+				<div class="wrapC">
+					<div class="wrap-contact3">
+						<h1 class="contact3-form-title">기본 정보</h1>
+
+						<div class="email-container">
+							<h6 align="left">
+								이메일
+							</h6>
+						
+							<div class="form-group">
+								<b-form-input
+									type="email"
+									style="width:50%; float: left"
+									placeholder="이메일을 입력하세요"
+									v-model="credentials.userEmail"
+									autofocus
+									@blur="emailValid">
+								</b-form-input>
+
+								<b-button
+									>인증</b-button>
+							</div>
+							<div align="left" v-if="!emailValidFlag" class="check-form">
+								유효하지 않은 이메일 입니다.
+							</div>
+						</div>
+
+						<!-- 인증번호 입력 -->
+						<div class="emailcode-container mt-2">
+							<h6 align="left">
+								인증번호
+							</h6>
+							<div class="form-group">
+								<b-form-input
+									type="text"
+									style="width:50%; float: left"
+									placeholder="인증번호를 입력하세요"
+									autofocus>
+								</b-form-input>
+								<b-button
+								>확인</b-button>
+							</div>
+							<div align="left">
+							</div>
+						</div>
+
+						<!-- 닉네임 입력 -->
+						<div class="nickname-container mt-2">
+							<h6 align="left">
+								닉네임
+							</h6>
+							<div class="form-group">
+								<b-form-input
+									type="text"
+									style="width:50%; float: left"
+									placeholder="닉네임을 입력하세요"
+									v-model="credentials.userNickname"
+									autofocus
+									@blur="nicknameValid">
+								</b-form-input>
+								<b-button
+								>중복확인</b-button>
+							</div>
+							<div align="left" v-if="!nicknameValidFlag" class="check-form">
+								특수문자를 사용할 수 없습니다.
+							</div>
+						</div>
+
+						<!-- 비밀번호 -->
+						<div class="password-container mt-2">
+							<h6 align="left">
+								비밀번호
+							</h6>
+							<div class="form-group">
+								<b-form-input
+									type="password"
+									style="width:50%; float: left"
+									placeholder='비밀번호를 입력하세요'
+									v-model="credentials.userPassword"
+									autofocus
+									@blur="passwordValid"
+									>
+								</b-form-input>
+							</div>
+							<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
+							<div align="left" v-if="!passwordValidFlag" class="check-form">
+								유효하지 않은 비밀번호 입니다.
+							</div>
+						</div>
+
+
+						<!-- 비밀번호 확인 -->
+						<div class="passwordconfirm-container mt-3">
+							<h6 align="left">
+								비밀번호확인
+							</h6>
+							<div class="form-group">
+								<b-form-input
+									type="password"
+									style="width:50%; float: left"
+									placeholder="비밀번호를 한번 더 입력하세요"
+									v-model="credentials.password_confirmation"
+									autofocus
+									@blur="passwordCheckValid"
+									>
+								</b-form-input>
+							</div>
+							<!-- 비밀번호 확인 -->
+							<div align="left" v-if="!passwordCheckFlag" class="check-form">
+								비밀번호가 다릅니다.
+							</div>
+						</div>
+
+						<!--  약관동의 -->
+						<div class="form-group mt-3" align="left">
+							<input type="checkbox" id="term" />
+							<span>약관을 동의합니다.</span>
+							<!-- <span>약관보기</span> -->
+						</div>
+
+
+						<!-- 다음 버튼 -->
+						<button
+							class="mt-5" 
+							@click.prevent="next()">Next</button>
+
+					</div>
+				</div>		
+			</div>
+
+			<!-- 2페이지 -->
+			<div v-if="step === 2">
+				
+				<div class="wrapC">
+					<div class="wrap-contact3">
+						<h1 class="contact3-form-title">추가 정보</h1>
+
+						<div class="item-box">
+							<div class="d-flex">
+								<!-- 나이 입력 -->
+								<div align="left" class="p-3">
+									<h4>나이</h4>
+									<select @change="age_select" v-model="credentials.userAge" class="form-select">
+										<option disabled value="">나이 선택</option>
+										<option value="10">10대</option>
+										<option value="20">20대</option>
+										<option value="30">30대</option>
+										<option value="40">40대</option>
+										<option value="50">50대</option>
+										<option value="60">60대</option>
+										<option value="70">70대</option>
+										<option value="80">80대</option>
+										<option value="90">90대</option>
+									</select>
+								</div>
+
+								<!-- 지역 입력 -->
+								<div align="left" class="p-3">
+									<h4>거주 지역</h4>
+									<select
+										@change="area_select"
+										v-model="credentials.userLocation"
+										class="form-select"
+									>
+										<option disabled value="">지역선택</option>
+										<option value="서울">서울</option>
+										<option value="부산">부산</option>
+										<option value="대구">대구</option>
+										<option value="인천">인천</option>
+										<option value="광주">광주</option>
+										<option value="대전">대전</option>
+										<option value="울산">울산</option>
+										<option value="세종">세종</option>
+										<option value="경기">경기</option>
+										<option value="강원">강원</option>
+										<option value="충북">충북</option>
+										<option value="충남">충남</option>
+										<option value="전북">전북</option>
+										<option value="전남">전남</option>
+										<option value="경북">경북</option>
+										<option value="경남">경남</option>
+										<option value="제주">제주</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- 성별 입력 -->
+							<div>
+								<div align="left"><h4>성별</h4></div>
+								<div align="left">
+									<button
+										type="button"
+										:class="{
+											modifygenderButtonOn: maleButton,
+											modifygenderButtonOff: !maleButton,
+										}"
+										@click="clickMale"
+									>
+										남자
+									</button>
+									<button
+										type="button"
+										:class="{
+											modifygenderButtonOn: femaleButton,
+											modifygenderButtonOff: !femaleButton,
+										}"
+										@click="clickFemale"
+									>
+										여자
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- 이미지 -->
+						<div class="item-box mt-2">
+							<div align="left"><h4>이미지</h4></div>
+							<div class="w-32 h-32 border-2 border-dotted border-blue-500">
+								<div>
+									<form align="left" class="filterbox1" method="post" enctype="multipart/form-data">
+										<div>
+											<label for="chooseFile">
+												Click
+											</label>
+										</div>
+									<input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
+									</form>
+									<img :src="credentials.userProfileImage" alt="" class="">
+								</div>
+							</div>
+							<br>
+						</div>
 					
-					<b-button
-						@click="check_user_email"
-						>인증</b-button>
+					<div class="d-flex justify-content-between mt-5">
+						<button @click.prevent="prev()">Previous</button>
+						<button @click.prevent="next()">Next</button>
+					</div>
+
+
+					</div>
 				</div>
-				<div align="left" v-if="!emailValidFlag" class="check-form">
-					유효하지 않은 이메일 입니다.
-				</div>
+				
+				
+
+				
+
 			</div>
 
-			<!-- 인증번호 입력 -->
-			<div class="emailcode-container mt-2">
-				<h6 align="left">
-					인증번호
-				</h6>
-				<div class="form-group">
-					<b-form-input
-						type="text"
-						style="width:50%; float: left"
-						placeholder="인증번호를 입력하세요"
-						v-model="emailCode"
-						autofocus
-						@keypress.enter="check_user_emailCode">
-					</b-form-input>
-					<b-button
-					@click="check_user_emailCode"
-					>확인</b-button>
-				</div>
-				<div align="left">
-				</div>
-			</div>
+			<div v-if="step === 3">
+				<div class="wrapC">
+					<div class="wrap-contact3">
+						<h1 class="contact3-form-title">Camp Style</h1>
+						
+						<div class="item-box2 mt-3">
+							<style_Dropdown @style-status="styleStatus" />	
+						</div>
+						<div class="mt-3">
+							<Items @img-status="imgStatus"/>
+						</div>
+						<div class="item-box mt-3">
+							<div align="left">
+								<h4>기타 장비</h4>
+							</div>
+							<EquipInput />
+							<EquipList />
+						</div>
 
-			<!-- 닉네임 입력 -->
-			<div class="nickname-container mt-2">
-				<h6 align="left">
-					닉네임
-				</h6>
-				<div class="form-group">
-					<b-form-input
-						type="text"
-						style="width:50%; float: left"
-						placeholder="닉네임을 입력하세요"
-						v-model="credentials.nickname"
-						autofocus
-						@blur="nicknameValid">
-					</b-form-input>
-					<b-button
-						@click="check_user_nickname"
-					>중복확인</b-button>
-				</div>
-				<div align="left" v-if="!nicknameValidFlag" class="check-form">
-					특수문자를 사용할 수 없습니다.
-				</div>
-			</div>
+						<div class="d-flex justify-content-between mt-5">
+							<button @click.prevent="prev()">Previous</button>
+							<button @click.prevent="onSubmit()">Save</button>
+						</div>
 
-			<!-- 비밀번호 입력 -->
-			<div class="password-container mt-2">
-				<h6 align="left">
-					비밀번호
-				</h6>
-				<div class="form-group">
-					<b-form-input
-						type="password"
-						style="width:50%; float: left"
-						placeholder='비밀번호를 입력하세요'
-						v-model="credentials.password"
-						@keypress.enter="onSubmit()"
-						autofocus
-						@blur="passwordValid"
-						>
-					</b-form-input>
-				</div>
-				<!-- 대문자/소문자/숫자가 1개이상 존재하고 8-16자리 -->
-				<div align="left" v-if="!passwordValidFlag" class="check-form">
-					유효하지 않은 비밀번호 입니다.
-				</div>
-			</div>
 
-			<!-- 비밀번호 확인 -->
-			<div class="passwordconfirm-container mt-3">
-				<h6 align="left">
-					비밀번호확인
-				</h6>
-				<div class="form-group">
-					<b-form-input
-						type="password"
-						style="width:50%; float: left"
-						placeholder="비밀번호를 한번 더 입력하세요"
-						v-model="credentials.password_confirmation"
-						@keypress.enter="onSubmit()"
-						autofocus
-						@blur="passwordCheckValid"
-						>
-					</b-form-input>
+					</div>
 				</div>
-				<div align="left" v-if="!passwordCheckFlag" class="check-form">
-					비밀번호가 다릅니다.
-				</div>
-			</div>
-			
-			<!--  약관동의 -->
-			<div class="form-group mt-3" align="left">
-				<input type="checkbox" id="term" />
-				<span>약관을 동의합니다.</span>
-				<span>약관보기</span>
-			</div>
 			
 
-			<!-- 가입 버튼 -->
-			<div class="d-flex justify-content-between mx-3 mt-3">
-				<b-button 
-					class="send-button" 
-					variant="success" 
-					@keypress.enter="onSubmit()">
-					가입하기
-				</b-button>		
-				<b-button variant="success"><router-link class="text-decoration-none text-white" to="addSign">추가정보입력</router-link></b-button>
+				
+				
 			</div>
-		</div>
+		</form>
+
+		<br/><br/>Debug: {{credentials}}
 	</div>
 </template>
 
 <script>
 import axios from "axios";
+import Items from '@/components/user/Items.vue'
+import EquipInput from '@/components/user/equip_input.vue'
+import EquipList from '@/components/user/equip_list.vue'
+import style_Dropdown from '../../components/user/campstyle.vue'
 
-const SERVER_URL = process.env.VUE_APP_SERVER_URL
+const SERVER_URL = `http://i6e102.p.ssafy.io`
 
 export default {
-  name: "Signup",
-  data() {
+	name: "Signup",
+	components: {
+		Items,
+		EquipInput,
+		EquipList,
+		style_Dropdown,
+	},
+	data() {
     return {
+      step:1,
 			credentials: {
-				userId: "",
-				nickname: "",
-				email: "",
-				password: "",
-				password_confirmation: "",
-				image: "",
-				user_gender: "",
-				user_area: "",
+				userEmail: "", // 이메일
+				userNickname: "", // 닉네임
+				userPassword: "", // 패스워드
+				userName: "",
+				password_confirmation: "", // 패스워드확인 
+				userProfileImage: "", // 이미지
+				userGender: "", // 성별
+				userLocation: "", // 지역
+				userAge: "", // 나이
+				userMBTI: "",
+				campEquipLantern : 0,
+				campEquipReel : 0,
+				campEquipBurner : 0,
+				campEquipicebox : 0,
+				campEquipTableChair : 0,
+				campEquipSleepingbag : 0,
+				campEquipTarp : 0,
+				table : 0,
+				campEquipTent : 0,
+				campEquipBrazier : 0,
+				campStyle1 : 0,
+					campStyle2 : 0,
+					campStyle3: 0,
+					campStyle4 : 0,
+					campStyle5 : 0,
+					campStyle6 : 0,
+				// 보유장비
 				imgStatus : {
-					lantern : 0,
-					powerstrip : 0,
-					burner : 0,
-					icebox : 0,
-					chair : 0,
-					sleepingbag : 0,
-					tarp : 0,
+					campEquipLantern : 0,
+					campEquipReel : 0,
+					campEquipBurner : 0,
+					campEquipicebox : 0,
+					campEquipTableChair : 0,
+					campEquipSleepingbag : 0,
+					campEquipTarp : 0,
 					table : 0,
-					tent : 0,
-					brazier : 0,
+					campEquipTent : 0,
+					campEquipBrazier : 0,
+				},
+				styleStatus : {
+					campStyle1 : 0,
+					campStyle2 : 0,
+					campStyle3: 0,
+					campStyle4 : 0,
+					campStyle5 : 0,
+					campStyle6 : 0,
 				}
 			},
-			emailValidFlag: true,
-			passwordValidFlag: true,
-			passwordCheckFlag: true,
-			nicknameValidFlag: true,
-
-			
-			emailCode: "",
-			possible_email: false,
-
-      // 체크하는것
-      checkId: false,
-      checkNickname: false,
-      checkEmail: false,
-      checkEmailCode: false,
-    };
+			maleButton: false,
+			femaleButton: false,
+			emailValidFlag: "", // 이메일 유효성 검사
+			nicknameValidFlag: "", // 닉네임 유효성 검사
+			passwordValidFlag: "", // 비밀번호 유효성검사
+			passwordCheckFlag: "", // 비밀번호 동일 검사
+			error: {
+				userGender: false,
+			},
+    }
   },
-  methods: {
+
+  methods:{
+    prev() {
+      this.step--;
+    },
+    next() {
+      this.step++;
+    },
+
+		onSubmit() {
+			axios ({
+				method: "post",
+				url: `${SERVER_URL}/user/image/${this.userEmail}`,
+				data: this.userProfileImage
+			})
+				.catch(() => {
+					alert("이미지 업로드 오류")
+				})
+			axios ({
+				method: "post",
+				url: `${SERVER_URL}/user`,
+				data: this.credentials,
+			})
+				.then((res) => {
+					console.log(res)
+					alert("회원가입 성공")
+					this.$router.push({name: 'Login'})
+				})
+				.catch(() => {
+					console.log(this.credentials)
+					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+				})
+			// console.log(this.credentials)
+			// 유효성 통과못할 시
+			// if (this.emailValidFlag === true || this.nicknameValidFlag === true || this.passwordValidFlag === true || this.passwordCheckFlag === true) {
+			// 	console.log(this.emailValidFlag)
+			// 	console.log(this.nicknameValidFlag)
+			// 	console.log(this.passwordValidFlag)
+			// 	console.log(this.passwordCheckFlag)
+			// 	alert("유효성 검사 확인 부탁드립니다.")
+			// 유효성 통과 할시
+			// } else {
+			// 	axios ({
+			// 	method: "post",
+			// 	url: `${SERVER_URL}/user/signup`,
+			// 	data: this.credentials,
+			// })
+			// 	.then((res) => {
+			// 		console.log(res)
+			// 		alert("회원가입 성공")
+			// 		this.$router.push({name: 'Login'})
+			// 	})
+			// 	.catch(() => {
+			// 		console.log(this.credentials)
+			// 		alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+			// 	})
+			// }
+		},
+
+		// 이메일 유효성 체크
 		emailValid() {
 			if (/^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+).(.[0-9a-zA-Z_-]+){1,2}$/.test(this.credentials.email)) {
 				this.emailValidFlag = true
+				console.log(this.emailValidFlag)
 			} else {
 				this.emailValidFlag = false
+				console.log(this.emailValidFlag)
 			}
 		},
+
+		// 닉네임 유효성 체크
 		nicknameValid() {
-			if (!/[~!@#$%^&*()_+|<>?:{}]/.test(this.credentials.nickname)) {
+			if (!/[~!@#$%^&*()_+|<>?:{}]/.test(this.credentials.userNickname)) {
 				this.nicknameValidFlag = true
 			} else {
 				this.nicknameValidFlag = false
 			}
 		},
+
+		// 비밀번호 유효성 체크
 		passwordValid() {
-			if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,16}$/.test(this.credentials.password)) { 
+			if (/^(?=.*[a-z])(?=.*[0-9]).{8,16}$/.test(this.credentials.userPassword)) { 
 				this.passwordValidFlag = true 
 			} else { 
 				this.passwordValidFlag = false
 			}
 		},
+
+		// 비밀번호 확인 유효성 체크
 		passwordCheckValid() {
 			if (this.credentials.password === this.credentials.password_confirmation) {
 				this.passwordCheckFlag = true
@@ -218,90 +465,169 @@ export default {
 				this.passwordCheckFlag = false
 			}
 		},
-		
 
+		checkGender() {
+      if (!this.credentials.userGender) {
+        this.error.userGender = "성별을 선택해주세요";
+        this.buttonShow = false;
+      } else {
+        this.error.userGender = false;
+      }
+    },
+    age_select() {
+      console.log(this.credentials.userAge);
+    },
 
-		// 제출했을때
-		onSubmit() {
-			// 아이디 체크, 닉네임 체크, 이메일코드 체크
-			if ( this.checkId == false || this.checkNickname == false || this.checkEmail == false ||this.checkEmailCode == false || this.passwordValidFlag == true || this.passwordCheckFlag == true)	{
-				alert("중복체크 및 유효성 검사 확인 바랍니다.")
+    area_select() {
+      console.log(this.credentials.userLocation);
+    },
+
+		clickFemale: function () {
+      this.femaleButton = true;
+      this.maleButton = false;
+      this.credentials.userGender = "W";
+      console.log(this.credentials.userGender);
+    },
+
+    clickMale: function () {
+      this.maleButton = true;
+      this.femaleButton = false;
+      this.credentials.userGender = "M";
+      console.log(this.credentials.userGender);
+    },
+
+		imgStatus(text) {
+      if (text.campEquipLantern === 1) {
+				this.credentials.imgStatus.campEquipLantern = 1
+				this.credentials.campEquipLantern = 1
 			} else {
-				axios({
-					method: "POST",
-					url: `${SERVER_URL}/user/signup`,
-					data: this.credentials,
-				})
-					.then(() => {
-						alert("회원가입 성공")
-						this.$router.push({name: 'Home'})
-					})
-					.catch(() => {
-						alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
-					})
+				this.credentials.imgStatus.campEquipLantern = 0
+				this.credentials.campEquipLantern = 0
+			}
+			if (text.campEquipReel === 1) {
+				this.credentials.imgStatus.campEquipReel = 1
+				this.credentials.campEquipReel = 1
+			} else {
+				this.credentials.imgStatus.campEquipReel = 0
+				this.credentials.campEquipReel = 0
+			}
+			if (text.campEquipBurner === 1) {
+				this.credentials.imgStatus.campEquipBurner = 1
+				this.credentials.campEquipBurner = 1
+			} else {
+				this.credentials.imgStatus.campEquipBurner = 0
+				this.credentials.campEquipBurner = 0
+			}
+			if (text.campEquipicebox === 1) {
+				this.credentials.imgStatus.campEquipicebox = 1
+				this.credentials.campEquipicebox = 1
+			} else {
+				this.credentials.imgStatus.campEquipicebox = 0
+				this.credentials.campEquipicebox = 0
+			}
+			if (text.campEquipTableChair === 1) {
+				this.credentials.imgStatus.campEquipTableChair = 1
+				this.credentials.campEquipTableChair = 1
+			} else {
+				this.credentials.imgStatus.campEquipTableChair = 0
+				this.credentials.campEquipTableChair = 0
+			}
+			if (text.campEquipSleepingbag === 1) {
+				this.credentials.imgStatus.campEquipSleepingbag = 1
+				this.credentials.campEquipSleepingbag = 1
+			} else {
+				this.credentials.imgStatus.campEquipSleepingbag = 0
+				this.credentials.campEquipSleepingbag = 0
+			}
+			if (text.campEquipTarp === 1) {
+				this.credentials.imgStatus.campEquipTarp = 1
+				this.credentials.campEquipTarp = 1
+			} else {
+				this.credentials.imgStatus.campEquipTarp = 0
+				this.credentials.campEquipTarp = 0
+			}
+			if (text.table === 1) {
+				this.credentials.imgStatus.table = 1
+				this.credentials.table = 1
+			} else {
+				this.credentials.imgStatus.table = 0
+				this.credentials.table = 0
+			}
+			if (text.campEquipTent === 1) {
+				this.credentials.imgStatus.campEquipTent = 1
+				this.credentials.campEquipTent = 1
+			} else {
+				this.credentials.imgStatus.campEquipTent = 0
+				this.credentials.campEquipTent = 0
+			}
+			if (text.campEquipBrazier === 1) {
+				this.credentials.imgStatus.campEquipBrazier = 1
+				this.credentials.campEquipBrazier = 1
+			} else {
+				this.credentials.imgStatus.campEquipBrazier = 0
+				this.credentials.campEquipBrazier = 0
+			}
+    },
+
+		styleStatus(text) {
+			if (text.campStyle1 === 1) {
+				this.credentials.styleStatus.campStyle1 = "Y"
+				this.credentials.campStyle1 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle1 = "N"
+				this.credentials.campStyle1 = "N"
+			}
+
+			if (text.campStyle2 === 1) {
+				this.credentials.styleStatus.campStyle2 = "Y"
+				this.credentials.campStyle2 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle2 = "N"
+				this.credentials.campStyle2 = "N"
+			}
+
+			if (text.campStyle3 === 1) {
+				this.credentials.styleStatus.campStyle3 = "Y"
+				this.credentials.campStyle3 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle3 = "N"
+				this.credentials.campStyle3 = "N"
+			}
+
+			if (text.campStyle4 === 1) {
+				this.credentials.styleStatus.campStyle4 = "Y"
+				this.credentials.campStyle4 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle4 = "N"
+				this.credentials.campStyle4 = "N"
+			}
+
+			if (text.campStyle5 === 1) {
+				this.credentials.styleStatus.campStyle5 = "Y"
+				this.credentials.campStyle5 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle5 = "N"
+				this.credentials.campStyle5 = "N"
+			}
+
+			if (text.campStyle6 === 1) {
+				this.credentials.styleStatus.campStyle6 = "Y"
+				this.credentials.campStyle6 = "Y"
+			} else {
+				this.credentials.styleStatus.campStyle6 = "N"
+				this.credentials.campStyle6 = "N"
 			}
 		},
-		check_user_email: function() {
-			if (this.checkId == false || this.checkNickname == false || this.credentials.email == "") {
-				alert("닉네임, 아이디 중복체크 확인 및 이메일을 입력 바랍니다.")
-				this.credentials.email = "";
-			} else {
-				axios
-					.post(`${SERVER_URL}/user/email`, this.credentials)
-					.then(() => {
-						alert("사용 가능한 이메일 입니다. 인증코드를 입력 바랍니다.");
-						this.checkEmail = true;
-						this.possible_email = true;
-					})
-					.catch(() => {
-						if (this.credentials.email != "") {
-							alert("현재 사용중인 이메일 입니다.");
-							this.credentials.email = ""
-						}
-					})
-			}
-		},
+		uploadImg() {
+      console.log("들어왔다");
+      var image = this.$refs["image"].files[0];
 
-		check_user_emailCode: function () {
-			if (this.emailCode == "") {
-				alert("인증코드 다시 입력바랍니다.")
-			} else {
-					axios
-						.post(`${SERVER_URL}/user/email/${this.credentials.email}/${this.emailCode}`)
-						.then(() => {
-							this.checkEmailCode = true;
-							alert("인증 완료")
-						})
-						.catch(() => {
-							if (this.emailCode != "") {
-								alert("인증번호가 일치하지 않습니다.");
-								this.emailCode = "";
-							}
-						})
-			}
-		},
-
-		check_user_nickname: function () {
-			if (this.credentials.nickname == "" ) {
-				alert("닉네임을 다시 입력 바랍니다.")
-				this.credentials.nickname = "";
-			}
-			else {
-				axios
-					.get(`${SERVER_URL}/user/nickname/${this.credentials.nickname}`)
-					.then(() => {
-						alert("사용 가능한 닉네임입니다.")
-						this.checkNickname = true;
-					})
-					.catch(() => {
-						if (this.credentials.nickname != "") {
-							alert("현재 사용중인 닉네임 입니다.");
-							this.credentials.nickname = "";
-						}
-					})
-			}
-		}
-  }
+      const url = URL.createObjectURL(image);
+      this.credentials.userProfileImage = url;
+      console.log(url);
+      console.log(this.credentials.userProfileImage);
+    },
+  },
 }
 </script>
 
@@ -366,4 +692,32 @@ export default {
 	color: red;
 }
 
+.modifygenderButtonOn {
+  width: 40%;
+  margin: 0 1vw;
+  margin-top: 2vh;
+  background-color: skyblue;
+  color: white;
+  border: 0.3vw solid;
+  border-color: skyblue;
+  font-weight: bold;
+  font-size: 2vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  transition-duration: 0.5s;
+}
+.modifygenderButtonOff {
+  width: 40%;
+  margin: 0 1vw;
+  margin-top: 2vh;
+  background-color: white;
+  color: mediumslateblue;
+  border: 0.3vw solid;
+  border-color: mediumslateblue;
+  font-weight: bold;
+  font-size: 2vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  transition-duration: 0.5s;
+}
 </style>

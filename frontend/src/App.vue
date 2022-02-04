@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    
+    <Navbar />
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
 </template>
 
 <script>
-// import Navbar from '@/components/Navbar.vue'
+import Navbar from "@/components/Navbar.vue";
 
 export default {
-  name : 'App',
-  components : {
-    // Navbar,
-  }
-}
+  name: "App",
+  components: {
+    Navbar,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -35,25 +35,26 @@ export default {
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
-  // margin: 0px 0px 0px 0px;
-  // border-bottom: 1px solid #eee;
-  // position: sticky;
-  // background-color: green;
-  // .nav {
-  // }
-  // a {
-  //   font-weight: bold;
-  //   color: #2c3e50;
+// margin: 0px 0px 0px 0px;
+// border-bottom: 1px solid #eee;
+// position: sticky;
+// background-color: green;
+// .nav {
+// }
+// a {
+//   font-weight: bold;
+//   color: #2c3e50;
 
-  //   &.router-link-exact-active {
-  //     color: #42b983;
-  //   }
-  // }
+//   &.router-link-exact-active {
+//     color: #42b983;
+//   }
+// }
 // }
 
- #nav{
-background: whitesmoke;
-width:100vw;
+#nav {
+  background: whitesmoke;
+  width: 100vw;
+  position: fixed;
 }
 #nav {
   padding: 30px;
@@ -66,6 +67,6 @@ width:100vw;
 #nav a.router-link-exact-active {
   color: whitesmoke;
   background: crimson;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 </style>

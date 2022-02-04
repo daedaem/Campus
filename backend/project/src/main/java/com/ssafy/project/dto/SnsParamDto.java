@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SnsParamDto {
+    private int limit;
+    private int offset;
     private String searchWord;
     private int snsNo;
     private int userNo;
-
+    //test
 }

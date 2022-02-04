@@ -5,7 +5,7 @@
       <Fileupload @image="uploadedImage"/>
       
         <div style="margin-left: 30px;">
-          <Filtermake @drink-check="drinkCheck" @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
+          <Filtermake @style-check="styleCheck" @limit-check="limitCheck" @camp-check="campCheck" />
 
           <div align="left" class="filterbox">
             <div align="left" class="filterbox2">
@@ -32,21 +32,22 @@
             <div >
                 <p align="left">제목</p>
                 <div class="form-group">
-                    <input v-model="title" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
+                    <input v-model="partyData.mateTitle" type="text" name="txtName" class="form-control" placeholder="Your Name *" />
                 </div>
             </div>
             <div >
                 <p align="left">메이트 소개</p>
                 <div class="form-group">
-                    <textarea v-model="content" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    <textarea v-model="partyData.mateContent" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
                 </div>
             </div>
             
             <div class="form-group">
-                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test" />
+                <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" @click="test"  />
             </div>
         </div>
       </div>
+      
       
     </body>
   </div>
@@ -75,6 +76,26 @@ export default {
     Fileupload,
     Datepicker,
   },
+  data: function() {
+    return {
+        partyData : {
+          friendlimit : null,
+          campStyleList : null,
+          memberlimit : null,
+          lowestAge : null,
+          highestAge : null,
+          campingsite : null,
+          mateCampstart : null,
+          mateCampend : null,
+          mateCamptype: null,
+          campEquipRequiredList : null,
+
+          mateTitle : null,
+          mateContent: null,
+        },
+        mateImageUrl : null,
+      }
+  },
   methods: {
   //image upload and preview methods
     selectImage () {
@@ -92,75 +113,162 @@ export default {
         this.$emit('input', file[0])
       }
     },
-    drinkCheck(text) {
-      console.log(text)
-    },
+    
     styleCheck(text) {
-      console.log(text)
+      const temp = {
+        style1 : null,
+        style2 : null,
+        style3 : null,
+
+      }
+
+      if (text.length === 1) {
+        temp.style1 = text[0]
+      } else if (text.length === 2) {
+        temp.style1 = text[0], temp.style2 = text[1]
+      } else if (text.length === 3) {
+        temp.style1 = text[0], temp.style2 = text[1], temp.style3 = text[2]
+      }
+      this.partyData.campStyleList = temp
     },
+    
     limitCheck(text) {
-      console.log(text)
+      this.partyData.friendlimit = Number(text)
     },
     campCheck(text) {
-      console.log(text)
+      this.partyData.mateCamptype = text[0]
     },
     memberValue(text) {
-      console.log(text)
+      this.partyData.memberlimit = Number(text)
     },
     ageValue1(text) {
-      console.log(text)
+      this.partyData.lowestAge = Number(text)
     },
     ageValue2(text) {
-      console.log(text)
+      this.partyData.highestAge = Number(text)
     },
     imgStatus(text) {
-      console.log(text)
-    },
+      this.partyData.campEquipRequiredList = text
+    },  
     uploadedImage(file) {
-      console.log(file)
+      
+      this.mateImageUrl = file
+      console.log(this.mateImageUrl)
     },
     dateIn(value) {
       console.log(value)
+        
+      if (value[0].toString().substring(4,7) === 'Jan') {
+        var startMonth = '01'
+      }
+      if (value[0].toString().substring(4,7) === 'Feb') {
+        startMonth = '02'
+      } else if (value[0].toString().substring(4,7) === 'Feb') {
+        startMonth = '02'
+      } else if (value[0].toString().substring(4,7) === 'Mar') {
+        startMonth = '03'
+      } else if (value[0].toString().substring(4,7) === 'Apr') {
+        startMonth = '04'
+      } else if (value[0].toString().substring(4,7) === 'May') {
+        startMonth = '05'
+      } else if (value[0].toString().substring(4,7) === 'Jun') {
+        startMonth = '06'
+      } else if (value[0].toString().substring(4,7) === 'Jul') {
+        startMonth = '07'
+      } else if (value[0].toString().substring(4,7) === 'Aug') {
+        startMonth = '08'
+      } else if (value[0].toString().substring(4,7) === 'Sep') {
+        startMonth = '09'
+      } else if (value[0].toString().substring(4,7) === 'Oct') {
+        startMonth = '10'
+      } else if (value[0].toString().substring(4,7) === 'Nov') {
+        startMonth = '11'
+      } else if (value[0].toString().substring(4,7) === 'Dec') {
+        startMonth = '12'
+      }
+
+      if (value[1].toString().substring(4,7) === 'Jan') {
+        var endMonth = '01'
+      }
+      if (value[1].toString().substring(4,7) === 'Feb') {
+        endMonth = '02'
+      } else if (value[1].toString().substring(4,7) === 'Mar') {
+        endMonth = '03'
+      } else if (value[1].toString().substring(4,7) === 'Apr') {
+        endMonth = '04'
+      } else if (value[1].toString().substring(4,7) === 'May') {
+        endMonth = '05'
+      } else if (value[1].toString().substring(4,7) === 'Jun') {
+        endMonth = '06'
+      } else if (value[1].toString().substring(4,7) === 'Jul') {
+        endMonth = '07'
+      } else if (value[1].toString().substring(4,7) === 'Aug') {
+        endMonth = '08'
+      } else if (value[1].toString().substring(4,7) === 'Sep') {
+        endMonth = '09'
+      } else if (value[1].toString().substring(4,7) === 'Oct') {
+        endMonth = '10'
+      } else if (value[1].toString().substring(4,7) === 'Nov') {
+        endMonth = '11'
+      } else if (value[1].toString().substring(4,7) === 'Dec') {
+        endMonth = '12'
+      }
+      const startYear = value[0].toString().substring(11,15)
+      const startDay = value[0].toString().substring(8,10)
+      const mateCampstart = (startYear+'-'+startMonth+'-'+startDay)
+
+      const endYear = value[1].toString().substring(11,15)
+      const endDay = value[1].toString().substring(8,10)
+      const mateCampend = endYear+'-'+endMonth+'-'+endDay
+
+      this.partyData.mateCampstart = mateCampstart
+      this.partyData.mateCampend = mateCampend
     },
+    
 
     test() {
-      console.log('test')
+      // console.log(this.partyData)
+      console.log(2)
       axios({
-        method: 'get',
+        method: 'post',
+        
         url : 'http://localhost:8080/mate',
-
+        data : this.partyData,
+  
       })
-
       .then((res) => {
-        console.log(res.data.list)
+        // console.log(res.dada.dto.mateNo)
+        console.log(res.data.dto.mateNo)
+        console.log(this.mateImageUrl)
+        axios({
+        method: 'post',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        data : this.mateImageUrl
+        
+      })
+        .then(res => {
+          console.log(res)
+          this.$router.push({name:'Mateparty'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
       })
 
       .catch(err => {
         console.log(err)
       })
+      
+
+    
+      
     }
     
     
 
   },
-  data: function() {
-    return {
-        title : '',
-        content : '',
-        partyData : {
-          kind : null,
-          friendimit : null,
-          style : null,
-          memberlimit : null,
-          agelimit : null,
-          campingsite : null,
-          startdate : null,
-          enddate : null,
-          parttitle : null,
-          partycontent : null,
-        },
-      }
-  },
+  
   
  }  
 

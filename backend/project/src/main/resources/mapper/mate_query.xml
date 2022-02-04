@@ -3,36 +3,110 @@
 
 <mapper namespace="com.ssafy.project.dao.MateDao">
 
-<!-- 게시물 등록과 파일 첨부 -->
-<insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
-    insert into mate(mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle, mateCampstart,
-                        mateCampend, userNo, fileId, fileName, fileSize, fileContentType, fileUrlm , mateCamptype )
-                    values(#{mateTitle}, #{mateCampsite}, #{lowestAge}, #{highestAge}, #{mateContent}, 
-                        #{mateCampstyle}, #{mateCampstart}, #{mateCampend}, #{userNo},
-                         #{fileId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl}, #{mateCamptype} )
-</insert>
+    <!-- mate 등록 -->
+    <insert id="mateInsert" parameterType="com.ssafy.project.dto.MateDto" useGeneratedKeys="true" keyProperty="mateNo">
+        INSERT INTO mate( mateCreateTime, mateUpdateTime, mateCampsite, mateCamptype, mateCampstart, mateCampend, lowestAge, highestAge,
+                            mateTitle, mateContent, friendlimit, memberlimit, contentId, userNo )
+                VALUES( now(), now(), #{mateCampsite},#{mateCamptype},#{mateCampstart},
+                        #{mateCampend},#{lowestAge},#{highestAge},
+                        #{mateTitle},#{mateContent},#{friendlimit},#{memberlimit}, #{contentId}, #{userNo} )
+    </insert>
 
-<!-- 모든 게시물 조회 -->
-<select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
-    select mateNo, mateTitle, mateCampsite, lowestAge, highestAge, mateContent, mateCampstyle,
-        mateCampstart, mateCampend, userNo, mateCreateTime, mateUpdateTime, fileId, fileName, fileSize, fileContentType, fileUrl, mateCamptype
-        from mate
-        order by mateNo desc;
-</select>
+    <insert id="campStyleListInsert" parameterType="com.ssafy.project.dto.MateCampStyleDto" >
+        INSERT INTO mateCampStyle ( mateNo, style1, style2, style3 ) 
+                VALUES ( #{mateNo}, #{style1}, #{style2}, #{style3} )
+    </insert>
 
-<!-- 게시물 삭제 -->
-<delete id="mateDelete" parameterType="int">
-    delete from mate where mateNo = #{mateNo}
-</delete>
+    <insert id="campEquipReuireListInsert" parameterType="com.ssafy.project.dto.MateCampEquipRequiredDto" >
+        INSERT INTO mateCampEquipRequire ( mateNo, brazier, burner, chair, icebox, lantern, powerstrip, sleepingbag, table1, tarp, tent)
+                VALUES ( #{mateNo}, #{brazier}, #{burner}, #{chair}, #{icebox}, #{lantern}, #{powerstrip}, #{sleepingbag}, #{table1}, #{tarp}, #{tent})
+    </insert>
 
-<select id="mateFileUrlDeleteList" parameterType="int" resultType="string">
-    select fileUrl from mate where mateNo = #{mateNo}
-</select>
+    <select id="mateNoselect"  resultType="int">
+        SELECT mateNo from mate where mateCampstyle is null
+    </select>
 
-<select id="mateListTotalCount" resultType="int">
-    select count(*) from mate
-</select>
+    <update id="mateCheck" parameterType="int">
+        UPDATE mate SET mateCampstyle = '1' WHERE mateNo = #{mateNo}
+    </update>
 
+    <update id="mateImageInsert" parameterType="com.ssafy.project.dto.MateDto" >
+        UPDATE  mate SET mateImageUrl = #{mateImageUrl}
+            WHERE mateNo = #{mateNo}
+    </update>
 
+    <!-- 모든 게시물 조회 -->
+    <select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
+        select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
+            m.mateCamptype, m.mateCampstart, m.mateCampend, m.contentId, m.mateStatus, m.userNo, m.lowestAge, m.mateContent,
+            m.highestAge, m.mateTitle, m.memberlimit, u.userNickname
+            from mate m, user u
+            where m.userNo = u.userNo
+            order by m.mateNo desc;
+    </select>
 
+    <!-- 게시물 삭제 -->
+    <delete id="mateDelete" parameterType="int">
+        DELETE FROM mateCampEquipRequire WHERE mateNo = #{mateNo};
+        DELETE FROM mateCampStyle WHERE mateNo = #{mateNo};
+        DELETE FROM mateList WHERE mateNo = #{mateNo};
+        DELETE FROM mate WHERE mateNo = #{mateNo};
+    </delete>
+    
+    <!-- 리스트 개수-->
+    <select id="mateListTotalCount" resultType="int">
+        select count(*) from mate
+    </select>
+
+    <!-- detail -->
+    <select id="mateDetail" parameterType="int" resultType="com.ssafy.project.dto.MateDto">
+        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, 
+                m.lowestAge, m.highestAge, m.mateTitle, m.mateContent, m.friendlimit, m.memberlimit, u.userProfileImage, u.userNickName
+        FROM mate m, user u
+        WHERE m.userNo = u.userNo
+            AND mateNo = #{mateNo}
+    </select>
+
+    <select id="mateCampStyleList" parameterType="int" resultType="com.ssafy.project.dto.MateCampStyleDto">
+        SELECT style1, style2, style3
+        FROM mateCampStyle
+        WHERE mateNo = #{mateNo}
+    </select>
+
+    <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
+        select u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        from user u, userRate r, campStyle c, mateList m
+        where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
+            and u.userNo = r.userNo
+            and u.userNo = c.userNo
+            and u.userNo = m.userNo
+            and m.mateNo = #{mateNo};
+
+        
+    </select>
+
+    <select id="userCampStyle" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
+        SELECT u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6 
+        FROM user u, userRate r, campStyle c 
+        WHERE u.userNo = #{userNo} and r.userNo = #{userNo} and c.userNo = #{userNo}
+    </select>
+
+    <select id="mateCampEquipRequiredList" parameterType="int" resultType="com.ssafy.project.dto.MateCampEquipRequiredDto">
+        SELECT brazier, burner, chair, icebox, lantern,
+                    powerstrip, sleepingbag, table1, tarp, tent
+        FROM mateCampEquipRequire
+        WHERE mateNo = #{mateNo}
+    </select>
+
+    <select id="mateSnsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
+        SELECT snsImageNo, snsImageUrl, snsNo FROM snsImage
+        WHERE snsNo IN (select snsNo FROM sns
+                        WHERE userNo = #{userNo});
+    </select>
+
+    <!-- mate apply insert -->
+    <insert id="mateApplyInsert" parameterType="com.ssafy.project.dto.MateCampStyleDto">
+        INSERT INTO mateList (userNo, mateListNum, userAge, mateNo, userGender)
+                VALUES (#{userNo}, #{mateListNum}, #{userAge}, #{mateNo}, #{userGender})
+    </insert>
 </mapper>

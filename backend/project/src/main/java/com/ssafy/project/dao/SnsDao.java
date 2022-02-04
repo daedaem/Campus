@@ -23,7 +23,7 @@ public interface SnsDao {
     public int snsListSearchWordTotalCount();
 
     public int snsImageInsert(SnsImageDto dto);
-    public List<SnsImageDto> snsImageList(int snsImageNo);
+    public List<SnsImageDto> snsImageList(int snsNo);
     // public int snsImageDelete(int snsNo);
     // public List<String> snsImageUrlDeleteList(int snsNo);
     // 이미지 업데이트는 지우고 다시 넣는 방식으로
@@ -32,6 +32,7 @@ public interface SnsDao {
         @Param("userNo") int userNo
     );
     public int snsLikeDelete(int snsNo, int userNo);
+    public List<SnsDto> likeList(int userNo);
 
     public SnsDto snsDetail(SnsParamDto snsParamDto);
 
