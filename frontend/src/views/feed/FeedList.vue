@@ -1,5 +1,6 @@
 <template>
   <div class="FeedListTotalframe d-flex">
+    <!-- <infinite-scroll @infini></infinite-scroll> -->
     <div class="FeedListFrame">
       <router-link
         class="text-decoration-none fw-bold text-primary align-middle align-self-center"
@@ -14,8 +15,14 @@
       >
         <div class="total-frame">
           <div>
-            <feed-list-items v-for="(feed, i) in feeds" :key="i" :feed="feed">
+            <!-- <infinite-scroll @infinite-scroll="feed"> -->
+            <feed-list-items
+              v-for="(feed, i) in feedList"
+              :key="i"
+              :feed="feed"
+            >
             </feed-list-items>
+            <!-- </infinite-scroll> -->
           </div>
         </div>
       </div>
@@ -24,25 +31,63 @@
 </template>
 
 <script>
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = `http://localhost:8080`;
+
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
+import axios from "axios";
+// import { ref } from "vue";
+// import InfiniteScroll from "infinite-loading-vue3";
+
+// import FeedDetail from "./FeedDetail.vue";
+// import InfiniteLoading from "v3-infinite-loading";
+// import "v3-infinite-loading/lib/style.css";
 
 export default {
   name: "FeedList",
   components: {
+    // InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
+
+    // FeedDetail
   },
-  // created: function () {
-  //   this.$store.dispatch("LoadFeedListItems");
-  // },
+  methods: {},
+  created: function () {
+    // console.log(this.$store.state.user);
+    axios
+      .get(`${SERVER_URL}/sns`)
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+
   computed: {
-    ...mapState(["feeds"]),
+    ...mapState(["feedList"]),
+    ...mapState(["user"]),
   },
   // created: function() {
   //   console.log(this.feeds)
   // }
 };
+// let pagNum = 0
+// 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
+// document.addEventListener("scroll", () => {
+//   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+//   if (scrollHeight - Math.round(scrollTop) === clientHeight) {
+//     axios({
+//       method: 'get',
+//       url:`/feed/?page=${pageNum}`,
+//     })
+//     }
+//   }
+// });
 </script>
 
 <style scoped>

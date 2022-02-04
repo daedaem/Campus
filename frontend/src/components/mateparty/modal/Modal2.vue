@@ -1,27 +1,27 @@
 <template>
  <h4>캠핑 유형</h4>
 
-    <div class="filterbox">
+    <div id="checkboxgroup" class="filterbox">
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="campCheck" type="checkbox" value="오토캠핑" id="flexCheckDefault">
+        <input :disabled="campCheck.length > 0 && !campCheck.includes('오토캠핑')"  class="form-check-input" v-model="campCheck" type="checkbox" value="오토캠핑" id="flexCheckDefault" name="check[]">
         <label class="form-check-label" for="flexCheckDefault">
           오토캠핑
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="campCheck" type="checkbox" value="글램핑" id="flexCheckChecked2" >
+        <input  :disabled="campCheck.length > 0 && !campCheck.includes('글램핑') " class="form-check-input" v-model="campCheck" type="checkbox" value="글램핑" id="flexCheckChecked2" name="check[]" >
         <label class="form-check-label" for="flexCheckChecked2">
           글램핑
         </label>
       </div>
       <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="campCheck" type="checkbox" value="카라반" id="flexCheckChecked3" >
+        <input  :disabled="campCheck.length > 0 && !campCheck.includes('카라반')" class="form-check-input" v-model="campCheck" type="checkbox" value="카라반" id="flexCheckChecked3" name="check[]" >
         <label class="form-check-label" for="flexCheckChecked3">
           카라반
         </label>
       </div>
-      <div class="form-check filterbox1">
-        <input class="form-check-input" v-model="campCheck" type="checkbox" value="차박" id="flexCheckChecked4" >
+      <div id="test" class="form-check filterbox1">
+        <input :disabled="campCheck.length > 0 && !campCheck.includes('차박')" class="form-check-input" v-model="campCheck" type="checkbox" value="차박" id="flexCheckChecked4" name="check[]" >
         <label class="form-check-label" for="flexCheckChecked4">
           차박
         </label>
@@ -30,7 +30,7 @@
    
     <div align="center">
         <div class="col-sm-3">
-        <a class="btn btn-lg" href="#" @click="$emit('camp-check',campCheck)">
+        <a data-bs-dismiss="modal" class="btn btn-lg" href="#" @click="$emit('camp-check',campCheck) ">
             <span>button</span>
         </a>
     </div>
@@ -46,20 +46,16 @@ export default {
   setup() {
     
     const campCheck = ref([])
-    const submit = () => {
-      // console.log(campCheck.value)
-      // this.$emit('camp-check',campCheck)
-    }
+
+
+
     return {
       campCheck,
-      submit
+     
+    
     }
   },
-  // watch : {
-  //   campCheck(text) {
-  //     console.log(text)
-  //   }
-  // }
+  
 }
 </script>
 
