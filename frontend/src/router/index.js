@@ -4,14 +4,18 @@ import Makeparty from "../views/mateparty/Makeparty.vue";
 import Mateparty from "../views/mateparty/Mateparty.vue";
 import Signup from "../views/user/SignUp.vue";
 import Login from "../views/user/Login.vue";
-import addSign from "../views/user/addSign.vue";
 import FeedList from "../views/feed/FeedList.vue";
 import FeedDetail from "../views/feed/FeedDetail.vue";
 import FeedCreate from "../views/feed/FeedCreate.vue";
 import Partyinfo from "../views/mateparty/Partyinfo.vue";
 import Matematch from "../views/matematch/Matematch.vue";
-import Mainpage from "../Mainpage.vue" 
+import Mainpage from "../Mainpage.vue";
 import findPw from "../views/user/FindPassword.vue";
+import Survey from "../views/user/Survey.vue";
+import Profile from "../views/user/Profile.vue";
+import Modify from "../views/user/ModifyUser.vue";
+import Campsite from "../views/campsite/Campsite.vue";
+import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 
 const routes = [
   {
@@ -40,18 +44,18 @@ const routes = [
     component: Makeparty,
   },
   {
-    path: "/feed",
+    path: "/sns",
     name: "FeedList",
     component: FeedList,
   },
   {
-    path: "/feed/detail",
-    // path: "/feed/:feed_id",
+    // path: "/sns/:snsNo",
+    path: "/sns/:snsNo",
     name: "FeedDetail",
     component: FeedDetail,
   },
   {
-    path: "/feed/create",
+    path: "/create",
     name: "FeedCreate",
     component: FeedCreate,
   },
@@ -72,35 +76,47 @@ const routes = [
     component: Signup,
   },
   {
-    path: "/addsign",
-    name: "addSign",
-    component: addSign,
-  },
-  {
     path: "/findPw",
     name: "findPw",
     component: findPw,
   },
   {
-    path: "/mateparty/partyinfo",
+    path: "/mateparty/:mateNo",
     name: "Partyinfo",
     component: Partyinfo,
+    props: true,
   },
   {
     path: "/matematch/",
     name: "Matematch",
     component: Matematch,
   },
+  {
+    path: "/survey/",
+    name: "Survey",
+    component: Survey,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/modifyuser",
+    name: "Modify",
+    component: Modify,
+  },
+  {
+    path: "/campsite/",
+    name: "Campsite",
+    component: Campsite,
+  },
+  {
+    path: "/campsitedetail/",
+    name: "Campsitedetail",
+    component: Campsitedetail,
+  },
 ];
-  
-  
-
-
-
-
-
-
-
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
