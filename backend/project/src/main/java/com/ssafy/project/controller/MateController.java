@@ -80,7 +80,13 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     System.out.println(multipartFile);
-    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
+    MateResultDto mateResultDto = new MateResultDto();
+    if(multipartFile.isEmpty()){
+        mateResultDto.setResult(SUCCESS);
+    }else{
+        mateResultDto = service.mateImageInsert(mateNo, multipartFile);
+    }
+    
 
     if( mateResultDto.getResult() == SUCCESS ){
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
