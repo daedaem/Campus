@@ -35,6 +35,47 @@
             WHERE mateNo = #{mateNo}
     </update>
 
+    <!-- mate update -->
+    <update id="mateUpdate" parameterType="com.ssafy.project.dto.MateDto">
+        UPDATE mate SET mateUpdateTime = now(),
+                        mateCampsite = #{mateCampsite},
+                        mateCampstart = #{mateCampstart},
+                        mateCampend = #{mateCampend},
+                        lowestAge = #{lowestAge},
+                        highestAge = #{highestAge},
+                        mateTitle = #{mateTitle},
+                        mateContent = #{mateContent},
+                        friendlimit = #{friendlimit},
+                        memberlimit = #{memberlimit},
+                        contentId = #{contentId},
+                    WHERE mateNo = #{mateNo}
+    </update>
+
+    <update id="campStyleListUpdate" parameterType="com.ssafy.project.dto.MateCampStyleDto" >
+        UPDATE mateCampStyle SET style1 = #{style1},
+                                 style2 = #{style2},
+                                 style3 = #{style3}
+                            WHERE mateNo = #{mateNo}
+    </update>
+
+    <update id="campEquipReuireListUpdate" parameterType="com.ssafy.project.dto.MateCampEquipRequiredDto" >
+        UPDATE mateCampEquipRequire SET brazier = #{brazier}, 
+                                        burner = #{burner},
+                                        chair = #{chair},
+                                        icebox = #{icebox},
+                                        lantern = #{lantern}, 
+                                        powerstrip = #{powerstrip},
+                                        sleepingbag = #{sleepingbag},
+                                        table1 = #{table1},
+                                        tarp = #{tarp}, 
+                                        tent = #{tent}
+                                    WHERE mateNo = #{mateNo}
+    </update>
+
+    <update id="mateImageDelete" parameterType="int">
+        UPDATE mate SET mateImageUrl = NULL WHERE mateNo = #{mateNo} 
+    </update>
+
     <!-- 모든 게시물 조회 -->
     <select id="mateList" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
         select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
