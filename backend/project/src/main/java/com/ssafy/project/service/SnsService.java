@@ -28,4 +28,6 @@ public interface SnsService {
 
     public SnsResultDto snsImageInsert(int snsNo, List<MultipartFile> multipartFile);
 
+    
+
 }
