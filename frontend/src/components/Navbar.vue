@@ -35,7 +35,7 @@
                 <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/matematch">메이트(매칭)</a>
+                <a class="dropdown-item" @click="goMatch">메이트(매칭)</a>
               </li>
               <!-- <li><hr class="dropdown-divider"></li> -->
             </ul>
@@ -75,10 +75,16 @@
 <script>
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import {useStore} from 'vuex'
 export default {
   name: "Navbar",
   setup() {
-    const router = useRouter();
+    const store = useStore()
+    const router = useRouter()
+    const userNo = store.state.myNum
+    const goMatch = () => {
+      router.push({name:'Matematch', params : { userNo}})
+    }
     const onoff = ref(0);
     const refresh = () => {
       if (onoff.value === 0) {
@@ -94,6 +100,7 @@ export default {
     return {
       refresh,
       onoff,
+      goMatch
     };
   },
   methods: {

@@ -205,7 +205,7 @@ public class CampController {
         CampSiteResultDto campSiteResultDto;
 
         campSiteResultDto = campSiteService.campSiteDetail(contentId);
-
+        System.out.println(campSiteResultDto);
         if (campSiteResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampSiteResultDto>(campSiteResultDto, HttpStatus.OK);
         } else {
