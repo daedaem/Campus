@@ -92,7 +92,7 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
-
+    // sns 이미지 등록
     @PostMapping(value="/sns/create/{snsNo}")
     private ResponseEntity<SnsResultDto> snsImageInsert(@PathVariable int snsNo, @RequestParam("fileName") List<MultipartFile> multipartFile){
 
@@ -110,7 +110,7 @@ public class SnsController {
         }
     }
     // 글 수정
-    @PutMapping(value="/sns/{snsNo}")
+    @PutMapping(value="/sns/modify/{snsNo}")
     private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto){
 
         //HttpSession session = request.getSession();
@@ -120,6 +120,38 @@ public class SnsController {
         SnsResultDto snsResultDto = snsService.snsUpdate(snsDto);
 
         if( snsResultDto.getResult() == SUCCESS ){
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+    // 이미지 수정
+    @PutMapping(value="/sns/modifyImage/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsImageUpdate(@PathVariable int snsNo, @RequestParam("fileName") List<MultipartFile> multipartFile){
+
+        // HttpSession session = request.getSession();
+
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        SnsResultDto snsResultDto = snsService.snsImageUpdate(snsNo, multipartFile);
+
+        if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+    // 이미지가 없을때 수정
+    @PutMapping(value="/sns/modifyImage/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsImageNullUpdate(@PathVariable int snsNo){
+
+        // HttpSession session = request.getSession();
+
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        SnsResultDto snsResultDto = snsService.snsImageNullUpdate(snsNo);
+
+        if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
         }else{
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
