@@ -300,7 +300,7 @@ export default {
             .then(() => {
               // console.log(this.my_comment.snsNo);
               // console.log(this.$store.state.userList.userNo);
-              // this.my_comment = null;
+              this.my_comment.snsReplyContent = null;
               // console.log("댓글남기자");
             })
             .then(() => {
@@ -337,10 +337,14 @@ export default {
     },
 
     follow() {
-      if (this.followed == 0) {
-        this.followed = 1;
-      } else this.followed == 1;
-      alert("정말 취소하시겠나요?");
+      axios({ method: "post", url: `{${SERVER_URL}}/follow` }).then((res) => {
+        console.log(res);
+      });
+
+      // if (this.followed == 0) {
+      //   this.followed = 1;
+      // } else this.followed == 1;
+      // alert("정말 취소하시겠나요?");
     },
   },
   created: function () {
