@@ -159,6 +159,8 @@ public class MateServiceImpl implements MateService {
         try {
 
             dao.mateUpdate(dto);
+            dao.campStyleListUpdate(dto.getCampStyleList());
+            dao.campEquipReuireListUpdate(dto.getCampEquipRequiredList());
 
             mateResultDto.setResult(SUCCESS);
             
@@ -202,7 +204,6 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
         try {
             dao.mateImageDelete(mateNo);
-            
 
             mateResultDto.setResult(SUCCESS);
         } catch (Exception e) {
