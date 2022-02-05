@@ -31,7 +31,7 @@
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
         UPDATE sns
-            SET snsContent = #{snsContent}
+            SET snsContent = #{snsContent}, snsUpdateTime = now()
             WHERE snsNo = #{snsNo}
     </update>
 

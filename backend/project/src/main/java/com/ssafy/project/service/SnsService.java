@@ -18,6 +18,8 @@ public interface SnsService {
 
     public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile);
 
+    public SnsResultDto snsImageNullUpdate(int snsNo);
+
     public SnsResultDto snsDelete(int snsNo);
 
     public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto);

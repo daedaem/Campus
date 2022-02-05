@@ -81,7 +81,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
 
-        MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
+    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
     
     
 
@@ -120,9 +120,8 @@ public class MateController {
     if( mateResultDto.getResult() == SUCCESS ){
         
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+    }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
