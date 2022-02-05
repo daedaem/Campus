@@ -32,7 +32,7 @@ public interface MateService {
 
     public MateMatchResultDto mateMatch(int userNo);
 
-
+    public MateResultDto mateListMain(MateParamDto mateParamDto);
 
     
 

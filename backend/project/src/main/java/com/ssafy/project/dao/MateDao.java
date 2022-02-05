@@ -62,5 +62,7 @@ public interface MateDao {
     public void mateImageInsert(MateDto dto);
 
     public List<MateMatchDto> mateMatchList(MateMatchDto dto);
+
+    public List<MateDto> mateListMain(MateParamDto mateParamDto);
     
 }

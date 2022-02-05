@@ -227,4 +227,22 @@ public class MateController {
 
     }
 
+    //메인 페이지에 메이트 5개 띄우기
+    @GetMapping(value = "/mate/main")
+    private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
+
+        MateResultDto mateResultDto;
+
+        // call mateList from MateService
+        mateResultDto = service.mateListMain(mateParamDto);
+        
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+
+    }
+
 }

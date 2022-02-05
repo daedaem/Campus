@@ -142,7 +142,7 @@ public class SnsController {
         }
     }
     // 이미지가 없을때 수정
-    @PutMapping(value="/sns/modifyImage/{snsNo}")
+    @PutMapping(value="/sns/modifyImageNull/{snsNo}")
     private ResponseEntity<SnsResultDto> snsImageNullUpdate(@PathVariable int snsNo){
 
         // HttpSession session = request.getSession();
