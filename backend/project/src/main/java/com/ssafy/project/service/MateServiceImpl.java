@@ -329,6 +329,23 @@ public class MateServiceImpl implements MateService {
         return mateMatchResultDto;
     }
 
+    @Override
+    public MateResultDto mateListMain(MateParamDto mateParamDto) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+            
+            mateResultDto.setList(dao.mateListMain(mateParamDto));
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
 
 
 

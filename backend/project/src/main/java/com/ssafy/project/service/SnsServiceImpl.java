@@ -63,7 +63,8 @@ public class SnsServiceImpl implements SnsService {
         return fileName.substring(fileName.lastIndexOf("."));
     }
 
-@Override
+    // sns 등록
+    @Override
     @Transactional
     public SnsResultDto snsInsert(SnsDto dto) {
         
@@ -86,7 +87,7 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-
+    // sns 이미지 등록
     @Override
     public SnsResultDto snsImageInsert(int snsNo, List<MultipartFile> multipartFile) {
         
@@ -118,7 +119,7 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-
+    //sns 업데이트
     @Override
     @Transactional
     public SnsResultDto snsUpdate(SnsDto dto) {
@@ -128,8 +129,6 @@ public class SnsServiceImpl implements SnsService {
         try {
             dao.snsUpdate(dto);
 
-
-            snsResultDto.setDto(dto); 
             snsResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {
@@ -139,14 +138,13 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-
+    // sns 이미지 업데이트
     @Override
     public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile) {
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
             dao.snsImageDelete(snsNo);
-
 
             for (MultipartFile files : multipartFile) {
                 
@@ -172,6 +170,24 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
+
+    // sns 이미지 없을때 업데이트
+    @Override
+    public SnsResultDto snsImageNullUpdate(int snsNo) {
+        
+        SnsResultDto snsResultDto = new SnsResultDto();
+        
+        try {
+            dao.snsImageDelete(snsNo);
+
+            snsResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+        return snsResultDto;
+    }
+
 
     // 리스트를 생성하고 sns와 user를 join한 값들을 list에 순차적으로 저장(count는 sns에 있는 튜플의 개수로 지정)
     @Override
@@ -270,7 +286,5 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-
-
 
 }

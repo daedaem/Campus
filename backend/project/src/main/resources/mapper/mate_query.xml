@@ -167,5 +167,15 @@
         LIMIT 4;
     </select>
 
+    <!-- mate main select -->
+    <select id="mateListMain" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
+        select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
+            m.mateCamptype, m.mateCampstart, m.mateCampend, m.contentId, m.mateStatus, m.userNo, m.lowestAge, m.mateContent,
+            m.highestAge, m.mateTitle, m.memberlimit, u.userNickname
+            from mate m, user u
+            where m.userNo = u.userNo
+            order by m.mateNo desc
+            limit 5;
+    </select>
 
 </mapper>
