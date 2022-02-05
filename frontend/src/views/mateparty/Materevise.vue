@@ -136,6 +136,7 @@ export default {
     
     styleCheck(text) {
       const temp = {
+        mateNo : this.Nm,
         style1 : null,
         style2 : null,
         style3 : null,
@@ -169,6 +170,7 @@ export default {
     },
     imgStatus(text) {
       this.partyData.campEquipRequiredList = text
+      this.partyData.campEquipRequiredList['mateNo'] = this.Nm
     },  
     uploadedImage(file) {
       
@@ -257,10 +259,10 @@ export default {
   
       })
       .then((res) => {
-        // console.log(res.dada.dto.mateNo)
-        console.log(res.data.dto.mateNo)
-        console.log(this.mateImageUrl)
+        console.log(res)
+        
         if (this.mateImageUrl) {
+          console.log('이미지 있어요')
         axios({
         method: 'put',
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -276,6 +278,7 @@ export default {
           console.log(err)
         })
         } else { 
+          console.log('이미지 음서요')
           axios({
             method : 'put',
             url : `http://localhost:8080/mate/imagenull/${this.Nm}`,
