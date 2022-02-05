@@ -112,8 +112,6 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
         
         try {
-            System.out.println("!!");
-            System.out.println(multipartFile);
             String fileName = multipartFile.getOriginalFilename();
             System.out.println(fileName);
             fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
@@ -128,7 +126,6 @@ public class MateServiceImpl implements MateService {
             System.out.println(dto.getMateImageUrl());
             dao.mateImageInsert(dto);
             
-            System.out.println(dto.toString());
 
             mateResultDto.setResult(SUCCESS);
 
@@ -148,6 +145,66 @@ public class MateServiceImpl implements MateService {
             dao.mateDelete(mateNo);
             mateResultDto.setResult(SUCCESS);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateUpdate(MateDto dto) {
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+
+            dao.mateUpdate(dto);
+
+            mateResultDto.setResult(SUCCESS);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateImageUpdate(int mateNo, MultipartFile multipartFile) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateImageDelete(mateNo);
+
+            String fileName = multipartFile.getOriginalFilename();
+            System.out.println(fileName);
+            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+            File file = this.convertToFile(multipartFile, fileName);
+            String TEMP_URL = this.uploadFile(file, fileName);
+
+            System.out.println(TEMP_URL);
+
+            MateDto dto = new MateDto();
+            dto.setMateNo(mateNo);
+            dto.setMateImageUrl(TEMP_URL);
+            dao.mateImageInsert(dto);
+            
+
+            mateResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateImageUpdateNull(int mateNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateImageDelete(mateNo);
+            
+
+            mateResultDto.setResult(SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             mateResultDto.setResult(FAIL);
@@ -270,6 +327,10 @@ public class MateServiceImpl implements MateService {
 
         return mateMatchResultDto;
     }
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,13 +80,9 @@ public class MateController {
     //로그인 했을시 session 처리 작성해주기
     //미작성
     //call mateInsert from MateService
-    System.out.println(multipartFile);
-    MateResultDto mateResultDto = new MateResultDto();
-    if(multipartFile.isEmpty()){
-        mateResultDto.setResult(SUCCESS);
-    }else{
-        mateResultDto = service.mateImageInsert(mateNo, multipartFile);
-    }
+
+        MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
+    
     
 
     if( mateResultDto.getResult() == SUCCESS ){
@@ -106,6 +103,62 @@ public class MateController {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @PutMapping(value="/mate")
+    private ResponseEntity<MateResultDto> mateUpdate(@RequestBody MateDto mateDto){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+    mateDto.setContentId(10);
+    mateDto.setUserNo(25);
+
+    MateResultDto mateResultDto = service.mateUpdate(mateDto);
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @PostMapping(value="/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageUpdate(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+
+    MateResultDto mateResultDto = service.mateImageUpdate(mateNo, multipartFile);
+    
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    @PostMapping(value="/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageUpdateNull(@PathVariable int mateNo){
+
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+
+    MateResultDto mateResultDto = service.mateImageUpdateNull(mateNo);
+    
+
+    if( mateResultDto.getResult() == SUCCESS ){
+        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,
+        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 

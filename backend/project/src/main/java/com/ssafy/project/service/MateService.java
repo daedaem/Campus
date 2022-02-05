@@ -16,6 +16,12 @@ public interface MateService {
 
     public MateResultDto mateDelete(int mateNo);
 
+    public MateResultDto mateUpdate(MateDto dto);
+
+    public MateResultDto mateImageUpdate(int mateNo, MultipartFile multipartFile);
+
+    public MateResultDto mateImageUpdateNull(int mateNo);
+
     public MateResultDto mateList(MateParamDto mateParamDto);
 
     public MateResultDto mateDetail(int mateNo);
@@ -25,6 +31,8 @@ public interface MateService {
     public MateResultDto mateApplyDelete(int mateListNo);
 
     public MateMatchResultDto mateMatch(int userNo);
+
+
 
     
 
