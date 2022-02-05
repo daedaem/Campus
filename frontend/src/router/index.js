@@ -16,6 +16,7 @@ import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
+import FeedModify from "../views/feed/FeedModify.vue";
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     path: "/sns/:snsNo",
     name: "FeedDetail",
     component: FeedDetail,
+  },
+  {
+    path: "/sns/:snsNo/update",
+    name: "FeedModify",
+    component: FeedModify,
   },
   {
     path: "/create",

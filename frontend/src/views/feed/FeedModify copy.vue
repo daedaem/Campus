@@ -3,7 +3,7 @@
     <div class="FeedDetailTotal">
       <div class="FeedDetailTotalFrame">
         <div
-          class="feedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
+          class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
         >
           <div
             class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
@@ -11,7 +11,7 @@
             <div>
               <feed-detail-carousel
                 class="feed-detail-carousel"
-                v-bind:imageList="feedDetailContents"
+                v-bind:feedDetailContents="feedDetailContents"
               ></feed-detail-carousel>
             </div>
           </div>
@@ -48,7 +48,16 @@
             </div>
             <div class="FeedDetail-RightBox-ContentBox text-start p-3">
               <div class="fs-6" style="overflow: auto">
-                {{ this.feedDetailContents.snsContent }}
+                <div class="form-floating">
+                  <div>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder="당신의 캠프여정을 공유하세요."
+                      rows="8"
+                      v-model="this.feedDetailContents.snsContent"
+                    ></b-form-textarea>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -392,7 +401,7 @@ export default {
     margin-top: 2%;
     border-radius: 15px;
   }
-  .feedDetailContentsFrame {
+  .FeedDetailContentsFrame {
     width: 100%;
     background-color: #ffff;
     border-radius: 15px;
@@ -406,7 +415,7 @@ export default {
     height: 100%;
     border-radius: 15px;
   }
-  .feedDetailContentsFrame {
+  .FeedDetailContentsFrame {
     width: 100%;
     background-color: #ffff;
     height: 100%;
@@ -454,7 +463,7 @@ export default {
   height: 100%;
 } */
 
-.feedDetailContentsFrame {
+.FeedDetailContentsFrame {
   border-bottom: 1px solid #eee;
   /* background-color: bisque; */
 }
