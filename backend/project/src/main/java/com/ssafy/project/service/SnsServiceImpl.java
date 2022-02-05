@@ -107,8 +107,9 @@ public class SnsServiceImpl implements SnsService {
                 
                 dao.snsImageInsert(snsImageDto);
 
-                snsResultDto.setResult(SUCCESS);
             }
+            snsResultDto.setImageList(dao.snsImageList(snsNo));
+            snsResultDto.setResult(SUCCESS);
             
         } catch (Exception e) {
             e.printStackTrace();

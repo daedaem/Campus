@@ -19,6 +19,8 @@ public interface MateDao {
     
     public int mateInsert(MateDto dto);
     public int mateDelete(int mateNo);
+    public int mateUpdate(MateDto dto);
+
     public List<MateDto> mateList(MateParamDto mateParamDto);
 
     public List<String> mateFileUrlDeleteList(int mataNo);
@@ -28,6 +30,12 @@ public interface MateDao {
     public void campStyleListInsert(MateCampStyleDto dto);
 
     public void campEquipReuireListInsert(MateCampEquipRequiredDto dto);
+
+    public void campStyleListUpdate(MateCampStyleDto dto);
+
+    public void campEquipReuireListUpdate(MateCampEquipRequiredDto dto);
+
+    public void mateImageDelete(int mateNo);
 
     public MateDto mateDetail(int mateNo);
 
