@@ -66,7 +66,7 @@ import axios from 'axios'
 
 
 export default {
-  name: 'Makeparty',
+  name: 'Materevise',
   components : {
     Items,
     Filtermake,
@@ -89,16 +89,32 @@ export default {
           mateCampend : null,
           mateCamptype: null,
           campEquipRequiredList : null,
-
+          mateNo : null,
           mateTitle : null,
           mateContent: null,
         },
         mateImageUrl : null,
+        prevData : null,
+        Nm : null,
+        
       }
   },
   created () {
-    console.log(this.$store.state.userList)
-    console.log(this.$store.state.mateList)
+    this.Nm = this.$route.params.mateNo
+    this.partyData.mateNo = this.Nm
+    axios({
+      method : 'get',
+      url : `http://localhost:8080/mate/${this.Nm}`
+    })
+    .then(res => {
+      console.log(res.data.dto)
+      this.partyData.mateTitle = res.data.dto.mateTitle
+      this.partyData.mateContent = res.data.dto.mateContent
+      
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   methods: {
   //image upload and preview methods
@@ -234,7 +250,7 @@ export default {
       // console.log(this.partyData)
       console.log(2)
       axios({
-        method: 'post',
+        method: 'put',
         
         url : 'http://localhost:8080/mate',
         data : this.partyData,
@@ -246,9 +262,9 @@ export default {
         console.log(this.mateImageUrl)
         if (this.mateImageUrl) {
         axios({
-        method: 'post',
+        method: 'put',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        url : `http://localhost:8080/mate/image/${this.Nm}`,
         data : this.mateImageUrl
         
         })
@@ -259,7 +275,18 @@ export default {
         .catch(err => {
           console.log(err)
         })
-        } 
+        } else { 
+          axios({
+            method : 'put',
+            url : `http://localhost:8080/mate/imagenull/${this.Nm}`,
+          })
+          .then(res=>{
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
         this.$router.push({name:'Mateparty'})
       })
 

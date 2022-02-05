@@ -12,7 +12,7 @@
               <!-- {{item}} -->
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" :src="item.firstImageUrl" style="height:80%;"></div>
                 <div class="col-md-6 mt-1">
-                    <h5>{{item.facltNm}}</h5>
+                    <h5 @click="goDetail(item.contentId)">{{item.facltNm}}</h5>
                     <div class="d-flex flex-row">
                         <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
                     </div>
@@ -47,18 +47,17 @@
 <script>
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
-// import {useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 
 export default {
   name: 'Campsite',
   setup() {
-    // const router = useRouter()
+    const router = useRouter()
     const articles = ref([])
     const limit = ref(10)
     const offset = ref(0)
     // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
     const getDatas = () => {
-
       axios({
       methods: 'get',
       url : 'http://localhost:8080/camp',
@@ -79,6 +78,10 @@ export default {
         console.log(err)
       })
       }
+
+    const goDetail = (id) => {
+      router.push({name : 'Campsitedetail' , params : { contentId : id}})
+    }
    
     onMounted(() => {
       getDatas()
@@ -102,6 +105,7 @@ export default {
       limit,
       offset,
       getDatas,
+      goDetail
     }
   }
   // data () {

@@ -1,6 +1,7 @@
 <template>
   <body>
     <div style="margin-top: 20px; width: 30%; height:250px; float: left; ">
+      <button @click="delPost">x</button>
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div>
     <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;"><div style="float:right;">{{mateDetail.mateCampstart}} ~ {{mateDetail.mateCampend}}</div>
@@ -27,7 +28,7 @@
     <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail" :mateNm="mateNm"/></div>
-    
+    <button @click="goPartyrevise(mateDetail.mateNo)">수정</button>
     
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
@@ -57,6 +58,7 @@ import Members from '../../components/mateparty/Members.vue'
 import axios from 'axios'
 import {ref, } from 'vue'
 import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 
 
 
@@ -74,16 +76,12 @@ export default {
   },
   setup(props) {
     const store = useStore()    
+    const router = useRouter()
     console.log(store.state.mateList)     
     const mateNm = ref(props.mateNo)
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([])
-  
-   
     
-    
-    
-
     axios({
       method: 'get',
       url : `http://localhost:8080/mate/${props.mateNo}`
@@ -96,6 +94,23 @@ export default {
       console.log(err)
     })
 
+    const delPost = () => {
+      const temp = mateDetail.value.mateNo
+      axios({
+        method :'delete',
+        url : `http://localhost:8080/mate/${temp}`
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    const goPartyrevise = (Num) =>{
+      router.push({name : 'Materevise' , params : { mateNo : Num}})
+    }
     
     
 
@@ -106,6 +121,8 @@ export default {
       // myMate,
       // Mate
       mateDetail,
+      delPost,
+      goPartyrevise,
       
  
       

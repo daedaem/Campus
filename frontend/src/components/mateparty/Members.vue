@@ -6,7 +6,7 @@
     <div class="row">
     <div class="card p-4 m-3 col-6" v-for="(item,idx) in member" :key="idx">
         <div class="first" align="right" style="margin-right:10px">
-            {{item.userAge}}, {{item.userGender}}
+            <span>{{item.userAge}}</span> <span>{{item.userGender}}</span><button v-if="item.userNo === myNum" @click="delCard">x</button> 
             <div class="time d-flex flex-row align-items-center justify-content-between ">
                 <div class="d-flex align-items-center"> <span>{{'#'+item.userMBTI}}</span><i class="fa fa-clock-o clock"></i>  </div>
                 <!-- <div> <span class="font-weight-bold">동행</span> </div> -->
@@ -78,6 +78,7 @@ export default {
   },
   setup(props) {
     const store = useStore()
+    const myNum = store.state.myNum
     const visible = ref(false)
     props.mateDetail.mateList.forEach(element => {
   
@@ -170,12 +171,30 @@ export default {
       check.value += 1
       } else {
         // 여기다가 지우는거 넣으면 됨
+        // 호준이가 버린함수
         check.value -= 1
       }
     }
     
     
-    
+    const delCard = () => {
+      member.value.forEach(ele => {
+        if (ele.userNo === myNum) {
+          const temp = ele.mateListNo
+          axios({
+            method :'delete',
+            url : `http://localhost:8080/mate/apply/${temp}`
+          })
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+      })
+      
+    }
 
     return {
         member,
@@ -185,6 +204,8 @@ export default {
         visible,
         joinCheck,
         check,
+        myNum,
+        delCard
     }
 
     
