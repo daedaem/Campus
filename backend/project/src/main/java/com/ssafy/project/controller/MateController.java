@@ -126,7 +126,7 @@ public class MateController {
         }
     }
 
-    @PostMapping(value="/mate/{mateNo}")
+    @PutMapping(value="/mate/image/{mateNo}")
     private ResponseEntity<MateResultDto> mateImageUpdate(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
 
     //로그인 했을시 session 처리 작성해주기
@@ -144,7 +144,7 @@ public class MateController {
         }
     }
 
-    @PostMapping(value="/mate/{mateNo}")
+    @PutMapping(value="/mate/imagenull/{mateNo}")
     private ResponseEntity<MateResultDto> mateImageUpdateNull(@PathVariable int mateNo){
 
     //로그인 했을시 session 처리 작성해주기
