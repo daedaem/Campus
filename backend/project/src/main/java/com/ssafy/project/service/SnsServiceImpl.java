@@ -287,7 +287,4 @@ public class SnsServiceImpl implements SnsService {
         return snsResultDto;
     }
 
-
-
-
 }
