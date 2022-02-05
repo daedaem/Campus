@@ -81,7 +81,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
 
-        MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
+    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
     
     
 
@@ -120,9 +120,8 @@ public class MateController {
     if( mateResultDto.getResult() == SUCCESS ){
         
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+    }else{
+        return new ResponseEntity<MateResultDto>(mateResultDto,HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
@@ -224,6 +223,24 @@ public class MateController {
             return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.OK);// 성공
         } else {
             return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+
+    }
+
+    //메인 페이지에 메이트 5개 띄우기
+    @GetMapping(value = "/mate/main")
+    private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
+
+        MateResultDto mateResultDto;
+
+        // call mateList from MateService
+        mateResultDto = service.mateListMain(mateParamDto);
+        
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
 
     }
