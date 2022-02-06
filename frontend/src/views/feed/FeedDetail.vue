@@ -8,10 +8,10 @@
           <div
             class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
           >
-            <div>
+            <div class="">
               <feed-detail-carousel
                 class="feed-detail-carousel d-flex"
-                v-bind:imageList="feedDetailContents"
+                :imageList="feedDetailContents"
               ></feed-detail-carousel>
             </div>
           </div>
@@ -242,7 +242,7 @@ export default {
         .then((res) => {
           // console.log("좋아요했는지 체크", res);
           // 좋아요 한 사람들 리스트
-          console.log(res);
+          // console.log(res);
           const likedpeople = res.data.like;
           if (likedpeople.includes(this.$store.state.userList.userNo)) {
             this.amiliked = 1;
@@ -322,6 +322,7 @@ export default {
   },
 
   created: function () {
+    console.log(this.feed);
     this.detailFeedsnsNo = this.$route.params.snsNo;
     this.my_comment.userNo = this.$store.state.userList.userNo;
     this.likedCheck();

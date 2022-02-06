@@ -195,10 +195,10 @@ export default {
   methods: {
     carouselidadd: function (nums) {
       // for (let i; 0 < this.imageinfo.length; i++){
-      console.log(nums);
+      // console.log(nums);
       this.feedid = "feed" + nums;
       this.feedlink = "#" + this.feedid;
-      console.logf(this.feedlink);
+      // console.logf(this.feedlink);
       // console.log(;
     },
     // cancelUploadImage() {
@@ -215,7 +215,7 @@ export default {
   },
 
   created: function () {
-    // console.log(this.imageList);
+    console.log(this.imageList);
     this.imageinfo = this.imageList;
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
