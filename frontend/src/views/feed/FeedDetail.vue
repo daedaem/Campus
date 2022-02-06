@@ -10,7 +10,7 @@
           >
             <div>
               <feed-detail-carousel
-                class="feed-detail-carousel"
+                class="feed-detail-carousel d-flex"
                 v-bind:imageList="feedDetailContents"
               ></feed-detail-carousel>
             </div>
@@ -105,7 +105,7 @@
               <div
                 class="collapsed-comment d-flex justify-content-around align-items-center"
               >
-                <div class="my-auto col-10">
+                <div class="my-auto col-12">
                   <div class="form-floating">
                     <div
                       v-for="(comment, i) in this.comments"
@@ -114,24 +114,26 @@
                     >
                       <div v-if="this.comments">
                         <div
-                          class="d-flex justify-content-between align-items-center"
+                          class="d-flex px-2 py-1 justify-content-between align-items-center"
                         >
                           <div
-                            class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
+                            class="d-flex justify-content-start align-items-center ms-1 col-10"
                           >
                             <img
                               :src="`${comment.userProfileImage}`"
                               alt=""
-                              class="user-comment-profile-image"
+                              class="user-comment-profile-image ms-2"
                             />
                             <div class="fw-bold">
                               {{ comment.userNickname }}
                             </div>
                             <div
-                              class="FeedListItems-commentContent col mx-3 text-start"
+                              class="FeedListItems-commentContent col text-start ms-3"
                               style="overflow: auto"
                             >
-                              {{ comment.snsReplyContent }}
+                              <div class="m-2">
+                                {{ comment.snsReplyContent }}
+                              </div>
                             </div>
                           </div>
                           <div class="col" style="overflow: auto">
@@ -141,23 +143,30 @@
                       </div>
                     </div>
                     <div
-                      class="d-flex justify-content-center align-items-center"
+                      class="d-flex justify-content-center align-items-center col-12"
                     >
-                      <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
+                      <img
+                        :src="`${myProfileimageurl}`"
+                        alt=""
+                        class="user-comment-profile-image m-3"
+                      />
 
+                      <div class="fw-bold me-2">
+                        {{ this.$store.state.userList.userNickname }}
+                      </div>
                       <textarea
                         v-model="my_comment.snsReplyContent"
                         id="commentcontent"
                         ref="textarea"
                         rows="1"
-                        class="d-flex col-10 p-1"
+                        class="FeedDetail-WriteComment d-flex m-2 col"
                         placeholder="댓글을 입력하세요"
                         style="overflow: auto"
                       >
                       </textarea>
                       <p
                         @click="leaveComment"
-                        class="btn-sm btn-outline-transparent col-2 text-primary fs-6 me-1"
+                        class="btn-sm btn-outline-transparent text-primary m-2"
                         type="button"
                         id="commentcontent"
                       >
@@ -168,29 +177,7 @@
                 </div>
               </div>
             </b-collapse>
-            <div class="FeedDetail-RightBox-Textarea p-4">
-              <div class="form-floating">
-                <div class="d-flex justify-content-center align-items-stretch">
-                  <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
-                  <!-- <textarea
-                    v-model="commentcontent"
-                    id="commentcontent"
-                    ref="textarea"
-                    rows="1"
-                    class="col-9"
-                    placeholder="댓글을 입력하세요"
-                  >
-                  </textarea>
-                  <button
-                    class="btn btn-outline-secondary fs-6 ms-1"
-                    type="button"
-                    id="commentcontent"
-                  >
-                    게시
-                  </button> -->
-                </div>
-              </div>
-            </div>
+            <div class="nothing"></div>
           </div>
         </div>
       </div>
@@ -517,5 +504,13 @@ export default {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+.FeedDetail-WriteComment {
+  border-top: 1px solid #eee;
+}
+.nothing {
+  border-top: 1px solid #eee;
+  min-height: 30px;
+  max-height: 200px;
 }
 </style>
