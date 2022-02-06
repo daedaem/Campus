@@ -37,20 +37,22 @@
               ><i class="fs-5 pt-1 fas fa-campground"></i> <br />캠핑장</a
             >
           </div>
-        </div>
-      </div>
 
-      <div class="Navbar-Searchbar">
-        <form class="d-flex">
+          <div class="Navbar-Searchbar ms-5">
+            <searchbar @search-Data="searchData"></searchbar>
+            <!-- <form class="d-flex">
           <input
             class="form-control me-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-          />
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
+          /> -->
+            <!-- <button class="btn btn-outline-light" type="submit">Search</button> -->
+            <!-- </form> -->
+          </div>
+        </div>
       </div>
+
       <!-- <div class="d-flex justify-content-center align-items-center"> -->
       <!-- <div>
           <router-link
@@ -62,37 +64,51 @@
             </button>
           </router-link>
         </div> -->
-      <div class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fs-5 bi bi-person-badge"></i>
-          <br />회원관리</a
-        >
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li v-if="this.$store.state.token">
-            <ul @click="logout">
-              로그아웃
-            </ul>
-            <!-- <a class="nav-link " href="/signup">회원가입</a> -->
-          </li>
-          <li v-if="this.$store.state.token === null">
-            <ul @click="moveToLogin">
-              로그인
-            </ul>
-            <ul @click="moveToSignUp">
-              회원가입
-            </ul>
-          </li>
-          <!-- <li><hr class="dropdown-divider"></li> -->
-        </ul>
-      </div>
+
+      <b-dropdown
+        size="sm"
+        variant="transparent"
+        toggle-class="text-decoration-none"
+        no-caret
+        class="me-5"
+      >
+        <template #button-content>
+          <div
+            v-if="this.$store.state.token"
+            class="d-flex justify-content-center align-items-center"
+          >
+            <img
+              :src="`${this.$store.state.userList.userProfileImage}`"
+              alt=""
+              class="Navbar-User-profile-image ms-2"
+            />
+            <div class="fw-bold Navbar-User-profile-nickname ms-3">
+              {{ this.$store.state.userList.userNickname }}
+            </div>
+          </div>
+          <div v-if="this.$store.state.token == null">
+            <i class="fs-5 bi bi-person-badge"></i>
+          </div>
+        </template>
+        <div v-if="this.$store.state.token">
+          <b-dropdown-item-button>마이페이지</b-dropdown-item-button>
+          <b-dropdown-item-button @click="logout"
+            >로그아웃</b-dropdown-item-button
+          >
+        </div>
+        <div v-if="this.$store.state.token === null">
+          <b-dropdown-item-button @click="moveToSignUp"
+            >회원가입</b-dropdown-item-button
+          >
+          <b-dropdown-divider></b-dropdown-divider>
+
+          <b-dropdown-item-button @click="moveToLogin">
+            로그인</b-dropdown-item-button
+          >
+        </div>
+      </b-dropdown>
       <!-- </div> -->
+
       <div class="col-11 hidden-Navbar-Searchbar my-3">
         <form class="d-flex">
           <input
@@ -101,7 +117,6 @@
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
       </div>
     </div>
@@ -109,9 +124,16 @@
 </template>
 
 <script>
+const SERVER_URL = "http://localhost:8080";
+import { mapState } from "vuex";
+
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import axios from "axios";
+import Searchbar from "./common/Searchbar.vue";
+
 export default {
+  components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
@@ -146,6 +168,18 @@ export default {
     moveToLogin: function () {
       this.$router.push({ name: "Login" });
     },
+    searchData: function (inputdata) {
+      axios
+        .get(`${SERVER_URL}/movies/find/${inputdata}`)
+        .then((res) => {
+          this.movies = res.data;
+          this.$store.dispatch("searchMovie", this.movies);
+          this.$router.push({ name: "MovieSearchResult" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 
   created: function () {
@@ -154,13 +188,18 @@ export default {
       this.$store.dispatch("login");
     }
   },
+  computed: {
+    ...mapState(["userList"]),
+    ...mapState(["nickname"]),
+    ...mapState(["myProfileimageurl"]),
+  },
 };
 </script>
 
 <style scoped>
 /* 760보다 작으면 서치바 숨기고 */
 /* 숨겨져있던 서치바 길게 */
-@media (max-width: 760px) {
+@media (max-width: 800px) {
   .Navbar-Searchbar {
     display: none;
   }
@@ -171,12 +210,12 @@ export default {
     /* width: 80%; */
   }
 }
-@media (min-width: 761px) {
+@media (min-width: 800px) {
   .hidden-Navbar-Searchbar {
     display: none;
   }
 }
-@media (max-width: 440px) {
+@media (max-width: 580px) {
   .Navbar-buttons {
     margin: auto;
     font-size: 10%;
@@ -184,6 +223,27 @@ export default {
   .nav-item {
     margin: auto;
     font-size: 10%;
+  }
+  .Navbar-User-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+  }
+  .Navbar-User-profile-nickname {
+    color: #eee;
+    font-size: 14px;
+  }
+}
+@media (min-width: 581px) {
+  .Navbar-User-profile-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+  }
+}
+@media (max-width: 450px) {
+  .Navbar-User-profile-nickname {
+    display: none;
   }
 }
 .bg-custom-1 {
@@ -203,7 +263,17 @@ export default {
 .nav-link:visited {
   color: #eee;
 }
+
+.Navbar-User-profile-nickname {
+  color: #eee;
+}
 .form-control {
   border-radius: 15px;
+}
+.bi-person-badge {
+  color: #eee;
+}
+.bi-person-badge-text {
+  color: #eee;
 }
 </style>

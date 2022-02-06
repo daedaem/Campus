@@ -14,6 +14,7 @@ export default createStore({
     token: localStorage.getItem("jwt"),
     equipLists: [],
     mateList: [],
+    searchResult: [],
     uploadimages: "",
     // feeddetailnum: 0,
     detailFeed: "",
@@ -24,6 +25,7 @@ export default createStore({
     myProfileimageurl: "",
     userList: {},
   },
+
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
       state.equipLists.push(equipItem);
@@ -71,6 +73,7 @@ export default createStore({
         state.userList = res.data;
       });
     },
+
     // LOGIN: function (state) {
     //   state.token = localStorage.getItem("jwt");
     //   state.isLogin = true
@@ -93,6 +96,9 @@ export default createStore({
       state.myNum = null;
       state.isLogin = false;
       state.user = "";
+    },
+    SEARCH_DATA: function (state, results) {
+      state.searchResult = results;
     },
   },
   actions: {
@@ -125,6 +131,9 @@ export default createStore({
     viewMate({ commit }, data) {
       commit("VIEW_MATE", data);
     },
+    searchData: function (context, data) {
+      context.commit("SEARCH_DATA", data);
+    },
   },
   getters: {
     config: function (state) {
@@ -132,6 +141,10 @@ export default createStore({
         Authorization: `JWT ${state.token}`,
       };
     },
+    // searchResults: function (state) {
+    //   let result = state.searchResult.substr(1);
+    //   return result;
+    // },
   },
 
   modules: {},

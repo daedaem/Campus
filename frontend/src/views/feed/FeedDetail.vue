@@ -143,7 +143,7 @@
                       </div>
                     </div>
                     <div
-                      class="d-flex justify-content-center align-items-center col-12"
+                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
                     >
                       <img
                         :src="`${myProfileimageurl}`"
@@ -496,7 +496,6 @@ export default {
   margin: 0px 20px 0px 0px;
   max-width: 42px;
   max-height: 42px;
-  border: 3px solid;
 }
 .user-comment-profile-image {
   /* display: inline-block; */
@@ -505,6 +504,9 @@ export default {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+.FeedDetail-Rightbox-Commentinputbox {
+  border-top: 1px solid#eee;
 }
 .FeedDetail-WriteComment {
   border-top: 1px solid #eee;

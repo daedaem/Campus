@@ -17,7 +17,7 @@ import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import FeedModify from "../views/feed/FeedModify.vue";
-
+import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
 const routes = [
   {
     path: "/",
@@ -121,6 +121,11 @@ const routes = [
     path: "/campsitedetail/",
     name: "Campsitedetail",
     component: Campsitedetail,
+  },
+  {
+    path: "/searchresults/",
+    name: "FeedSearchResults",
+    component: FeedSearchResults,
   },
 ];
 
