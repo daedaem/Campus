@@ -102,10 +102,10 @@
               >
                 <div v-if="this.comments">
                   <div
-                    class="d-flex justify-content-between align-items-center"
+                    class="d-flex justify-content-between align-items-center py-2"
                   >
                     <div
-                      class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
+                      class="d-flex justify-content-start align-items-center ps-3 col-9"
                     >
                       <img
                         :src="`${comment.userProfileImage}`"
@@ -136,9 +136,9 @@
                   class="d-flex justify-content-center align-items-center mx-2"
                 >
                   <img
-                    :src="`${myProfileimageurl}`"
+                    :src="`${this.$store.state.userList.userProfileImage}`"
                     alt=""
-                    class="user-comment-profile-image"
+                    class="user-comment-profile-image ms-2"
                   />
 
                   <div class="fw-bold">
@@ -155,14 +155,16 @@
                   style="overflow: auto"
                 >
                 </textarea>
-                <p
-                  @click="leaveComment"
-                  class="btn-sm btn-outline-transparent text-primary"
-                  type="button"
-                  id="commentcontent"
-                >
-                  게시
-                </p>
+                <div class="d-flex align-items-cetner">
+                  <p
+                    @click="leaveComment"
+                    class="btn-sm btn-outline-transparent text-primary"
+                    type="button"
+                    id="commentcontent"
+                  >
+                    게시
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -385,14 +387,14 @@ export default {
 .user-feed-cards {
   border-radius: 3px;
 
-  margin: 0px 0px 30px 0px;
+  margin: 5px 0px 30px 0px;
   background-color: white;
   border: 1px solid #dbdbdb;
 }
 .user-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 15px 0px 0px;
   width: 42px;
   height: 42px;
   cursor: pointer;
@@ -438,7 +440,7 @@ export default {
 .user-comment-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 15px 0px 0px;
   width: 30px;
   height: 30px;
   cursor: pointer;

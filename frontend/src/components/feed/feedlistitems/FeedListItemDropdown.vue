@@ -11,7 +11,7 @@
           &#x2026;<span class="sr-only"></span>
         </template>
 
-        <b-dropdown-item-button @click="moveToDetail"
+        <b-dropdown-item-button @click="moveToDetail" :feed="feed"
           >게시물 상세보기</b-dropdown-item-button
         >
         <b-dropdown-item-button
@@ -114,7 +114,10 @@ export default {
     },
 
     modifyFeed() {
-      this.$router.push({ name: "FeedDetail" });
+      this.$router.push({
+        name: "FeedModify",
+        params: { snsNo: this.feed.snsNo },
+      });
     },
     // spamReport() {
     // this.$router.push({ name: "Reviews" });
