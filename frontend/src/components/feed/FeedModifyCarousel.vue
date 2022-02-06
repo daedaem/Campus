@@ -191,7 +191,7 @@ export default {
   name: "FeedDetailCarousel",
   props: {
     // feeds: Object,
-    imageList: Object,
+    feedModifyImageList: Object,
   },
   data() {
     return {
@@ -224,7 +224,7 @@ export default {
 
   created: function () {
     console.log(this.imageList);
-    this.imageinfo = this.imageList;
+    this.imageinfo = this.feedModifyImageList;
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
 

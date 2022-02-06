@@ -13,7 +13,7 @@
         />
       </div>
     </div>
-    <!-- 두개이상일 때 -->`
+    <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
     <div
       class="feed-picture-box d-flex"
@@ -236,7 +236,7 @@ export default {
   /* height: 100%; */
   /* min-height: 400px; */
   max-height: 600px;
-  border: 1px solid #dbdbdb;
+  /* border: 1px solid #dbdbdb; */
 }
 
 .feed-picture {

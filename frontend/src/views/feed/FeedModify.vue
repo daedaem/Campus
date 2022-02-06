@@ -20,7 +20,7 @@
           @click="ModifyFeed"
           class="text-decoration-none fw-bold text-primary align-middle align-self-center pe-3"
         >
-          업로드
+          수정완료
         </p>
       </div>
       <div class="FeedModify-contentbox d-flex">
@@ -35,7 +35,7 @@
             <div class="FeedModify-contentbox-UploadImgFrame">
               <feed-modify-carousel
                 class="feed-create-carousel"
-                :imageList="feedModifyImageList"
+                :feedModifyImageList="feedModifyImageList"
               ></feed-modify-carousel>
               <!-- <img
                 v-for="(image, index) in feedModifyContent.imageList"
@@ -175,6 +175,7 @@ export default {
   },
   methods: {
     uploadImg() {
+      // console.log(this.feedModifyContent);
       // 전송용
       var frm = new FormData();
       var photoFile = document.getElementById("fileName");
@@ -198,12 +199,12 @@ export default {
       // console.log(url);
       // console.log(this.$refs["image"].files.length);
 
+      // console.log("드갔나", this.frm);
       // 업로드하기 위해 올린 파일 길이를 인덱스로
       for (let i = 0; i < this.$refs["image"].files.length; i++) {
         // url 주소를 각 이미지별로 생성해서
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
         //   // imageList 폴더에 넣어둠
-
         this.feedModifyImageList.imageList.push(url);
       }
     },
@@ -214,68 +215,102 @@ export default {
       // console.log(this.imageList);
 
       // this.clearImage();
-      this.imageinfo.imageList = [];
+      this.imageinfo = "";
       // this.imageinfo.imageList.splice(this.feedid, 1); // this.image = null;
       // this.imageList = null;
     },
-    // moveToDetail() {
 
-    // },
-
-    // clearImage() {
-    //   this.uploadReady = false;
-    //   this.$nextTick(() => {
-    //     this.uploadReady = true;
-    //   });
-    // },
     ModifyFeed() {
       // console.log(this.feedCreateContent);
       // console.log(this.userList);
       // console.log(this.frm);
       // console.log(this.feedCreateContent);
-      if (
-        this.feedModifyContent.snsContent &&
-        this.feedModifyImageList.imageList
-      ) {
+      if (!this.feedModifyContent.snsContent) {
+        alert("작성된 글이 없습니다.");
+      }
+      if (!this.imageinfo && !this.frm) {
+        alert("첨부된 이미지가 없습니다.");
+      } else {
         if (
           // 문자열 양끝 공백 제거
           // feedModifyContent.images도 trim해야하는지확인해보자
           this.feedModifyContent.snsContent.trim()
         ) {
+          // console.log("1", this.feedModifyContent.snsContent);
+          // console.log("2", this.feedModifyContent);
           axios({
             method: "put",
-            url: `${SERVER_URL}/sns/create`,
+            url: `${SERVER_URL}/sns/modify/${this.detailFeedsnsNo}`,
             data: this.feedModifyContent,
           })
-            .then((res) => {
-              this.datas = res.data.dto;
-              this.nowfeed = res.data.dto.snsNo;
-              axios({
-                method: "post",
-                url: `${SERVER_URL}/sns/create/${res.data.dto.snsNo}`,
-                headers: { "content-type": "multipart/form-data" },
-                data: this.frm,
-              })
-                .then((res) => {
-                  this.$store.dispatch("toDetail", this.nowfeed);
-                  this.$router.push({
-                    name: "FeedDetail",
-                    params: {
-                      snsNo: this.nowfeed,
-                      // data: this.nowfeed,
-                    },
-                    data: {
-                      imageList: res.data.imageList,
-                    },
+            .then(() => {
+              // console.log("소리찔러~", this.firm);
+              // this.datas = res.data.dto;
+              this.nowfeedNumber = this.detailFeedsnsNo;
+              if (this.frm) {
+                axios({
+                  method: "put",
+                  url: `${SERVER_URL}/sns/modifyImage/${this.detailFeedsnsNo}`,
+                  headers: { "content-type": "multipart/form-data" },
+                  data: this.frm,
+                })
+                  .then((res) => {
+                    // routerpush, 글없으면 막기
+                    // console.log("들어왔습니까", res);Qdk
+                    this.$store.dispatch("toDetail", this.nowfeedNumber);
+                    this.$router.push({
+                      name: "FeedDetail",
+                      params: {
+                        snsNo: this.nowfeedNumber,
+                        // data: this.nowfeed,
+                      },
+                      data: {
+                        imageList: res.data.imageList,
+                      },
+                    });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    alert("실패하였습니다.");
                   });
+              } else {
+                axios({
+                  method: "put",
+                  url: `${SERVER_URL}/sns/modify/${this.detailFeedsnsNo}`,
+                  data: this.feedModifyContent,
                 })
-                .then((res) => {
-                  console.log(res);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  alert("실패하였습니다.");
-                });
+                  .then((res) => {
+                    // routerpush, 글없으면 막기
+                    // console.log("들어왔습니까", res);Qdk
+                    this.$store.dispatch("toDetail", this.nowfeedNumber);
+                    this.$router.push({
+                      name: "FeedDetail",
+                      params: {
+                        snsNo: this.nowfeedNumber,
+                        // data: this.nowfeed,
+                      },
+                      data: {
+                        imageList: res.data.imageList,
+                      },
+                    });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    alert("실패하였습니다.");
+                  });
+              }
+              // else if (
+              //   this.feedModifyImageList.imageList == [] &&
+              //   this.firm == null
+              // ) {
+              //   alert("없습니다.");
+              //   // axios({
+              //   //   method: "put",
+              //   //   url: `${SERVER_URL}/sns/modifyImage/${this.detailFeedsnsNo}`,
+              //   //   headers: { "content-type": "multipart/form-data" },
+              //   //   data: this.frm,
+              //   // });
+              // }
             })
             .then(() => {
               axios
@@ -290,15 +325,15 @@ export default {
                   console.log(err);
                 });
             });
-        } else {
-          alert(`There's an empty box`);
         }
-      } else {
-        alert(`There's an empty box`);
       }
     },
   },
   created: function () {
+    // console.log(this.firm);
+
+    // console.log(this.feedModifyContent);
+    //
     // 라우터에 입력된 주소로 피드 넘버체크
     this.detailFeedsnsNo = this.$route.params.snsNo;
 
@@ -309,6 +344,7 @@ export default {
         // console.log(res);
         this.feedModifyContent = res.data.dto;
         this.feedModifyImageList.imageList = res.data.dto.imageList;
+        this.imageinfo = this.feedModifyImageList.imageList;
 
         this.$store.dispatch("toDetail", res.data.dto);
         console.log(this.feedModifyImageList);
@@ -328,11 +364,14 @@ export default {
         console.log(err);
         alert("실패하였습니다.");
       });
-    this.imageinfo = this.imageList;
   },
   computed: {
     ...mapState(["userList"]),
   },
+  // updated: function () {},
+  // mounted: function () {
+  //   // this.ModifyFeed;
+  // },
   // 제출했을때
 };
 </script>

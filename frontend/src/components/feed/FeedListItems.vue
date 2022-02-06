@@ -45,7 +45,7 @@
           style="cursor: pointer"
           class="heart-box d-flex my-auto"
           @click="giveHeart"
-          v-if="amiliked == 0"
+          v-if="this.amiliked == 0"
         >
           <i class="bi bi-heart me-3"></i>
           <p class="fs-6 my-auto">{{ likeCount }}</p>
@@ -133,7 +133,7 @@
               >
                 <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
                 <div
-                  class="d-flex justify-content-center align-items-center col-2 mx-2"
+                  class="d-flex justify-content-center align-items-center mx-2"
                 >
                   <img
                     :src="`${myProfileimageurl}`"
@@ -157,7 +157,7 @@
                 </textarea>
                 <p
                   @click="leaveComment"
-                  class="btn-sm btn-outline-transparent col-2 text-primary"
+                  class="btn-sm btn-outline-transparent text-primary"
                   type="button"
                   id="commentcontent"
                 >
@@ -229,17 +229,27 @@ export default {
     },
     // 좋아요 여부 확인
     likedCheck() {
-      axios.get(`${SERVER_URL}/sns/like/${this.feed.userNo}`).then((res) => {
-        // console.log("좋아요했는지 체크", res);
-        // 좋아요 한 사람들 리스트
-        // console.log(res);
-        const likedpeople = res.data.like;
-        if (likedpeople.includes(this.myProfileNum)) {
-          this.amiliked = 1;
-        } else {
-          this.amiliked = 0;
-        }
-      });
+      axios
+        .get(`${SERVER_URL}/sns/like/${this.$store.state.userList.userNo}`)
+        .then((res) => {
+          // console.log("좋아요했는지 체크", res);
+          // 좋아요 한 사람들 리스트
+          // console.log("좋아요리스트", res.data.like.length);
+          // console.log("되나", this.feed.snsNo);
+          // const likedpeople = res.data.like;
+          for (let i = 0; i < res.data.like.length; i++) {
+            if (res.data.like[i].snsNo == this.feed.snsNo) {
+              this.amiliked = 1;
+            }
+          }
+
+          //   let temp = likedpeople[i];
+
+          //     console.log("있습니다.");
+          // }
+        });
+      // console.log("되나", this.feed.snsNo);
+      // });
     },
     giveHeart: function () {
       // console.log("너", this.$store.state.myNum);

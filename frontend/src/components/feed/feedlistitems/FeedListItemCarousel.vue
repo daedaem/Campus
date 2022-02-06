@@ -200,8 +200,7 @@ export default {
   /* padding: 10px; */
   height: 100%;
   /* min-height: 400px; */
-  /* max-height: 600px; */
-  border: 1px solid #dbdbdb;
+  max-height: 600px;
 }
 .carousel-inner {
   max-height: 600px;
