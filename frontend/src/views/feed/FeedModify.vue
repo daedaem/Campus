@@ -7,7 +7,9 @@
     ></router-link> -->
     <div class="FeedModify-Frame">
       <!-- 작성 게시글 타이틀 -->
-      <div class="d-flex justify-content-between FeedModify-title py-2">
+      <div
+        class="d-flex justify-content-between align-items-center FeedModify-title py-2"
+      >
         <!-- <feed-create-modal></feed-create-modal> -->
         <router-link
           class="text-decoration-none text-black"
@@ -20,7 +22,7 @@
           @click="ModifyFeed"
           class="text-decoration-none fw-bold text-primary align-middle align-self-center pe-3"
         >
-          수정완료
+          완료
         </p>
       </div>
       <div class="FeedModify-contentbox d-flex">

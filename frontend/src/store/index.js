@@ -132,6 +132,7 @@ export default createStore({
       commit("VIEW_MATE", data);
     },
     searchData: function (context, data) {
+      //여기서 axios요청 보내서 피드들 담아서 쓰던가
       context.commit("SEARCH_DATA", data);
     },
   },

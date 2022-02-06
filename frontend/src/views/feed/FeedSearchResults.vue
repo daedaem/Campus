@@ -2,7 +2,6 @@
   <div class="FeedSearchResult-totalFrame">
     <p class="fs-1 m-3">#검색단어</p>
     <div class="fs-4">인기 게시물</div>
-
     <div
       class="FeedSearchResults-repsContentsBox d-flex justify-content-around align-items-center"
     >
@@ -42,13 +41,10 @@
     <div class="fs-4">게시물들</div>
     <div class="게시물 박스들">
       <div class="게시물 박스들 틀">
-        <div class="feedcards">1</div>
-        <div class="feedcards">2</div>
-        <div class="feedcards">3</div>
-        <div class="feedcards">4</div>
+        <div v-for="(feed, idx) in this.searchResults" :key="idx"></div>
       </div>
+      <!-- {{ this.searchResults }} -->
     </div>
-    <!-- {{ this.searchResults }} -->
   </div>
 </template>
 
@@ -58,10 +54,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "FeedSearchResults",
   data() {
-    return {};
+    return { searchResults: [] };
   },
   methods: {},
   created: function () {
+    // 여기서 axios요청 보내서 this.searchResults에 있는 내용들쓰거나
+    // actions에서 담아도 될듯
     console.log(this.searchResults);
   },
   computed: {
