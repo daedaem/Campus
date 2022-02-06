@@ -1,15 +1,34 @@
 <template>
-  <b-container class="searchbar d-flex">
-    <b-row class="">
-      <b-form-input
-        class="text-secondary"
-        v-model="inputData"
+  <div>
+    <div>
+      <input
+        class="text-secondary Searchbar-inputBox p-2"
+        v-on:input="async"
         @keyup.enter="SearchData"
-        placeholder="Search for a movie..."
+        placeholder="Search..."
+      />
+    </div>
+    <div class="ui cards" style="margin: 10px" v-if="searchQuery">
+      <div
+        class="card ui fluid"
+        v-for="(camp, idx) in searchedProducts"
+        :key="idx"
+        style="margin: 0"
       >
-      </b-form-input>
-    </b-row>
-  </b-container>
+        <div class="content">
+          <div style="float: left">
+            <img
+              class="right floated mini ui image"
+              :src="camp.firstImageUrl"
+              style="width: 50px; height: 50px"
+            />
+          </div>
+          <div class="header" style="margin-left: 70px">{{ camp.facltNm }}</div>
+          <div class="meta" style="margin-left: 70px">{{ camp.addr1 }} |</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,6 +38,9 @@ export default {
     return { inputData: null };
   },
   methods: {
+    async(e) {
+      this.inpuData = e.target.value;
+    },
     SearchData() {
       // 글자 존재
       if (this.inputData) {
@@ -44,4 +66,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.Searchbar-inputBox {
+  border-radius: 10px;
+  min-width: 200px;
+}
+</style>

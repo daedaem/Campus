@@ -54,7 +54,7 @@ export default {
         // console.log(res.data.list);
         const data = res.data.list;
         this.$store.dispatch("feedList", data);
-        // console.log(res);
+        console.log(res.data.list);
       })
       .catch((err) => {
         console.log(err);

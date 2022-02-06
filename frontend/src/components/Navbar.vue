@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-custom-2">
     <div class="container-fluid d-flex">
       <div class="d-flex align-items-center">
-        <a class="ms-3 navbar-brand" href="#">Navbar</a>
+        <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
         <div class="Navbar-buttons d-flex align-items-center">
           <div class="nav-item">
             <a class="nav-link" aria-current="page" href="/sns"
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="nav-item">
-            <a class="nav-link" href="#"
+            <a class="nav-link fa-campground-text" href="#"
               ><i class="fs-5 pt-1 fas fa-campground"></i> <br />캠핑장</a
             >
           </div>
@@ -67,10 +67,11 @@
 
       <b-dropdown
         size="sm"
+        dropleft
         variant="transparent"
         toggle-class="text-decoration-none"
         no-caret
-        class="me-5"
+        class="Navbar-dropdown"
       >
         <template #button-content>
           <div
@@ -91,20 +92,14 @@
           </div>
         </template>
         <div v-if="this.$store.state.token">
-          <b-dropdown-item-button>마이페이지</b-dropdown-item-button>
-          <b-dropdown-item-button @click="logout"
-            >로그아웃</b-dropdown-item-button
-          >
+          <b-dropdown-item class="bnt-sm">마이페이지</b-dropdown-item>
+          <b-dropdown-item @click="logout">로그아웃</b-dropdown-item>
         </div>
         <div v-if="this.$store.state.token === null">
-          <b-dropdown-item-button @click="moveToSignUp"
-            >회원가입</b-dropdown-item-button
-          >
+          <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
 
-          <b-dropdown-item-button @click="moveToLogin">
-            로그인</b-dropdown-item-button
-          >
+          <b-dropdown-item @click="moveToLogin"> 로그인</b-dropdown-item>
         </div>
       </b-dropdown>
       <!-- </div> -->
@@ -205,9 +200,6 @@ export default {
   }
   .hidden-Navbar-Searchbar {
     margin: auto;
-
-    /* flex-grow: 1; */
-    /* width: 80%; */
   }
 }
 @media (min-width: 800px) {
@@ -225,8 +217,8 @@ export default {
     font-size: 10%;
   }
   .Navbar-User-profile-image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 20px;
   }
   .Navbar-User-profile-nickname {
@@ -241,9 +233,24 @@ export default {
     border-radius: 30px;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 478px) {
+  .brandname {
+    size: 5px;
+  }
   .Navbar-User-profile-nickname {
     display: none;
+  }
+  .fa-campground-text {
+    display: none;
+  }
+  .fa-campground {
+    display: none;
+  }
+  .b-dropdown {
+    text-align: left;
+  }
+  .btn-group {
+    margin-right: 5rem;
   }
 }
 .bg-custom-1 {

@@ -61,7 +61,7 @@
                 style="cursor: pointer"
                 class="heart-box d-flex my-auto"
                 @click="giveHeart"
-                v-if="amiliked == 0"
+                v-if="this.amiliked == 0"
               >
                 <i class="bi bi-heart me-3"></i>
                 <p class="fs-6 my-auto">
@@ -114,7 +114,7 @@
                     >
                       <div v-if="this.comments">
                         <div
-                          class="d-flex px-2 py-1 justify-content-between align-items-center"
+                          class="d-flex px-2 justify-content-between align-items-center"
                         >
                           <div
                             class="d-flex justify-content-start align-items-center ms-1 col-10"
@@ -146,7 +146,7 @@
                       class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
                     >
                       <img
-                        :src="`${myProfileimageurl}`"
+                        :src="`${this.$store.state.userList.userProfileImage}`"
                         alt=""
                         class="user-comment-profile-image m-3"
                       />
@@ -243,11 +243,10 @@ export default {
           // console.log("좋아요했는지 체크", res);
           // 좋아요 한 사람들 리스트
           // console.log(res);
-          const likedpeople = res.data.like;
-          if (likedpeople.includes(this.$store.state.userList.userNo)) {
-            this.amiliked = 1;
-          } else {
-            this.amiliked = 0;
+          for (let i = 0; i < res.data.like.length; i++) {
+            if (res.data.like[i].snsNo == this.detailFeedsnsNo) {
+              this.amiliked = 1;
+            }
           }
         });
     },
@@ -258,7 +257,7 @@ export default {
       })
         .then(() => {
           this.amiliked = 1;
-          // this.likeCount += 1;
+          this.likeCount += 1;
         })
         .catch((err) => {
           console.log(err);
@@ -271,7 +270,7 @@ export default {
       })
         .then(() => {
           this.amiliked = 0;
-          // this.likeCount -= 1;
+          this.likeCount -= 1;
         })
         .catch((err) => {
           console.log(err);
