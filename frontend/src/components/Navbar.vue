@@ -95,7 +95,8 @@
             </div>
           </div>
           <div v-if="this.$store.state.userEmail == null">
-            <i class="fs-5 bi bi-person-badge"></i>
+            <i class="fs-3 bi bi-person-badge"></i>
+            <p>Guest</p>
           </div>
         </template>
         <div class="dropdown-items" v-if="this.$store.state.userEmail">
@@ -106,7 +107,6 @@
             >로그아웃</b-dropdown-item
           >
         </div>
-
 
         <div v-if="this.$store.state.userEmail === null">
           <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
@@ -166,12 +166,12 @@ export default {
   methods: {
     logout: function () {
       this.$store.state.user = null;
-      this.$store.state.userEmail  = null;
+      this.$store.state.userEmail = null;
       this.$store.dispatch("logout");
-      sessionStorage.removeItem('userList')
-      sessionStorage.removeItem('myNum')
-      sessionStorage.removeItem('userEmail')
-      sessionStorage.removeItem('userPassword')
+      sessionStorage.removeItem("userList");
+      sessionStorage.removeItem("myNum");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userPassword");
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
@@ -189,7 +189,7 @@ export default {
     },
     searchData: function (inputdata) {
       axios
-        .get(`${SERVER_URL}/movies/find/${inputdata}`)
+        .get(`${SERVER_URL}`)
         .then((res) => {
           this.movies = res.data;
           this.$store.dispatch("searchMovie", this.movies);
@@ -200,9 +200,22 @@ export default {
         });
     },
   },
-
   created: function () {
+    // console.log(this.$store.state.user);
+    axios
+      .get(`${SERVER_URL}/sns`)
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+        console.log(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
+
+  created: function () {},
   computed: {
     ...mapState(["userList"]),
     ...mapState(["nickname"]),
