@@ -50,6 +50,9 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "FeedSearchResults",
@@ -58,13 +61,43 @@ export default {
   },
   methods: {},
   created: function () {
-    // 여기서 axios요청 보내서 this.searchResults에 있는 내용들쓰거나
-    // actions에서 담아도 될듯
-    console.log(this.searchResults);
+    // console.log(this.$store.state.user);
+    axios({
+      methods: "get",
+      url: `${SERVER_URL}/sns`,
+      params: {
+        // limit: limit.value,
+        // offset: offset.value,
+        searchWord: "ㅇㅇ",
+        // doNm : '',
+      },
+    })
+      .then((res) => {
+        // articles.value.push(...res.data.list);
+        console.log(res);
+        this.searchResults.push(res.data.list);
+        console.log(res.data.list);
+        //       this.$store.dispatch("feedList", data);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
   },
   computed: {
     ...mapGetters(["searchResults"]),
   },
+
+  //     .then((res) => {
+  //       // console.log(res.data.list);
+
+  //       const data = res.data.list;
+  //       console.log(res.data.list);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },
 };
 </script>
 
