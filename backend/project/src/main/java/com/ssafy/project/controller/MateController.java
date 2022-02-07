@@ -7,7 +7,6 @@ import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
-import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.MateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +59,8 @@ public class MateController {
     private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session){
 
 
-    UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+    
     mateDto.setContentId(10);
-    mateDto.setUserNo(userDto.getUserNo());
-
 
     MateResultDto mateResultDto = service.mateInsert(mateDto);
 
