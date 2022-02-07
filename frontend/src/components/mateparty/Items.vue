@@ -36,7 +36,7 @@
         <div>타프</div>
       </div>
       <div class="filterbox1" @click="imgControl('8')">
-        <img width="100" height="100" src="../../assets/images/테이블_검정버전.png" alt="" v-if="this.imgStatus.table === 0">
+        <img width="100" height="100" src="../../assets/images/테이블_검정버전.png" alt="" v-if="this.imgStatus.table1 === 0">
         <img width="100" height="100" src="../../assets/images/테이블_색상버전.png" alt="" v-else>
         <div>테이블</div>
       </div>
@@ -109,10 +109,10 @@ export default {
         }
       }
       if (x === '8') {
-        if ( this.imgStatus.table === 0) {
-          this.imgStatus.table += 1
+        if ( this.imgStatus.table1 === 0) {
+          this.imgStatus.table1 += 1
         } else {
-          this.imgStatus.table = 0 
+          this.imgStatus.table1 = 0 
         }
       }
       if (x === '9') {
@@ -142,7 +142,7 @@ export default {
         chair : 0,
         sleepingbag : 0,
         tarp : 0,
-        table : 0,
+        table1 : 0,
         tent : 0,
         brazier : 0,
       }

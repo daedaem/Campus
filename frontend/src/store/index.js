@@ -4,8 +4,8 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
+// const SERVER_URL = "http://localhost:8080";
 import axios from "axios";
 
 export default createStore({
@@ -24,6 +24,7 @@ export default createStore({
     myNum: "",
     myProfileimageurl: "",
     userList: {},
+    campList: [],
   },
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
@@ -44,6 +45,21 @@ export default createStore({
     //mate
     VIEW_MATE(state, data) {
       state.mateList = data;
+    },
+
+    //camp
+    CAMP_LIST(state,data) {
+      state.campList = data
+    },
+
+    USER_LIST(state,data){
+      console.log(2)
+      state.userList = data
+      console.log(state.userList)
+    },
+    MY_NUM(state,data) {
+      console.log(3)
+      state.myNum = data
     },
 
     // 로그인
@@ -106,10 +122,22 @@ export default createStore({
     feedList: function ({ commit }, feedList) {
       commit("FEEDLIST", feedList);
     },
+    userList({commit},data){
+      commit('USER_LIST',data)
+    },
+    myNum({commit},data){
+      commit('MY_NUM',data)
+    },
     //mate
     viewMate({ commit }, data) {
       commit("VIEW_MATE", data);
     },
+    //camp
+    campList({commit},data) {
+      commit("CAMP_LIST" , data)
+    }
+    
+
   },
   getters: {
     config: function (state) {

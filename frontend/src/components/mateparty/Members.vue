@@ -3,19 +3,20 @@
 
 
   <div class="container mt-5 d-flex justify-content-center">
+    <div class="row">
     <div class="card p-4 m-3 col-6" v-for="(item,idx) in member" :key="idx">
-        <div class="first">
-  
-            <div class="time d-flex flex-row align-items-center justify-content-between mt-3">
-                <div class="d-flex align-items-center"> <i class="fa fa-clock-o clock"></i>  </div>
+        <div class="first" align="right" style="margin-right:10px">
+            <span>{{item.userAge}}</span> <span>{{item.userGender}}</span><button v-if="item.userNo === myNum" @click="delCard">x</button> 
+            <div class="time d-flex flex-row align-items-center justify-content-between ">
+                <div class="d-flex align-items-center"> <span>{{'#'+item.userMBTI}}</span><i class="fa fa-clock-o clock"></i>  </div>
                 <!-- <div> <span class="font-weight-bold">동행</span> </div> -->
             </div>
         </div>
-        <div class="second d-flex flex-row mt-2">
+        <div class="second d-flex flex-row ">
             <div class="image mr-3"><i class="bi bi-person-circle fa-3x"></i> </div>
-            <div class="">
-                <div class="d-flex flex-row mb-1">
-                    <div class="star-ratings">
+            <div>
+                <div class="d-flex flex-row " style="margin-left:10px; margin-bottom: 7px;">
+                    <div class="star-ratings" style="margin-top:7px">
                         <div 
                         class="star-ratings-fill space-x-2 text-lg"
                         :style="{ width: item.userRatePoint*20+1.5 + '%' }"
@@ -23,81 +24,191 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <div class="star-ratings-base space-x-2 text-lg">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>&nbsp;<span>{{item.userRatePoint}}/5</span>
+                        </div>
+                        <div>
+                          
                         </div>
                     </div>
                 </div>
-                <span v-for="(style,idx2) in stylelist2[idx]" :key="idx2">
+                <div style="margin-left:10px;"><span v-if="item.campStyle1 !='N'"># 요식</span><span v-if="item.campStyle2 !='N'"># 불멍</span><span v-if="item.campStyle3 !='N'"># 캠파</span><span v-if="item.campStyle4 !='N'"># 등산</span><span v-if="item.campStyle5 !='N'"># 사진</span><span v-if="item.campStyle6 !='N'"># 음악</span></div>
+                <!-- <span v-for="(style,idx2) in stylelist2[idx]" :key="idx2">
                     {{'#'+style}}
-                </span>
+                </span> -->
             </div>
         </div>
-        <hr class="line-color">
+        <!-- <hr class="line-color"> -->
+    </div>
     </div>
     
     
     
   </div>
+  <div>
+    <b-button
+      :class="visible ? null : 'collapsed'"
+      :aria-expanded="visible ? 'true' : 'false'"
+      aria-controls="collapse-4"
+      @click="visible = !visible"
+    >
+      <span v-if="check===0">메이트 참가</span>
+      <span v-else>참가완료</span>
+    </b-button>
+    <b-collapse id="collapse-4" v-model="visible" class="mt-2">
+      <b-card><div style="float:center">
+      <div v-if="check===0"><input type="text" v-model="friendnum"><button @click="join">메이트 참가</button></div>
+      <div v-else><button @click="join">참가 취소</button></div>
+    </div></b-card>
+    </b-collapse>
+    </div>
 
 </template>
 
 <script>
-import {ref} from 'vue'
-
+import {ref, } from 'vue'
+import axios from 'axios'
+import {useStore} from 'vuex'
 
 export default {
   name : 'Members',
-  props : ['mateDetail'],
+  props : ['mateDetail','mateNm'],
   
   components : {
 
   },
   setup(props) {
-    
-    
-    const member = ref(props.mateDetail.mateList)
-    const stylelist2 = []
-    
-
-    member.value.forEach(element => {
-        const stylelist = []
+    const store = useStore()
+    const myNum = store.state.myNum
+    const visible = ref(false)
+    props.mateDetail.mateList.forEach(element => {
+  
         if (element.campStyle1 === 'Y') {
-            stylelist.push('요식')
+            element.campStyle1 = '요식'
         } 
         if (element.campStyle2 === 'Y') {
-            stylelist.push('불멍')
+            element.campStyle2 = '불멍'
         } 
         if (element.campStyle3 === 'Y') {
-            stylelist.push('캠파')
+            element.campStyle3 = '캠파'
         } 
         if (element.campStyle4 === 'Y') {
-            stylelist.push('등산')
+            element.campStyle4 = '등산'
         } 
         if (element.campStyle5 === 'Y') {
-            stylelist.push('사진')
+            element.campStyle5 = '사진'
         } 
         if (element.campStyle6 === 'Y') {
-            stylelist.push('노래')
+            element.campStyle6 = '노래'
         }
         
-        stylelist2.push(stylelist)
     });
+    const member = ref(props.mateDetail.mateList)
+    console.log(member.value)
+
+    const friendnum = ref(5)
+    const me = ref(store.state.userList)
+    const check = ref(0)
+    const joinCheck = member.value.forEach(element => {
+      if (store.state.myNum === element.userNo) {
+        check.value = 1
+      }
+    })
+
+    
     
     
     const ratingToPercent = () => {
         const score = +this.restaurant.averageScore * 20;
         return score + 1.5;
     }
-    
+    const join = () => {
+      if (check.value === 0) {
 
+      
+      visible.value = false
+      console.log(me.value)
+      const meList = {
+          campStyle1: null,
+          campStyle2: null,
+          campStyle3: null,
+          campStyle4: null,
+          campStyle5: null,
+          campStyle6: null,
+          mateListNum: null,
+          userGender : null,
+          userMBTI : null,
+          userRatePoint : null,
+          userAge : null,
+          mateNo : props.mateNm
+      } 
+      
 
-      return {
-          member,
-          stylelist2,
-          ratingToPercent,
-          
-          
+      meList.campStyle1 = me.value.campStyle1
+      meList.campStyle2 = me.value.campStyle2
+      meList.campStyle3 = me.value.campStyle3
+      meList.campStyle4 = me.value.campStyle4
+      meList.campStyle5 = me.value.campStyle5
+      meList.campStyle6 = me.value.campStyle6
+      meList.mateListNum = Number(friendnum.value)
+      meList.userGender = me.value.userGender
+      meList.userMBTI = me.value.userMBTI
+      meList.userRatePoint = me.value.userRatePoint
+      meList.userAge = me.value.userAge
+      member.value.push(meList)
+      console.log(meList)
+      axios({
+        method : 'post',
+        url : 'http://localhost:8080/mate/apply',
+        data : meList
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+      check.value += 1
+      } else {
+        // 여기다가 지우는거 넣으면 됨
+        // 호준이가 버린함수
+        check.value -= 1
       }
+    }
+    
+    
+    const delCard = () => {
+      member.value.forEach(ele => {
+        if (ele.userNo === myNum) {
+          const temp = ele.mateListNo
+          axios({
+            method :'delete',
+            url : `http://localhost:8080/mate/apply/${temp}`
+          })
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+      })
+      
+    }
+
+    return {
+        member,
+        ratingToPercent,
+        join,
+        friendnum,
+        visible,
+        joinCheck,
+        check,
+        myNum,
+        delCard
+    }
+
+    
   }
 }
 </script>
@@ -165,5 +276,6 @@ body {
 .star-ratings-base {
   z-index: 0;
   padding: 0;
+  
 }
 </style>

@@ -16,6 +16,7 @@ import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
+import Materevise from "../views/mateparty/Materevise.vue";
 
 const routes = [
   {
@@ -87,7 +88,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/matematch/",
+    path: "/matematch/:userNo",
     name: "Matematch",
     component: Matematch,
   },
@@ -112,9 +113,14 @@ const routes = [
     component: Campsite,
   },
   {
-    path: "/campsitedetail/",
+    path: "/campsite/:contentId",
     name: "Campsitedetail",
     component: Campsitedetail,
+  },
+  {
+    path: "/mateparty/rev/:mateNo",
+    name: "Materevise",
+    component: Materevise,
   },
 ];
 
