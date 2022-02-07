@@ -17,6 +17,7 @@ import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import Materevise from "../views/mateparty/Materevise.vue";
+import test from "../components/common/test.vue";
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
@@ -134,6 +135,12 @@ const routes = [
     name: "FeedSearchResults",
     component: FeedSearchResults,
   },
+  {
+    path: "/test/",
+    name: "test",
+    component: test,
+  },
+
 ];
 
 const router = createRouter({

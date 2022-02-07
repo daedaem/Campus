@@ -7,7 +7,6 @@ import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
-import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.MateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +62,8 @@ public class MateController {
   
     mateDto.setContentId(10);
  
+
+
     MateResultDto mateResultDto = service.mateInsert(mateDto);
     
     if( mateResultDto.getResult() == SUCCESS ){

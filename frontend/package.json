@@ -29,6 +29,7 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "password-validator": "^5.2.1",
+    "sockjs-client": "^1.5.2",
     "v-pagination-3": "^0.1.7",
     "v3-infinite-loading": "^1.0.1",
     "vee-validate": "^4.5.8",
@@ -43,7 +44,8 @@
     "vue3-star-ratings": "^1.1.0",
     "vue3-tabs-component": "^1.0.5",
     "vuex": "^4.0.0-0",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
