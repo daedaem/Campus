@@ -11,8 +11,7 @@ import axios from "axios";
 export default createStore({
   plugins: [createPersistedState()],
   state: {
-    user: null,
-    token: localStorage.getItem("jwt"),
+    userEmail: null,
     equipLists: [],
     mateList: [],
     uploadimages: "",
@@ -55,6 +54,9 @@ export default createStore({
       console.log(3)
       state.myNum = data
     },
+    USER_EMAIL(state, data) {
+      state.userEmail = data
+    },
 
     // 로그인
     LOGIN: function (state) {
@@ -66,27 +68,14 @@ export default createStore({
         url: `${SERVER_URL}/user/${state.user}`,
         headers: { Authorization: `JWT ${token}` },
       }).then((res) => {
-        state.myProfileimageurl = res.data.image;
-        state.nickname = res.data.nickname;
-        state.myNum = res.data.userNo;
-        state.userList = res.data
+        console.log(res)
+        // state.myProfileimageurl = res.data.image;
+        // state.nickname = res.data.nickname;
+        // state.myNum = res.data.userNo;
+        // state.userList = res.data
       });
     },
-    // LOGIN: function (state) {
-    //   state.token = localStorage.getItem("jwt");
-    //   state.isLogin = true
-    //   const token = state.token
-    //   axios({
-    //     method: "get",
-    //     url: `${SERVER_URL}/user/userEmail`,
-    //     headers: { Authorization: `JWT ${token}`},
-    //   })
-    //     .then((res) => {
-    //       state.myProfileimageurl = res.image
-    //       state.nickname = res.nickname
-    //       state.myNum = res.id
-    //     })
-    // },
+    
     LOGOUT: function (state) {
       state.myProfileimageurl = null;
       state.token = null;
@@ -122,6 +111,9 @@ export default createStore({
     myNum({commit},data){
       commit('MY_NUM',data)
     },
+    userEmail({commit}, data) {
+      commit('USER_EMAIL', data)
+    },
     //mate
     viewMate({ commit }, data) {
       commit("VIEW_MATE", data);
@@ -135,6 +127,9 @@ export default createStore({
         Authorization: `JWT ${state.token}`,
       };
     },
+    getUserId: function (state) {
+      return state.userEmail
+    }
   },
 
   modules: {},
