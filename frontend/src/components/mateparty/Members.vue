@@ -68,7 +68,8 @@
 import {ref, } from 'vue'
 import axios from 'axios'
 import {useStore} from 'vuex'
-
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
 export default {
   name : 'Members',
   props : ['mateDetail','mateNm'],
@@ -77,6 +78,7 @@ export default {
 
   },
   setup(props) {
+    
     const store = useStore()
     const myNum = store.state.myNum
     const visible = ref(false)
@@ -158,7 +160,7 @@ export default {
       console.log(meList)
       axios({
         method : 'post',
-        url : 'http://localhost:8080/mate/apply',
+        url : `${SERVER_URL}/mate/apply`,
         data : meList
       })
       .then(res => {
