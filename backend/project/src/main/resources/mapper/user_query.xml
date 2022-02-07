@@ -16,17 +16,16 @@
 
     <!-- 유저 정보를 모두 가져온다 -->
     <select id="userSelect" parameterType="String" resultType="com.ssafy.project.dto.UserDto">
-        SELECT u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
+        SELECT u.userNo, u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
                 s.campStyle1, s.campStyle2, s.campStyle3, s.campStyle4, s.campStyle5, s.campStyle6,
                 e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipTableChair, 
                 e.campEquipPot, e.campEquipLantern, e.campEquipReel, e.campEquipIcebox, e.campEquipTarp,
                 e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
-                e.campEquipEtc4, e.campEquipEtc5, AVG(r.userRatePoint) as userRatePoint
-        FROM user u, campStyle s, campEquip e, userRate r
-        WHERE u.userNo = s.userNo
-        AND u.userNo = e.userNo
-        AND u.userNo = r.userNo
-        AND u.userEmail = #{userEmail};
+                e.campEquipEtc4, e.campEquipEtc5, (select AVG(userRatePoint) from userRate where userNo = u.userNo group by userNo) userRatePoint
+        FROM user u, campStyle s, campEquip e
+        WHERE u.userEmail = #{userEmail}
+        AND u.userNo = s.userNo
+        AND u.userNo = e.userNo;
     </select>
 
     <!-- 유저 정보 업데이트 -->

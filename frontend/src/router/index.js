@@ -97,7 +97,7 @@ const routes = [
     component: Survey,
   },
   {
-    path: "/profile",
+    path: "/profile/:userEmail",
     name: "Profile",
     component: Profile,
   },

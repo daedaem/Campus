@@ -89,27 +89,44 @@
 <script>
 // import {ref} from 'vue'
 export default {
-	name: 'campstyle',
-    props: {
-		campStyle1: {
-			type: String
-		},
-		campStyle2: {
-			type: String
-		},
-		campStyle3: {
-			type: String
-		},
-		campStyle4: {
-			type: String
-		},
-		campStyle5: {
-			type: String
-		},
-		campStyle6: {
-			type: String
-		},
-	},
+	name: 'campstyle2',
+    created: function () {
+        if (this.styleStatus.campStyle1 === "Y") {
+            this.campStyle1 = 1
+        } else {
+            this.campStyle1 = 0
+        }
+        if (this.styleStatus.campStyle2 === "Y") {
+            this.campStyle2 = 1
+        } else {
+            this.campStyle2 = 0
+        }
+        if (this.styleStatus.campStyle3 === "Y") {
+            this.campStyle3 = 1
+        } else {
+            this.campStyle3 = 0
+        }
+        if (this.styleStatus.campStyle4 === "Y") {
+            this.campStyle4 = 1
+        } else {
+            this.campStyle4 = 0
+        }
+        if (this.styleStatus.campStyle5 === "Y") {
+            this.campStyle5 = 1
+        } else {
+            this.campStyle5 = 0
+        }
+        if (this.styleStatus.campStyle6 === "Y") {
+            this.campStyle6 = 1
+        } else {
+            this.campStyle6 = 0
+        }
+        this.styleStatus.campStyle2 = this.campStyle2
+        this.styleStatus.campStyle3 = this.campStyle3
+        this.styleStatus.campStyle4 = this.campStyle4
+        this.styleStatus.campStyle5 = this.campStyle5
+        this.styleStatus.campStyle6 = this.campStyle6
+    },
     methods: {
         styleControl(x) {
             if ( x === '1') {
