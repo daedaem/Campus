@@ -359,7 +359,8 @@
 <script>
 import axios from "axios";
 
-const SERVER_URL = process.env.VUE_APP_SERVER_URL
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL
+const SERVER_URL = `http://i6e102.p.ssafy.io`;
 
 export default {
 	name: "Survey",
