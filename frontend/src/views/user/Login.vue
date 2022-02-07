@@ -80,8 +80,8 @@
 import axios from "axios";
 // import { mapActions } from "vuex";
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
-// const SERVER_URL = "http://localhost:8080";
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "Login",
@@ -123,7 +123,7 @@ export default {
           this.$store.dispatch('myNum',res.data.userNo)
           this.$store.dispatch("userEmail", res.data.userEmail)
           sessionStorage.setItem("userList", this.$store.state.userList)
-          sessionStorage.setItem("myNum", this.$store.state.myNum)
+          sessionStorage.setItem("myNum", Number(this.$store.state.myNum))
           sessionStorage.setItem("userEmail", this.$store.state.userList.userEmail)
           sessionStorage.setItem("userPassword", this.$store.state.userList.userPassword)
           
