@@ -22,4 +22,5 @@ public class SnsDto {
     private String userProfileImage;
 
     private List<SnsImageDto> ImageList;
+    private List<SnsReplyDto> ReplyList;
 }

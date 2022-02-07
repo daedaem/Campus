@@ -29,15 +29,16 @@
         전체보기
       </div>
     </div>
-    <Maincarousel />
+    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist"/>
   </body>
 </template>
 
 <script>
 import Maincarousel from "@/components/mateparty/Maincarousel.vue";
 import axios from "axios";
-import { useStore } from "vuex";
-import { computed } from "vue";
+// import { useStore } from "vuex";
+import { ref } from "vue";
+import {useStore} from 'vuex'
 
 export default {
   name: "Mainpage",
@@ -46,42 +47,54 @@ export default {
   },
 
   setup() {
-    const store = useStore();
-    // const ab = ref('')
-    const viewFunc = (data) => {
-      // console.log(data)
-      store.dispatch("viewMate", data);
-    };
-
-    const matelist = computed(() => store.state.mateList);
+    const store = useStore()
+    // 메이트 데이터(5개)
+    const mainlist = ref('')
     axios({
-      methods: "get",
-      url: "http://localhost:8080/mate",
+      method : 'get',
+      url : 'http://localhost:8080/mate/main'
     })
-    .then((res) => {
-      // console.log(res.data.list)
-      viewFunc(res.data.list);
+    .then( res => {
+      console.log(res.data.list)
+      mainlist.value = res.data.list
+    })
+    .catch( err => {
+      console.log(err)
     })
 
-    .catch((err) => {
-      console.log(err);
-    });
+    // 캠핑장 데이터
+    axios({
+      method : 'get',
+      url : 'http://localhost:8080/camp',
+      params :{
+        limit : 2906,
+        offset : 0
+      }
+    })
+    .then(res => {
+      console.log(res)
+      store.dispatch("campList",res.data.list)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
 
     return {
-      matelist,
+      mainlist,
     };
   },
 };
 </script>
 
 <style scoped>
-body {
-  /* width: 100vw;
+/* body { */
+/* width: 100vw;
   height: 100vh; */
-  /* margin: 0 auto; */
-  /* padding: 0 20px; */
-  /* background: beige; */
-}
+/* margin: 0 auto; */
+/* padding: 0 20px; */
+/* background: beige; */
+/* } */
 
 p {
   line-height: 6px;

@@ -3,7 +3,6 @@ import { createStore } from "vuex";
 // import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
 
-
 const SERVER_URL = `http://i6e102.p.ssafy.io`;
 // const SERVER_URL = "http://localhost:8080";
 import axios from "axios";
@@ -14,6 +13,7 @@ export default createStore({
     userEmail: null,
     equipLists: [],
     mateList: [],
+    searchResult: [],
     uploadimages: "",
     // feeddetailnum: 0,
     detailFeed: "",
@@ -23,7 +23,9 @@ export default createStore({
     myNum: "",
     myProfileimageurl: "",
     userList: {},
+    campList: [],
   },
+
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
       state.equipLists.push(equipItem);
@@ -45,14 +47,20 @@ export default createStore({
       state.mateList = data;
     },
 
+    //camp
+    CAMP_LIST(state,data) {
+      state.campList = data
+    },
+
     USER_LIST(state,data){
       console.log(2)
       state.userList = data
       console.log(state.userList)
+    
     },
-    MY_NUM(state,data) {
-      console.log(3)
-      state.myNum = data
+    MY_NUM(state, data) {
+      // console.log(3)
+      state.myNum = data;
     },
     USER_EMAIL(state, data) {
       state.userEmail = data
@@ -68,6 +76,7 @@ export default createStore({
         url: `${SERVER_URL}/user/${state.user}`,
         headers: { Authorization: `JWT ${token}` },
       }).then((res) => {
+<<<<<<< HEAD
         console.log(res)
         // state.myProfileimageurl = res.data.image;
         // state.nickname = res.data.nickname;
@@ -76,6 +85,30 @@ export default createStore({
       });
     },
     
+=======
+        state.myProfileimageurl = res.data.image;
+        state.nickname = res.data.nickname;
+        state.myNum = res.data.userNo;
+        state.userList = res.data;
+      });
+    },
+
+    // LOGIN: function (state) {
+    //   state.token = localStorage.getItem("jwt");
+    //   state.isLogin = true
+    //   const token = state.token
+    //   axios({
+    //     method: "get",
+    //     url: `${SERVER_URL}/user/userEmail`,
+    //     headers: { Authorization: `JWT ${token}`},
+    //   })
+    //     .then((res) => {
+    //       state.myProfileimageurl = res.image
+    //       state.nickname = res.nickname
+    //       state.myNum = res.id
+    //     })
+    // },
+>>>>>>> 4135f2a3e94136cdb2797e814eb0eecdfcb23c00
     LOGOUT: function (state) {
       state.myProfileimageurl = null;
       state.token = null;
@@ -83,6 +116,9 @@ export default createStore({
       state.myNum = null;
       state.isLogin = false;
       state.user = "";
+    },
+    SEARCH_DATA: function (state, results) {
+      state.searchResult = results;
     },
   },
   actions: {
@@ -105,11 +141,11 @@ export default createStore({
     feedList: function ({ commit }, feedList) {
       commit("FEEDLIST", feedList);
     },
-    userList({commit},data){
-      commit('USER_LIST',data)
+    userList({ commit }, data) {
+      commit("USER_LIST", data);
     },
-    myNum({commit},data){
-      commit('MY_NUM',data)
+    myNum({ commit }, data) {
+      commit("MY_NUM", data);
     },
     userEmail({commit}, data) {
       commit('USER_EMAIL', data)
@@ -118,8 +154,16 @@ export default createStore({
     viewMate({ commit }, data) {
       commit("VIEW_MATE", data);
     },
+    //camp
+    campList({commit},data) {
+      commit("CAMP_LIST" , data)
+    },
     
 
+    searchData: function (context, data) {
+      //여기서 axios요청 보내서 피드들 담아서 쓰던가
+      context.commit("SEARCH_DATA", data);
+    },
   },
   getters: {
     config: function (state) {
@@ -129,7 +173,11 @@ export default createStore({
     },
     getUserId: function (state) {
       return state.userEmail
-    }
+    },
+    // searchResults: function (state) {
+    //   let result = state.searchResult.substr(1);
+    //   return result;
+    // },
   },
 
   modules: {},

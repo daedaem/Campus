@@ -77,7 +77,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex justify-content-center">
                   <img
-                    :src="`${{ myProfileimageurl }}`"
+                    :src="`${userList.userProfileImage}`"
                     class="FeedCreate-user-profile-image"
                     alt="..."
                   />
@@ -86,7 +86,7 @@
                   <!-- {{ feed.first_name }} -->
                 </div>
                 <div class="FeedCreate-user-feed-alert fw-bold">
-                  {{ nickname }}
+                  {{ userList.userNickname }}
                 </div>
               </div>
             </div>
@@ -151,6 +151,7 @@ export default {
       feedCreateImageList: {
         imageList: [],
       },
+      nowfeed: "",
     };
   },
   methods: {
@@ -168,7 +169,7 @@ export default {
         frm.append("fileName", photoFile.files[i]);
       }
       this.frm = frm;
-      console.log(frm);
+      // console.log(frm);
 
       // 업로드 이미지 확인
       var image = this.$refs["image"].files[0];
@@ -187,6 +188,9 @@ export default {
         this.feedCreateImageList.imageList.push(url);
       }
     },
+    // moveToDetail() {
+
+    // },
 
     // clearImage() {
     //   this.uploadReady = false;
@@ -196,7 +200,7 @@ export default {
     // },
     CreateFeed() {
       // console.log(this.feedCreateContent);
-      // console.log(frm);
+      // console.log(this.userList);
       // console.log(this.frm);
       // console.log(this.feedCreateContent);
       if (
@@ -210,33 +214,51 @@ export default {
         ) {
           axios({
             method: "post",
-            // url도 받아오는대로 확인
             url: `${SERVER_URL}/sns/create`,
-            // headers는 토큰 어떻게 하냐에 따라 달라질것
-            // headers: this.$store.getters.config,
             data: this.feedCreateContent,
-            // headers: { "content-type": "multipart/form-data" },
           })
             .then((res) => {
-              // console.log(frm);
-              console.log(this.frm);
-              // console.log("1", res.data.dto.snsNo);
-
+              this.datas = res.data.dto;
+              this.nowfeed = res.data.dto.snsNo;
               axios({
                 method: "post",
                 url: `${SERVER_URL}/sns/create/${res.data.dto.snsNo}`,
                 headers: { "content-type": "multipart/form-data" },
                 data: this.frm,
-                // params: { snsNo: res.data.dto.snsNo },
-              });
+              })
+                .then((res) => {
+                  this.$store.dispatch("toDetail", this.nowfeed);
+                  this.$router.push({
+                    name: "FeedDetail",
+                    params: {
+                      snsNo: this.nowfeed,
+                      // data: this.nowfeed,
+                    },
+                    data: {
+                      imageList: res.data.imageList,
+                    },
+                  });
+                })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  alert("실패하였습니다.");
+                });
             })
             .then(() => {
-              this.$store.dispatch("toDetail", this.feed);
-              this.$router.push({ name: "FeedDetail" });
-            })
-            .catch((err) => {
-              console.log(err);
-              alert("실패하였습니다.");
+              axios
+                .get(`${SERVER_URL}/sns`)
+                .then((res) => {
+                  // console.log(res.data.list);
+                  const data = res.data.list;
+                  this.$store.dispatch("feedList", data);
+                  // console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             });
         } else {
           alert(`There's an empty box`);
@@ -247,9 +269,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["myNum"]),
-    ...mapState(["nickname"]),
-    ...mapState(["myProfileimageurl"]),
+    ...mapState(["userList"]),
   },
   // 제출했을때
 };

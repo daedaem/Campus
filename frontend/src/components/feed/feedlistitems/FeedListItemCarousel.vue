@@ -16,7 +16,7 @@
       <div class="feed-picture">
         <div
           :id="feedid"
-          class="carousel slide"
+          class="carousel carousel-dark slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
         >
@@ -84,7 +84,7 @@
       <div class="feed-picture">
         <div
           :id="feedid"
-          class="carousel slide"
+          class="carousel carousel-dark slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
         >
@@ -181,8 +181,9 @@ export default {
   },
   methods: {
     carouselidadd: function (feed) {
-      this.feedid = "feed" + feed.id;
+      this.feedid = "feed" + feed.snsNo;
       this.feedlink = "#" + this.feedid;
+      console.log(this.feedlink);
     },
   },
 
@@ -200,11 +201,13 @@ export default {
   height: 100%;
   /* min-height: 400px; */
   max-height: 600px;
-  border: 1px solid #dbdbdb;
 }
-
+.carousel-inner {
+  max-height: 600px;
+}
 .feed-picture {
   width: 100%;
+  /* height: 100%; */
   margin: auto;
 
   /* height: 500px; */

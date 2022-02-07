@@ -45,7 +45,7 @@
           style="cursor: pointer"
           class="heart-box d-flex my-auto"
           @click="giveHeart"
-          v-if="amiliked == 0"
+          v-if="this.amiliked == 0"
         >
           <i class="bi bi-heart me-3"></i>
           <p class="fs-6 my-auto">{{ likeCount }}</p>
@@ -102,10 +102,10 @@
               >
                 <div v-if="this.comments">
                   <div
-                    class="d-flex justify-content-between align-items-center"
+                    class="d-flex justify-content-between align-items-center py-2"
                   >
                     <div
-                      class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
+                      class="d-flex justify-content-start align-items-center ps-3 col-9"
                     >
                       <img
                         :src="`${comment.userProfileImage}`"
@@ -132,15 +132,17 @@
                 class="d-flex justify-content-around align-items-center my-3"
               >
                 <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
-                <div class="col-2 ms-2">
-                  <div class="d-flex justify-content-center">
-                    <img
-                      :src="`${myProfileimageurl}`"
-                      alt=""
-                      class="user-profile-image"
-                    />
+                <div
+                  class="d-flex justify-content-center align-items-center mx-2"
+                >
+                  <img
+                    :src="`${this.$store.state.userList.userProfileImage}`"
+                    alt=""
+                    class="user-comment-profile-image ms-2"
+                  />
 
-                    <div>{{ nickname }}</div>
+                  <div class="fw-bold">
+                    {{ this.$store.state.userList.userNickname }}
                   </div>
                 </div>
                 <textarea
@@ -153,14 +155,16 @@
                   style="overflow: auto"
                 >
                 </textarea>
-                <p
-                  @click="leaveComment"
-                  class="btn-sm btn-outline-transparent col-2 text-primary"
-                  type="button"
-                  id="commentcontent"
-                >
-                  게시
-                </p>
+                <div class="d-flex align-items-cetner">
+                  <p
+                    @click="leaveComment"
+                    class="btn-sm btn-outline-transparent text-primary"
+                    type="button"
+                    id="commentcontent"
+                  >
+                    게시
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -189,7 +193,7 @@ export default {
     return {
       my_comment: {
         snsReplyContent: "",
-        userNo: this.myProfileNum,
+        userNo: this.$store.state.userList.userNo,
         snsNo: this.feed.snsNo,
       },
       // snsReplyContent: {
@@ -202,11 +206,11 @@ export default {
       // follow했는지 여부
       followed: 0,
       // 내 유저번호
-      userNum: "",
+      // userNum: "",
       likedpeople: [],
       amiliked: 0,
       // commentCreateTime: this.comment.snsReplyCreateTime,
-      myProfileNum: this.$store.state.myNum,
+      myProfileNum: this.$store.state.userList.userNo,
 
       // 좋아요 갯수는 이후에 해당 게시글의 좋아요에다가 더하는 기능으로 바꾸려고 함
     };
@@ -227,21 +231,31 @@ export default {
     },
     // 좋아요 여부 확인
     likedCheck() {
-      axios.get(`${SERVER_URL}/sns/like/${this.feed.userNo}`).then((res) => {
-        // console.log("좋아요했는지 체크", res);
-        // 좋아요 한 사람들 리스트
-        // console.log(res);
-        const likedpeople = res.data.like;
-        if (likedpeople.includes(this.myProfileNum)) {
-          this.amiliked = 1;
-        } else {
-          this.amiliked = 0;
-        }
-      });
+      axios
+        .get(`${SERVER_URL}/sns/like/${this.$store.state.userList.userNo}`)
+        .then((res) => {
+          // console.log("좋아요했는지 체크", res);
+          // 좋아요 한 사람들 리스트
+          // console.log("좋아요리스트", res.data.like.length);
+          // console.log("되나", this.feed.snsNo);
+          // const likedpeople = res.data.like;
+          for (let i = 0; i < res.data.like.length; i++) {
+            if (res.data.like[i].snsNo == this.feed.snsNo) {
+              this.amiliked = 1;
+            }
+          }
+
+          //   let temp = likedpeople[i];
+
+          //     console.log("있습니다.");
+          // }
+        });
+      // console.log("되나", this.feed.snsNo);
+      // });
     },
     giveHeart: function () {
       // console.log("너", this.$store.state.myNum);
-      console.log("나", this.feed.snsNo);
+      // console.log("나", this.feed.snsNo);
       // const credentials = {
       //   // userNo: this.$store.state.myNum,
       //   snsNo: this.feed.snsNo,
@@ -252,13 +266,14 @@ export default {
         // url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
 
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
-        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.userNo}`,
+        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.userList.userNo}`,
         // headers: { "Access-Control-Allow-Origin": "*" },
         // data: this.my_comment,
         // credentials,
         // headers: this.$store.getters.config,
       })
         .then(() => {
+          // console.log
           this.amiliked = 1;
           this.likeCount += 1;
           //
@@ -270,7 +285,7 @@ export default {
     cancelHeart() {
       axios({
         method: "delete",
-        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
+        url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.userList.userNo}`,
 
         // data: this.my_comment,
         // headers: this.$store.getters.config,
@@ -286,6 +301,8 @@ export default {
     leaveComment() {
       if (this.my_comment.snsReplyContent) {
         if (this.my_comment.snsReplyContent.trim()) {
+          this.my_comment.userNo = this.$store.state.userList.userNo;
+          this.my_comment.snsNo = this.feed.snsNo;
           axios({
             method: "post",
             url: `${SERVER_URL}/sns/reply`,
@@ -293,9 +310,13 @@ export default {
             // headers: this.$store.getters.config,
           })
             .then(() => {
+              // console.log(this.my_comment.snsNo);
+              // console.log(this.$store.state.userList.userNo);
               this.my_comment.snsReplyContent = null;
-              this.snsComments();
               // console.log("댓글남기자");
+            })
+            .then(() => {
+              this.snsComments();
             })
             .catch((err) => {
               console.log(err);
@@ -308,9 +329,12 @@ export default {
       }
     },
     snsComments() {
+      this.comments = [];
       axios
         .get(`${SERVER_URL}/sns/reply/${this.feed.snsNo}`)
         .then((res) => {
+          // console.log(res);
+
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
@@ -325,22 +349,27 @@ export default {
     },
 
     follow() {
-      if (this.followed == 0) {
-        this.followed = 1;
-      } else this.followed == 1;
-      alert("정말 취소하시겠나요?");
+      axios({ method: "post", url: `{${SERVER_URL}}/follow` }).then((res) => {
+        console.log(res);
+      });
+
+      // if (this.followed == 0) {
+      //   this.followed = 1;
+      // } else this.followed == 1;
+      // alert("정말 취소하시겠나요?");
     },
   },
   created: function () {
     this.likedCheck();
     this.likesCountCheck();
     this.snsComments();
-    console.log(this.$store.state.myNum);
-    
+    // console.log(this.$store.state.myNum);
+    // console.log(this.$store.state.userList.userNo);
+    this.my_comment.userNo = this.$store.state.userList.userNo;
   },
 
   computed: {
-    ...mapState(["myNum"]),
+    ...mapState(["userList"]),
     ...mapState(["nickname"]),
     ...mapState(["myProfileimageurl"]),
   },
@@ -358,14 +387,14 @@ export default {
 .user-feed-cards {
   border-radius: 3px;
 
-  margin: 0px 0px 30px 0px;
+  margin: 5px 0px 30px 0px;
   background-color: white;
   border: 1px solid #dbdbdb;
 }
 .user-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 15px 0px 0px;
   width: 42px;
   height: 42px;
   cursor: pointer;
@@ -411,7 +440,7 @@ export default {
 .user-comment-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 15px 0px 0px;
   width: 30px;
   height: 30px;
   cursor: pointer;
