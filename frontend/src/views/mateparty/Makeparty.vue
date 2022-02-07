@@ -64,7 +64,8 @@ import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import axios from 'axios'
 
-
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
 export default {
   name: 'Makeparty',
   components : {
@@ -239,7 +240,7 @@ export default {
       axios({
         method: 'post',
         
-        url : 'http://localhost:8080/mate',
+        url : `${SERVER_URL}/mate`,
         data : this.partyData,
   
       })
@@ -251,7 +252,7 @@ export default {
         axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        url : `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
         data : this.mateImageUrl
         
         })
