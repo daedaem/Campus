@@ -34,7 +34,11 @@
 
           <!-- 로그인버튼 -->
           <div class="container-contact3-form-btn">
-            <button class="login-button" @click="login" type="button">
+            <button 
+              class="login-button" 
+              @click="login" 
+              type="button"
+              @keyup.enter="login()">
               로그인
             </button>
           </div>
@@ -64,7 +68,7 @@
             <button type="button" class="btn-primary" @click="moveToSignUp">
               회원가입
             </button>
-            <button class="btn-primary" @click="movetofindPw">비밀번호</button>
+            <button type="button" class="btn-primary" @click="movetofindPw">비밀번호</button>
           </div>
         </div>
       </form>
@@ -90,11 +94,6 @@ export default {
       error_check_login: true,
       googleUser: null,
       value: "",
-      rules: {
-        required: (value) => !!value || "Required.",
-        lengthValid: (value) =>
-          (value && value.length >= 5) || "MIN 5 characters",
-      },
     };
     
   },
@@ -108,7 +107,7 @@ export default {
   // },
 
   methods: {
-    // ...mapActions(["login"]),
+    // 로그인
     login: function () {
       console.log(this.credentials);
       axios({
@@ -117,16 +116,16 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          console.log(res)
           alert("로그인")
-          // this.$store.state.user = this.credentials.userEmail
-          // this.$store.state.myNum = res.data.userNo
-          // this.$store.state.userList = res.data
+          console.log(res)
+          this.$store.dispatch("login");
           this.$store.dispatch('userList',res.data)
           this.$store.dispatch('myNum',res.data.userNo)
-         
-          localStorage.setItem('jwt', res.data.token)
-          this.$store.dispatch("login"); 
+          this.$store.dispatch("userEmail", res.data.userEmail)
+          sessionStorage.setItem("userList", this.$store.state.userList)
+          sessionStorage.setItem("myNum", this.$store.state.myNum)
+          sessionStorage.setItem("userEmail", this.$store.state.userList.userEmail)
+          sessionStorage.setItem("userPassword", this.$store.state.userList.userPassword)
           
           this.$router.push({name: 'Mainpage'})
         })
@@ -135,12 +134,6 @@ export default {
           console.log(err)
         })
     },
-    // logout: function() {
-    //   localStorage.removeItem('jwt');
-    //   this.$store.dispatch("logout")
-    //   alert("로그아웃")
-    //   this.$router.push({name: 'login'})
-    // },
 
     // 회원가입 이동
     moveToSignUp: function () {

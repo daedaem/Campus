@@ -218,23 +218,7 @@
 						</div>
 
 						<!-- 이미지 -->
-						<div class="item-box mt-2">
-							<div align="left"><h4>이미지</h4></div>
-							<div class="w-32 h-32 border-2 border-dotted border-blue-500">
-								<div>
-									<form align="left" class="filterbox1" method="post" enctype="multipart/form-data">
-										<div>
-											<label for="chooseFile">
-												Click
-											</label>
-										</div>
-									<input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
-									</form>
-									<img :src="credentials.userProfileImage" alt="" class="">
-								</div>
-							</div>
-							<br>
-						</div>
+						<Fileupload @image="uploadedImage"/>
 					
 					<div class="d-flex justify-content-between mt-5">
 						<button @click.prevent="prev()">Previous</button>
@@ -245,10 +229,6 @@
 					</div>
 				</div>
 				
-				
-
-				
-
 			</div>
 
 			<div v-if="step === 3">
@@ -295,8 +275,10 @@ import Items from '@/components/user/Items.vue'
 import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
+import Fileupload from '@/components/mateparty/Fileupload.vue'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080";
 
 export default {
 	name: "Signup",
@@ -305,6 +287,7 @@ export default {
 		EquipInput,
 		EquipList,
 		style_Dropdown,
+		Fileupload,
 	},
 	data() {
     return {
@@ -315,7 +298,6 @@ export default {
 				userPassword: "", // 패스워드
 				userName: "",
 				password_confirmation: "", // 패스워드확인 
-				userProfileImage: "", // 이미지
 				userGender: "", // 성별
 				userLocation: "", // 지역
 				userAge: "", // 나이
@@ -331,11 +313,11 @@ export default {
 				campEquipTent : 0,
 				campEquipBrazier : 0,
 				campStyle1 : 0,
-					campStyle2 : 0,
-					campStyle3: 0,
-					campStyle4 : 0,
-					campStyle5 : 0,
-					campStyle6 : 0,
+				campStyle2 : 0,
+				campStyle3: 0,
+				campStyle4 : 0,
+				campStyle5 : 0,
+				campStyle6 : 0,
 				// 보유장비
 				imgStatus : {
 					campEquipLantern : 0,
@@ -358,15 +340,13 @@ export default {
 					campStyle6 : 0,
 				}
 			},
+			userProfileImage: "", // 이미지
 			maleButton: false,
 			femaleButton: false,
 			emailValidFlag: "", // 이메일 유효성 검사
 			nicknameValidFlag: "", // 닉네임 유효성 검사
 			passwordValidFlag: "", // 비밀번호 유효성검사
 			passwordCheckFlag: "", // 비밀번호 동일 검사
-			error: {
-				userGender: false,
-			},
     }
   },
 
@@ -381,26 +361,27 @@ export default {
 		onSubmit() {
 			axios ({
 				method: "post",
-				url: `${SERVER_URL}/user/image/${this.userEmail}`,
-				data: this.userProfileImage
-			})
-				.catch(() => {
-					alert("이미지 업로드 오류")
-				})
-			axios ({
-				method: "post",
 				url: `${SERVER_URL}/user`,
 				data: this.credentials,
 			})
 				.then((res) => {
 					console.log(res)
 					alert("회원가입 성공")
-					this.$router.push({name: 'Login'})
+					this.$router.push({name: 'Survey'})
 				})
 				.catch(() => {
 					console.log(this.credentials)
 					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
 				})
+			axios ({
+				method: "put",
+				url: `${SERVER_URL}/user/image/${this.credentials.userEmail}`,
+				headers: { 'Content-Type': 'multipart/form-data' },
+				data: this.userProfileImage
+			})
+				// .catch(() => {
+				// 	alert("이미지 업로드 오류")
+				// })
 			// console.log(this.credentials)
 			// 유효성 통과못할 시
 			// if (this.emailValidFlag === true || this.nicknameValidFlag === true || this.passwordValidFlag === true || this.passwordCheckFlag === true) {
@@ -618,14 +599,18 @@ export default {
 				this.credentials.campStyle6 = "N"
 			}
 		},
-		uploadImg() {
-      console.log("들어왔다");
-      var image = this.$refs["image"].files[0];
+		// uploadImg() {
+    //   console.log("들어왔다");
+    //   var image = this.$refs["image"].files[0];
 
-      const url = URL.createObjectURL(image);
-      this.credentials.userProfileImage = url;
-      console.log(url);
-      console.log(this.credentials.userProfileImage);
+    //   const url = URL.createObjectURL(image);
+    //   this.credentials.userProfileImage = url;
+    //   console.log(url);
+    //   console.log(this.credentials.userProfileImage);
+    // },
+		uploadedImage(file) {
+      this.userProfileImage = file
+      console.log(this.userProfileImage)
     },
   },
 }
