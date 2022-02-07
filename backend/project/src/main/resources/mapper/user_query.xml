@@ -21,7 +21,11 @@
                 e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipTableChair, 
                 e.campEquipPot, e.campEquipLantern, e.campEquipReel, e.campEquipIcebox, e.campEquipTarp,
                 e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
+<<<<<<< HEAD
                 e.campEquipEtc4, e.campEquipEtc5, (select AVG(userRatePoint) from userRate where userNo = u.userNo group by userNo) userRatePoint
+=======
+                e.campEquipEtc4, e.campEquipEtc5, (select ROUND(AVG(userRatePoint), 1) from userRate where userNo = u.userNo group by userNo) userRatePoint
+>>>>>>> 3626f242d71913f229347890d802604cb555d4ce
         FROM user u, campStyle s, campEquip e
         WHERE u.userEmail = #{userEmail}
         AND u.userNo = s.userNo

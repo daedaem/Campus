@@ -13,17 +13,21 @@
 		SELECT COUNT(*) FROM camp_site;
 	</select>
 
-    <!-- 캠핑장 검색 리스트 -->
-	<!-- private int toilet; // 화장실 - INT
-    private int shower; // 샤워실 - INT
-    private int sink; // 개수대 - INT
-    private char trailer; // 개인 트레일러 - ENUM('Y', 'N')
-    private char caravan; // 개인 카라반 - ENUM('Y', 'N')
-    private String pet; // 반려견 동반 - VARCHAR(100)
-    private char program; // 체험프로그램 - ENUM('Y', 'N')
-    private char event; // 자체 문화 행사 - ENUM('Y', 'N')
-    private String rent; // 캠핑 장비 대여 - VARCHAR(100)
-    private int parking; // 사이트 주차 - INT -->
+	<!-- SELECT *
+	FROM camp_site
+	WHERE faclt_nm LIKE CONCAT('%', '캠핑', '%')
+	AND do_nm LIKE CONCAT('%', '' ,'%')
+	AND sigungu_nm LIKE CONCAT('%', '', '%')
+	AND toilet_co >= 1
+	AND swrm_co >= 1
+	AND trler_acmpny_at LIKE CONCAT('%', '', '%')
+	AND carav_acmpny_at LIKE CONCAT('%', '', '%')
+	AND animal_cmg_cl LIKE CONCAT('가능', '%')
+	AND exprn_progrm_at LIKE CONCAT('%', '', '%')
+	AND cltur_event_at LIKE CONCAT('%', 'Y', '%')
+	AND eqpmn_lend_cl IS NULL
+	AND (site_mg1co >= 1 OR site_mg2co >= 1 OR site_mg3co >= 1); -->
+    <!-- 캠핑장 검색 리스트 (캠핑장비 대여 -> is not null) -->
 	<select id="campSiteSearch" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
 		SELECT *
 		FROM camp_site
@@ -33,16 +37,17 @@
 		AND toilet_co >= #{toiletCo}
 		AND swrm_co >= #{swrmCo}
 		AND wtrpl_co >= #{wtrplCo}
-		ANd trler_acmpny_at = #{trlerAcmpnyAt}
-		AND carav_acmpny_at = #{caravAcmpnyAt}
-		AND animal_cmg_cl LIKE CONCAT('%', #{animalCmgCl}, '%')
-		AND exprn_progrm_at = #{exprnProgrmAt}
-		AND cltur_event_at = #{clturEventAt}
-		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
-		AND site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo}
+		ANd trler_acmpny_at LIKE CONCAT('%', #{trlerAcmpnyAt}, '%')
+		AND carav_acmpny_at LIKE CONCAT('%', #{caravAcmpnyAt}, '%')
+		AND animal_cmg_cl LIKE CONCAT(#{animalCmgCl}, '%')
+		AND exprn_progrm_at LIKE CONCAT('%', #{exprnProgrmAt}, '%')
+		AND cltur_event_at LIKE CONCAT('%', #{clturEventAt}, '%')
+		AND eqpmn_lend_cl IS NOT NULL
+		AND (site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo})
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
 
+	<!-- 캠핑장 검색 리스트 count (캠핑장비 대여 -> is not null) -->
 	<select id="campSiteSearchTotalCount" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="int">
 		SELECT COUNT(*)
 		FROM camp_site
@@ -52,13 +57,53 @@
 		AND toilet_co >= #{toiletCo}
 		AND swrm_co >= #{swrmCo}
 		AND wtrpl_co >= #{wtrplCo}
-		ANd trler_acmpny_at = #{trlerAcmpnyAt}
-		AND carav_acmpny_at = #{caravAcmpnyAt}
-		AND animal_cmg_cl LIKE CONCAT('%', #{animalCmgCl}, '%')
-		AND exprn_progrm_at = #{exprnProgrmAt}
-		AND cltur_event_at = #{clturEventAt}
-		AND eqpmn_lend_cl LIKE CONCAT('%', #{eqpmnLendCl}, '%')
-		AND site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo}
+		ANd trler_acmpny_at LIKE CONCAT('%', #{trlerAcmpnyAt}, '%')
+		AND carav_acmpny_at LIKE CONCAT('%', #{caravAcmpnyAt}, '%')
+		AND animal_cmg_cl LIKE CONCAT(#{animalCmgCl}, '%')
+		AND exprn_progrm_at LIKE CONCAT('%', #{exprnProgrmAt}, '%')
+		AND cltur_event_at LIKE CONCAT('%', #{clturEventAt}, '%')
+		AND eqpmn_lend_cl IS NOT NULL
+		AND (site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo})
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+
+	<!-- 캠핑장 검색 리스트 (캠핑장비 대여 -> is null) -->
+	<select id="campSiteSearchNull" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
+		SELECT *
+		FROM camp_site
+        WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
+		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
+		AND sigungu_nm LIKE CONCAT('%', #{sigunguNm}, '%')
+		AND toilet_co >= #{toiletCo}
+		AND swrm_co >= #{swrmCo}
+		AND wtrpl_co >= #{wtrplCo}
+		ANd trler_acmpny_at LIKE CONCAT('%', #{trlerAcmpnyAt}, '%')
+		AND carav_acmpny_at LIKE CONCAT('%', #{caravAcmpnyAt}, '%')
+		AND animal_cmg_cl LIKE CONCAT(#{animalCmgCl}, '%')
+		AND exprn_progrm_at LIKE CONCAT('%', #{exprnProgrmAt}, '%')
+		AND cltur_event_at LIKE CONCAT('%', #{clturEventAt}, '%')
+		AND eqpmn_lend_cl IS NULL
+		AND (site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo})
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+
+	<!-- 캠핑장 검색 리스트 count (캠핑장비 대여 -> is null) -->
+	<select id="campSiteSearchNullTotalCount" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="int">
+		SELECT COUNT(*)
+		FROM camp_site
+        WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
+		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
+		AND sigungu_nm LIKE CONCAT('%', #{sigunguNm}, '%')
+		AND toilet_co >= #{toiletCo}
+		AND swrm_co >= #{swrmCo}
+		AND wtrpl_co >= #{wtrplCo}
+		ANd trler_acmpny_at LIKE CONCAT('%', #{trlerAcmpnyAt}, '%')
+		AND carav_acmpny_at LIKE CONCAT('%', #{caravAcmpnyAt}, '%')
+		AND animal_cmg_cl LIKE CONCAT(#{animalCmgCl}, '%')
+		AND exprn_progrm_at LIKE CONCAT('%', #{exprnProgrmAt}, '%')
+		AND cltur_event_at LIKE CONCAT('%', #{clturEventAt}, '%')
+		AND eqpmn_lend_cl IS NULL
+		AND (site_mg1co >= #{siteMgCo} OR site_mg2co >= #{siteMgCo} OR site_mg3co >= #{siteMgCo})
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
 
