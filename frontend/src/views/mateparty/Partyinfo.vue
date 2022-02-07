@@ -60,7 +60,8 @@ import {ref, } from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 
-
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
 
 export default {
   name : 'Partyinfo',
@@ -85,7 +86,7 @@ export default {
     
     axios({
       method: 'get',
-      url : `http://localhost:8080/mate/${props.mateNo}`
+      url : `${SERVER_URL}/mate/${props.mateNo}`
     })
     .then(res => {
       mateDetail.value = res.data.dto
@@ -99,7 +100,7 @@ export default {
       const temp = mateDetail.value.mateNo
       axios({
         method :'delete',
-        url : `http://localhost:8080/mate/${temp}`
+        url : `${SERVER_URL}/mate/${temp}`
       })
       .then(res => {
         console.log(res)

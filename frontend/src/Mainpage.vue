@@ -40,6 +40,9 @@ import axios from "axios";
 import { ref } from "vue";
 import {useStore} from 'vuex'
 
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
+
 export default {
   name: "Mainpage",
   components: {
@@ -52,7 +55,7 @@ export default {
     const mainlist = ref('')
     axios({
       method : 'get',
-      url : 'http://localhost:8080/mate/main'
+      url : `${SERVER_URL}/mate/main`
     })
     .then( res => {
       console.log(res.data.list)
@@ -65,7 +68,7 @@ export default {
     // 캠핑장 데이터
     axios({
       method : 'get',
-      url : 'http://localhost:8080/camp',
+      url : `${SERVER_URL}/camp`,
       params :{
         limit : 2906,
         offset : 0
