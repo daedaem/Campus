@@ -12,14 +12,14 @@
         </template>
         <b-dropdown-item-button
           @click="modifyFeed"
-          v-if="this.myNum === this.feed.userNo"
+          v-if="this.myNum === this.feedDetailContents.userNo"
           >수정</b-dropdown-item-button
         >
         <b-dropdown-item-button
           variant="danger"
           text="Outline Danger"
           @click="deleteFeed"
-          v-if="this.myNum === this.feed.userNo"
+          v-if="this.myNum === this.feedDetailContents.userNo"
           >삭제</b-dropdown-item-button
         >
         <b-dropdown-item-button>취소</b-dropdown-item-button>
@@ -74,7 +74,7 @@ export default {
   // components: {},
   // data() {},
   props: {
-    feed: Object,
+    feedDetailContents: Object,
   },
   data() {
     return {
@@ -84,7 +84,7 @@ export default {
   methods: {
     deleteFeed() {
       axios
-        .delete(`${SERVER_URL}/sns/${this.feed.snsNo}`)
+        .delete(`${SERVER_URL}/sns/${this.feedDetailContents.snsNo}`)
         .then(() => {
           // console.log(res);
           this.$router.push({ name: "FeedList" });
@@ -101,31 +101,36 @@ export default {
         });
     },
     modifyFeed() {
-      axios
-        .put(`${SERVER_URL}/sns/${this.feed.snsNo}`)
-        .then((res) => {
-          console.log(res);
-          this.$router.push({ name: "FeedList" });
-          // this.feedDetailContents = res.data.dto;
-          // console.log(this.feedDetailContents);
-          // if (res.data.rate) {
-          //   this.currentRate = res.data.rate;
-          //   this.ratingDone = 1;
-          // }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("실패하였습니다.");
-        });
-      this.$router.push({ name: "FeedDetail" });
+      // axios
+      // .put(`${SERVER_URL}/sns/${this.feedDetailContents.snsNo}`)
+      // .then((res) => {
+      // console.log(res);
+      this.$router.push({ name: "FeedModify" });
+      // this.feedDetailContents = res.data.dto;
+      // console.log(this.feedDetailContents);
+      // if (res.data.rate) {
+      //   this.currentRate = res.data.rate;
+      //   this.ratingDone = 1;
+      // }
+      // })
+      // .catch((err) => {
+      // console.log(err);
+      // alert("실패하였습니다.");
+      // });
+      // // this.$router.push({
+      // //   name: "FeedDetail",
+      // //   data: {
+      // //     feed: this.feed,
+      // //   },
+      // });
     },
-    spamReport() {
-      // this.$router.push({ name: "Reviews" });
-    },
-    cancelFollow() {},
-    // FeedDetail() {
-    //   this.$router.push({ name: "Reviews" });
+    // spamReport() {
+    //   // this.$router.push({ name: "Reviews" });
     // },
+    // cancelFollow() {},
+    // // FeedDetail() {
+    // //   this.$router.push({ name: "Reviews" });
+    // // },
   },
   computed: {
     ...mapState(["myNum"]),

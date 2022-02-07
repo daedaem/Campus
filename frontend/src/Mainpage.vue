@@ -88,13 +88,13 @@ export default {
 </script>
 
 <style scoped>
-body {
-  /* width: 100vw;
+/* body { */
+/* width: 100vw;
   height: 100vh; */
-  /* margin: 0 auto; */
-  /* padding: 0 20px; */
-  /* background: beige; */
-}
+/* margin: 0 auto; */
+/* padding: 0 20px; */
+/* background: beige; */
+/* } */
 
 p {
   line-height: 6px;
