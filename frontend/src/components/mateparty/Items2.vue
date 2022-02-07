@@ -36,7 +36,7 @@
         <div>타프</div>
       </div>
       <div class="filterbox1" >
-        <img width="100" height="100" src="../../assets/images/테이블_검정버전.png" alt="" v-if="this.imgStatus.table === 0">
+        <img width="100" height="100" src="../../assets/images/테이블_검정버전.png" alt="" v-if="this.imgStatus.table1 === 0">
         <img width="100" height="100" src="../../assets/images/테이블_색상버전.png" alt="" v-else>
         <div>테이블</div>
       </div>
