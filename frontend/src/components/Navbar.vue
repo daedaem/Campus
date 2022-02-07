@@ -44,7 +44,7 @@
             <a class="nav-link" href="#">캠핑장</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <button class="nav-link" @click="myProfile">프로필</button>
           </li>
         </ul>
         <form class="d-flex">
@@ -57,11 +57,11 @@
           <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
         <li class="nav-item">
-          <div v-if="this.$store.state.token">
+          <div v-if="this.$store.state.isLogin">
             <button @click="logout">로그아웃</button>
             <!-- <a class="nav-link " href="/signup">회원가입</a> -->
           </div>
-          <div v-if="this.$store.state.token === null">
+          <div v-if="this.$store.state.isLogin == false">
             <button @click="moveToLogin">로그인</button>
             <button @click="moveToSignUp">회원가입</button>
           </div>
@@ -98,9 +98,13 @@ export default {
   },
   methods: {
     logout: function () {
-      this.$store.state.user = null;
       localStorage.removeItem("jwt");
       this.$store.dispatch("logout");
+      sessionStorage.removeItem("userList")
+      sessionStorage.removeItem("myNum")
+      sessionStorage.removeItem("userEmail")
+      sessionStorage.removeItem("userPassword")
+
       alert("로그아웃");
       this.$router.push({ name: "Login" });
     },
@@ -110,6 +114,11 @@ export default {
     moveToLogin: function () {
       this.$router.push({ name: "Login" });
     },
+    myProfile: function () {
+      console.log(this.$store.getters.getUserId)
+      this.$router.push({ name: 'Profile', params: { userEmail: `${this.$store.getters.getUserId}`}})
+    }
+
   },
 
   created: function () {

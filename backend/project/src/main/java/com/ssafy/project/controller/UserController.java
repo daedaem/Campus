@@ -47,8 +47,10 @@ public class UserController {
     // userEmail에 해당하는 user 정보 구하기
     @GetMapping(value = "/user/{userEmail}")
     public ResponseEntity<UserDto> select(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공 실패여부로 같이
-                                                                            // 넘겨준다.
+        System.out.println(1);
+        System.out.println(userEmail);// 넘겨준다.
         UserDto userDto = userService.userSelect(userEmail);
+        System.out.println(userDto);
         return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
     }
 
@@ -98,7 +100,7 @@ public class UserController {
     // 가입 시 이미지 등록
     @PutMapping(value = "/user/image/{userEmail}")
     public ResponseEntity<UserResultDto> updateImage(@PathVariable String userEmail,
-            @RequestParam("userProfileImage") MultipartFile multipartFile) {
+            @RequestParam("fileName") MultipartFile multipartFile) {
         System.out.println(multipartFile.getOriginalFilename());
         UserResultDto userResultDto = userService.userUpdateProfileImage(userEmail,
                 multipartFile);
