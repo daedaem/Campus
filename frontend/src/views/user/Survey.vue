@@ -351,7 +351,7 @@
 
 			</div>
 		</div>
-
+		<button @click="mbtiskip">스킵버튼</button>
 		Debug: {{ credentials }}
 	</div>
 </template>
@@ -417,18 +417,21 @@ export default {
 		},
 		onSubmit() {
 			axios ({
-				method: "post",
+				method: "put",
 				url: `${SERVER_URL}/user/mbti`,
 				data: this.credentials,
 			})
 				.then((res) => {
 					console.log(res)
 					alert("설문조사 완료")
-					this.$router.push({name: "Mateparty"})
+					this.$router.push({name: "Mainpage"})
 				})
 				.catch(() => {
 					alert("다시 시도해주세요.")
 				})
+		},
+		mbtiskip: function () {
+			this.$router.push({ name: "Mainpage"})
 		},
 
 		mbtione: function () {
