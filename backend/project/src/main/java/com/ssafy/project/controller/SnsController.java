@@ -58,7 +58,7 @@ public class SnsController {
     
     // 리스트 생성
     @GetMapping(value="/sns")
-    private ResponseEntity<SnsResultDto> snsList(@RequestBody SnsParamDto snsParamDto){
+    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto){
         
         SnsResultDto snsResultDto;
 
