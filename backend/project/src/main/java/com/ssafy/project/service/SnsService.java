@@ -22,7 +22,7 @@ public interface SnsService {
 
     public SnsResultDto snsDelete(int snsNo);
 
-    public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto);
+    public SnsResultDto snsListSearchWord(SnsParamDto dto);
 
     public SnsResultDto snsDetail(SnsParamDto snsParamDto);
 

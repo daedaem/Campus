@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 @CrossOrigin(
@@ -75,6 +74,7 @@ public class SnsController {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
+
     // sns 글 등록
     @PostMapping(value="/sns/create")
     private ResponseEntity<SnsResultDto> snsInsert(@RequestBody SnsDto snsDto){
