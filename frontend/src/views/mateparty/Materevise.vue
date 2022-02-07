@@ -64,8 +64,8 @@ import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import axios from 'axios'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
-// const SERVER_URL = `localhost:8080`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 
 export default {
   name: 'Materevise',
@@ -98,12 +98,15 @@ export default {
         mateImageUrl : null,
         prevData : null,
         Nm : null,
+        userNo : null,
         
       }
   },
   created () {
     this.Nm = this.$route.params.mateNo
     this.partyData.mateNo = this.Nm
+    this.userNo = this.$store.state.myNum
+    console.log(this.userNo)
     axios({
       method : 'get',
       url : `${SERVER_URL}/mate/${this.Nm}`
@@ -292,7 +295,7 @@ export default {
             console.log(err)
           })
         }
-        this.$router.push({name:'Mateparty'})
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
       })
 
       .catch(err => {
