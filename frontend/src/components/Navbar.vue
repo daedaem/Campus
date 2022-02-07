@@ -39,7 +39,7 @@
           </div>
 
           <div class="Navbar-Searchbar ms-5">
-            <searchbar @search-Data="searchData"></searchbar>
+            <searchbar @search-Data="searchData(searchword)"></searchbar>
             <!-- <form class="d-flex">
           <input
             class="form-control me-2"
@@ -95,8 +95,16 @@
             </div>
           </div>
           <div v-if="this.$store.state.userEmail == null">
+            <<<<<<< HEAD
             <i class="fs-3 bi bi-person-badge"></i>
             <p>Guest</p>
+            =======
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              alt=""
+              class="Navbar-User-profile-image ms-2"
+            />
+            >>>>>>> 1236c55875b17fa9af1c2bad2b346d9af256fbd9
           </div>
         </template>
         <div class="dropdown-items" v-if="this.$store.state.userEmail">
@@ -147,6 +155,8 @@ export default {
   setup() {
     const router = useRouter();
     const onoff = ref(0);
+    let results = [];
+
     const refresh = () => {
       if (onoff.value === 0) {
         onoff.value += 1;
@@ -161,6 +171,7 @@ export default {
     return {
       refresh,
       onoff,
+      results,
     };
   },
   methods: {
@@ -187,13 +198,20 @@ export default {
         params: { userEmail: `${this.$store.getters.getUserId}` },
       });
     },
-    searchData: function (inputdata) {
-      axios
-        .get(`${SERVER_URL}`)
+    searchData: function () {
+      axios({
+        methods: "get",
+        url: `${SERVER_URL}/results`,
+        params: {
+          searchWord: this.searchData,
+          // searchWord : '',
+          // doNm : '',
+        },
+      })
         .then((res) => {
-          this.movies = res.data;
-          this.$store.dispatch("searchMovie", this.movies);
-          this.$router.push({ name: "MovieSearchResult" });
+          this.results = res.data;
+          this.$store.dispatch("searchData", this.results);
+          this.$router.push({ name: "FeedSearchResults" });
         })
         .catch((err) => {
           console.log(err);

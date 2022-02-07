@@ -11,7 +11,7 @@
             <div class="">
               <feed-detail-carousel
                 class="feed-detail-carousel d-flex"
-                :imageList="feedDetailContents"
+                :ImageList="feedDetailContents"
               ></feed-detail-carousel>
             </div>
           </div>

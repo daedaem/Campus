@@ -57,7 +57,7 @@ const SERVER_URL = "http://localhost:8080";
 export default {
   name: "FeedSearchResults",
   data() {
-    return { searchResults: [] };
+    return { searchResults: [], inputData: "" };
   },
   methods: {},
   created: function () {
