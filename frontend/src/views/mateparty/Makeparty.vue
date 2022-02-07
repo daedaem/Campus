@@ -64,8 +64,8 @@ import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import axios from 'axios'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
-// const SERVER_URL = `localhost:8080`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 export default {
   name: 'Makeparty',
   components : {
@@ -85,12 +85,12 @@ export default {
           memberlimit : null,
           lowestAge : null,
           highestAge : null,
-          campingsite : null,
+          mateCampsite : null,
           mateCampstart : null,
           mateCampend : null,
           mateCamptype: null,
           campEquipRequiredList : null,
-
+          userNo : this.$store.state.myNum,
           mateTitle : null,
           mateContent: null,
         },
@@ -156,7 +156,8 @@ export default {
       this.partyData.campEquipRequiredList = text
     },  
     campValue(text) {
-      this.paryDaa.campingsite = text
+      console.log(text)
+      this.partyData.mateCampsite = text
     },
     uploadedImage(file) {
       
@@ -235,12 +236,12 @@ export default {
     
 
     test() {
-      // console.log(this.partyData)
+      console.log(this.partyData)
       console.log(2)
       axios({
         method: 'post',
         
-        url : `${SERVER_URL}/mate`,
+        url : "http://localhost:8080/mate",
         data : this.partyData,
   
       })
@@ -266,7 +267,7 @@ export default {
         })
         } 
      
-        setTimeout(()=> {this.$router.push({name:'Mateparty'})},1000)
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
         
       })
 

@@ -60,13 +60,11 @@ public class MateController {
     private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session){
 
 
-    UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+  
     mateDto.setContentId(10);
-    mateDto.setUserNo(userDto.getUserNo());
-
-
+ 
     MateResultDto mateResultDto = service.mateInsert(mateDto);
-
+    
     if( mateResultDto.getResult() == SUCCESS ){
         
         return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -115,7 +113,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     mateDto.setContentId(10);
-    mateDto.setUserNo(25);
+    // mateDto.setUserNo(25);
 
     MateResultDto mateResultDto = service.mateUpdate(mateDto);
 
