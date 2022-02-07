@@ -3,15 +3,15 @@
     <div>
       <input
         class="text-secondary Searchbar-inputBox p-2"
-        v-on:input="async"
+        @input="async"
         @keyup.enter="SearchData"
         placeholder="Search..."
       />
     </div>
-    <div class="ui cards" style="margin: 10px" v-if="searchQuery">
+    <div class="ui cards" style="margin: 10px" v-if="inputData">
       <div
         class="card ui fluid"
-        v-for="(camp, idx) in searchedProducts"
+        v-for="(feed, idx) in searchedData"
         :key="idx"
         style="margin: 0"
       >
@@ -32,17 +32,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Searchbar",
   data() {
-    return { inputData: null };
+    return { inputData: "" };
   },
   methods: {
     async(e) {
-      this.inpuData = e.target.value;
+      this.inputData = e.target.value;
+      // console.log(e.target.value);
     },
     SearchData() {
       // 글자 존재
+
       if (this.inputData) {
         //글자 존재하고 공백 아님
         if (this.inputData.trim()) {
@@ -62,6 +65,12 @@ export default {
         alert("There is an empty box.");
       }
     },
+  },
+  computed: {
+    ...mapState(["searchResults"]),
+    // searchedData: function(){
+    //   return this.$store.state.searchResult.filter(()=>)
+    // }
   },
 };
 </script>
