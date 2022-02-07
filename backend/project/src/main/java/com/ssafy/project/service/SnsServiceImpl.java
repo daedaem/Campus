@@ -28,12 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
-public class SnsServiceImpl implements SnsService{
-    
+public class SnsServiceImpl implements SnsService {
+
     @Autowired
     SnsDao dao;
-
-
 
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
@@ -51,8 +49,8 @@ public class SnsServiceImpl implements SnsService{
         return String.format(DOWNLOAD_URL, URLEncoder.encode(fileName, "UTF-8"));
     }
 
-    private File convertToFile(MultipartFile multipartFile, String fileName) throws IOException { 
-                                                                                                  
+    private File convertToFile(MultipartFile multipartFile, String fileName) throws IOException {
+
         File tempFile = new File(fileName);
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
             fos.write(multipartFile.getBytes());
@@ -61,42 +59,25 @@ public class SnsServiceImpl implements SnsService{
         return tempFile;
     }
 
-    private String getExtension(String fileName) { 
+    private String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf("."));
     }
 
-    
+    // sns 등록
     @Override
     @Transactional
-    public SnsResultDto snsInsert(SnsDto dto, MultipartHttpServletRequest request) {
+    public SnsResultDto snsInsert(SnsDto dto) {
         
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try{
 
             dao.snsInsert(dto); //dto는 키값
-            
-            List<MultipartFile> fileList = request.getFiles("file");
-            
-            for(MultipartFile file : fileList){
 
-                int snsNo = dto.getSnsNo();
-                
-                String fileName = file.getOriginalFilename();
-                fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+            dto.setSnsNo(dao.snsNoselect());
+            dao.snsCheck(dto.getSnsNo());
 
-                File fileO = this.convertToFile(file, fileName);
-                String TEMP_URL = this.uploadFile(fileO, fileName);
-                SnsImageDto snsImageDto = new SnsImageDto();
-                snsImageDto.setSnsNo(snsNo);
-                snsImageDto.setSnsImageUrl(TEMP_URL);
-                fileO.delete();
-                if(dao.snsImageInsert(snsImageDto) == SUCCESS){
-                    snsResultDto.setResult(SUCCESS);
-                }else{
-                    snsResultDto.setResult(FAIL);
-                }
-            }
+            snsResultDto.setDto(dto); 
             snsResultDto.setResult(SUCCESS);
 
         }catch(Exception e){
@@ -106,30 +87,131 @@ public class SnsServiceImpl implements SnsService{
 
         return snsResultDto;
     }
+    // sns 이미지 등록
+    @Override
+    public SnsResultDto snsImageInsert(int snsNo, List<MultipartFile> multipartFile) {
+        
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            for (MultipartFile files : multipartFile) {
+                
+                String fileName = files.getOriginalFilename();
+                fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+
+                File file = this.convertToFile(files, fileName);
+                String TEMP_URL = this.uploadFile(file, fileName);
+                // 이미지 넣어버리기
+                SnsImageDto snsImageDto = new SnsImageDto();
+                snsImageDto.setSnsNo(snsNo);
+                snsImageDto.setSnsImageUrl(TEMP_URL);
+                
+                dao.snsImageInsert(snsImageDto);
+
+            }
+            snsResultDto.setImageList(dao.snsImageList(snsNo));
+            snsResultDto.setResult(SUCCESS);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+    //sns 업데이트
+    @Override
+    @Transactional
+    public SnsResultDto snsUpdate(SnsDto dto) {
+
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            dao.snsUpdate(dto);
+
+            snsResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+    // sns 이미지 업데이트
+    @Override
+    public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile) {
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            dao.snsImageDelete(snsNo);
+
+            for (MultipartFile files : multipartFile) {
+                
+                String fileName = files.getOriginalFilename();
+                fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+
+                File file = this.convertToFile(files, fileName);
+                String TEMP_URL = this.uploadFile(file, fileName);
+                // 이미지 넣어버리기
+                SnsImageDto snsImageDto = new SnsImageDto();
+                snsImageDto.setSnsNo(snsNo);
+                snsImageDto.setSnsImageUrl(TEMP_URL);
+                
+                dao.snsImageInsert(snsImageDto);
+
+                snsResultDto.setResult(SUCCESS);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
+    // sns 이미지 없을때 업데이트
+    @Override
+    public SnsResultDto snsImageNullUpdate(int snsNo) {
+        
+        SnsResultDto snsResultDto = new SnsResultDto();
+        
+        try {
+            dao.snsImageDelete(snsNo);
+
+            snsResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+        return snsResultDto;
+    }
+
 
     // 리스트를 생성하고 sns와 user를 join한 값들을 list에 순차적으로 저장(count는 sns에 있는 튜플의 개수로 지정)
     @Override
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
         System.out.println("1");
 
-        try{
+        try {
             System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
-            
+
             int count = dao.snsListTotalCount();
-            for(int i = 0 ; i < count; i++){
+            for (int i = 0; i < count; i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
-                //System.out.println(snsResultDto);
+                // System.out.println(snsResultDto);
             }
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
             System.out.println(list.get(0));
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);
         }
@@ -139,37 +221,14 @@ public class SnsServiceImpl implements SnsService{
 
     @Override
     public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
 
-        try{
+        try {
             List<SnsDto> list = dao.snsListSearchWord(snsParamDto);
             int count = dao.snsListSearchWordTotalCount();
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
-            snsResultDto.setResult(SUCCESS);
-        
-        }catch(Exception e){
-            e.printStackTrace();
-            snsResultDto.setResult(FAIL);
-        }
-
-        return snsResultDto;
-    }
-
-    @Override
-    @Transactional
-    public SnsResultDto snsUpdate(SnsDto dto, MultipartHttpServletRequest request) {
-        
-        SnsResultDto snsResultDto = new SnsResultDto();
-
-        try {
-            dao.snsUpdate(dto);
-
-            // 만약 로컬에 이미지를 저장하게되면
-            // 로컬에 있는 이미지를 삭제, db에 저장된 이미지 url삭제 
-            // 이후 insert하는 방식
-
             snsResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {
@@ -177,21 +236,22 @@ public class SnsServiceImpl implements SnsService{
             snsResultDto.setResult(FAIL);
         }
 
-
         return snsResultDto;
     }
+
+
 
     @Override
     @Transactional
     public SnsResultDto snsDelete(int snsNo) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
-            //로컬에 저장된 이미지 삭제
+            // 로컬에 저장된 이미지 삭제
             System.out.println("delete serviceImpl");
-            //snsImageDelete(snsNo);
-            //댓글 삭제;
+            // snsImageDelete(snsNo);
+            // 댓글 삭제;
             dao.snsDelete(snsNo); // 마지막으로 글 삭제
 
             snsResultDto.setResult(SUCCESS);
@@ -211,21 +271,20 @@ public class SnsServiceImpl implements SnsService{
         try {
 
             SnsDto snsDto = dao.snsDetail(snsParamDto);
-
-            // 이미지 리스트 불러와주기
             
+            snsDto.setImageList(dao.snsImageList(snsParamDto.getSnsNo()));
+            snsDto.setReplyList(dao.snsReplyList(snsParamDto.getSnsNo()));
+            // 이미지 리스트 불러와주기
+
             snsResultDto.setDto(snsDto);
             snsResultDto.setResult(SUCCESS);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);
         }
-        
+
         return snsResultDto;
     }
 
-
-
-    
 }

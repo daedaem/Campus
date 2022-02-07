@@ -1,6 +1,7 @@
 <template>
   <body>
     <div style="margin-top: 20px; width: 30%; height:250px; float: left; ">
+      <button v-if="userNm === mateDetail.userNo" @click="delPost">x</button>
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div>
     <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;"><div style="float:right;">{{mateDetail.mateCampstart}} ~ {{mateDetail.mateCampend}}</div>
@@ -26,10 +27,8 @@
     
     <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail"/></div>
-    <div style="float:center">
-      <button @click="join">메이트 참가</button>
-    </div>
+    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail" :mateNm="mateNm"/></div>
+    <button @click="goPartyrevise(mateDetail.mateNo)">수정</button>
     
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
@@ -59,7 +58,8 @@ import Members from '../../components/mateparty/Members.vue'
 import axios from 'axios'
 import {ref, } from 'vue'
 import {useStore} from 'vuex'
-// import {computed} from 'vue'
+import {useRouter} from 'vue-router'
+
 
 
 export default {
@@ -72,14 +72,17 @@ export default {
     Cards,
     Items2,
     Members,
+
   },
   setup(props) {
-    const store = useStore()         
+    const store = useStore()    
+    const router = useRouter()
+    console.log(store.state.mateList)     
+    const mateNm = ref(props.mateNo)
+    const userNm = store.state.myNum
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([])
-    const me = ref(store.state.userList)
-   
-
+    
     axios({
       method: 'get',
       url : `http://localhost:8080/mate/${props.mateNo}`
@@ -92,42 +95,11 @@ export default {
       console.log(err)
     })
 
-    
-    
-
-    const join = () => {
-      console.log(me.value)
-      const meList = {
-          // campStyle1: null,
-          // campStyle2: null,
-          // campStyle3: null,
-          // campStyle4: null,
-          // campStyle5: null,
-          // campStyle6: null,
-          mateListNum: null,
-          userGender : null,
-          userMBTI : null,
-          userRatePoint : null,
-          userAge : null,
-          mateNo : props.mateNo
-      } 
-      
-      meList.campStyle1 = me.value.campStyle1
-      meList.campStyle2 = me.value.campStyle2
-      meList.campStyle3 = me.value.campStyle3
-      meList.campStyle4 = me.value.campStyle4
-      meList.campStyle5 = me.value.campStyle5
-      meList.campStyle6 = me.value.campStyle6
-      meList.mateListNum = null
-      meList.userGender = me.value.userGender
-      meList.userMBTI = me.value.userMBTI
-      meList.userRatePoint = me.value.userRatePoint
-      meList.userAge = me.value.userAge
-      console.log(meList)
+    const delPost = () => {
+      const temp = mateDetail.value.mateNo
       axios({
-        method : 'post',
-        url : 'http://localhost:8080/mate/apply',
-        data : meList
+        method :'delete',
+        url : `http://localhost:8080/mate/${temp}`
       })
       .then(res => {
         console.log(res)
@@ -135,21 +107,28 @@ export default {
       .catch(err => {
         console.log(err)
       })
-      
-      
-      
-    
-      
     }
+
+    const goPartyrevise = (Num) =>{
+      router.push({name : 'Materevise' , params : { mateNo : Num}})
+    }
+    
+    
+
+    
     
 
     return {
       // myMate,
       // Mate
       mateDetail,
-  
-      join,
-      me,
+      delPost,
+      goPartyrevise,
+      userNm,
+      
+ 
+      
+      mateNm,
     }
   }
 }

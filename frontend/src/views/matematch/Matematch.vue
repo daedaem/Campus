@@ -5,78 +5,66 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx"  >
             <div class="card p-0" >
-                <div class="card-image"> <img src="https://images.pexels.com/photos/2746187/pexels-photo-2746187.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
+                <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
                 <div class="card-content d-flex flex-column align-items-center">
-                    <h4 class="pt-2">SomeOne Famous</h4>
-                    <h5>Creative Desinger</h5>
+                    <h4 class="pt-2">{{item.userNickname}}</h4>
+                    <h5>{{item.userMBTI}}</h5>
                     <ul class="social-icons d-flex justify-content-center">
-                        <li style="--i:1"> <a href="#"> <i class="bi bi-instagram white"></i> </a> </li>
-                        <li style="--i:2"> <a href="#"> <i class="bi bi-chat white"></i> </a> </li>
-                        <li style="--i:3"> <a href="#"> <i class="bi bi-person-circle white"></i></a> </li>
+                        <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
+                        <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting"></i>  </li>
+                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="'I am popover content!'" title="Popover Title"></i> </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card p-0">
-                <div class="card-image"> <img src="https://images.pexels.com/photos/381843/pexels-photo-381843.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
-                <div class="card-content d-flex flex-column align-items-center">
-                    <h4 class="pt-2">SomeOne Famous</h4>
-                    <h5>Creative Desinger</h5>
-                    <ul class="social-icons d-flex justify-content-center">
-                        <li style="--i:1"> <a href="#"> <span class="fab fa-facebook"></span> </a> </li>
-                        <li style="--i:2"> <a href="#"> <span class="fab fa-twitter"></span> </a> </li>
-                        <li style="--i:3"> <a href="#"> <span class="fab fa-instagram"></span> </a> </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6" style="margin-top:50px;">
-            <div class="card p-0">
-                <div class="card-image"> <img src="https://images.pexels.com/photos/381843/pexels-photo-381843.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
-                <div class="card-content d-flex flex-column align-items-center">
-                    <h4 class="pt-2">SomeOne Famous</h4>
-                    <h5>Creative Desinger</h5>
-                    <ul class="social-icons d-flex justify-content-center">
-                        <li style="--i:1"> <a href="#"> <span class="fab fa-facebook"></span> </a> </li>
-                        <li style="--i:2"> <a href="#"> <span class="fab fa-twitter"></span> </a> </li>
-                        <li style="--i:3"> <a href="#"> <span class="fab fa-instagram"></span> </a> </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6" style="margin-top:50px;">
-            <div class="card p-0">
-                <div class="card-image"> <img src="https://images.pexels.com/photos/381843/pexels-photo-381843.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
-                <div class="card-content d-flex flex-column align-items-center">
-                    <h4 class="pt-2">SomeOne Famous</h4>
-                    <h5>Creative Desinger</h5>
-                    <ul class="social-icons d-flex justify-content-center">
-                        <li style="--i:1"> <a href="#"> <span class="fab fa-facebook"></span> </a> </li>
-                        <li style="--i:2"> <a href="#"> <span class="fab fa-twitter"></span> </a> </li>
-                        <li style="--i:3"> <a href="#"> <span class="fab fa-instagram"></span> </a> </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-     
     </div>
 </div>
+  
+
+
   </body>
-  {{mateList}}
 </template>
 
 <script>
-import {mapState} from 'vuex'
+// import {mapState} from 'vuex'
+import axios from 'axios'
+import {ref} from 'vue'
+// import {useRouter} from 'vue'
+// import {useStore} from 'vuex'
 
 export default {
   name : 'Matematch',
-
-  computed : {
-      ...mapState(['mateList'])
+  setup() {
+    //   const store = useStore()
+    //   const userNo = store.state.myNum
+    const matchData = ref([])
+    
+    axios({
+        method : 'get',
+        url : `http://localhost:8080/mate/match/4`
+    })
+    .then(res => {
+        const temp = res.data.matelist
+        matchData.value = temp
+        console.log(matchData.value)
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+    
+    const goProfile = (userEmail) => {
+      console.log(userEmail)
+      // router.push({name : 'Profile' , params : { userEmail : userEmail} })
+    }
+    
+      return {
+        matchData,
+        goProfile,
+      }
   }
+
   
 
 
@@ -95,13 +83,13 @@ export default {
      font-family: 'Poppins', sans-serif
  }
 
-body {
-  width: 768px;
-  margin: 0 auto;
-  padding: 0 20px;
-  background: beige;
-  
-}
+@media (min-width: 768px) {
+  body {
+    width: 768px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: beige; }
+  }
 
  .container {
      margin-top: 100px
@@ -109,7 +97,7 @@ body {
 
  .container .row .col-lg-4 {
      display: flex;
-     justify-content: center
+     /* justify-content: center */
  }
 
  .card {
@@ -119,7 +107,7 @@ body {
      border-radius: 20px;
      overflow: hidden;
      max-width: 280px;
-     max-height: 340px;
+     height: 400px;
      cursor: pointer;
      border: none;
      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -129,12 +117,12 @@ body {
 
  .card .card-image {
      width: 100%;
-     max-height: 340px
+     height: 400px
  }
 
  .card .card-image img {
      width: 100%;
-     max-height: 340px;
+     height: 400px;
      object-fit: cover
  }
 
@@ -144,7 +132,7 @@ body {
      color: #fff;
      background: rgba(255, 255, 255, 0.2);
      backdrop-filter: blur(15px);
-     min-height: 140px;
+     min-height: 130px;
      width: 100%;
      transition: bottom .4s ease-in;
      box-shadow: 0 -10px 10px rgba(255, 255, 255, 0.1);

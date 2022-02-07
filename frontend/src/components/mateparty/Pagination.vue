@@ -45,6 +45,7 @@ export default {
   props : {
       matelists : Array,
       filterlist : Array,
+      testlist : Array,
     },
   name : 'Pagination',
   components : {
@@ -66,8 +67,9 @@ export default {
     
     paginate (page_size, page_number) {
         console.log(this.matelists)
-        let itemsToParse = this.matelists
+        let itemsToParse = this.testlist
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
+     
        
     },
     onPageChanged() {
@@ -77,22 +79,24 @@ export default {
 
 
   },
-  mounted(){
+  created(){
    
-    if (this.matelists) {
+    // setTimeout(() => {
+    if (this.testlist) {
       this.paginate(this.perPage, 0)
     }
+    // }, 2000)
   },
 
-  watch : {
-    matelists : {
-      handler() {
-        this.paginate(this.perPage, 0)
-      },
-      deep : true
-    },
+  // watch : {
+  //   matelists : {
+  //     handler() {
+  //       this.paginate(this.perPage, 0)
+  //     },
+  //     deep : true
+  //   },
     
-  },
+  // },
 
   computed : {
     ...mapState['mateList'],
