@@ -46,7 +46,7 @@ export default {
   created: function () {
     // console.log(this.$store.state.user);
     axios
-      .get("http://localhost:8080/sns")
+      .get("http://i6e102.p.ssafy.io/sns")
       .then((res) => {
         // console.log(res.data.list);
         const data = res.data.list;
