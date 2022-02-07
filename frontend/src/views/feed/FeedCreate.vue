@@ -29,13 +29,13 @@
         <div class="FeedCreate-leftbox">
           <!-- carousel로 바꾸기 -->
           <div
-            v-if="feedCreateImageList.imageList.length > 0"
+            v-if="feedCreateImageList.ImageList.length > 0"
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
               <feed-create-carousel
                 class="feed-create-carousel"
-                :imageList="feedCreateImageList"
+                :ImageList="feedCreateImageList"
               ></feed-create-carousel>
               <!-- <img
                 v-for="(image, index) in feedCreateContent.imageList"
@@ -149,7 +149,7 @@ export default {
       },
       frm: "",
       feedCreateImageList: {
-        imageList: [],
+        ImageList: [],
       },
       nowfeed: "",
     };
@@ -185,7 +185,7 @@ export default {
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
         //   // imageList 폴더에 넣어둠
 
-        this.feedCreateImageList.imageList.push(url);
+        this.feedCreateImageList.ImageList.push(url);
       }
     },
     // moveToDetail() {
@@ -205,7 +205,7 @@ export default {
       // console.log(this.feedCreateContent);
       if (
         this.feedCreateContent.snsContent &&
-        this.feedCreateImageList.imageList
+        this.feedCreateImageList.ImageList
       ) {
         if (
           // 문자열 양끝 공백 제거
@@ -235,7 +235,7 @@ export default {
                       // data: this.nowfeed,
                     },
                     data: {
-                      imageList: res.data.imageList,
+                      ImageList: res.data.ImageList,
                     },
                   });
                 })

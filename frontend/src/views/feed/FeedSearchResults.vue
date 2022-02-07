@@ -54,10 +54,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "FeedSearchResults",
   data() {
-    return { searchResults: [] };
+    return { searchResults: [], inputData: "" };
   },
   methods: {},
   created: function () {
+    this.inputData = this.$route.params.inputData;
+
     // 여기서 axios요청 보내서 this.searchResults에 있는 내용들쓰거나
     // actions에서 담아도 될듯
     console.log(this.searchResults);
