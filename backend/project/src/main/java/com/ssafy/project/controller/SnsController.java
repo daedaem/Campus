@@ -1,6 +1,8 @@
 package com.ssafy.project.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.ssafy.project.dto.LikeDto;
@@ -25,7 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
@@ -73,13 +77,30 @@ public class SnsController {
     }
     // sns 글 등록
     @PostMapping(value="/sns/create")
-    private ResponseEntity<SnsResultDto> snsInsert(SnsDto snsDto, MultipartHttpServletRequest request){
+    private ResponseEntity<SnsResultDto> snsInsert(@RequestBody SnsDto snsDto){
 
         // HttpSession session = request.getSession();
 
         // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        System.out.println(snsDto);
+        SnsResultDto snsResultDto = snsService.snsInsert(snsDto);
 
-        SnsResultDto snsResultDto = snsService.snsInsert(snsDto, request);
+        if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+    // sns 이미지 등록
+    @PostMapping(value="/sns/create/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsImageInsert(@PathVariable int snsNo, @RequestParam("fileName") List<MultipartFile> multipartFile){
+
+        // HttpSession session = request.getSession();
+
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        System.out.println(snsNo);
+        SnsResultDto snsResultDto = snsService.snsImageInsert(snsNo, multipartFile);
 
         if( snsResultDto.getResult() == SUCCESS ){
             System.out.println("snsInsert SUCCESS!");
@@ -89,16 +110,48 @@ public class SnsController {
         }
     }
     // 글 수정
-    @PostMapping(value="/sns/{snsNo}")
-    private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto, MultipartHttpServletRequest request){
+    @PutMapping(value="/sns/modify/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsUpdate(SnsDto snsDto){
 
         //HttpSession session = request.getSession();
 
         //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
 
-        SnsResultDto snsResultDto = snsService.snsUpdate(snsDto, request);
+        SnsResultDto snsResultDto = snsService.snsUpdate(snsDto);
 
         if( snsResultDto.getResult() == SUCCESS ){
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+    // 이미지 수정
+    @PutMapping(value="/sns/modifyImage/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsImageUpdate(@PathVariable int snsNo, @RequestParam("fileName") List<MultipartFile> multipartFile){
+
+        // HttpSession session = request.getSession();
+
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        SnsResultDto snsResultDto = snsService.snsImageUpdate(snsNo, multipartFile);
+
+        if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        }else{
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+    // 이미지가 없을때 수정
+    @PutMapping(value="/sns/modifyImageNull/{snsNo}")
+    private ResponseEntity<SnsResultDto> snsImageNullUpdate(@PathVariable int snsNo){
+
+        // HttpSession session = request.getSession();
+
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        SnsResultDto snsResultDto = snsService.snsImageNullUpdate(snsNo);
+
+        if( snsResultDto.getResult() == SUCCESS ){
+            System.out.println("snsInsert SUCCESS!");
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
         }else{
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
@@ -152,7 +205,8 @@ public class SnsController {
         
         UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        snsReplyDto.setUserNo(userDto.getUserNo());
+        //snsReplyDto.setUserNo(userDto.getUserNo());
+        snsReplyDto.setUserNo(19);
 
         SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
 
@@ -196,7 +250,8 @@ public class SnsController {
 
     // 좋아요 입력
     @PostMapping(value = "/sns/like/{snsNo}/{userNo}")
-    public ResponseEntity<Integer> likeInsert(@PathVariable int snsNo,@PathVariable int userNo){
+    public ResponseEntity<Integer> likeInsert(@PathVariable int snsNo, @PathVariable int userNo) {
+
         if(likeService.likeInsert(snsNo, userNo) == SUCCESS){
             return new ResponseEntity<Integer>(SUCCESS, HttpStatus.OK);
         }else{

@@ -16,7 +16,10 @@ import Profile from "../views/user/Profile.vue";
 import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
+import Materevise from "../views/mateparty/Materevise.vue";
 
+import FeedModify from "../views/feed/FeedModify.vue";
+import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
 const routes = [
   {
     path: "/",
@@ -55,6 +58,11 @@ const routes = [
     component: FeedDetail,
   },
   {
+    path: "/sns/:snsNo/update",
+    name: "FeedModify",
+    component: FeedModify,
+  },
+  {
     path: "/create",
     name: "FeedCreate",
     component: FeedCreate,
@@ -87,7 +95,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/matematch/",
+    path: "/matematch/:userNo",
     name: "Matematch",
     component: Matematch,
   },
@@ -112,9 +120,19 @@ const routes = [
     component: Campsite,
   },
   {
-    path: "/campsitedetail/",
+    path: "/campsite/:contentId",
     name: "Campsitedetail",
     component: Campsitedetail,
+  },
+  {
+    path: "/mateparty/rev/:mateNo",
+    name: "Materevise",
+    component: Materevise,
+  },
+  {
+    path: "/searchresults/",
+    name: "FeedSearchResults",
+    component: FeedSearchResults,
   },
 ];
 

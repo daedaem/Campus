@@ -2,14 +2,6 @@
   <div class="FeedListTotalframe d-flex">
     <!-- <infinite-scroll @infini></infinite-scroll> -->
     <div class="FeedListFrame">
-      <router-link
-        class="text-decoration-none fw-bold text-primary align-middle align-self-center"
-        :to="{ name: 'FeedCreate' }"
-      >
-        <button type="button" class="btn btn-success m-3">
-          <i class="bi bi-plus-square fs-3"></i>
-        </button>
-      </router-link>
       <div
         class="body d-flex flex-column justify-content-center align-items-center"
       >

@@ -17,7 +17,7 @@
           
         </div>
         
-        <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
+        <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;" @camp-data="campValue"/>
         <Datepicker @date-in="dateIn"/>
       <!-- <div class="camping">
         <input class="input1" type="text" placeholder="캠핑장 선택">
@@ -154,6 +154,9 @@ export default {
     imgStatus(text) {
       this.partyData.campEquipRequiredList = text
     },  
+    campValue(text) {
+      this.paryDaa.campingsite = text
+    },
     uploadedImage(file) {
       
       this.mateImageUrl = file
@@ -244,20 +247,26 @@ export default {
         // console.log(res.dada.dto.mateNo)
         console.log(res.data.dto.mateNo)
         console.log(this.mateImageUrl)
+        if (this.mateImageUrl) {
         axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
         url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
         data : this.mateImageUrl
         
-      })
+        })
         .then(res => {
           console.log(res)
-          this.$router.push({name:'Mateparty'})
+         
+          
         })
         .catch(err => {
           console.log(err)
         })
+        } 
+     
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},1000)
+        
       })
 
       .catch(err => {
