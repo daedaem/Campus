@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-custom-2">
-    <div class="container-fluid d-flex">
+    <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
         <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
         <div class="Navbar-buttons d-flex align-items-center">
@@ -39,7 +39,7 @@
           </div>
 
           <div class="Navbar-Searchbar ms-5">
-            <searchbar @search-Data="searchData(searchword)"></searchbar>
+            <searchbar></searchbar>
             <!-- <form class="d-flex">
           <input
             class="form-control me-2"
@@ -85,8 +85,29 @@
               class="Navbar-User-profile-image ms-2"
             />
             <img
-              v-if="this.$store.state.userList.userProfileImage == null"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              v-if="
+                this.$store.state.userList.userProfileImage == null &&
+                this.$store.state.userList.userGender == null
+              "
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
+              alt=""
+              class="Navbar-User-profile-image ms-2"
+            />
+            <img
+              v-if="
+                this.$store.state.userList.userProfileImage == null &&
+                this.$store.state.userList.userGender == 'M'
+              "
+              src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
+              alt=""
+              class="Navbar-User-profile-image ms-2"
+            />
+            <img
+              v-if="
+                this.$store.state.userList.userProfileImage == null &&
+                this.$store.state.userList.userGender == 'W'
+              "
+              src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg"
               alt=""
               class="Navbar-User-profile-image ms-2"
             />
@@ -94,17 +115,12 @@
               {{ this.$store.state.userList.userNickname }}
             </div>
           </div>
-          <div v-if="this.$store.state.userEmail == null">
-            <<<<<<< HEAD
+          <div
+            v-if="this.$store.state.userEmail == null"
+            class="d-flex justify-contents-center align-items-center"
+          >
             <i class="fs-3 bi bi-person-badge"></i>
-            <p>Guest</p>
-            =======
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              alt=""
-              class="Navbar-User-profile-image ms-2"
-            />
-            >>>>>>> 1236c55875b17fa9af1c2bad2b346d9af256fbd9
+            <div class="bi-person-badge-name ms-2">Guest</div>
           </div>
         </template>
         <div class="dropdown-items" v-if="this.$store.state.userEmail">
@@ -141,12 +157,12 @@
 
 <script>
 // const SERVER_URL = "http://localhost:8080";
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-import axios from "axios";
+// import axios from "axios";
 import Searchbar from "./common/Searchbar.vue";
 
 export default {
@@ -155,7 +171,6 @@ export default {
   setup() {
     const router = useRouter();
     const onoff = ref(0);
-    let results = [];
 
     const refresh = () => {
       if (onoff.value === 0) {
@@ -171,7 +186,6 @@ export default {
     return {
       refresh,
       onoff,
-      results,
     };
   },
   methods: {
@@ -198,42 +212,10 @@ export default {
         params: { userEmail: `${this.$store.getters.getUserId}` },
       });
     },
-    searchData: function () {
-      axios({
-        methods: "get",
-        url: `${SERVER_URL}/results`,
-        params: {
-          searchWord: this.searchData,
-          // searchWord : '',
-          // doNm : '',
-        },
-      })
-        .then((res) => {
-          this.results = res.data;
-          this.$store.dispatch("searchData", this.results);
-          this.$router.push({ name: "FeedSearchResults" });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-  created: function () {
-    // console.log(this.$store.state.user);
-    axios
-      .get(`${SERVER_URL}/sns`)
-      .then((res) => {
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-        console.log(res.data.list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   },
 
   created: function () {},
+
   computed: {
     ...mapState(["userList"]),
     ...mapState(["nickname"]),
@@ -249,6 +231,10 @@ export default {
   .Navbar-Searchbar {
     display: none;
   }
+  .btn-group {
+    margin-right: 3rem;
+    padding-right: 3rem;
+  }
 
   .hidden-Navbar-Searchbar {
     margin: auto;
@@ -262,6 +248,7 @@ export default {
     display: none;
   }
   .btn-group {
+    margin-right: 3rem;
     padding-right: 3rem;
   }
 }
@@ -332,7 +319,7 @@ export default {
 .bi-person-badge {
   color: #eee;
 }
-.bi-person-badge-text {
+.bi-person-badge-name {
   color: #eee;
 }
 </style>

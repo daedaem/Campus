@@ -29,7 +29,7 @@
         전체보기
       </div>
     </div>
-    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist"/>
+    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" />
   </body>
 </template>
 
@@ -38,10 +38,10 @@ import Maincarousel from "@/components/mateparty/Maincarousel.vue";
 import axios from "axios";
 // import { useStore } from "vuex";
 import { ref } from "vue";
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = `http://localhost:8080`
+const SERVER_URL = `http://localhost:8080`;
 
 export default {
   name: "Mainpage",
@@ -50,38 +50,52 @@ export default {
   },
 
   setup() {
-    const store = useStore()
+    const store = useStore();
     // 메이트 데이터(5개)
-    const mainlist = ref('')
+    const mainlist = ref("");
     axios({
-      method : 'get',
-      url : `${SERVER_URL}/mate/main`
+      method: "get",
+      url: `${SERVER_URL}/mate/main`,
     })
-    .then( res => {
-      console.log(res.data.list)
-      mainlist.value = res.data.list
-    })
-    .catch( err => {
-      console.log(err)
-    })
+      .then((res) => {
+        // console.log(res.data.list);
+        mainlist.value = res.data.list;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 캠핑장 데이터
     axios({
-      method : 'get',
-      url : `${SERVER_URL}/camp`,
-      params :{
-        limit : 2906,
-        offset : 0
-      }
+      method: "get",
+      url: `${SERVER_URL}/camp`,
+      params: {
+        limit: 2906,
+        offset: 0,
+      },
     })
-    .then(res => {
-      console.log(res)
-      store.dispatch("campList",res.data.list)
+      .then((res) => {
+        // console.log(res);
+        store.dispatch("campList", res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios({
+      method: "get",
+      url: `${SERVER_URL}/sns`,
+      params: {
+        // limit: 2906,
+        // offset: 0,
+      },
     })
-    .catch(err => {
-      console.log(err)
-    })
-
+      .then((res) => {
+        // console.log(res);
+        store.dispatch("feedList", res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return {
       mainlist,

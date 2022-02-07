@@ -113,8 +113,8 @@
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
-// const SERVER_URL = "http://localhost:8080";
+// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
+const SERVER_URL = "http://localhost:8080";
 
 import axios from "axios";
 import { mapState } from "vuex";
@@ -207,6 +207,11 @@ export default {
         this.feedCreateContent.snsContent &&
         this.feedCreateImageList.ImageList
       ) {
+        if (this.feedCreateContent.snsContent[0] == "#") {
+          this.feedCreateContent.snsContent =
+            "#" + this.feedCreateContent.snsContent.substr(1).trim();
+          // console.log("된건가", this.inputData);
+        }
         if (
           // 문자열 양끝 공백 제거
           // feedCreateContent.images도 trim해야하는지확인해보자

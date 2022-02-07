@@ -1,91 +1,111 @@
 <template>
   <div class="FeedSearchResult-totalFrame">
-    <p class="fs-1 m-3">#검색단어</p>
-    <div class="fs-4">인기 게시물</div>
-    <div
-      class="FeedSearchResults-repsContentsBox d-flex justify-content-around align-items-center"
-    >
-      <div class="첫번쨰">
-        <div class="FeedSearchResults-repsImage m-3">
-          <img
-            src="https://entertainimg.kbsmedia.co.kr/cms/uploads/PERSON_20211124154837_f9c6fbc082f4fc2b8796396eb20a5bcc.jpg"
-            alt="이미지"
-          />
+    <div v-if="searchResult.length > 0">
+      <p class="fs-1 m-3">{{ searchWord }}</p>
+      <div class="fs-6 ps-4 text-start">인기 게시물</div>
+      <div
+        class="FeedSearchResults-repsContentsBox d-flex justify-content-around align-items-center"
+      >
+        <div class="첫번쨰">
+          <div class="FeedSearchResults-repsImage m-3">
+            <img
+              src="https://entertainimg.kbsmedia.co.kr/cms/uploads/PERSON_20211124154837_f9c6fbc082f4fc2b8796396eb20a5bcc.jpg"
+              alt="이미지"
+            />
+          </div>
+        </div>
+        <div class="두번쨰">
+          <div class="FeedSearchResults-repsImage m-3">
+            <img
+              src="http://theviewers.co.kr/Files/30/Images/201902/28401_23866_3233.jpg"
+              alt="이미지"
+            />
+          </div>
+        </div>
+        <div class="세번쨰">
+          <div class="FeedSearchResults-repsImage m-3">
+            <img
+              src="https://news.nateimg.co.kr/orgImg/my/2021/09/16/202109152211873331_1.jpg"
+              alt="이미지"
+            />
+          </div>
+        </div>
+        <div class="네번쨰">
+          <div class="FeedSearchResults-repsImage m-3">
+            <img
+              src="https://entertainimg.kbsmedia.co.kr/cms/uploads/PERSON_20211124154837_f9c6fbc082f4fc2b8796396eb20a5bcc.jpg"
+              alt="이미지"
+            />
+          </div>
         </div>
       </div>
-      <div class="두번쨰">
-        <div class="FeedSearchResults-repsImage m-3">
-          <img
-            src="http://theviewers.co.kr/Files/30/Images/201902/28401_23866_3233.jpg"
-            alt="이미지"
-          />
+      <div>{{ feed }}</div>
+      <div class="fs-4">게시물들</div>
+      <div class="게시물 박스들">
+        <!-- {{ searchResult }} -->
+        <div class="FeedSearchResults-FrameBox d-flex">
+          <div v-for="(feed, idx) in searchResult" :key="idx">
+            <!-- <div>{{ feed }}</div> -->
+            <div>{{ feed.snsNo }}</div>
+            <div>{{ feed.userNickname }}</div>
+            <div>{{ feed.snsContent }}</div>
+            <div class="FeedSearch-ImageBox">
+              <img
+                :src="`${feed.imageList[0].snsImageUrl}`"
+                class="FeedSearch-ImageBox-Image"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="세번쨰">
-        <div class="FeedSearchResults-repsImage m-3">
-          <img
-            src="https://news.nateimg.co.kr/orgImg/my/2021/09/16/202109152211873331_1.jpg"
-            alt="이미지"
-          />
-        </div>
-      </div>
-      <div class="네번쨰">
-        <div class="FeedSearchResults-repsImage m-3">
-          <img
-            src="https://entertainimg.kbsmedia.co.kr/cms/uploads/PERSON_20211124154837_f9c6fbc082f4fc2b8796396eb20a5bcc.jpg"
-            alt="이미지"
-          />
-        </div>
+        <!-- {{ this.searchResults }} -->
       </div>
     </div>
-    <div class="fs-4">게시물들</div>
-    <div class="게시물 박스들">
-      <div class="게시물 박스들 틀">
-        <div v-for="(feed, idx) in this.searchResults" :key="idx"></div>
-      </div>
-      <!-- {{ this.searchResults }} -->
+    <div v-else>
+      <p class="fs-1 m-3">{{ searchWord }}</p>
+      <p class="fs-6">검색어와 관련된 피드가 없습니다.</p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
+// import { mapGetters } from "vuex";
 import axios from "axios";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`
 const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "FeedSearchResults",
   data() {
-    return { searchResults: [], inputData: "" };
+    // return { searchresults: this.$store.state.searchResult };
   },
   methods: {},
   created: function () {
-    // console.log(this.$store.state.user);
+    // this.$router.reload();
+
+    // console.log("돼요?", this.$store.state.searchResult);
+    // this.searchresults = this.$store.state.searchResult;
     axios({
       methods: "get",
       url: `${SERVER_URL}/sns`,
       params: {
         // limit: limit.value,
         // offset: offset.value,
-        searchWord: "ㅇㅇ",
+        searchWord: this.$store.state.searchWord,
         // doNm : '',
       },
-    })
-      .then((res) => {
-        // articles.value.push(...res.data.list);
-        console.log(res);
-        this.searchResults.push(res.data.list);
-        console.log(res.data.list);
-        //       this.$store.dispatch("feedList", data);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      //     // articles.value.push(...res.data.list);
+      console.log("나오나", res);
+      //     this.searchResults.push(res.data.list);
+      //       this.$store.dispatch("feedList", data);
+    });
   },
   computed: {
-    ...mapGetters(["searchResults"]),
+    ...mapState(["searchWord"]),
+    // ...mapGetters(["searchResult"]),
+    ...mapState(["searchResult"]),
   },
 
   //     .then((res) => {
@@ -140,9 +160,29 @@ export default {
 .FeedSearchResult-resultInfo {
   height: 25%;
 }
+.FeedSearchResults-repsContentsBox {
+  max-width: 800px;
+}
+.FeedSearchResults-FrameBox {
+  max-width: 800px;
+}
 .feedcards {
+}
+.FeedSearch-ImageBox {
+  margin: 4rem;
+  /* width: 200px; */
+  /* height: 200px; */
+  background-color: black;
+  /* width: 200px;
+  height: 200px; */
+  /* -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; */
+}
+.FeedSearch-ImageBox-Image {
   width: 200px;
   height: 200px;
-  background-color: black;
+
+  /* object-fit: contain; */
 }
 </style>
