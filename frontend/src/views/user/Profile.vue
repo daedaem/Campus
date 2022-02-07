@@ -6,7 +6,8 @@
 		<section class="profile-container">
 			<section class="profile-grid">
 				<div class="photo">
-					<img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지">
+					<!-- <img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지"> -->
+					<img v-bind:src="this.user_data.userProfileImage" alt="">
 				</div>
 				<div class="name-buttons d-flex justify-content-between">
 					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
@@ -25,8 +26,8 @@
 				</div>
 				
 				<div class="userInfo-follow">
-					<button class="userInfo-follow-btn-following">언팔로우</button>
-					<button class="userInfo-follow-btn" >팔로우</button>
+					<!-- <button class="userInfo-follow-btn-following" v-if="myFollowings.include(userId)" @click="unfollow(userId)">언팔로우</button>
+					<button class="userInfo-follow-btn" v-else-if="userId != myId" @click="follow(userId)" >팔로우</button> -->
 				</div>
 
 			</section>
@@ -42,112 +43,39 @@
 				<li>
 					<b>게시글</b><p> 18</p>
 				</li>
-				<li>
-					<b>팔로워</b><p> 20</p>
+				<li class="follow" @click="followShowOff2">
+					<b>팔로워</b><p>{{ followersList.length }}</p>
 				</li>
-				<li>
-					<b>팔로우</b><p> 13</p>
+				<li class="follow" @click="followShowOff">
+					<b>팔로우</b><p>{{ followingsList.length }}</p>
 				</li>
 			</ul>
 		</section>
 
 		<section class="instagram-container">
 			<footer class="image-footer">
-				<div id="tabs">
+				<!-- <div id="tabs-posts"> -->
 					<div v-for="(tab, index) in tabs" :key="index"
 									v-bind:class="{active: currentTab === index}"
-									v-on:click="currentTab = index">{{ tab }}</div>
-				</div>
-				
-				
-				<div>
-					<a href=""><b>Profile</b></a>
-				</div>
-				<div>
-					<a href="">FEED</a>
-				</div>
-				<div>
-					<a href="">History</a>
-				</div>
+									v-on:click="currentTab = index">{{ tab }}</div>			
+				<!-- </div>	 -->
 			</footer>
+		</section>
 
+		<section class="mt-2 d-flex justify-content-center">
 			<div class="tab-content">
 				<div v-show="currentTab==0">
-					<div class="post">
-						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
-						<span class="hover-img">
-							<p class="icon-heart">02/12/20</p>
-						</span>
-					</div>
+					<ProfileInfo
+						:user_data="this.user_data"
+					/>
 				</div>
 				<div v-show="currentTab==1">
-					<div class="post">
-						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
-						<span class="hover-img">
-							<p class="icon-heart">02/12/20</p>
-						</span>
-					</div>
-
-					<div class="post">
-						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMTAw/MDAxNjE0NjUyODExMTIx.cAOLni0SBq4n5ON7OIK6sNJt9jLfsM_vJOW6yh3dZvcg.tLvkk0yYhHwel-RyapOkQBSNdmwi-czXXKWknhzJWS4g.JPEG.mckl795/IMG_5647.JPG?type=w800">
-						<span class="hover-img">
-							<p class="icon-heart">02/12/20</p>
-						</span>
-					</div>
-
-					<div class="post">
-						<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMjIy/MDAxNjE0NjUyODEwMjIx.W9f2-zoExfTlaNrOz1uUteKxz8d6HqK5TLvbx_jmrlIg.zzj4DJc7Uq3-O7ng8ELzqX0SYRw_psnjz1tcti48NQ8g.JPEG.mckl795/IMG_5648.JPG?type=w800">
-						<span class="hover-img">
-							<p class="icon-heart">02/12/20</p>
-						</span>
-					</div>
-
-					
+					<ProfileFeed/>
+				</div>
+				<div v-show="currentTab==2">
+					<ProfileHistory/>
 				</div>
 			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMTAw/MDAxNjE0NjUyODExMTIx.cAOLni0SBq4n5ON7OIK6sNJt9jLfsM_vJOW6yh3dZvcg.tLvkk0yYhHwel-RyapOkQBSNdmwi-czXXKWknhzJWS4g.JPEG.mckl795/IMG_5647.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMjIy/MDAxNjE0NjUyODEwMjIx.W9f2-zoExfTlaNrOz1uUteKxz8d6HqK5TLvbx_jmrlIg.zzj4DJc7Uq3-O7ng8ELzqX0SYRw_psnjz1tcti48NQ8g.JPEG.mckl795/IMG_5648.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfOTQg/MDAxNjE0NjUyODEwMjA4.Mke1iK04NvEshDy3RKu1vKU7e8yFperDHmGLjs-oZFcg.rh42I91igxjSf7dcRcLutsIGsD0oj8EwyRyN56KhK30g.JPEG.mckl795/IMG_5646.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMTAw/MDAxNjE0NjUyODExMTIx.cAOLni0SBq4n5ON7OIK6sNJt9jLfsM_vJOW6yh3dZvcg.tLvkk0yYhHwel-RyapOkQBSNdmwi-czXXKWknhzJWS4g.JPEG.mckl795/IMG_5647.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
-			<div class="post">
-				<img class="img-photo" src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDJfMTAw/MDAxNjE0NjUyODExMTIx.cAOLni0SBq4n5ON7OIK6sNJt9jLfsM_vJOW6yh3dZvcg.tLvkk0yYhHwel-RyapOkQBSNdmwi-czXXKWknhzJWS4g.JPEG.mckl795/IMG_5647.JPG?type=w800">
-				<span class="hover-img">
-					<p class="icon-heart">02/12/20</p>
-				</span>
-			</div>
-
 		</section>
 
 		
@@ -158,42 +86,93 @@
 <script>
 import axios from "axios";
 // import FollowModal from '@/components/user/FollowModal.vue'
+import ProfileFeed from '@/components/user/Profilefeed.vue'
+import ProfileHistory from '@/components/user/Profilehistory.vue'
+import ProfileInfo from '@/components/user/ProfileInfo.vue'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080";
 
 export default {
 	name: "Profile",
+	props: {
+		userEmail: {
+			type:String
+		},
+
+	},
 	data() {
 		return {
-			user: this.$route.params.user,
-			user_data: this.$store.state.userList,
-			userId: this.$store.state.myNum,
+			// userId: Number(this.$route.params.user_id), // 현재 유저넘버
+			my_data: this.$store.state.userList,
+			myId: this.$store.state.myNum, // 로그인한 유저넘버
+			myEmail: this.$store.state.userEmail,
+			user_data: {},
+			userId: "", // 보고있는 프로필 넘버
 			currentTab: 0,
-			tabs: ['Profile', 'FEED', 'History']
+			tabs: ['Profile', 'FEED', 'History'],
+
+			followingModal:false, //모달
+      followerModal:false, //모달
+			followersList: [], // userId 팔로워 리스트
+			followingsList: [], // userId 팔로잉 리스트
+			myFollowings: [], // myId 팔로잉리스트
+			myFollowers: [], // myId 팔로워리스트
+			followShow: false,
+      followShow2: false,
+
 
 		}
 	},
 	components: {
 		// FollowModal,
+		ProfileFeed,
+		ProfileHistory,
+		ProfileInfo,
 	},
 
 	created: function () {
+		console.log("보고있는 프로필",this.$route.params.userEmail) 
+		console.log("로그인",this.myEmail)
+		console.log(this.myId)
+		// console.log("데이터",this.user_data)
+		// console.log("세부", this.user_data.campEquipTent)
+		// 보고있는 이메일
+		this.user_email = this.$route.params.userEmail // 이메일에서 바꿔야함 유저넘버로
 		this.getProfile() // 유저 정보 가져오기
+
 	},
 
 	methods : {
 		getProfile: function() {
-			const token = localStorage.getItem('jwt')
-			axios({
-				method: 'get',
-				url: `${SERVER_URL}/user/${this.user}`,
-				headers: {Authorization: `JWT ${token}`},
-			})
-			.then(res => {
-				console.log()
-				this.person = res.data
-			})
+			axios
+				.get(`${SERVER_URL}/user/${this.user_email}`)
+				.then(res => {
+					// 여기서 불러온 아이디 넘버 가져오기
+					console.log(res.data)
+					this.user_data = res.data
+					console.log("유저정보",this.user_data)
+				})
+				.catch(() => {
+					alert("프로필을 가져올 수 없습니다.")
+				})
 		},
+		// follow: function () {
+		// 	const credentials = {
+		// 		from_id: this.myId,
+		// 		to_id: this.userId,
+		// 	}
+		// 	axios.post(`${SERVER_URL}/follow`, credentials)
+		// 	.then((res) => {
+		// 		console.log(res)
+		// 		this.myFollowings.push(userId)
+		// 		if (this.userId == )
+
+		// 	})
+		// },
+	
+
+
 		moveToModify: function () {
       this.$router.push({ name: "Modify" });
     },
@@ -297,7 +276,9 @@ export default {
 .instagram-container .image-footer div{
     display: flex;
     padding-top: 15px;
+		margin-left: 50px;
     margin-right: 50px; 
+		justify-content: center;
     font-size: 1.2rem;
     font-family: 'Roboto',sans-serif; 
     align-items: center;
@@ -334,56 +315,6 @@ export default {
 	text-align: center;
 	font-size: 2.2rem;
 }
-.post:hover  .hover-img{
-    display: flex;
-}
-.hover-img .icon-heart::before  {
-    content: '♥ ';
-}
-
-.userInfo-follow {
-  display: flex;
-  /* margin-left: 1vw; */
-}
-
-.userInfo-follow-btn {
-  width: 110px;
-	height: 40px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 3px solid;
-  border-color: mediumslateblue;
-  background-color: white;
-  color:mediumslateblue;
-  font-size: 15px;
-  font-weight: bold;
-  transition-duration: 0.5s;
-}
-
-.userInfo-follow-btn:hover {
-  background-color:mediumslateblue;
-  color:white;
-}
-
-.userInfo-follow-btn-following {
-  width: 110px;
-	height: 40px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 3px solid;
-  border-color: gray;
-  background-color: white;
-  color:gray;
-  font-size: 15px;
-  font-weight: bold;
-  transition-duration: 0.5s;
-}
-
-.userInfo-follow-btn-following:hover {
-  background-color:gray;
-  color:white;
-}
-
 
 
 </style>

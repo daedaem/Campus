@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public UserDto userSelect(String userEmail) {
         UserDto dto = null;
         dto = userDao.userSelect(userEmail);
-
+        System.out.println(dto);
         return dto;
     }
 
