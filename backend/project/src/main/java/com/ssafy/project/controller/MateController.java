@@ -185,7 +185,7 @@ public class MateController {
     //미작성
     //call mateInsert from MateService
     // matelistDto.setMateNo(56);
-    matelistDto.setUserNo(25);
+   
 
     MateResultDto mateResultDto = service.mateListInsert(matelistDto);
         
