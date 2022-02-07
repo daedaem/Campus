@@ -6,7 +6,7 @@
   
     <div align="center">
         <div class="col-sm-3">
-        <a class="btn btn-lg" href="#" @click="sendData" @date-in="dateIn">
+        <a class="btn btn-lg" @click="sendData" @date-in="dateIn">
             <span data-bs-dismiss="modal">button</span>
         </a>
     </div>

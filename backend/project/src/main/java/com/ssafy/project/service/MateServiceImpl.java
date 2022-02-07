@@ -20,6 +20,8 @@ import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
 import com.ssafy.project.dto.MateListDto;
+import com.ssafy.project.dto.MateMatchDto;
+import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.dto.SnsImageDto;
@@ -110,8 +112,6 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
         
         try {
-            System.out.println("!!");
-            System.out.println(multipartFile);
             String fileName = multipartFile.getOriginalFilename();
             System.out.println(fileName);
             fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
@@ -126,7 +126,6 @@ public class MateServiceImpl implements MateService {
             System.out.println(dto.getMateImageUrl());
             dao.mateImageInsert(dto);
             
-            System.out.println(dto.toString());
 
             mateResultDto.setResult(SUCCESS);
 
@@ -154,6 +153,67 @@ public class MateServiceImpl implements MateService {
     }
 
     @Override
+    public MateResultDto mateUpdate(MateDto dto) {
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+
+            dao.mateUpdate(dto);
+            dao.campStyleListUpdate(dto.getCampStyleList());
+            dao.campEquipReuireListUpdate(dto.getCampEquipRequiredList());
+
+            mateResultDto.setResult(SUCCESS);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateImageUpdate(int mateNo, MultipartFile multipartFile) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateImageDelete(mateNo);
+
+            String fileName = multipartFile.getOriginalFilename();
+            System.out.println(fileName);
+            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+            File file = this.convertToFile(multipartFile, fileName);
+            String TEMP_URL = this.uploadFile(file, fileName);
+
+            System.out.println(TEMP_URL);
+
+            MateDto dto = new MateDto();
+            dto.setMateNo(mateNo);
+            dto.setMateImageUrl(TEMP_URL);
+            dao.mateImageInsert(dto);
+            
+
+            mateResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateImageUpdateNull(int mateNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateImageDelete(mateNo);
+
+            mateResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
     public MateResultDto mateList(MateParamDto mateParamDto) {
 
         MateResultDto mateResultDto = new MateResultDto();
@@ -168,6 +228,7 @@ public class MateServiceImpl implements MateService {
                 mateDto.setCampStyleList(campStyleList);
 
                 List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                System.out.println(mateApplyList);
                 mateDto.setMateList(mateApplyList);
 
 
@@ -230,6 +291,66 @@ public class MateServiceImpl implements MateService {
        }
         return mateResultDto;
     }
+
+    @Override
+    public MateResultDto mateApplyDelete(int mateListNo) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+
+            dao.mateApplyDelete(mateListNo);
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateMatchResultDto mateMatch(int userNo) {
+        MateMatchResultDto mateMatchResultDto = new MateMatchResultDto();
+
+        try {
+            MateMatchDto matchDto = new MateMatchDto();
+            matchDto.setUserNo(userNo);
+            matchDto.setUserMBTI(dao.userMBTIselect(userNo));
+
+            mateMatchResultDto.setMatelist(dao.mateMatchList(matchDto));
+            
+            mateMatchResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateMatchResultDto.setResult(FAIL);
+        }
+
+        return mateMatchResultDto;
+    }
+
+    @Override
+    public MateResultDto mateListMain(MateParamDto mateParamDto) {
+        
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+            
+            mateResultDto.setList(dao.mateListMain(mateParamDto));
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+
+
+
+
+
 
 
 
