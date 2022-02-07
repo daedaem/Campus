@@ -49,6 +49,9 @@ import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
+
 export default {
   name: 'Campsite',
   setup() {
@@ -60,7 +63,7 @@ export default {
     const getDatas = () => {
       axios({
       methods: 'get',
-      url : 'http://localhost:8080/camp',
+      url :  `${SERVER_URL}/camp`,
       params : {
         limit :limit.value,
         offset : offset.value,
