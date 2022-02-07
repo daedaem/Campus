@@ -64,6 +64,8 @@ import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import axios from 'axios'
 
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
 
 export default {
   name: 'Materevise',
@@ -104,7 +106,7 @@ export default {
     this.partyData.mateNo = this.Nm
     axios({
       method : 'get',
-      url : `http://localhost:8080/mate/${this.Nm}`
+      url : `${SERVER_URL}/mate/${this.Nm}`
     })
     .then(res => {
       console.log(res.data.dto)
@@ -254,7 +256,7 @@ export default {
       axios({
         method: 'put',
         
-        url : 'http://localhost:8080/mate',
+        url : `${SERVER_URL}/mate`,
         data : this.partyData,
   
       })
@@ -266,7 +268,7 @@ export default {
         axios({
         method: 'put',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/image/${this.Nm}`,
+        url : `${SERVER_URL}/mate/image/${this.Nm}`,
         data : this.mateImageUrl
         
         })
@@ -281,7 +283,7 @@ export default {
           console.log('이미지 음서요')
           axios({
             method : 'put',
-            url : `http://localhost:8080/mate/imagenull/${this.Nm}`,
+            url : `${SERVER_URL}/mate/imagenull/${this.Nm}`,
           })
           .then(res=>{
             console.log(res)

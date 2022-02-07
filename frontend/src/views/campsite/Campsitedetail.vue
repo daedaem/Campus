@@ -39,6 +39,8 @@ import {useRoute} from 'vue-router'
 import axios from 'axios'
 import {ref} from 'vue'
 
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = `localhost:8080`
 export default {
   name : 'CampsiteDetail',
   components : {
@@ -51,7 +53,7 @@ export default {
     console.log(id)
     axios({
       method : 'get',
-      url : `http://localhost:8080/camp/${id}`
+      url : `${SERVER_URL}/camp/${id}`
     })
     .then(res => {
       detailData.value = res.data.dto
