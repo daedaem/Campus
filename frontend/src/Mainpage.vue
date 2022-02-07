@@ -53,7 +53,7 @@ export default {
     axios({
       method : 'get',
       // url : 'http://localhost:8080/mate/main'
-      url : 'http://i6e102.p.ssafy.io/mate/main'
+      url : 'http://i6e102.p.ssafy.io:8080/mate/main'
     })
     .then( res => {
       console.log(res.data.list)
