@@ -43,7 +43,7 @@ export default {
     
     axios({
         method : 'get',
-        url : `http://localhost:8080/mate/match/4`
+        url : `http://i6e102.p.ssafy.io/mate/match/4`
     })
     .then(res => {
         const temp = res.data.matelist

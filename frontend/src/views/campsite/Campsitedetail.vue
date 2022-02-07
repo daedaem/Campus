@@ -51,7 +51,8 @@ export default {
     console.log(id)
     axios({
       method : 'get',
-      url : `http://localhost:8080/camp/${id}`
+      // url : `http://localhost:8080/camp/${id}`
+      url : `http://i6e102.p.ssafy.io/camp/${id}`
     })
     .then(res => {
       detailData.value = res.data.dto

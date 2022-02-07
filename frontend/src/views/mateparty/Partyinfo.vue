@@ -85,7 +85,7 @@ export default {
     
     axios({
       method: 'get',
-      url : `http://localhost:8080/mate/${props.mateNo}`
+      url : `http://i6e102.p.ssafy.io/mate/${props.mateNo}`
     })
     .then(res => {
       mateDetail.value = res.data.dto
@@ -99,7 +99,7 @@ export default {
       const temp = mateDetail.value.mateNo
       axios({
         method :'delete',
-        url : `http://localhost:8080/mate/${temp}`
+        url : `http://i6e102.p.ssafy.io/mate/${temp}`
       })
       .then(res => {
         console.log(res)

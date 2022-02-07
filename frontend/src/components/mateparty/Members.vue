@@ -158,7 +158,8 @@ export default {
       console.log(meList)
       axios({
         method : 'post',
-        url : 'http://localhost:8080/mate/apply',
+        // url : 'http://localhost:8080/mate/apply',
+        url : 'http://i6e102.p.ssafy.io/mate/apply',
         data : meList
       })
       .then(res => {
@@ -183,7 +184,9 @@ export default {
           const temp = ele.mateListNo
           axios({
             method :'delete',
-            url : `http://localhost:8080/mate/apply/${temp}`
+            // url : `http://localhost:8080/mate/apply/${temp}`
+            url : `http://i6e102.p.ssafy.io/mate/apply/${temp}`
+            
           })
           .then(res => {
             console.log(res)

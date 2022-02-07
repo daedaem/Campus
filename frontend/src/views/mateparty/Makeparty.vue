@@ -239,7 +239,7 @@ export default {
       axios({
         method: 'post',
         
-        url : 'http://localhost:8080/mate',
+        url : 'http://i6e102.p.ssafy.io/mate',
         data : this.partyData,
   
       })
@@ -251,7 +251,7 @@ export default {
         axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        url : `http://i6e102.p.ssafy.io/mate/${res.data.dto.mateNo}`,
         data : this.mateImageUrl
         
         })

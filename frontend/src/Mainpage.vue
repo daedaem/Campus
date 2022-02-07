@@ -52,7 +52,8 @@ export default {
     const mainlist = ref('')
     axios({
       method : 'get',
-      url : 'http://localhost:8080/mate/main'
+      // url : 'http://localhost:8080/mate/main'
+      url : 'http://i6e102.p.ssafy.io/mate/main'
     })
     .then( res => {
       console.log(res.data.list)
@@ -65,7 +66,7 @@ export default {
     // 캠핑장 데이터
     axios({
       method : 'get',
-      url : 'http://localhost:8080/camp',
+      url : 'http://i6e102.p.ssafy.io/camp',
       params :{
         limit : 2906,
         offset : 0

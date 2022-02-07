@@ -104,7 +104,7 @@ export default {
     this.partyData.mateNo = this.Nm
     axios({
       method : 'get',
-      url : `http://localhost:8080/mate/${this.Nm}`
+      url : `http://i6e102.p.ssafy.io/mate/${this.Nm}`
     })
     .then(res => {
       console.log(res.data.dto)
@@ -254,7 +254,7 @@ export default {
       axios({
         method: 'put',
         
-        url : 'http://localhost:8080/mate',
+        url : 'http://i6e102.p.ssafy.io/mate',
         data : this.partyData,
   
       })
@@ -266,7 +266,7 @@ export default {
         axios({
         method: 'put',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/image/${this.Nm}`,
+        url : `http://i6e102.p.ssafy.io/mate/image/${this.Nm}`,
         data : this.mateImageUrl
         
         })
@@ -281,7 +281,7 @@ export default {
           console.log('이미지 음서요')
           axios({
             method : 'put',
-            url : `http://localhost:8080/mate/imagenull/${this.Nm}`,
+            url : `http://i6e102.p.ssafy.io/mate/imagenull/${this.Nm}`,
           })
           .then(res=>{
             console.log(res)
