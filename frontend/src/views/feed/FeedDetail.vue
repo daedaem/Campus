@@ -6,7 +6,7 @@
           class="feedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
         >
           <div
-            class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
+            class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex justify-content-center align-self-center"
           >
             <div class="">
               <feed-detail-carousel
@@ -186,8 +186,8 @@
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
-// const SERVER_URL = "http://localhost:8080";
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
 
 import { mapState } from "vuex";
 import axios from "axios";
@@ -333,6 +333,7 @@ export default {
     axios
       .get(`${SERVER_URL}/sns/${this.detailFeedsnsNo}`)
       .then((res) => {
+        // console.log("뭐고!!!!!!!!!!", res);
         this.feedDetailContents = res.data.dto;
         this.$store.dispatch("toDetail", res.data.dto);
 
@@ -380,7 +381,7 @@ export default {
     border-radius: 15px;
   }
   .feedDetailContentsFrame {
-    width: 100%;
+    min-height: 600px;
     background-color: #ffff;
     border-radius: 15px;
     border: 1px solid #eee;
@@ -417,7 +418,7 @@ export default {
     /* flex-shrink: 1;
   flex-grow: 1; */
     border-bottom: 1px solid #eee;
-    flex: 3;
+    flex: 2;
   }
   .FeedDetail-RightBox-ButtonBox {
     border-bottom: 1px solid #eee;
@@ -448,6 +449,7 @@ export default {
 .FeedDetail-Leftbox {
   /* background-color: greenyellow; */
   border: 1px solid #eee;
+  min-height: 300px;
 }
 .FeedDetail-Leftbox-Image {
   width: 100%;
@@ -493,15 +495,19 @@ export default {
 .FeedDetail-user-profile-image {
   border-radius: 50%;
   margin: 0px 20px 0px 0px;
+  height: 35px;
+  width: 35px;
+  /* min-height: 20px;
+  min-width: 20px;
   max-width: 42px;
-  max-height: 42px;
+  max-height: 42px; */
 }
 .user-comment-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
   margin: 0px 20px 0px 0px;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 }
 .FeedDetail-Rightbox-Commentinputbox {

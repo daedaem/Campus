@@ -1,31 +1,19 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 1"
-    >
+    <div class="feed-picture-box d-flex" v-if="this.imageinfo.length == 1">
       <div class="feed-picture">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <img
-          :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+          :src="`${this.imageinfo[0].snsImageUrl}`"
           class="d-block w-100 h-100"
           alt="..."
         />
       </div>
     </div>
-    <!-- 두개이상일 때 -->`
+    <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 2"
-    >
+    <div class="feed-picture-box d-flex" v-if="this.imageinfo.length == 2">
       <div class="feed-picture">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -56,14 +44,14 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+                :src="`${this.imageinfo[0].snsImageUrl}`"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
+                :src="`${this.imageinfo[1].snsImageUrl}`"
                 class="d-block w-100"
                 alt="..."
               />
@@ -92,11 +80,8 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
+    <div class="feed-picture-box" v-if="this.imageinfo.length == 3">
       <div class="feed-picture">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -137,21 +122,21 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+                :src="`${this.imageinfo[0].snsImageUrl}`"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
+                :src="`${this.imageinfo[1].snsImageUrl}`"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${this.imageinfo.imageList[2].snsImageUrl}`"
+                :src="`${this.imageinfo[2].snsImageUrl}`"
                 class="d-block w-100"
                 alt="..."
               />
@@ -191,7 +176,7 @@ export default {
   name: "FeedDetailCarousel",
   props: {
     // feeds: Object,
-    feedModifyImageList: Object,
+    ImageList: Object,
   },
   data() {
     return {
@@ -209,25 +194,14 @@ export default {
       // console.logf(this.imageinfo);
       // console.log(;
     },
-    cancelUploadImage() {
-      // console.log('안녕');
-      // console.log(this.$refs["image"]);
-      // console.log(this.image);
-      // console.log(this.imageList);
-
-      // this.clearImage();
-      this.imageinfo.imageList = [];
-      // this.imageinfo.imageList.splice(this.feedid, 1); // this.image = null;
-      // this.imageList = null;
-    },
   },
 
   created: function () {
-    console.log(this.imageList);
-    this.imageinfo = this.feedModifyImageList;
+    this.imageinfo = this.ImageList;
+    console.log(this.imageinfo);
+    // console.log("캐럿[ㄹ", this.ImageList);
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
-
     // console.log(this.imageinfo);
   },
   // computed: {
@@ -256,12 +230,7 @@ export default {
   /* min-height: 400 px; */
   /* max-height: 400 px; */
 }
-.bi-x-circle {
-  position: absolute;
-  z-index: 1000;
-  top: 2%;
-  right: 2%;
-}
+
 /* .carousel-control-prev{
 width: 100%;
   height:100%;
