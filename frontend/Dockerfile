@@ -1,6 +1,6 @@
 # node 이미지를 받는다 build이미지이구나 
 # node 기반의 이미지로 생성된다. 
-FROM node:latest as build-stage 
+FROM node:lts-alpine as build-stage 
 
 # RUN, CMD, ENTRYPOINT의 명령이 실행될 디렉터리 
 WORKDIR /app 
