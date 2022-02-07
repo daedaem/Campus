@@ -17,7 +17,7 @@
           
         </div>
         
-        <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;"/>
+        <Campchoice align="left" style="margin-top:50px; margin-bottom:20px;" @camp-data="campValue"/>
         <Datepicker @date-in="dateIn"/>
       <!-- <div class="camping">
         <input class="input1" type="text" placeholder="캠핑장 선택">
@@ -154,6 +154,9 @@ export default {
     imgStatus(text) {
       this.partyData.campEquipRequiredList = text
     },  
+    campValue(text) {
+      this.paryDaa.campingsite = text
+    },
     uploadedImage(file) {
       
       this.mateImageUrl = file
@@ -254,13 +257,16 @@ export default {
         })
         .then(res => {
           console.log(res)
+         
           
         })
         .catch(err => {
           console.log(err)
         })
         } 
-        this.$router.push({name:'Mateparty'})
+     
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},1000)
+        
       })
 
       .catch(err => {

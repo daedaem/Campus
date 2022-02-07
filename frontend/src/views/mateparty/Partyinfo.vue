@@ -1,7 +1,7 @@
 <template>
   <body>
     <div style="margin-top: 20px; width: 30%; height:250px; float: left; ">
-      <button @click="delPost">x</button>
+      <button v-if="userNm === mateDetail.userNo" @click="delPost">x</button>
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
     </div>
     <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;"><div style="float:right;">{{mateDetail.mateCampstart}} ~ {{mateDetail.mateCampend}}</div>
@@ -79,6 +79,7 @@ export default {
     const router = useRouter()
     console.log(store.state.mateList)     
     const mateNm = ref(props.mateNo)
+    const userNm = store.state.myNum
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([])
     
@@ -123,6 +124,7 @@ export default {
       mateDetail,
       delPost,
       goPartyrevise,
+      userNm,
       
  
       

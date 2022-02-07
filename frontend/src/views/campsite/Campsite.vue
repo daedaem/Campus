@@ -108,50 +108,7 @@ export default {
       goDetail
     }
   }
-  // data () {
-  //   return {
-  //     articles: [],
-  //     limit : 10,
-  //     offset : 0,
-  //   }
-  // },
-  // methods : {
-  //   getDatas() {
-  //     axios({
-  //     methods: 'get',
-  //     url : 'http://localhost:8080/camp',
-  //     params : {
-  //       limit :this.limit,
-  //       offset : this.offset,
-  //       // searchWord : '',
-  //       // doNm : '',
-  //     }
-  //   })
-  //   .then(res => {
-  //     this.articles.push(...res.data.list)
-  //     console.log(this.articles)
-  //   })
-
-  //   .catch(err =>{
-  //     console.log(err)
-  //   })
-  //   }
-  // },
-  // mounted() {
-  //   this.getDatas()
-  //   window.addEventListener("scroll",() =>{
-  //     let scrollTop = document.documentElement.scrollTop
-  //     let scrollHeight = document.documentElement.scrollHeight
-  //     let clientHeight = document.documentElement.clientHeight
-
-  //     if (scrollTop+clientHeight>=scrollHeight-10) {
-  //       this.offset += 10
-  //       // this.limit += 10
-  //       this.getDatas()
-      
-  //     }
-  //   })
-  // }
+  
 }
 </script>
 
