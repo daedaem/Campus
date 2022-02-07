@@ -76,7 +76,6 @@ export default createStore({
         url: `${SERVER_URL}/user/${state.user}`,
         headers: { Authorization: `JWT ${token}` },
       }).then((res) => {
-<<<<<<< HEAD
         console.log(res)
         // state.myProfileimageurl = res.data.image;
         // state.nickname = res.data.nickname;
@@ -85,30 +84,6 @@ export default createStore({
       });
     },
     
-=======
-        state.myProfileimageurl = res.data.image;
-        state.nickname = res.data.nickname;
-        state.myNum = res.data.userNo;
-        state.userList = res.data;
-      });
-    },
-
-    // LOGIN: function (state) {
-    //   state.token = localStorage.getItem("jwt");
-    //   state.isLogin = true
-    //   const token = state.token
-    //   axios({
-    //     method: "get",
-    //     url: `${SERVER_URL}/user/userEmail`,
-    //     headers: { Authorization: `JWT ${token}`},
-    //   })
-    //     .then((res) => {
-    //       state.myProfileimageurl = res.image
-    //       state.nickname = res.nickname
-    //       state.myNum = res.id
-    //     })
-    // },
->>>>>>> 4135f2a3e94136cdb2797e814eb0eecdfcb23c00
     LOGOUT: function (state) {
       state.myProfileimageurl = null;
       state.token = null;

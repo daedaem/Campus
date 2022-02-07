@@ -12,6 +12,9 @@ public interface CampSiteService {
     // 캠핑장 검색
     public CampSiteResultDto campSiteSearch(CampSiteParamDto campSiteParamDto);
 
+    // 캠핑장 검색 - 캠핑장비 대여 null일 때
+    public CampSiteResultDto campSiteSearchNull(CampSiteParamDto campSiteParamDto);
+
     // 캠핑장 정보
     public CampSiteResultDto campSiteDetail(String contentId);
 

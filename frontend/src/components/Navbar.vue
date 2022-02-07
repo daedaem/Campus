@@ -99,7 +99,7 @@
           </div>
         </template>
         <div class="dropdown-items" v-if="this.$store.state.token">
-          <b-dropdown-item text="Small" class="bnt-sm"
+          <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
             >마이페이지</b-dropdown-item
           >
           <b-dropdown-item text="Small" @click="logout"
@@ -173,6 +173,13 @@ export default {
     },
     moveToLogin: function () {
       this.$router.push({ name: "Login" });
+    },
+    myProfile: function () {
+      console.log(this.$store.getters.getUserId);
+      this.$router.push({
+        name: "Profile",
+        params: { userEmail: `${this.$store.getters.getUserId}` },
+      });
     },
     searchData: function (inputdata) {
       axios

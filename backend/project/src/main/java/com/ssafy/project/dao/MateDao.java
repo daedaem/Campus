@@ -16,9 +16,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface MateDao {
-    
+
     public int mateInsert(MateDto dto);
+
     public int mateDelete(int mateNo);
+    
     public int mateUpdate(MateDto dto);
 
     public List<MateDto> mateList(MateParamDto mateParamDto);
@@ -43,7 +45,7 @@ public interface MateDao {
 
     public List<MateListDto> mateApplyList(int mateNo);
 
-    public MateCampEquipRequiredDto  mateCampEquipRequiredList(int mateNo);
+    public MateCampEquipRequiredDto mateCampEquipRequiredList(int mateNo);
 
     public List<SnsImageDto> mateSnsImageList(int userNo);
 
