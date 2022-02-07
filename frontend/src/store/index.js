@@ -3,7 +3,6 @@ import { createStore } from "vuex";
 // import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
 
-
 const SERVER_URL = `http://i6e102.p.ssafy.io`;
 // const SERVER_URL = "http://localhost:8080";
 import axios from "axios";
@@ -15,6 +14,7 @@ export default createStore({
     token: localStorage.getItem("jwt"),
     equipLists: [],
     mateList: [],
+    searchResult: [],
     uploadimages: "",
     // feeddetailnum: 0,
     detailFeed: "",
@@ -26,6 +26,7 @@ export default createStore({
     userList: {},
     campList: [],
   },
+
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
       state.equipLists.push(equipItem);
@@ -56,10 +57,11 @@ export default createStore({
       console.log(2)
       state.userList = data
       console.log(state.userList)
+    
     },
-    MY_NUM(state,data) {
-      console.log(3)
-      state.myNum = data
+    MY_NUM(state, data) {
+      // console.log(3)
+      state.myNum = data;
     },
 
     // 로그인
@@ -75,9 +77,10 @@ export default createStore({
         state.myProfileimageurl = res.data.image;
         state.nickname = res.data.nickname;
         state.myNum = res.data.userNo;
-        state.userList = res.data
+        state.userList = res.data;
       });
     },
+
     // LOGIN: function (state) {
     //   state.token = localStorage.getItem("jwt");
     //   state.isLogin = true
@@ -101,6 +104,9 @@ export default createStore({
       state.isLogin = false;
       state.user = "";
     },
+    SEARCH_DATA: function (state, results) {
+      state.searchResult = results;
+    },
   },
   actions: {
     createEquip: function ({ commit }, equipItem) {
@@ -122,11 +128,11 @@ export default createStore({
     feedList: function ({ commit }, feedList) {
       commit("FEEDLIST", feedList);
     },
-    userList({commit},data){
-      commit('USER_LIST',data)
+    userList({ commit }, data) {
+      commit("USER_LIST", data);
     },
-    myNum({commit},data){
-      commit('MY_NUM',data)
+    myNum({ commit }, data) {
+      commit("MY_NUM", data);
     },
     //mate
     viewMate({ commit }, data) {
@@ -135,9 +141,13 @@ export default createStore({
     //camp
     campList({commit},data) {
       commit("CAMP_LIST" , data)
-    }
+    },
     
 
+    searchData: function (context, data) {
+      //여기서 axios요청 보내서 피드들 담아서 쓰던가
+      context.commit("SEARCH_DATA", data);
+    },
   },
   getters: {
     config: function (state) {
@@ -145,6 +155,10 @@ export default createStore({
         Authorization: `JWT ${state.token}`,
       };
     },
+    // searchResults: function (state) {
+    //   let result = state.searchResult.substr(1);
+    //   return result;
+    // },
   },
 
   modules: {},

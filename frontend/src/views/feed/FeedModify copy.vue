@@ -3,15 +3,15 @@
     <div class="FeedDetailTotal">
       <div class="FeedDetailTotalFrame">
         <div
-          class="feedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
+          class="FeedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
         >
           <div
             class="FeedDetail-Leftbox col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7 d-flex flex-column align-self-center"
           >
-            <div class="">
+            <div>
               <feed-detail-carousel
-                class="feed-detail-carousel d-flex"
-                :imageList="feedDetailContents"
+                class="feed-detail-carousel"
+                v-bind:feedDetailContents="feedDetailContents"
               ></feed-detail-carousel>
             </div>
           </div>
@@ -48,7 +48,16 @@
             </div>
             <div class="FeedDetail-RightBox-ContentBox text-start p-3">
               <div class="fs-6" style="overflow: auto">
-                {{ this.feedDetailContents.snsContent }}
+                <div class="form-floating">
+                  <div>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder="당신의 캠프여정을 공유하세요."
+                      rows="8"
+                      v-model="this.feedDetailContents.snsContent"
+                    ></b-form-textarea>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -61,7 +70,7 @@
                 style="cursor: pointer"
                 class="heart-box d-flex my-auto"
                 @click="giveHeart"
-                v-if="this.amiliked == 0"
+                v-if="amiliked == 0"
               >
                 <i class="bi bi-heart me-3"></i>
                 <p class="fs-6 my-auto">
@@ -105,7 +114,7 @@
               <div
                 class="collapsed-comment d-flex justify-content-around align-items-center"
               >
-                <div class="my-auto col-12">
+                <div class="my-auto col-10">
                   <div class="form-floating">
                     <div
                       v-for="(comment, i) in this.comments"
@@ -114,26 +123,24 @@
                     >
                       <div v-if="this.comments">
                         <div
-                          class="d-flex px-2 justify-content-between align-items-center"
+                          class="d-flex justify-content-between align-items-center"
                         >
                           <div
-                            class="d-flex justify-content-start align-items-center ms-1 col-10"
+                            class="d-flex justify-content-start align-items-center ms-3 mt-3 col-9"
                           >
                             <img
                               :src="`${comment.userProfileImage}`"
                               alt=""
-                              class="user-comment-profile-image ms-2"
+                              class="user-comment-profile-image"
                             />
                             <div class="fw-bold">
                               {{ comment.userNickname }}
                             </div>
                             <div
-                              class="FeedListItems-commentContent col text-start ms-3"
+                              class="FeedListItems-commentContent col mx-3 text-start"
                               style="overflow: auto"
                             >
-                              <div class="m-2">
-                                {{ comment.snsReplyContent }}
-                              </div>
+                              {{ comment.snsReplyContent }}
                             </div>
                           </div>
                           <div class="col" style="overflow: auto">
@@ -143,30 +150,23 @@
                       </div>
                     </div>
                     <div
-                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
+                      class="d-flex justify-content-center align-items-center"
                     >
-                      <img
-                        :src="`${this.$store.state.userList.userProfileImage}`"
-                        alt=""
-                        class="user-comment-profile-image m-3"
-                      />
+                      <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
 
-                      <div class="fw-bold me-2">
-                        {{ this.$store.state.userList.userNickname }}
-                      </div>
                       <textarea
                         v-model="my_comment.snsReplyContent"
                         id="commentcontent"
                         ref="textarea"
                         rows="1"
-                        class="FeedDetail-WriteComment d-flex m-2 col"
+                        class="d-flex col-10 p-1"
                         placeholder="댓글을 입력하세요"
                         style="overflow: auto"
                       >
                       </textarea>
                       <p
                         @click="leaveComment"
-                        class="btn-sm btn-outline-transparent text-primary m-2"
+                        class="btn-sm btn-outline-transparent col-2 text-primary fs-6 me-1"
                         type="button"
                         id="commentcontent"
                       >
@@ -177,7 +177,29 @@
                 </div>
               </div>
             </b-collapse>
-            <div class="nothing"></div>
+            <div class="FeedDetail-RightBox-Textarea p-4">
+              <div class="form-floating">
+                <div class="d-flex justify-content-center align-items-stretch">
+                  <!-- 밑에 @keyup.enter="댓글 입력하는 함수실행" -->
+                  <!-- <textarea
+                    v-model="commentcontent"
+                    id="commentcontent"
+                    ref="textarea"
+                    rows="1"
+                    class="col-9"
+                    placeholder="댓글을 입력하세요"
+                  >
+                  </textarea>
+                  <button
+                    class="btn btn-outline-secondary fs-6 ms-1"
+                    type="button"
+                    id="commentcontent"
+                  >
+                    게시
+                  </button> -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -242,11 +264,12 @@ export default {
         .then((res) => {
           // console.log("좋아요했는지 체크", res);
           // 좋아요 한 사람들 리스트
-          // console.log(res);
-          for (let i = 0; i < res.data.like.length; i++) {
-            if (res.data.like[i].snsNo == this.detailFeedsnsNo) {
-              this.amiliked = 1;
-            }
+          console.log(res);
+          const likedpeople = res.data.like;
+          if (likedpeople.includes(this.$store.state.userList.userNo)) {
+            this.amiliked = 1;
+          } else {
+            this.amiliked = 0;
           }
         });
     },
@@ -257,7 +280,7 @@ export default {
       })
         .then(() => {
           this.amiliked = 1;
-          this.likeCount += 1;
+          // this.likeCount += 1;
         })
         .catch((err) => {
           console.log(err);
@@ -270,7 +293,7 @@ export default {
       })
         .then(() => {
           this.amiliked = 0;
-          this.likeCount -= 1;
+          // this.likeCount -= 1;
         })
         .catch((err) => {
           console.log(err);
@@ -321,7 +344,6 @@ export default {
   },
 
   created: function () {
-    console.log(this.feed);
     this.detailFeedsnsNo = this.$route.params.snsNo;
     this.my_comment.userNo = this.$store.state.userList.userNo;
     this.likedCheck();
@@ -379,7 +401,7 @@ export default {
     margin-top: 2%;
     border-radius: 15px;
   }
-  .feedDetailContentsFrame {
+  .FeedDetailContentsFrame {
     width: 100%;
     background-color: #ffff;
     border-radius: 15px;
@@ -393,7 +415,7 @@ export default {
     height: 100%;
     border-radius: 15px;
   }
-  .feedDetailContentsFrame {
+  .FeedDetailContentsFrame {
     width: 100%;
     background-color: #ffff;
     height: 100%;
@@ -441,7 +463,7 @@ export default {
   height: 100%;
 } */
 
-.feedDetailContentsFrame {
+.FeedDetailContentsFrame {
   border-bottom: 1px solid #eee;
   /* background-color: bisque; */
 }
@@ -495,6 +517,7 @@ export default {
   margin: 0px 20px 0px 0px;
   max-width: 42px;
   max-height: 42px;
+  border: 3px solid;
 }
 .user-comment-profile-image {
   /* display: inline-block; */
@@ -503,16 +526,5 @@ export default {
   width: 30px;
   height: 30px;
   cursor: pointer;
-}
-.FeedDetail-Rightbox-Commentinputbox {
-  border-top: 1px solid#eee;
-}
-.FeedDetail-WriteComment {
-  border-top: 1px solid #eee;
-}
-.nothing {
-  border-top: 1px solid #eee;
-  min-height: 30px;
-  max-height: 200px;
 }
 </style>
