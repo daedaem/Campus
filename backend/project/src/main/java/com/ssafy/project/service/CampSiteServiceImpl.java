@@ -56,6 +56,24 @@ public class CampSiteServiceImpl implements CampSiteService {
     }
 
     @Override
+    public CampSiteResultDto campSiteSearchNull(CampSiteParamDto campSiteParamDto) {
+        CampSiteResultDto campSiteResultDto = new CampSiteResultDto();
+
+        try {
+            List<CampSiteDto> list = campSiteDao.campSiteSearchNull(campSiteParamDto);
+            int count = campSiteDao.campSiteSearchNullTotalCount(campSiteParamDto);
+            campSiteResultDto.setList(list);
+            campSiteResultDto.setCount(count);
+            campSiteResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            campSiteResultDto.setResult(FAIL);
+        }
+
+        return campSiteResultDto;
+    }
+
+    @Override
     public CampSiteResultDto campSiteDetail(String contentId) {
         CampSiteResultDto campSiteResultDto = new CampSiteResultDto();
 
