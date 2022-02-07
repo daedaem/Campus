@@ -74,16 +74,11 @@
     </select>
 
 
-    <!-- snsImage -->
-
-
     <select id="snsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
         SELECT snsImageNo, snsImageUrl
             FROM snsImage
             WHERE snsNo = #{snsNo}
     </select>
-
-
     <!--<delete id="snsImageUrlDeleteList" parameterType="int" resultType="string">-->
     
 

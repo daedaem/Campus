@@ -382,14 +382,6 @@ export default {
 		onSubmit() {
 			axios ({
 				method: "post",
-				url: `${SERVER_URL}/user/image/${this.userEmail}`,
-				data: this.userProfileImage
-			})
-				.catch(() => {
-					alert("이미지 업로드 오류")
-				})
-			axios ({
-				method: "post",
 				url: `${SERVER_URL}/user`,
 				data: this.credentials,
 			})
@@ -401,6 +393,14 @@ export default {
 				.catch(() => {
 					console.log(this.credentials)
 					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+				})
+			axios ({
+				method: "post",
+				url: `${SERVER_URL}/user/image/${this.userEmail}`,
+				data: this.userProfileImage
+			})
+				.catch(() => {
+					alert("이미지 업로드 오류")
 				})
 			// console.log(this.credentials)
 			// 유효성 통과못할 시
