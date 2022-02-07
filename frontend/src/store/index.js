@@ -24,6 +24,7 @@ export default createStore({
     myNum: "",
     myProfileimageurl: "",
     userList: {},
+    campList: [],
   },
   mutations: {
     CREATE_EQUIP: function (state, equipItem) {
@@ -44,6 +45,11 @@ export default createStore({
     //mate
     VIEW_MATE(state, data) {
       state.mateList = data;
+    },
+
+    //camp
+    CAMP_LIST(state,data) {
+      state.campList = data
     },
 
     USER_LIST(state,data){
@@ -126,6 +132,10 @@ export default createStore({
     viewMate({ commit }, data) {
       commit("VIEW_MATE", data);
     },
+    //camp
+    campList({commit},data) {
+      commit("CAMP_LIST" , data)
+    }
     
 
   },

@@ -11,7 +11,7 @@
         <b-button pill style="width: 100px; height: 40px; margin-bottom:20px;"  @click="goMakeparty">글 작성</b-button>
       </div>
     </div>
-    <Pagination v-if="matelists.length != 0" :matelists="matelists"  :filterlist="filterlist"/>    
+    <Pagination v-if="testlist.length != 0" :matelists="matelists"  :filterlist="filterlist" :testlist="testlist"/>    
     <!-- {{matelists}} -->
     
   </body>
@@ -24,10 +24,10 @@ import Newmodal from '@/components/mateparty/Newmodal.vue'
 import Searchbar from '../../components/mateparty/Searchbar.vue'
 // import {mapState} from 'vuex'
 import router from "@/router";
-import { ref, } from 'vue'
+import { ref, computed,} from 'vue'
 import { useStore } from 'vuex'
 // import {mapState} from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 
 
 
@@ -48,6 +48,31 @@ export default {
 
   setup() {
     const store = useStore()
+    const testlist = ref('')
+    const viewFunc = (data) => {
+      // console.log(data)
+      store.dispatch("viewMate", data);
+    };
+
+    const matelist = computed(() => store.state.mateList);
+    axios({
+      methods: "get",
+      url: "http://localhost:8080/mate",
+    })
+    .then((res) => {
+      // console.log(res.data.list)
+      viewFunc(res.data.list);
+      testlist.value = res.data.list
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+
+
+
+
+
     const goMakeparty = () => { router.push({name: 'Makeparty'})}
     
     const matelists =  ref(store.state.mateList)
@@ -188,6 +213,8 @@ export default {
       goMakeparty,
       filterData,
       test,
+      matelist,
+      testlist
       
       
       
@@ -217,6 +244,8 @@ export default {
 .test {
   width :100%;
 }
+
+
 
 
   
