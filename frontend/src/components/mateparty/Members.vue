@@ -159,7 +159,7 @@ export default {
       axios({
         method : 'post',
         // url : 'http://localhost:8080/mate/apply',
-        url : 'http://i6e102.p.ssafy.io/mate/apply',
+        url : 'http://i6e102.p.ssafy.io:8080/mate/apply',
         data : meList
       })
       .then(res => {
@@ -185,7 +185,7 @@ export default {
           axios({
             method :'delete',
             // url : `http://localhost:8080/mate/apply/${temp}`
-            url : `http://i6e102.p.ssafy.io/mate/apply/${temp}`
+            url : `http://i6e102.p.ssafy.io:8080/mate/apply/${temp}`
             
           })
           .then(res => {
