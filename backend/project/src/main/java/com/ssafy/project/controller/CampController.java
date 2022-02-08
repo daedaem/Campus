@@ -274,9 +274,9 @@ public class CampController {
     @PostMapping(value = "/camp/rate")
     public ResponseEntity<CampRateResultDto> campRateInsert(@RequestBody CampRateDto campRateDto, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        campRateDto.setUserNo(userDto.getUserNo());
+        // campRateDto.setUserNo(userDto.getUserNo());
 
         System.out.println(campRateDto);
 
@@ -293,9 +293,9 @@ public class CampController {
     @PutMapping(value = "/camp/rate")
     public ResponseEntity<CampRateResultDto> campRateUpdate(@RequestBody CampRateDto campRateDto, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        campRateDto.setUserNo(userDto.getUserNo());
+        // campRateDto.setUserNo(userDto.getUserNo());
 
         CampRateResultDto campRateResultDto = campRateService.campRateUpdate(campRateDto);
 
