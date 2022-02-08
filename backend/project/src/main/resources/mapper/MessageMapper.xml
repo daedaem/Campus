@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="getMessagesByChatroomId" resultType="com.ssafy.project.dto.Message">
-	select t1.id as id, #{roomId} as chatroomId, t1.content as content, t1.sender_id as senderId, t2.nickname as senderNickname
+	select t1.id as id, #{roomId} as chatroomId, t1.content as content, t1.sender_id as senderId, t2.userNickname as senderNickname
 	from (
 	select 
 		id, content, sender_id
@@ -18,8 +18,8 @@
 		desc limit #{idx}, 10) as q
 		using (`id`)
 		where chatroom_id=#{roomId}) as t1 
-	inner join user_c as t2
-    on t1.sender_id = t2.id;
+	inner join user as t2
+    on t1.sender_id = t2.userNo;
 	</select>
 	
 </mapper>
