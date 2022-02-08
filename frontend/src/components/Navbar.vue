@@ -64,82 +64,91 @@
             </button>
           </router-link>
         </div> -->
-
-      <b-dropdown
-        size="sm"
-        dropleft
-        variant="transparent"
-        toggle-class="text-decoration-none"
-        no-caret
-        class="Navbar-dropdown"
-      >
-        <template #button-content>
-          <div
-            v-if="this.$store.state.userEmail"
-            class="d-flex justify-content-center align-items-center"
-          >
-            <img
-              v-if="this.$store.state.userList.userProfileImage"
-              :src="`${this.$store.state.userList.userProfileImage}`"
-              alt=""
-              class="Navbar-User-profile-image ms-2"
-            />
-            <img
-              v-if="
-                this.$store.state.userList.userProfileImage == null &&
-                this.$store.state.userList.userGender == null
-              "
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
-              alt=""
-              class="Navbar-User-profile-image ms-2"
-            />
-            <img
-              v-if="
-                this.$store.state.userList.userProfileImage == null &&
-                this.$store.state.userList.userGender == 'M'
-              "
-              src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
-              alt=""
-              class="Navbar-User-profile-image ms-2"
-            />
-            <img
-              v-if="
-                this.$store.state.userList.userProfileImage == null &&
-                this.$store.state.userList.userGender == 'W'
-              "
-              src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg"
-              alt=""
-              class="Navbar-User-profile-image ms-2"
-            />
-            <div class="fw-bold Navbar-User-profile-nickname ms-3">
-              {{ this.$store.state.userList.userNickname }}
+      <div>
+        <router-link
+          class="text-decoration-none fw-bold text-primary align-middle align-self-center"
+          :to="{ name: 'FeedCreate' }"
+        >
+          <button type="button" class="btn m-3">
+            <i class="bi bi-plus-square fs-3"></i><br />
+          </button>
+        </router-link>
+        <b-dropdown
+          size="sm"
+          dropleft
+          variant="transparent"
+          toggle-class="text-decoration-none"
+          no-caret
+          class="Navbar-dropdown"
+        >
+          <template #button-content>
+            <div
+              v-if="this.$store.state.userEmail"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <img
+                v-if="this.$store.state.userList.userProfileImage"
+                :src="`${this.$store.state.userList.userProfileImage}`"
+                alt=""
+                class="Navbar-User-profile-image ms-2"
+              />
+              <img
+                v-if="
+                  this.$store.state.userList.userProfileImage == null &&
+                  this.$store.state.userList.userGender == null
+                "
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
+                alt=""
+                class="Navbar-User-profile-image ms-2"
+              />
+              <img
+                v-if="
+                  this.$store.state.userList.userProfileImage == null &&
+                  this.$store.state.userList.userGender == 'M'
+                "
+                src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
+                alt=""
+                class="Navbar-User-profile-image ms-2"
+              />
+              <img
+                v-if="
+                  this.$store.state.userList.userProfileImage == null &&
+                  this.$store.state.userList.userGender == 'W'
+                "
+                src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg"
+                alt=""
+                class="Navbar-User-profile-image ms-2"
+              />
+              <div class="fw-bold Navbar-User-profile-nickname ms-3">
+                {{ this.$store.state.userList.userNickname }}
+              </div>
             </div>
+            <div
+              v-if="this.$store.state.userEmail == null"
+              class="d-flex justify-contents-center align-items-center"
+            >
+              <i class="fs-3 bi bi-person-badge"></i>
+              <div class="bi-person-badge-name ms-2">Guest</div>
+            </div>
+          </template>
+          <div class="dropdown-items" v-if="this.$store.state.userEmail">
+            <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
+              >마이페이지</b-dropdown-item
+            >
+            <b-dropdown-item text="Small" @click="logout"
+              >로그아웃</b-dropdown-item
+            >
           </div>
-          <div
-            v-if="this.$store.state.userEmail == null"
-            class="d-flex justify-contents-center align-items-center"
-          >
-            <i class="fs-3 bi bi-person-badge"></i>
-            <div class="bi-person-badge-name ms-2">Guest</div>
+
+          <div v-if="this.$store.state.userEmail === null">
+            <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
+            <b-dropdown-divider></b-dropdown-divider>
+
+            <b-dropdown-item @click="moveToLogin"> 로그인</b-dropdown-item>
           </div>
-        </template>
-        <div class="dropdown-items" v-if="this.$store.state.userEmail">
-          <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
-            >마이페이지</b-dropdown-item
-          >
-          <b-dropdown-item text="Small" @click="logout"
-            >로그아웃</b-dropdown-item
-          >
-        </div>
-
-        <div v-if="this.$store.state.userEmail === null">
-          <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
-          <b-dropdown-divider></b-dropdown-divider>
-
-          <b-dropdown-item @click="moveToLogin"> 로그인</b-dropdown-item>
-        </div>
-      </b-dropdown>
-      <!-- </div> -->
+        </b-dropdown>
+        <!-- </div> -->
+      </div>
 
       <div class="col-11 hidden-Navbar-Searchbar my-3">
         <form class="d-flex">

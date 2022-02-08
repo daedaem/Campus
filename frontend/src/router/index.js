@@ -20,6 +20,7 @@ import Materevise from "../views/mateparty/Materevise.vue";
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
+
 const routes = [
   {
     path: "/",

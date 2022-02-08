@@ -98,6 +98,9 @@ export default createStore({
     SEARCHRESULT: function (state, data) {
       state.searchResult = data;
     },
+    // SCROLLEDFEEDLIST: function (state, data) {
+    //   state.scrolledFeedList
+    // }
   },
   actions: {
     createEquip: function ({ commit }, equipItem) {
@@ -144,6 +147,10 @@ export default createStore({
     searchResult: function (context, data) {
       context.commit("SEARCHRESULT", data);
     },
+    // ScrolledFeedList: function (context, data) {
+    //   context.commit("SCROLLEDFEEDLIST",data)
+
+    // }_
   },
   getters: {
     config: function (state) {
