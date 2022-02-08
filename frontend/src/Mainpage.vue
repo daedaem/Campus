@@ -66,7 +66,8 @@ export default {
     // 캠핑장 데이터
     axios({
       method : 'get',
-      url : 'http://i6e102.p.ssafy.io/camp',
+      // url : 'http://localhost:8080/camp'
+      url : 'http://i6e102.p.ssafy.io:8080/camp',
       params :{
         limit : 2906,
         offset : 0

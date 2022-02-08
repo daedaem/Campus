@@ -61,7 +61,7 @@ export default {
       axios({
       methods: 'get',
       // url : 'http://localhost:8080/camp',
-      url : 'http://i6e102.p.ssafy.io/camp',
+      url : 'http://i6e102.p.ssafy.io:8080/camp',
       params : {
         limit :limit.value,
         offset : offset.value,

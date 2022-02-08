@@ -57,7 +57,8 @@ export default {
     const matelist = computed(() => store.state.mateList);
     axios({
       methods: "get",
-      url: "http://i6e102.p.ssafy.io/mate",
+      url: "http://i6e102.p.ssafy.io:8080/mate",
+      // url: "http://localhost:8080/mate",
     })
     .then((res) => {
       // console.log(res.data.list)
