@@ -1,18 +1,57 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2>채팅 입장</h2>
+    <input type="text" v-model="id" placeholder="ID" />
+    <input type="text" v-model="nickname" placeholder="NICKNAME" />
+    <br />
+
+    <input type="button" @click="enterChatRoom()" value="ENTER" />
+    <input type="button" @click="createUser()" value="CREATE" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+    data: () => {
+    return {
+      id: 0,
+      nickname: ''
+    }
+  },
+  methods:{
+    enterChatRoom(){
+       axios({
+        method:'post',
+        url:'/api/chat/llogin',
+        baseURL:'http://localhost:8080/',
+        headers:{'content-type': 'application/json'},
+        data : {"id":this.id,"nickname":this.nickname}
+      }).then(res=>{
+        this.nickname = res.data
+          this.$router.push({name:"Roomlist",params:{id : this.id, nickname: this.nickname}})
+      }, err=>{
+        alert("id, nickname error")
+      console.log(err)
+      })
+    },
+    createUser () {
+      this.id = 0
+      axios({
+        method:'post',
+        url:'/api/chat/uuser',
+        baseURL:'http://localhost:8080/',
+        headers:{'content-type': 'application/json'},
+        data : {"id":this.id,"nickname":this.nickname}
+      }).then(res=>{
+        this.id = res.data.id
+        this.nickname = res.data.nickname
+        this.$router.push({name:"Roomlist",params:{id : this.id, nickname: this.nickname}})
+      }, err=>{
+        alert("create user error")
+        console.log(err)
+      })
+    }
   }
-}
+};
 </script>

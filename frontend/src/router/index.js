@@ -18,6 +18,9 @@ import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import Materevise from "../views/mateparty/Materevise.vue";
 import test from "../components/common/test.vue";
+import Home from "../views/Home.vue";
+import Room from "../views/Room.vue";
+import RoomList from "../views/RoomList.vue";
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
@@ -140,6 +143,21 @@ const routes = [
     name: "test",
     component: test,
   },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/room",
+    name: "Room",
+    component : Room
+  },
+  {
+    path: "/rooms",
+    name: "Roomlist",
+    component : RoomList
+  }
 
 ];
 
