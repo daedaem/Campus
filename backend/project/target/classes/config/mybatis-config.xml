@@ -20,5 +20,8 @@
         <mapper resource="mapper/mate_query.xml" />
         <mapper resource="mapper/sns_query.xml" />
         <mapper resource="mapper/sns_reply_query.xml" />
+        <mapper resource="mapper/ChatRoomMapper.xml" />
+        <mapper resource="mapper/MessageMapper.xml" />
+        <mapper resource="mapper/UserMapper.xml" />
 	</mappers>	
 </configuration>
