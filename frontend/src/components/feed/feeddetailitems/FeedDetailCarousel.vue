@@ -1,10 +1,7 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 1"
-    >
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
       <div class="feed-picture align-items-center">
         <img
           :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
@@ -15,12 +12,8 @@
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 2"
-    >
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
       <div class="feed-picture">
-        <div></div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -242,13 +235,12 @@ export default {
 }
 
 .feed-picture {
-  /* width: 100%; */
-  /* height: 100%; */
-  margin: auto;
-
-  /* height: 500px; */
-  min-height: 400 px;
+  width: 100%;
   height: 100%;
+  margin: auto;
+  min-height: 370px;
+  min-width: 370px;
+
   /* max-height: 400 px; */
 }
 /* .bi-x-circle {

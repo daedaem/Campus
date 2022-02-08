@@ -7,14 +7,14 @@
       >
         <div class="total-frame">
           <div>
-            <infinite-scroll @infinite-scroll="feed">
-              <feed-list-items
-                v-for="(feed, i) in feedList"
-                :key="i"
-                :feed="feed"
-              >
-              </feed-list-items>
-            </infinite-scroll>
+            <!-- <infinite-scroll @infinite-scroll="feed"> -->
+            <feed-list-items
+              v-for="(feed, i) in feedLists"
+              :key="i"
+              :feed="feed"
+            >
+            </feed-list-items>
+            <!-- </infinite-scroll> -->
           </div>
         </div>
       </div>
@@ -23,11 +23,15 @@
 </template>
 
 <script>
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = `http://localhost:8080`;
+
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
+import { ref, onMounted } from "vue";
 // import { ref } from "vue";
-import InfiniteScroll from "infinite-loading-vue3";
+// import InfiniteScroll from "infinite-loading-vue3";
 
 // import FeedDetail from "./FeedDetail.vue";
 // import InfiniteLoading from "v3-infinite-loading";
@@ -36,37 +40,64 @@ import InfiniteScroll from "infinite-loading-vue3";
 export default {
   name: "FeedList",
   components: {
-    InfiniteScroll,
-    // FeedListItemModal,
     FeedListItems,
-
-    // FeedDetail
-  },
-  methods: {},
-  created: function () {
-    // console.log(this.$store.state.user);
-    axios
-      .get("http://localhost:8080/sns")
-      .then((res) => {
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
   },
 
   computed: {
     ...mapState(["feedList"]),
     ...mapState(["user"]),
   },
+  setup() {
+    const feedLists = ref([]);
+    const limit = ref(10);
+    const offset = ref(0);
+    const getDatas = () => {
+      axios({
+        methods: "get",
+        url: `${SERVER_URL}/sns`,
+        params: {
+          limit: limit.value,
+          offset: offset.value,
+          // searchWord : '',
+          // doNm : '',
+        },
+      })
+        .then((res) => {
+          console.log(res.data.list);
+          feedLists.value.push(...res.data.ist);
+          // this.$store.dispatch("feedList", data);
+          console.log(feedLists.value);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    onMounted(() => {
+      getDatas();
+      window.addEventListener("scroll", () => {
+        let scrollTop = document.documentElement.scrollTop;
+        let scrollHeight = document.documentElement.scrollHeight;
+        let clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight - 10) {
+          offset.value += 10;
+          // this.limit += 10
+          getDatas();
+        }
+      });
+    });
+
+    return {
+      feedLists,
+      limit,
+      offset,
+      getDatas,
+    };
+  },
   // created: function() {
   //   console.log(this.feeds)
   // }
 };
-
 // let pagNum = 0
 // 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
 // document.addEventListener("scroll", () => {
@@ -74,7 +105,6 @@ export default {
 //   if (scrollHeight - Math.round(scrollTop) === clientHeight) {
 //     axios({
 //       method: 'get',
-//       url:`/feed/?page=${pageNum}`,
 //     })
 //     }
 //   }

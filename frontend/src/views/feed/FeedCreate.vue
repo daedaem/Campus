@@ -188,16 +188,7 @@ export default {
         this.feedCreateImageList.ImageList.push(url);
       }
     },
-    // moveToDetail() {
 
-    // },
-
-    // clearImage() {
-    //   this.uploadReady = false;
-    //   this.$nextTick(() => {
-    //     this.uploadReady = true;
-    //   });
-    // },
     CreateFeed() {
       // console.log(this.feedCreateContent);
       // console.log(this.userList);
