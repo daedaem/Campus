@@ -105,7 +105,7 @@ const routes = [
     component: Matematch,
   },
   {
-    path: "/survey/",
+    path: "/survey",
     name: "Survey",
     component: Survey,
   },
@@ -120,7 +120,7 @@ const routes = [
     component: Modify,
   },
   {
-    path: "/campsite/",
+    path: "/campsite",
     name: "Campsite",
     component: Campsite,
   },
@@ -135,7 +135,7 @@ const routes = [
     component: Materevise,
   },
   {
-    path: "/searchresults/",
+    path: "/searchresults",
     name: "FeedSearchResults",
     component: FeedSearchResults,
   },

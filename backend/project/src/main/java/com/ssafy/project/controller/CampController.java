@@ -278,6 +278,8 @@ public class CampController {
         System.out.println(campRateDto);
         campRateDto.setUserNo(userDto.getUserNo());
 
+        System.out.println(campRateDto);
+
         CampRateResultDto campRateResultDto = campRateService.campRateInsert(campRateDto);
         System.out.println(campRateDto);
         if (campRateResultDto.getResult() == SUCCESS) {

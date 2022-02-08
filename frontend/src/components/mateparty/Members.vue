@@ -157,6 +157,31 @@ export default {
             userNo : myNum,
         } 
         
+      meList.campStyle1 = me.value.campStyle1
+      meList.campStyle2 = me.value.campStyle2
+      meList.campStyle3 = me.value.campStyle3
+      meList.campStyle4 = me.value.campStyle4
+      meList.campStyle5 = me.value.campStyle5
+      meList.campStyle6 = me.value.campStyle6
+      meList.mateListNum = Number(friendnum.value)
+      meList.userGender = me.value.userGender
+      meList.userMBTI = me.value.userMBTI
+      meList.userRatePoint = me.value.userRatePoint
+      meList.userAge = me.value.userAge
+      member.value.push(meList)
+      console.log(meList)
+      axios({
+        method : 'post',
+        // url : 'http://localhost:8080/mate/apply',
+        url : 'http://i6e102.p.ssafy.io:8080/mate/apply',
+        data : meList
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
         meList.campStyle1 = me.value.campStyle1
         meList.campStyle2 = me.value.campStyle2

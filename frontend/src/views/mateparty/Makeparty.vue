@@ -242,6 +242,7 @@ export default {
         method: 'post',
         
         url : "http://localhost:8080/mate",
+        
         data : this.partyData,
   
       })
@@ -254,6 +255,7 @@ export default {
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
         url : `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
+        
         data : this.mateImageUrl
         
         })
