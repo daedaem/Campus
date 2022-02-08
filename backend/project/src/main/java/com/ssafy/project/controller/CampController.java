@@ -275,11 +275,11 @@ public class CampController {
     public ResponseEntity<CampRateResultDto> campRateInsert(@RequestBody CampRateDto campRateDto, HttpSession session) {
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-
+        System.out.println(campRateDto);
         campRateDto.setUserNo(userDto.getUserNo());
 
         CampRateResultDto campRateResultDto = campRateService.campRateInsert(campRateDto);
-
+        System.out.println(campRateDto);
         if (campRateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateResultDto>(campRateResultDto, HttpStatus.OK);
         } else {

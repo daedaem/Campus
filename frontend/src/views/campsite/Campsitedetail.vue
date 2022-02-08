@@ -25,7 +25,7 @@
         </div>
         <hr>
         <Kakaomap v-if="detailData.length != 0" :detailData="detailData"/>
-
+        <button @click="review">???</button>
       </div>
     </div>
     
@@ -39,8 +39,8 @@ import {useRoute} from 'vue-router'
 import axios from 'axios'
 import {ref} from 'vue'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
-// const SERVER_URL = `localhost:8080`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 export default {
   name : 'CampsiteDetail',
   components : {
@@ -65,8 +65,15 @@ export default {
     })
 
 
+    
+    const review = () => {
+      
+    }
+
+
     return {
       detailData,
+      review,
     }
   }
 }

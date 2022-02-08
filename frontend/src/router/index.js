@@ -18,7 +18,7 @@ import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import Materevise from "../views/mateparty/Materevise.vue";
 import test from "../components/common/test.vue";
-
+import Campsitereview from '../views/campsite/Campsitereview.vue'
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
 const routes = [
@@ -139,6 +139,11 @@ const routes = [
     path: "/test/",
     name: "test",
     component: test,
+  },
+  {
+    path: "/campsite/review",
+    name : "Campsitereview",
+    component : Campsitereview
   },
 
 ];
