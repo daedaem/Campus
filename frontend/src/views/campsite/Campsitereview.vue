@@ -28,7 +28,7 @@
 
 <script>
 import axios from 'axios'
-// import {ref} from 'vue'
+import {ref} from 'vue'
 // import {useStore} from 'vuex'
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
@@ -39,23 +39,24 @@ export default {
   name : 'Campsitereview',
   setup() {
     // const store = useStore()
-    const campRateDto = {
+    const campRateDto = ref({
       campRateCleanliness : 3,
       campRatePrice :2,
       campRateFacility : 1,
-      userNo : 57,
+      userNo : 27,
       campRateContent : '뷰내용',
       campRateTitle : '뷰제목',
       contentId : '10',
-    }
+    })
     // campRateDto.value.userNo = 
 
     const send = () => {
-        console.log(campRateDto)
+        console.log(campRateDto.value)
         axios({
           method : 'POST',
-          url : 'http://localhost:8080/camp/rate',
-          data : campRateDto
+          url : "http://localhost:8080/camp/rate",
+          headers:{'content-type': 'application/json'},
+          data : campRateDto.value
         })
         .then(res => {
           console.log(res)
