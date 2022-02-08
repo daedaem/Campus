@@ -54,6 +54,7 @@ export default {
     axios({
       method : 'get',
       url : `${SERVER_URL}/camp/${id}`
+   
     })
     .then(res => {
       detailData.value = res.data.dto

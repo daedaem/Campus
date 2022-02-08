@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.project.dto.FollowDto;
 import com.ssafy.project.service.FollowService;
 
-@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // 값자체를 리턴
@@ -27,8 +27,9 @@ public class FollowController {
     private static final int FAIL = -1;
 
     // follow 추가
-    @PostMapping(value = "/follow")
-    public ResponseEntity<Integer> insert(int userNo, int followUserNo) {
+    @PostMapping(value = "/follow/{userNo}/{followUserNo}")
+    public ResponseEntity<Integer> insert(@PathVariable int userNo, @PathVariable int followUserNo) {
+        System.out.println("userNo : " + userNo + " followUserNo : " + followUserNo);
         if (followService.followInsert(userNo, followUserNo) == SUCCESS) {
             return new ResponseEntity<Integer>(SUCCESS, HttpStatus.OK);
         } else {
