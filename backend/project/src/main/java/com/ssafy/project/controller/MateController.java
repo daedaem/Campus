@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -58,9 +58,9 @@ public class MateController {
 
     private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
         mateDto.setContentId(10);
-        mateDto.setUserNo(userDto.getUserNo());
+        mateDto.setUserNo(mateDto.getUserNo());
 
         MateResultDto mateResultDto = service.mateInsert(mateDto);
 
