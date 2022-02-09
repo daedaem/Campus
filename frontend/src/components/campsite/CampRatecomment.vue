@@ -48,7 +48,12 @@ export default {
     })
 
     const add = () => {
-      commentList.value.push(replyData.value)
+      commentList.value.push({
+        campRateNo : reviewData.value.campRateNo,
+        campRateReplyContent : replyData.value.campRateReplyContent,
+        userNo : store.state.myNum
+      })
+      
       let form = new FormData()
       form.append("campRateNo",reviewData.value.campRateNo)
       form.append("campRateReplyContent",replyData.value.campRateReplyContent)
@@ -64,6 +69,7 @@ export default {
       .catch( err => {
         console.log(err)
       })
+      replyData.value.campRateReplyContent = ''
     }
     console.log(reviewData.value)
     console.log(commentList.value)

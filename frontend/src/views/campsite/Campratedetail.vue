@@ -6,7 +6,7 @@
   <div>가격 평가 : {{detailData.campRatePrice}}</div>
   <div>청결 평가 : {{detailData.campRateCleanliness}}</div>
   <button @click="rev(detailData.campRateNo)">수정</button>
-  <button @click="del(detailData.campRateNo)">삭제</button>
+  <button @click="del(detailData.campRateNo)" v-if="detailData.userNo===Nm">삭제</button>
   <div>
   <CampRatecomment v-if="detailData.length != 0" :detailData="detailData"/>
   </div>
@@ -18,7 +18,7 @@ import axios from 'axios'
 import {useRoute, useRouter} from 'vue-router'
 import {ref} from 'vue'
 import CampRatecomment from '@/components/campsite/CampRatecomment.vue'
-
+import {useStore} from 'vuex'
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080"
 export default {
@@ -31,6 +31,8 @@ export default {
     const router = useRouter()
     const rateNo = route.params.rateNo
     const detailData = ref([])
+    const store = useStore()
+    const Nm = store.state.myNum
 
 
     axios({
@@ -71,6 +73,7 @@ export default {
       detailData,
       rev,
       del,
+      Nm,
     
     }
   }
