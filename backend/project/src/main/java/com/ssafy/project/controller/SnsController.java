@@ -116,7 +116,7 @@ public class SnsController {
         //HttpSession session = request.getSession();
 
         //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
-
+        System.out.println(snsDto);
         SnsResultDto snsResultDto = snsService.snsUpdate(snsDto);
 
         if( snsResultDto.getResult() == SUCCESS ){
