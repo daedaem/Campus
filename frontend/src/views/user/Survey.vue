@@ -359,6 +359,7 @@
               캠핑장 퇴실 시간에 맞춰서 나가려고 한다.
             </button>
 
+<<<<<<< HEAD
             <div class="mt-3">
               <button @click.prevent="prev()">Previous</button>
               <button @click.prevent="[checkmbti(), onSubmit()]">finish</button>
@@ -370,12 +371,110 @@
     <button @click="mbtiskip">스킵버튼</button>
     Debug: {{ credentials }}
   </div>
+=======
+					<div v-if="page === 10">
+						<h2>Q10</h2>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: tenButton,
+								mbtiButtonOff: !tenButton,
+							}"
+							@click="mbtiten">
+							세워둔 캠핑 계획을 못하면 매우 스트레스 받는다
+						</button>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: nottenButton,
+								mbtiButtonOff: !nottenButton,
+							}"
+							@click="mbtinotten">
+							세워둔 캠핑 계획을 못하면 ‘그럴수도 있지 뭐, 다른거 하자’
+						</button>
+
+
+						<div class="mt-3">
+							<button @click.prevent="prev()">Previous</button>
+							<button @click.prevent="next()">Next</button>
+						</div>
+					</div>
+
+					<div v-if="page === 11">
+						<h2>Q11</h2>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: eleButton,
+								mbtiButtonOff: !eleButton,
+							}"
+							@click="mbtiele">
+							나는 텐트 피칭(설치)시 팩을 1~2개 덜 박아서, 텐트가 살짝 울어도 괜찮다 
+						</button>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: noteleButton,
+								mbtiButtonOff: !noteleButton,
+							}"
+							@click="mbtinotele">
+							나는 텐트 피칭(설치)시 모든 팩을 다 박아서, 칼같이 팽팽한 텐트를 보면서 성취감을 느낀다
+						</button>
+
+
+						<div class="mt-3">
+							<button @click.prevent="prev()">Previous</button>
+							<button @click.prevent="next()">Next</button>
+						</div>
+					</div>
+
+					<div v-if="page === 12">
+						<h2>Q12</h2>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: tweButton,
+								mbtiButtonOff: !tweButton,
+							}"
+							@click="mbtitwe">
+							캠핑장 퇴실 시간에 맞춰서 나가려고 할 때, 늦을까봐 불안해서 조금 일찍 나간다
+						</button>
+						<button
+							type="button"
+							:class="{
+								mbtiButtonOn: nottweButton,
+								mbtiButtonOff: !nottweButton,
+							}"
+							@click="mbtinottwe">
+							캠핑장 퇴실 시간에 맞춰서 나가려고 한다.
+						</button>
+
+
+						<div class="mt-3">
+							<button @click.prevent="prev()">Previous</button>
+							<button @click.prevent="checkmbti()">finish</button>
+						</div>
+					</div>
+				
+				
+				
+				
+				</div>
+
+
+			</div>
+		</div>
+		<button @click="mbtiskip">스킵버튼</button>
+		Debug: {{ credentials }}
+	</div>
+>>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 </template>
 
 <script>
 import axios from "axios";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL
+<<<<<<< HEAD
 const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 // const SERVER_URL = `http://localhost:8080`;
 
@@ -422,6 +521,50 @@ export default {
       question4: 0,
     };
   },
+=======
+const SERVER_URL = 'http://localhost:8080';
+
+export default {
+	name: "Survey",
+	data() {
+		return {
+			page: 1,
+			credentials: {
+				survey: {
+					EI: "",
+					SN: "",
+					TF: "",
+					JP: "",
+				},
+				MBTI: "",
+
+			},
+			oneButton: false,
+			notoneButton: false,
+			twoButton: false,
+			nottwoButton: false,
+			threeButton: false,
+			notthreeButton: false,
+			fourButton: false,
+			notfourButton: false,
+			fiveButton: false,
+			notfiveButton: false,
+			sixButton: false,
+			notsixButton: false,
+			sevenButton: false,
+			notsevenButton: false,
+			eightButton: false,
+			noteightButton: false,
+			nineButton: false,
+			notnineButton: false,
+			tenButton : false,
+			nottenButton: false,
+			eleButton: false,
+			noteleButton: false,
+			tweButton: false,
+			nottweButton: false,
+			
+>>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 
   methods: {
     prev() {
@@ -449,6 +592,7 @@ export default {
       this.$router.push({ name: "Mainpage" });
     },
 
+<<<<<<< HEAD
     mbtione: function () {
       this.oneButton = true;
       this.notoneButton = false;
@@ -612,6 +756,46 @@ export default {
       } else {
         this.credentials.survey.EI = "I";
       }
+=======
+			question1: 0,
+			question2: 0,
+			question3: 0,
+			question4: 0,
+			userEmail: "",
+			isMBTI: false
+		}
+	},
+	created: function() {
+		console.log(this.$store.state.userEmail)
+		this.userEmail = this.$store.state.userEmail
+	},
+
+	methods: {
+		prev() {
+			this.page--;
+		},
+		next() {
+			this.page++;
+		},
+		onSubmit() {
+			axios
+				.put(`${SERVER_URL}/user/mbti`, {
+					userEmail: this.userEmail,
+					userMBTI: this.credentials.MBTI
+				})
+				.then((res) => {
+					console.log(res)
+					alert("설문조사 완료")
+					this.$router.push({name: "Mainpage"})
+				})
+				.catch(() => {
+					alert("다시 시도해주세요.")
+				})
+		},
+		mbtiskip: function () {
+			this.$router.push({ name: "Mainpage"})
+		},
+>>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 
       if (this.question2 > 0) {
         this.credentials.survey.SN = "S";
@@ -625,6 +809,7 @@ export default {
         this.credentials.survey.TF = "F";
       }
 
+<<<<<<< HEAD
       if (this.question4 > 0) {
         this.credentials.survey.JP = "J";
       } else {
@@ -633,6 +818,53 @@ export default {
     },
   },
 };
+=======
+			if (this.question2 > 0) {
+				this.credentials.survey.SN = "S"
+			} else {
+				this.credentials.survey.SN = "N"
+			}
+
+			if (this.question3 > 0) {
+				this.credentials.survey.TF = "T"
+			} else {
+				this.credentials.survey.TF = "F"
+			}
+
+			if (this.question4 > 0) {
+				this.credentials.survey.JP = "J"
+			} else {
+				this.credentials.survey.JP = "P"
+			}
+
+			if (this.credentials.survey.EI !== null && 
+				this.credentials.survey.SN !== null &&
+				this.credentials.survey.TF !== null &&
+				this.credentials.survey.JP !== null) {
+					this.credentials.MBTI =
+					this.credentials.survey.EI.concat(
+						this.credentials.survey.SN,
+						this.credentials.survey.TF,
+						this.credentials.survey.JP
+					)
+					
+					this.isMBTI = true
+				}
+			if (this.isMBTI === true) {
+				this.onSubmit()
+			} else {
+				alert("다시 시도해주세요")
+			}
+			
+
+
+
+		}
+
+
+	}
+}
+>>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 </script>
 
 <style>
