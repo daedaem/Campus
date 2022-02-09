@@ -8,15 +8,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ChatRoom {
-	private long mateNo;
+public class ChatRoomP {
+	private long id;
 	private String title;
 	private long masterId;
 
 	@Builder
-	public ChatRoom(long mateNo, String title, long masterId) {
+	public ChatRoomP(long id, String title, long masterId) {
 		super();
-		this.mateNo = mateNo;
+		this.id = id;
 		this.title = title;
 		this.masterId = masterId;
 	}

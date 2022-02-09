@@ -3,6 +3,7 @@ package com.ssafy.project.controller;
 import java.util.List;
 
 import com.ssafy.project.dto.ChatRoom;
+import com.ssafy.project.dto.ChatRoomP;
 import com.ssafy.project.dto.Message;
 import com.ssafy.project.service.IChatRoomService;
 import com.ssafy.project.service.IMessageService;
@@ -31,6 +32,7 @@ public class ChatRoomController {
 	private final IChatRoomService chatroomService;
 	private final IMessageService messageService;
 	final int PAGE = 10;
+
 
 	// 특정 채팅방 타이틀 가져오기
 	@GetMapping("/room/{id}")
@@ -71,5 +73,4 @@ public class ChatRoomController {
 		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx);
 		return ResponseEntity.status(HttpStatus.OK).body(msgList);
 	}
-
 }
