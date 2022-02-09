@@ -354,12 +354,12 @@ public class CampController {
     public ResponseEntity<CampRateReplyResultDto> campRateReplyUpdate(@RequestBody CampRateReplyDto campRateReplyDto,
             HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        campRateReplyDto.setUserNo(userDto.getUserNo());
-
+        // campRateReplyDto.setUserNo(userDto.getUserNo());
+        
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
-
+        System.out.println(campRateReplyDto);
         if (campRateReplyResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateReplyResultDto>(campRateReplyResultDto, HttpStatus.OK);
         } else {
