@@ -27,8 +27,9 @@ public class FollowController {
     private static final int FAIL = -1;
 
     // follow 추가
-    @PostMapping(value = "/follow")
-    public ResponseEntity<Integer> insert(int userNo, int followUserNo) {
+    @PostMapping(value = "/follow/{userNo}/{followUserNo}")
+    public ResponseEntity<Integer> insert(@PathVariable int userNo, @PathVariable int followUserNo) {
+        System.out.println("userNo : " + userNo + " followUserNo : " + followUserNo);
         if (followService.followInsert(userNo, followUserNo) == SUCCESS) {
             return new ResponseEntity<Integer>(SUCCESS, HttpStatus.OK);
         } else {

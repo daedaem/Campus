@@ -25,7 +25,8 @@
         </div>
         <hr>
         <Kakaomap v-if="detailData.length != 0" :detailData="detailData"/>
-
+        <button @click="review">???</button>
+        <CampRatelist v-if="rateList.length != 0" :rateList="rateList"/>
       </div>
     </div>
     
@@ -38,22 +39,28 @@ import Kakaomap from '@/components/campsite/Kakaomap.vue'
 import {useRoute} from 'vue-router'
 import axios from 'axios'
 import {ref} from 'vue'
+import CampRatelist from '@/components/campsite/CampRatelist.vue'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
-// const SERVER_URL = `localhost:8080`
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 export default {
-  name : 'CampsiteDetail',
+  name : 'Campsitedetail',
   components : {
     Kakaomap,
+    CampRatelist,
   },
   setup() {
     const route = useRoute()
     const detailData = ref([])
+    
     const id = route.params.contentId
     console.log(id)
+    
+    // 캠핑장 정보
     axios({
       method : 'get',
       url : `${SERVER_URL}/camp/${id}`
+   
     })
     .then(res => {
       detailData.value = res.data.dto
@@ -64,9 +71,28 @@ export default {
       console.log(err)
     })
 
-
+    const rateList = ref([])
+    //후기불러오기
+    axios({
+      method : 'get',
+      url : `${SERVER_URL}/camp/rate/${id}`
+    })
+    .then(res => {
+      rateList.value = res.data.list
+      console.log(rateList.value)
+     
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    console.log(detailData.value)
+    console.log(rateList.value)
+    
     return {
+      rateList,
       detailData,
+      
+      
     }
   }
 }

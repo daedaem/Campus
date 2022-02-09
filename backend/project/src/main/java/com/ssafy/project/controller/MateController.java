@@ -37,7 +37,7 @@ public class MateController {
 
     private static final int SUCCESS = 1;
 
-    //메이트 리스트 띄우기
+    // 메이트 리스트 띄우기
     @GetMapping(value = "/mate")
     private ResponseEntity<MateResultDto> mateList(MateParamDto mateParamDto) {
 
@@ -45,7 +45,6 @@ public class MateController {
 
         // call mateList from MateService
         mateResultDto = service.mateList(mateParamDto);
-      
 
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -55,41 +54,40 @@ public class MateController {
 
     }
 
-    @PostMapping(value="/mate")
-    
-    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session){
+    @PostMapping(value = "/mate")
 
+    private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session) {
 
-  
-    mateDto.setContentId(10);
- 
-    MateResultDto mateResultDto = service.mateInsert(mateDto);
-    
-    if( mateResultDto.getResult() == SUCCESS ){
-        
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        mateDto.setContentId(10);
+        mateDto.setUserNo(mateDto.getUserNo());
+
+        MateResultDto mateResultDto = service.mateInsert(mateDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
-    @PostMapping(value="/mate/{mateNo}")
-    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
+    @PostMapping(value = "/mate/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageInsert(@PathVariable int mateNo,
+            @RequestParam("fileName") MultipartFile multipartFile) {
 
-    //로그인 했을시 session 처리 작성해주기
-    //미작성
-    //call mateInsert from MateService
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
 
-    MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
-    
-    
+        MateResultDto mateResultDto = service.mateImageInsert(mateNo, multipartFile);
 
-    if( mateResultDto.getResult() == SUCCESS ){
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
@@ -106,8 +104,8 @@ public class MateController {
         }
     }
 
-    @PutMapping(value="/mate")
-    private ResponseEntity<MateResultDto> mateUpdate(@RequestBody MateDto mateDto){
+    @PutMapping(value = "/mate")
+    private ResponseEntity<MateResultDto> mateUpdate(@RequestBody MateDto mateDto) {
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
@@ -115,49 +113,48 @@ public class MateController {
     mateDto.setContentId(10);
     // mateDto.setUserNo(25);
 
-    MateResultDto mateResultDto = service.mateUpdate(mateDto);
+        MateResultDto mateResultDto = service.mateUpdate(mateDto);
 
-    if( mateResultDto.getResult() == SUCCESS ){
-        
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-    }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        if (mateResultDto.getResult() == SUCCESS) {
+
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
-    @PutMapping(value="/mate/image/{mateNo}")
-    private ResponseEntity<MateResultDto> mateImageUpdate(@PathVariable int mateNo, @RequestParam("fileName") MultipartFile multipartFile){
+    @PutMapping(value = "/mate/image/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageUpdate(@PathVariable int mateNo,
+            @RequestParam("fileName") MultipartFile multipartFile) {
 
-    //로그인 했을시 session 처리 작성해주기
-    //미작성
-    //call mateInsert from MateService
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
 
-    MateResultDto mateResultDto = service.mateImageUpdate(mateNo, multipartFile);
-    
+        MateResultDto mateResultDto = service.mateImageUpdate(mateNo, multipartFile);
 
-    if( mateResultDto.getResult() == SUCCESS ){
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
-    @PutMapping(value="/mate/imagenull/{mateNo}")
-    private ResponseEntity<MateResultDto> mateImageUpdateNull(@PathVariable int mateNo){
+    @PutMapping(value = "/mate/imagenull/{mateNo}")
+    private ResponseEntity<MateResultDto> mateImageUpdateNull(@PathVariable int mateNo) {
 
-    //로그인 했을시 session 처리 작성해주기
-    //미작성
-    //call mateInsert from MateService
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
 
-    MateResultDto mateResultDto = service.mateImageUpdateNull(mateNo);
-    
+        MateResultDto mateResultDto = service.mateImageUpdateNull(mateNo);
 
-    if( mateResultDto.getResult() == SUCCESS ){
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
@@ -178,22 +175,22 @@ public class MateController {
 
     }
 
-    @PostMapping(value="/mate/apply")
-    private ResponseEntity<MateResultDto> mateApplyInsert(@RequestBody MateListDto matelistDto){
+    @PostMapping(value = "/mate/apply")
+    private ResponseEntity<MateResultDto> mateApplyInsert(@RequestBody MateListDto matelistDto) {
 
     //로그인 했을시 session 처리 작성해주기
     //미작성
     //call mateInsert from MateService
     // matelistDto.setMateNo(56);
-    matelistDto.setUserNo(25);
+   
 
-    MateResultDto mateResultDto = service.mateListInsert(matelistDto);
-        
-    if( mateResultDto.getResult() == SUCCESS ){
-        return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
-        }else{
-        return new ResponseEntity<MateResultDto>(mateResultDto,
-        HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        MateResultDto mateResultDto = service.mateListInsert(matelistDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
         }
     }
 
@@ -227,7 +224,7 @@ public class MateController {
 
     }
 
-    //메인 페이지에 메이트 5개 띄우기
+    // 메인 페이지에 메이트 5개 띄우기
     @GetMapping(value = "/mate/main")
     private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
 
@@ -235,7 +232,6 @@ public class MateController {
 
         // call mateList from MateService
         mateResultDto = service.mateListMain(mateParamDto);
-        
 
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
