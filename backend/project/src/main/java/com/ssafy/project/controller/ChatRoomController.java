@@ -33,7 +33,6 @@ public class ChatRoomController {
 	final int PAGE = 10;
 
 
-	// ---------------------mate 모집 단체 채팅--------------------------
 	// 특정 채팅방 타이틀 가져오기
 	@GetMapping("/room/{id}")
 	public ResponseEntity<String> roomTitle(@PathVariable long id) {
