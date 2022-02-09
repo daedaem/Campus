@@ -13,4 +13,5 @@ public interface MessageMapper {
 	int insertMessage(Message chatMessage);
 	List<Message> getMessagesByChatroomTitle(@Param("title") String title, @Param("idx") long idx);
 
+
 }

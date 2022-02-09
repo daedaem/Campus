@@ -112,8 +112,9 @@ public class MateServiceImpl implements MateService {
         // 생성자는 바로 메세지를 보내 자신이 방에 참가 함
         Message message = new Message();
         // String content = dto.getUserNickName() +"님이 참가하셨습니다.";
+        message.setChatroomId(chatMapper.getRoomId(dto.getMateTitle()));// 채팅방 아이디를 가져와야함
         message.setSenderId(dto.getUserNo());
-        message.setContent(dto.getUserNickName() +"님이 참가하셨습니다.");
+        message.setContent(dto.getUserNickname() +"님이 참가하셨습니다.");
         messageMapper.insertMessage(message);
 
         mateResultDto.setDto(dto);
@@ -139,7 +140,7 @@ public class MateServiceImpl implements MateService {
             fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
             File file = this.convertToFile(multipartFile, fileName);
             String TEMP_URL = this.uploadFile(file, fileName);
-
+            file.delete();
             System.out.println(TEMP_URL);
 
             MateDto dto = new MateDto();
@@ -309,7 +310,7 @@ public class MateServiceImpl implements MateService {
 
            Message message = new Message();
            message.setSenderId(dto.getUserNo());
-           message.setChatroomId(dto.getMateNo());
+           message.setChatroomId(chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo())));
            message.setContent(dto.getUserNickname() + "님이 입장하셨습니다.");
            messageMapper.insertMessage(message);
 
