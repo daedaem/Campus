@@ -3,14 +3,14 @@
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div
       class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 1"
+      v-if="this.imageinfo.ImageList.length == 1"
     >
       <div class="feed-picture">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
         </div>
         <img
-          :src="`${imageinfo.imageList[0]}`"
+          :src="`${imageinfo.ImageList[0]}`"
           class="d-block w-100 h-100"
           alt="..."
         />
@@ -20,7 +20,7 @@
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
     <div
       class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 2"
+      v-if="this.imageinfo.ImageList.length == 2"
     >
       <div class="feed-picture">
         <div>
@@ -56,15 +56,15 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                :src="`${imageinfo.imageList[0]}`"
-                class="d-block w-100"
+                :src="`${imageinfo.ImageList[0]}`"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${imageinfo.imageList[1]}`"
-                class="d-block w-100"
+                :src="`${imageinfo.ImageList[1]}`"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
@@ -92,7 +92,10 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
+    <div
+      class="feed-picture-box d-flex"
+      v-if="this.imageinfo.ImageList.length == 3"
+    >
       <div class="feed-picture">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
@@ -137,22 +140,22 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                :src="`${imageinfo.imageList[0]}`"
-                class="d-block w-100"
+                :src="`${imageinfo.ImageList[0]}`"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${imageinfo.imageList[1]}`"
-                class="d-block w-100"
+                :src="`${imageinfo.ImageList[1]}`"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                :src="`${imageinfo.imageList[2]}`"
-                class="d-block w-100"
+                :src="`${imageinfo.ImageList[2]}`"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
@@ -191,7 +194,7 @@ export default {
   name: "FeedCreateCarousel",
   props: {
     // feeds: Object,
-    imageList: Object,
+    ImageList: Object,
   },
   data() {
     return {
@@ -213,17 +216,17 @@ export default {
       // console.log('안녕');
       // console.log(this.$refs["image"]);
       // console.log(this.image);
-      // console.log(this.imageList);
+      // console.log(this.ImageList);
 
       // this.clearImage();
-      this.imageinfo.imageList = [];
-      // this.imageinfo.imageList.splice(this.feedid, 1); // this.image = null;
-      // this.imageList = null;
+      this.imageinfo.ImageList = [];
+      // this.imageinfo.ImageList.splice(this.feedid, 1); // this.image = null;
+      // this.ImageList = null;
     },
   },
 
   created: function () {
-    this.imageinfo = this.imageList;
+    this.imageinfo = this.ImageList;
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
 

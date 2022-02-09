@@ -59,8 +59,12 @@ public class CampRateServiceImpl implements CampRateService {
     public CampRateResultDto campRateInsert(CampRateDto campRateDto) {
         CampRateResultDto campRateResultDto = new CampRateResultDto();
         try {
-            campRateDao.campRateInsert(campRateDto);
-            campRateResultDto.setResult(SUCCESS);
+            int result = campRateDao.campRateInsert(campRateDto);
+            if (result == 1) {
+                campRateResultDto.setResult(SUCCESS);
+            } else {
+                campRateResultDto.setResult(FAIL);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             campRateResultDto.setResult(FAIL);
@@ -73,8 +77,12 @@ public class CampRateServiceImpl implements CampRateService {
     public CampRateResultDto campRateUpdate(CampRateDto campRateDto) {
         CampRateResultDto campRateResultDto = new CampRateResultDto();
         try {
-            campRateDao.campRateUpdate(campRateDto);
-            campRateResultDto.setResult(SUCCESS);
+            int result = campRateDao.campRateUpdate(campRateDto);
+            if (result == 1) {
+                campRateResultDto.setResult(SUCCESS);
+            } else {
+                campRateResultDto.setResult(FAIL);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             campRateResultDto.setResult(FAIL);
@@ -87,8 +95,12 @@ public class CampRateServiceImpl implements CampRateService {
     public CampRateResultDto campRateDelete(int campRateNo) {
         CampRateResultDto campRateResultDto = new CampRateResultDto();
         try {
-            campRateDao.campRateDelete(campRateNo);
-            campRateResultDto.setResult(SUCCESS);
+            int result = campRateDao.campRateDelete(campRateNo);
+            if (result == 1) {
+                campRateResultDto.setResult(SUCCESS);
+            } else {
+                campRateResultDto.setResult(FAIL);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             campRateResultDto.setResult(FAIL);
