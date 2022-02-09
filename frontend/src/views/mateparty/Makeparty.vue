@@ -95,6 +95,7 @@ export default {
           mateContent: null,
         },
         mateImageUrl : null,
+        mateChatNm : null,
       }
   },
   created () {
@@ -247,8 +248,10 @@ export default {
   
       })
       .then((res) => {
-        // console.log(res.dada.dto.mateNo)
+
+        // 이미지삽입
         console.log(res.data.dto.mateNo)
+        this.mateChatNm = res.data.dto.mateNo
         console.log(this.mateImageUrl)
         if (this.mateImageUrl) {
         axios({
@@ -270,12 +273,34 @@ export default {
         } 
      
         setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
+
+
+        // 채팅방
+        const chatData = {
+          title : this.partyData.mateTitle,
+          masterId : this.$store.state.myNum,
+          id : this.mateChatNm
+        }
+        console.log(chatData)
+        axios({
+          method : 'post',
+          url : `${SERVER_URL}/api/chat/room`,
+          data : chatData
+        })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
         
       })
 
       .catch(err => {
         console.log(err)
       })
+
+
       
 
     

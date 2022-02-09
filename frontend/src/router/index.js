@@ -19,6 +19,8 @@ import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import Materevise from "../views/mateparty/Materevise.vue";
 import test from "../components/common/test.vue";
 import Campsitereview from '../views/campsite/Campsitereview.vue'
+import Campratedetail from '../views/campsite/Campratedetail.vue'
+import Campraterevise from '../views/campsite/Campraterevise.vue'
 import Home from "../views/Home.vue";
 import Room from "../views/Room.vue";
 import RoomList from "../views/RoomList.vue";
@@ -163,7 +165,18 @@ const routes = [
     path: "/rooms",
     name: "Roomlist",
     component : RoomList
-  }
+  },
+  {
+    path: "/Campsite/review/:rateNo",
+    name: "Campratedetail",
+    component : Campratedetail
+  },
+  {
+    path : "/Campsite/review/revise",
+    name : "Campraterevise",
+    component : Campraterevise
+  },
+  
 
 ];
 
