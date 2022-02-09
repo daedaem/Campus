@@ -75,7 +75,7 @@ export default {
     //후기불러오기
     axios({
       method : 'get',
-      url : `${SERVER_URL}/camp/rate/${id}`
+      url : `${SERVER_URL}/camp/rates/${id}`
     })
     .then(res => {
       rateList.value = res.data.list
