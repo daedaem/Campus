@@ -20,7 +20,7 @@ public class ChatRoomService implements IChatRoomService {
 	@Override
 	public long createRoom(ChatRoom newRoom) {
 		int result = chatroomMapper.createRoom(newRoom);
-		return result == 1 ? newRoom.getMateNo() : -1;
+		return result == 1 ? newRoom.getId() : -1;
 	}
 
 	@Override
