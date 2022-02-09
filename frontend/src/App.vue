@@ -1,34 +1,33 @@
 <template>
   <div id="app">
-    <Navbar />
+    <!-- <Navbar /> -->
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
+// import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: "App",
   components: {
-    Navbar,
+    // Navbar,
   },
 };
 </script>
 
 <style lang="scss">
-// @font-face {
-// font-family: "myFont";
-
-// src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
-// font-family: /* 본문용 서체 */ "-apple-system", "BlinkMacSystemFont",
-//   "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif,
-//   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-// }
-// * {
-// font-family: "myFont";
-// }
+@font-face {
+  font-family: "myFont";
+  src: url("./assets/fonts/BM/BMDOHYEON_ttf.ttf");
+  // font-family: /* 본문용 서체 */ "-apple-system", "BlinkMacSystemFont",
+  //   "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif,
+  //   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+* {
+  font-family: "myFont";
+}
 // #app {
 //   font-family: Avenir, Helvetica, Arial, sans-serif;
 //   -webkit-font-smoothing: antialiased;

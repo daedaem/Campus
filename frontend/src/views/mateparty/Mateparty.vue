@@ -1,4 +1,5 @@
 <template>
+  <Navbar></Navbar>
   <body>
     <h1>Mate party</h1>
     <Searchbar class="col" style="margin: 20px 0" />
@@ -37,6 +38,8 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 // import {mapState} from 'vuex'
 import axios from "axios";
+import Navbar from "@/components/common/Navbar.vue";
+
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
 
@@ -49,6 +52,7 @@ export default {
     Filters,
     Newmodal,
     Searchbar,
+    Navbar,
   },
 
   name: "Mateparty",

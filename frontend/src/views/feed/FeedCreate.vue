@@ -26,11 +26,13 @@
       <div class="FeedCreate-contentbox d-flex">
         <!-- 이미지 업로드 -->
 
-        <div class="FeedCreate-leftbox">
+        <div
+          class="FeedCreate-leftbox d-flex justify-content-center align-items-center"
+        >
           <!-- carousel로 바꾸기 -->
           <div
             v-if="feedCreateImageList.ImageList.length > 0"
-            class="d-flex justify-content-center align-items-center"
+            class="FeedCreate-leftbox-contentBox-Frame d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
               <feed-create-carousel
@@ -59,14 +61,14 @@
               @change="uploadImg"
             />
           </form>
-          <cropper
+          <!-- <cropper
             class="cropper"
             :src="this.image"
             :stencil-props="{
               aspectRatio: 10 / 12,
             }"
             @change="change"
-          />
+          /> -->
 
           <!-- <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
@@ -124,8 +126,8 @@
 <script>
 // const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 const SERVER_URL = "http://localhost:8080";
-import { Cropper } from "vue-advanced-cropper";
-import "vue-advanced-cropper/dist/style.css";
+// import { Cropper } from "vue-advanced-cropper";
+// import "vue-advanced-cropper/dist/style.css";
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
@@ -137,7 +139,7 @@ import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 export default {
   name: "FeedCreate",
   components: {
-    Cropper,
+    // Cropper,
 
     FeedCreateCarousel,
     // FeedCreateModal,
@@ -309,7 +311,7 @@ export default {
     min-height: 400px;
     max-width: 460px;
     background-color: #ffff;
-    padding: 10px;
+    /* padding: 10px; */
     flex-grow: 1;
   }
 }
@@ -334,7 +336,7 @@ export default {
     min-height: 400px;
     /* max-width: 460px; */
     background-color: #ffff;
-    padding: 10px;
+    /* padding: 10px; */
     flex-grow: 1;
   }
 }
@@ -371,8 +373,12 @@ export default {
   min-height: 400px;
   background-color: #ffff;
 }
+.FeedCreate-leftbox-contentBox-Frame {
+  height: 100%;
+}
 .FeedCreate-contentbox-UploadImgFrame {
   position: relative;
+  height: 100%;
 }
 .FeedCreate-textarea {
   overflow: auto;
@@ -403,11 +409,11 @@ export default {
   width: 42px;
   height: 42px;
 }
-.cropper {
+/* .cropper {
   height: 600px;
   width: 600px;
   background: #ddd;
-}
+} */
 /* .bi-x-lg {
   position: absolute;
   /* z-index: auto; */

@@ -1,4 +1,5 @@
 <template>
+  <Navbar class="Navbar"></Navbar>
   <body>
     <div class="box" style="width: 100%; height: 100vh">
       <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
@@ -39,11 +40,13 @@ import { useStore } from "vuex";
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = `http://localhost:8080`;
+import Navbar from "@/components/common/Navbar.vue";
 
 export default {
   name: "Mainpage",
   components: {
     Maincarousel,
+    Navbar,
   },
 
   setup() {
@@ -102,6 +105,12 @@ export default {
 </script>
 
 <style scoped>
+.Navbar {
+  background: transparent;
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+}
 /* body { */
 /* width: 100vw;
   height: 100vh; */

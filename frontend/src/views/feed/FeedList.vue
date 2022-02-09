@@ -1,4 +1,5 @@
 <template>
+  <Navbar></Navbar>
   <div class="FeedListTotalframe">
     <!-- <infinite-scroll @infini></infinite-scroll> -->
 
@@ -37,6 +38,7 @@ import { mapState } from "vuex";
 import axios from "axios";
 // import { ref } from "vue";
 // import InfiniteScroll from "infinite-loading-vue3";
+import Navbar from "@/components/common/Navbar.vue";
 
 // import FeedDetail from "./FeedDetail.vue";
 // import InfiniteLoading from "v3-infinite-loading";
@@ -48,6 +50,7 @@ export default {
     // InfiniteScroll,
     // FeedListItemModal,
     FeedListItems,
+    Navbar,
     //
     // FeedDetail
   },
@@ -91,16 +94,16 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
+/* @font-face {
   font-family: "myFont";
   src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
-}
-* {
-  /* font-family: 본문용 서체 "-apple-system", "BlinkMacSystemFont", */
-  /* "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif, */
-  /* "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
-  font-family: "myFont";
-}
+} */
+/* * { */
+/* font-family: 본문용 서체 "-apple-system", "BlinkMacSystemFont", */
+/* "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif, */
+/* "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+/* font-family: "myFont"; */
+/* } */
 @media (min-width: 768px) {
   .FeedListTotalframe {
     width: 100%;

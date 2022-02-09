@@ -129,7 +129,7 @@
                       style="overflow: auto"
                     >
                       <div class="ReplyTime me-1">
-                        {{ ReplyTime }}
+                        {{ ReplyTime[i] }}
                       </div>
                       <i class="bi bi-x" @click="deleteComment(comment)"></i>
                     </div>
@@ -205,7 +205,7 @@ export default {
         snsNo: this.feed.snsNo,
       },
       ContentTime: "",
-      ReplyTime: "",
+      ReplyTime: [],
       comments: [],
       visible: true,
       likeCount: 0,
@@ -343,6 +343,7 @@ export default {
 
     snsComments() {
       this.comments = [];
+      this.ReplyTime = [];
       axios
         .get(`${SERVER_URL}/sns/reply/${this.feed.snsNo}`)
         .then((res) => {
@@ -351,9 +352,8 @@ export default {
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
-
-              this.ReplyTime = this.calculatedReplyTime(
-                res.data.list[i].snsReplyCreateTime
+              this.ReplyTime.unshift(
+                this.calculatedReplyTime(res.data.list[i].snsReplyCreateTime)
               );
             }
           }
