@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
+    <Chat />
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
@@ -8,30 +9,43 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
+    Chat,
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  background-color: #fafafa;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  // font-style: normal;
-  font-size: 14px;
-  // line-height: 18px;
-  font-weight: 400;
-  // color: #2c3e50;
-}
+// @font-face {
+// font-family: "myFont";
+
+// src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
+// font-family: /* 본문용 서체 */ "-apple-system", "BlinkMacSystemFont",
+//   "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif,
+//   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+// }
+// * {
+// font-family: "myFont";
+// }
+// #app {
+//   font-family: Avenir, Helvetica, Arial, sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   text-align: center;
+//   background-color: #fafafa;
+//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+//     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+//   // font-style: normal;
+//   font-size: 14px;
+//   // line-height: 18px;
+//   font-weight: 400;
+//   // color: #2c3e50;
+// }
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
@@ -52,7 +66,8 @@ export default {
 // }
 
 #nav {
-  background: whitesmoke;
+  // background: whitesmoke;
+
   width: 100vw;
   position: fixed;
 }
