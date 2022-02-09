@@ -86,7 +86,7 @@
             />
             <img
               v-if="this.$store.state.userList.userProfileImage == null"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              :src="this.$store.state.myProfileimageurl"
               alt=""
               class="Navbar-User-profile-image ms-2"
             />
@@ -95,7 +95,12 @@
             </div>
           </div>
           <div v-if="this.$store.state.userEmail == null">
-            <i class="fs-5 bi bi-person-badge"></i>
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              alt=""
+              class="Navbar-User-profile-image ms-2"
+            />
+            <!-- <i class="fs-5 bi bi-person-badge"></i> -->
           </div>
         </template>
         <div class="dropdown-items" v-if="this.$store.state.userEmail">
@@ -132,8 +137,8 @@
 </template>
 
 <script>
-// const SERVER_URL = "http://localhost:8080";
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = "http://localhost:8080";
+// const SERVER_URL = `http://i6e102.p.ssafy.io`;
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
@@ -166,8 +171,12 @@ export default {
   methods: {
     logout: function () {
       this.$store.state.user = null;
-      localStorage.removeItem("jwt");
+      this.$store.state.userEmail = null;
       this.$store.dispatch("logout");
+      sessionStorage.removeItem('userList')
+      sessionStorage.removeItem('myNum')
+      sessionStorage.removeItem('userEmail')
+      sessionStorage.removeItem('userPassword')
       alert("로그아웃");
       this.$router.push({ name: "Login" });
     },
