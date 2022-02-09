@@ -1,4 +1,5 @@
 <template>
+  <Navbar></Navbar>
   <div class="FeedSearchResults-TotalFrame">
     <div class="upBox mx-5 my-4">
       <div class="row g-0 d-flex justify-content-around align-items-center">
@@ -20,7 +21,7 @@
       <div class="fs-5 p-3 text-start">인기 게시물</div>
       <!-- {{ searchResult[0].imageList[0].snsImageUrl }} -->
       <div class="FeedSearchResultItems-ImageBox">
-        <b-card-group columns>
+        <b-card-group class="feed-search-results-items-group">
           <feed-search-results-items
             v-for="(feed, i) in searchResult"
             :key="i"
@@ -35,6 +36,8 @@
 
 <script>
 import FeedSearchResultsItems from "../../components/feed/FeedSearchResultsItems.vue";
+import Navbar from "@/components/common/Navbar.vue";
+
 import { mapState } from "vuex";
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -43,7 +46,7 @@ const SERVER_URL = "http://localhost:8080";
 
 export default {
   name: "news",
-  components: { FeedSearchResultsItems },
+  components: { FeedSearchResultsItems, Navbar },
   data() {
     return {
       searchresults: null,
@@ -84,6 +87,8 @@ export default {
   .searchResultText {
     text-align: start;
     margin: 0 0 0 0;
+  }
+  .feed-search-results-items-group {
   }
 }
 .upBox {

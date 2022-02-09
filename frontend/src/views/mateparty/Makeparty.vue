@@ -1,4 +1,5 @@
 <template>
+  <Navbar></Navbar>
   <div class="test">
     <body>
       <Fileupload @image="uploadedImage" />
@@ -83,12 +84,14 @@ import Campchoice from "@/components/mateparty/Campchoice.vue";
 import Fileupload from "@/components/mateparty/Fileupload.vue";
 import Datepicker from "@/components/mateparty/Datepicker.vue";
 import axios from "axios";
+import Navbar from "@/components/common/Navbar.vue";
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
 export default {
   name: "Makeparty",
   components: {
+    Navbar,
     Items,
     Filtermake,
     Dropdown1,

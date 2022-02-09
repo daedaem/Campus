@@ -2,10 +2,10 @@
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div
-      class="feed-picture-box d-flex"
+      class="feed-picture-box d-flex justify-content-center align-items-center"
       v-if="this.imageinfo.ImageList.length == 1"
     >
-      <div class="feed-picture">
+      <div class="feed-picture pt-4">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
         </div>
@@ -16,13 +16,13 @@
         />
       </div>
     </div>
-    <!-- 두개이상일 때 -->`
+    <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
     <div
-      class="feed-picture-box d-flex"
+      class="feed-picture-box d-flex justify-content-center align-items-center"
       v-if="this.imageinfo.ImageList.length == 2"
     >
-      <div class="feed-picture">
+      <div class="feed-picture pt-4">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
         </div>
@@ -38,7 +38,7 @@
             :key="indicator.key" -->
             <button
               type="button"
-              @click="carouselidadd(image)"
+              @click="carouselidadd(imageinfo.ImageList)"
               :data-bs-target="feedlink"
               data-bs-slide-to="0"
               class="active sm"
@@ -47,7 +47,7 @@
             ></button>
             <button
               type="button"
-              @click="carouselidadd(image)"
+              @click="carouselidadd(imageinfo.ImageList)"
               :data-bs-target="feedlink"
               data-bs-slide-to="1"
               aria-label="Slide 2"
@@ -72,7 +72,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            @click="carouselidadd(image)"
+            @click="carouselidadd(imageinfo.ImageList)"
             :data-bs-target="feedlink"
             data-bs-slide="prev"
           >
@@ -81,7 +81,7 @@
           </button>
           <button
             class="carousel-control-next"
-            @click="carouselidadd(image)"
+            @click="carouselidadd(imageinfo.ImageList)"
             :data-bs-target="feedlink"
             data-bs-slide="next"
           >
@@ -93,10 +93,10 @@
     </div>
     <!-- 세장일 때 -->
     <div
-      class="feed-picture-box d-flex"
+      class="feed-picture-box d-flex justify-content-center align-items-center"
       v-if="this.imageinfo.ImageList.length == 3"
     >
-      <div class="feed-picture">
+      <div class="feed-picture pt-4">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
         </div>
@@ -106,37 +106,6 @@
           data-bs-ride="carousel"
           data-bs-interval="false"
         >
-          <div class="carousel-indicators">
-            <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
-            v-for="indicator in feed.imgurl.length"
-            :key="indicator.key" -->
-            <button
-              type="button"
-              @click="carouselidadd(image)"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="0"
-              class="active"
-              aria-current="true"
-              aria-label="Slide 1"
-              style="z-index: 100"
-            ></button>
-            <button
-              type="button"
-              @click="carouselidadd(image)"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-              style="z-index: 100"
-            ></button>
-            <button
-              type="button"
-              @click="carouselidadd(image)"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-              style="z-index: 100"
-            ></button>
-          </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
@@ -163,7 +132,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            @click="carouselidadd(image)"
+            @click="carouselidadd(imageinfo.ImageList)"
             :data-bs-target="feedlink"
             data-bs-slide="prev"
             style="z-index: 100"
@@ -173,7 +142,7 @@
           </button>
           <button
             class="carousel-control-next"
-            @click="carouselidadd(image)"
+            @click="carouselidadd(imageinfo.ImageList)"
             :data-bs-target="feedlink"
             data-bs-slide="next"
             style="z-index: 100"
@@ -183,6 +152,37 @@
           </button>
         </div>
       </div>
+    </div>
+    <div class="carousel-indicators">
+      <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
+            v-for="indicator in feed.imgurl.length"
+            :key="indicator.key" -->
+      <button
+        type="button"
+        @click="carouselidadd(image)"
+        :data-bs-target="feedlink"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+        style="z-index: 100"
+      ></button>
+      <button
+        type="button"
+        @click="carouselidadd(image)"
+        :data-bs-target="feedlink"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+        style="z-index: 100"
+      ></button>
+      <button
+        type="button"
+        @click="carouselidadd(image)"
+        :data-bs-target="feedlink"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+        style="z-index: 100"
+      ></button>
     </div>
   </div>
 </template>
@@ -204,10 +204,11 @@ export default {
     };
   },
   methods: {
-    carouselidadd: function (nums) {
+    carouselidadd: function (imageinfo) {
       // for (let i; 0 < this.imageinfo.length; i++){
       // console.log(nums);
-      this.feedid = "feed" + nums;
+      console.log(imageinfo);
+      this.feedid = "feed";
       this.feedlink = "#" + this.feedid;
       // console.logf(this.imageinfo);
       // console.log(;
@@ -261,8 +262,13 @@ export default {
 .bi-x-circle {
   position: absolute;
   z-index: 1000;
-  top: 2%;
   right: 2%;
+}
+.carousel-item {
+  /* width: 100%; */
+  min-width: 350px;
+  height: 350px;
+  /* position: center; */
 }
 /* .carousel-control-prev{
 width: 100%;

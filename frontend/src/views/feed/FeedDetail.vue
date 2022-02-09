@@ -1,6 +1,7 @@
 <template>
   <div class="FeedDetail">
     <div class="FeedDetailTotal">
+      <Navbar></Navbar>
       <div class="FeedDetailTotalFrame">
         <div
           class="feedDetailContentsFrame d-flex justify-content-center align-items-center flex-wrap align-items-stretch"
@@ -138,7 +139,7 @@
                             </div>
                           </div>
                           <div class="col" style="overflow: auto">
-                            {{ ReplyTime }}
+                            {{ ReplyTime[i] }}
                           </div>
                           <i
                             class="bi bi-x"
@@ -196,6 +197,7 @@ const SERVER_URL = "http://localhost:8080";
 
 import { mapState } from "vuex";
 import axios from "axios";
+import Navbar from "@/components/common/Navbar.vue";
 
 import FeedDetailCarousel from "../../components/feed/feeddetailitems/FeedDetailCarousel.vue";
 import FeedDetailDropdown from "../../components/feed/feeddetailitems/FeedDetailDropdown.vue";
@@ -203,6 +205,7 @@ import FeedDetailDropdown from "../../components/feed/feeddetailitems/FeedDetail
 export default {
   name: "FeedDetail",
   components: {
+    Navbar,
     FeedDetailCarousel,
     FeedDetailDropdown,
   },
@@ -221,7 +224,7 @@ export default {
       likedpeople: [],
       likeCount: 0,
       ContentTime: "",
-      ReplyTime: "",
+      ReplyTime: [],
       feedDetailContents: "",
       comments: [],
       detailFeedsnsNo: "",
@@ -328,6 +331,8 @@ export default {
     },
     snsComments() {
       this.comments = [];
+      this.ReplyTime = [];
+
       axios
         .get(`${SERVER_URL}/sns/reply/${this.detailFeedsnsNo}`)
         .then((res) => {
@@ -335,8 +340,8 @@ export default {
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
-              this.ReplyTime = this.calculatedReplyTime(
-                res.data.list[i].snsReplyCreateTime
+              this.ReplyTime.unshift(
+                this.calculatedReplyTime(res.data.list[i].snsReplyCreateTime)
               );
             }
           }
@@ -417,11 +422,14 @@ export default {
         //   );
         // }
         // 댓글 창 보기
+
         if (res.data.dto.replyList.length > 0) {
           for (let i = 0; i < res.data.dto.replyList.length; i++) {
             this.comments.unshift(res.data.dto.replyList[i]);
-            this.ReplyTime = this.calculatedReplyTime(
-              res.data.dto.replyList[i].snsReplyCreateTime
+            this.ReplyTime.unshift(
+              this.calculatedReplyTime(
+                res.data.dto.replyList[i].snsReplyCreateTime
+              )
             );
           }
         }
