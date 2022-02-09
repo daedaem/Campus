@@ -32,12 +32,14 @@
 import axios from 'axios'
 import {ref} from 'vue'
 import {useStore} from 'vuex'
+import {useRoute} from 'vue-router'
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = 'http://localhost:8080'
 export default {
   name : 'Campraterevise',
   setup() {
+    const route = useRoute()
     const store = useStore()
     const campRateDto = ref({
       campRateCleanliness : null,
@@ -55,7 +57,8 @@ export default {
       form.append("campRateCleanliness",campRateDto.value.campRateCleanliness)
       form.append("campRatePrice",campRateDto.value.campRatePrice)
       form.append("campRateFacility",campRateDto.value.campRateFacility)
-      form.append("userNo",campRateDto.value.userNo)
+      // form.append("userNo",campRateDto.value.userNo)
+      form.append("campRateNo", route.params.rateNo)
       form.append("campRateContent",campRateDto.value.campRateContent)
       form.append("campRateTitle",campRateDto.value.campRateTitle)
       form.append("contentId",campRateDto.value.contentId)

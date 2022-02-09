@@ -35,7 +35,7 @@ export default {
 
     axios({
       method : 'get',
-      url : `${SERVER_URL}/camp/rate/${rateNo}`
+      url : `${SERVER_URL}/camp/rate/detail/${rateNo}`
     })
     .then(res => {
       
@@ -54,7 +54,7 @@ export default {
     const del = (Nm) => {
       axios({
         method : 'delete',
-        url : `${SERVER_URL}/camp/ratess/${Nm}`
+        url : `${SERVER_URL}/camp/rate/${Nm}`
         // url 수정필요
       })
       .then(res => {

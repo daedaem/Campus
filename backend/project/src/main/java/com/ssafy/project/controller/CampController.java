@@ -64,7 +64,7 @@ public class CampController {
     public ResponseEntity<CampSiteResultDto> campList(CampSiteParamDto campSiteParamDto) {
 
         CampSiteResultDto campSiteResultDto;
-        System.out.println(campSiteParamDto);
+        // System.out.println(campSiteParamDto);
 
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             if (campSiteParamDto.getEqpmnLendCl().equals("Y")) {
@@ -238,7 +238,7 @@ public class CampController {
     }
 
     // 캠핑장 평점 리스트
-    @GetMapping(value = "/camp/rates/{contentId}")
+    @GetMapping(value = "/camp/rate/{contentId}")
     public ResponseEntity<CampRateResultDto> campRateList(@PathVariable String contentId) {
 
         CampRateResultDto campRateResultDto = campRateService.campRateList(contentId);
@@ -251,17 +251,17 @@ public class CampController {
     }
 
     // 캠핑장 평점 상세정보
-    @GetMapping(value = "/camp/rate/{campRateNo}")
+    @GetMapping(value = "/camp/rate/detail/{campRateNo}")
     public ResponseEntity<CampRateResultDto> campRateDetail(@PathVariable int campRateNo, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
-        int userNo;
-        if (userDto != null)
-            userNo = userDto.getUserNo();
-        else
-            userNo = 0;
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // int userNo;
+        // if (userDto != null)
+        // userNo = userDto.getUserNo();
+        // else
+        // userNo = 0;
 
-        CampRateResultDto campRateResultDto = campRateService.campRateDetail(campRateNo, userNo);
+        CampRateResultDto campRateResultDto = campRateService.campRateDetail(campRateNo);
 
         if (campRateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateResultDto>(campRateResultDto, HttpStatus.OK);
@@ -275,13 +275,13 @@ public class CampController {
     public ResponseEntity<CampRateResultDto> campRateInsert(@RequestBody CampRateDto campRateDto, HttpSession session) {
 
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
-        System.out.println(campRateDto);
+        // System.out.println(campRateDto);
         // campRateDto.setUserNo(userDto.getUserNo());
 
-        System.out.println(campRateDto);
+        // System.out.println(campRateDto);
 
         CampRateResultDto campRateResultDto = campRateService.campRateInsert(campRateDto);
-        System.out.println(campRateDto);
+        // System.out.println(campRateDto);
         if (campRateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateResultDto>(campRateResultDto, HttpStatus.OK);
         } else {
@@ -298,7 +298,7 @@ public class CampController {
         // campRateDto.setUserNo(userDto.getUserNo());
 
         CampRateResultDto campRateResultDto = campRateService.campRateUpdate(campRateDto);
-        System.out.println(campRateDto);
+        System.out.println(campRateResultDto);
         if (campRateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateResultDto>(campRateResultDto, HttpStatus.OK);
         } else {
@@ -307,7 +307,7 @@ public class CampController {
     }
 
     // 캠핑장 평점 삭제
-    @DeleteMapping(value = "/camp/ratess/{campRateNo}")
+    @DeleteMapping(value = "/camp/rate/{campRateNo}")
     public ResponseEntity<CampRateResultDto> campRateDelete(@PathVariable(value = "campRateNo") int campRateNo) {
         CampRateResultDto campRateResultDto = campRateService.campRateDelete(campRateNo);
 
