@@ -275,17 +275,10 @@ public class CampController {
     public ResponseEntity<CampRateResultDto> campRateInsert(@RequestBody CampRateDto campRateDto, HttpSession session) {
 
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
-<<<<<<< HEAD
-
-        // campRateDto.setUserNo(userDto.getUserNo());
-
-        System.out.println(campRateDto);
-=======
         // System.out.println(campRateDto);
         // campRateDto.setUserNo(userDto.getUserNo());
 
         // System.out.println(campRateDto);
->>>>>>> 8d7e025d90a9a227af367feff1bf86b2af1935de
 
         CampRateResultDto campRateResultDto = campRateService.campRateInsert(campRateDto);
         // System.out.println(campRateDto);
@@ -299,15 +292,9 @@ public class CampController {
     // 캠핑장 평점 수정
     @PutMapping(value = "/camp/rate")
     public ResponseEntity<CampRateResultDto> campRateUpdate(@RequestBody CampRateDto campRateDto, HttpSession session) {
-<<<<<<< HEAD
-
-        // UserDto userDto = (UserDto) session.getAttribute("userDto");
-
-=======
         System.out.println("!!");
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
         System.out.println(campRateDto);
->>>>>>> 8d7e025d90a9a227af367feff1bf86b2af1935de
         // campRateDto.setUserNo(userDto.getUserNo());
 
         CampRateResultDto campRateResultDto = campRateService.campRateUpdate(campRateDto);
