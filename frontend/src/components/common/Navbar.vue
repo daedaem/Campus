@@ -303,7 +303,7 @@ export default {
 }
 
 .navbar {
-  /* background-color: #fff; */
+  background-color: #4a9f66;
   /* border-bottom: 5px solid green; */
 }
 .bi-plus-square {

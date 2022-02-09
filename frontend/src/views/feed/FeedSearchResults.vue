@@ -1,34 +1,36 @@
 <template>
-  <Navbar></Navbar>
-  <div class="FeedSearchResults-TotalFrame">
-    <div class="upBox mx-5 my-4">
-      <div class="row g-0 d-flex justify-content-around align-items-center">
-        <div class="col-md-4">
-          <img
-            :src="`${searchResult[0].imageList[0].snsImageUrl}`"
-            class="FeedSearchWordImage ms-3 my-3"
-            alt=""
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <div class="searchResultText fs-1">{{ searchWord }}</div>
+  <div>
+    <Navbar></Navbar>
+    <div class="FeedSearchResults-TotalFrame">
+      <div class="upBox mx-5 my-4">
+        <div class="row g-0 d-flex justify-content-around align-items-center">
+          <div class="col-md-4">
+            <img
+              :src="`${searchResult[0].imageList[0].snsImageUrl}`"
+              class="FeedSearchWordImage ms-3 my-3"
+              alt=""
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="searchResultText fs-1">{{ searchWord }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="bottomBox">
-      <div class="fs-5 p-3 text-start">인기 게시물</div>
-      <!-- {{ searchResult[0].imageList[0].snsImageUrl }} -->
-      <div class="FeedSearchResultItems-ImageBox">
-        <b-card-group class="feed-search-results-items-group">
-          <feed-search-results-items
-            v-for="(feed, i) in searchResult"
-            :key="i"
-            :searchedFeed="feed"
-            :searchWord="searchWord"
-          ></feed-search-results-items>
-        </b-card-group>
+      <div class="bottomBox">
+        <div class="fs-5 p-3 text-start">인기 게시물</div>
+        <!-- {{ searchResult[0].imageList[0].snsImageUrl }} -->
+        <div class="FeedSearchResultItems-ImageBox">
+          <b-card-group class="feed-search-results-items-group">
+            <feed-search-results-items
+              v-for="(feed, i) in searchResult"
+              :key="i"
+              :searchedFeed="feed"
+              :searchWord="searchWord"
+            ></feed-search-results-items>
+          </b-card-group>
+        </div>
       </div>
     </div>
   </div>
