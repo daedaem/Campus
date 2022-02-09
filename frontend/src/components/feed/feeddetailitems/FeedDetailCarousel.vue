@@ -1,11 +1,8 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 1"
-    >
-      <div class="feed-picture">
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
+      <div class="feed-picture align-items-center">
         <img
           :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
           class="d-block w-100 h-100"
@@ -15,12 +12,8 @@
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 2"
-    >
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
       <div class="feed-picture">
-        <div></div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -88,7 +81,7 @@
     </div>
     <!-- 세장일 때 -->
     <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
-      <div class="feed-picture">
+      <div class="feed-picture d-flex">
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -183,7 +176,7 @@ export default {
   name: "FeedDetailCarousel",
   props: {
     // feeds: Object,
-    imageList: Object,
+    ImageList: Object,
   },
   data() {
     return {
@@ -215,8 +208,8 @@ export default {
   },
 
   created: function () {
-    console.log(this.imageList);
-    this.imageinfo = this.imageList;
+    console.log("디테일", this.ImageList);
+    this.imageinfo = this.ImageList;
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
 
@@ -229,8 +222,10 @@ export default {
 </script>
 
 <style scoped>
-/* .total-feed-box { */
-/* } */
+.total-feed-box {
+  width: 100%;
+  height: 100%;
+}
 .feed-picture-box {
   /* padding: 10px; */
   /* height: 100%; */
@@ -240,12 +235,12 @@ export default {
 }
 
 .feed-picture {
-  /* width: 100%; */
-  /* height: 100%; */
+  width: 100%;
+  height: 100%;
   margin: auto;
+  min-height: 370px;
+  min-width: 370px;
 
-  /* height: 500px; */
-  /* min-height: 400 px; */
   /* max-height: 400 px; */
 }
 /* .bi-x-circle {

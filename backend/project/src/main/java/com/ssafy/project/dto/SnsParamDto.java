@@ -15,3 +15,4 @@ public class SnsParamDto {
     private int userNo;
     //test
 }
+//SnsParamDto snsParamDto
