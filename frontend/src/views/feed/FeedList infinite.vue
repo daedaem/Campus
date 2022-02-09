@@ -41,6 +41,27 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
+<<<<<<< HEAD:frontend/src/views/feed/FeedList infinite.vue
+=======
+
+    // FeedDetail
+  },
+  methods: {},
+  created: function () {
+    // console.log(this.$store.state.user);
+    axios
+      // .get("http://localhost:8080/sns")
+      .get("http://i6e102.p.ssafy.io:8080/sns")
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069:frontend/src/views/feed/FeedList copy.vue
   },
 
   computed: {

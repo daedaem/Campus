@@ -92,6 +92,7 @@ export default {
     // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
     const getDatas = () => {
       axios({
+<<<<<<< HEAD
         methods: "get",
         url: `${SERVER_URL}/camp`,
         params: {
@@ -100,6 +101,22 @@ export default {
           // searchWord : '',
           // doNm : '',
         },
+=======
+      methods: 'get',
+      url :  `${SERVER_URL}/camp`,
+    
+      params : {
+        limit :limit.value,
+        offset : offset.value,
+        // searchWord : '',
+        // doNm : '',
+      }
+      })
+      .then(res => {
+        articles.value.push(...res.data.list)
+        
+        console.log(articles.value)
+>>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
       })
         .then((res) => {
           articles.value.push(...res.data.list);

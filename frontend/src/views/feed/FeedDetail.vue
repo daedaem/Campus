@@ -192,8 +192,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 // const SERVER_URL = `http://i6e102.p.ssafy.io`;
 const SERVER_URL = "http://localhost:8080";
+=======
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
+// const SERVER_URL = "http://localhost:8080";
+>>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 
 import { mapState } from "vuex";
 import axios from "axios";
