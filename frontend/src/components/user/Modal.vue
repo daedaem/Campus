@@ -7,13 +7,8 @@
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
-// const SERVER_URL = "http://localhost:8080";
-const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-=======
 const SERVER_URL = "http://localhost:8080";
 // const SERVER_URL = `http://i6e102.p.ssafy.io`;
->>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 
 export default {
 	name: "Modal",

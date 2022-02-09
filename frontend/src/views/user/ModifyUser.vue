@@ -255,13 +255,8 @@ import EquipList from '@/components/user/equip_list.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Modal from '@/components/user/Modal.vue'
 
-<<<<<<< HEAD
 // const SERVER_URL = "http://localhost:8080";
 const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-=======
-const SERVER_URL = "http://localhost:8080";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
->>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
 
 export default {
 	name: "ModifyUser",
