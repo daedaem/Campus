@@ -6,10 +6,27 @@
 		insert into chatroom( title, master_id)
 		values(#{title}, #{masterId})
 	</insert>
+
+	<select id="getNickName" parameterType="int" resultType="String">
+		SELECT userNickname FROM user WHERE userNo = #{userNo}
+	</select>
+
+	<insert id="insertMaster" parameterType="int">
+		insert into chatroom( master_id )
+		values(#{sendId})
+	</insert>
+
+	<select id="getChatId" resultType="int">
+		SELECT id FROM chatroom WHERE title IS NULL
+	</select>
+
+	<insert id="insertTitle" parameterType="String">
+		
+	</insert>
 	
-	<select id="getAllChatRooms" resultType="map">
-	select mateNo, title
-	from chatroom
+	<select id="getAllChatRooms" parameterType="int" resultType="map">
+	select distinct c.id, c.title from chatroom c, message m 
+	where c.id in (select distinct chatroom_id AS chatroomId from message where sender_id = #{userNo});
 	</select>
 	
 	<select id="getRoomTitle" resultType="String" parameterType="long">
