@@ -422,7 +422,8 @@ export default {
         //   );
         // }
         // 댓글 창 보기
-
+        this.comments = [];
+        this.ReplyTime = [];
         if (res.data.dto.replyList.length > 0) {
           for (let i = 0; i < res.data.dto.replyList.length; i++) {
             this.comments.unshift(res.data.dto.replyList[i]);
