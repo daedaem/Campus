@@ -14,6 +14,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.ssafy.project.dao.ChatRoomMapper;
 import com.ssafy.project.dao.MateDao;
 import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
@@ -39,6 +40,9 @@ public class MateServiceImpl implements MateService {
 
     @Autowired
     SnsDao snsdao;
+
+    @Autowired
+    ChatRoomMapper mapper;
 
     // @Autowired
     // MateCampEquipRequiredDto mateCampEquipRequiredDto;

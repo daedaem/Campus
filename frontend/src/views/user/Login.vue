@@ -133,7 +133,7 @@ export default {
           this.$store.dispatch("myProfileimageurl", res.data.userProfileImage)
           this.$store.dispatch('userGender', res.data.userGender)
           sessionStorage.setItem("userList", this.$store.state.userList)
-          sessionStorage.setItem("myNum", this.$store.state.myNum)
+          sessionStorage.setItem("myNum", Number(this.$store.state.myNum))
           sessionStorage.setItem("userEmail", this.$store.state.userList.userEmail)
           sessionStorage.setItem("userPassword", this.$store.state.userList.userPassword)
           if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === "M") {
