@@ -24,8 +24,8 @@ public class MessageService implements IMessageService {
 	}
 
 	@Override
-	public List<Message> getMessagesByChatroomId(long id, long idx) {
-		return messageMapper.getMessagesByChatroomId(id, idx);
+	public List<Message> getMessagesByChatroomTitle(String title, long idx) {
+		return messageMapper.getMessagesByChatroomTitle(title, idx);
 	}
 
 }
