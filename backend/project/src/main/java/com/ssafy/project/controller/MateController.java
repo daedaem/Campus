@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -58,9 +58,9 @@ public class MateController {
 
     private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
         mateDto.setContentId(10);
-        mateDto.setUserNo(userDto.getUserNo());
+        mateDto.setUserNo(mateDto.getUserNo());
 
         MateResultDto mateResultDto = service.mateInsert(mateDto);
 
@@ -107,11 +107,11 @@ public class MateController {
     @PutMapping(value = "/mate")
     private ResponseEntity<MateResultDto> mateUpdate(@RequestBody MateDto mateDto) {
 
-        // 로그인 했을시 session 처리 작성해주기
-        // 미작성
-        // call mateInsert from MateService
-        mateDto.setContentId(10);
-        mateDto.setUserNo(25);
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+    mateDto.setContentId(10);
+    // mateDto.setUserNo(25);
 
         MateResultDto mateResultDto = service.mateUpdate(mateDto);
 
@@ -178,11 +178,11 @@ public class MateController {
     @PostMapping(value = "/mate/apply")
     private ResponseEntity<MateResultDto> mateApplyInsert(@RequestBody MateListDto matelistDto) {
 
-        // 로그인 했을시 session 처리 작성해주기
-        // 미작성
-        // call mateInsert from MateService
-        // matelistDto.setMateNo(56);
-        matelistDto.setUserNo(25);
+    //로그인 했을시 session 처리 작성해주기
+    //미작성
+    //call mateInsert from MateService
+    // matelistDto.setMateNo(56);
+   
 
         MateResultDto mateResultDto = service.mateListInsert(matelistDto);
 

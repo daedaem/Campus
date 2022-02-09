@@ -39,7 +39,7 @@
 import {useStore} from 'vuex'
 import {ref, computed, reactive} from 'vue'
 export default {
-  emits : ['campInfo'],
+  emits : ['camp-data'],
   name : 'Campchoice',
   setup(orops,{emit}) {
     // console.log(2)

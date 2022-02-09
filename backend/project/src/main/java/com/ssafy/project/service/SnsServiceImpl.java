@@ -18,6 +18,7 @@ import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsImageDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
 import com.ssafy.project.dto.SnsResultDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,10 +196,8 @@ public class SnsServiceImpl implements SnsService {
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
 
         SnsResultDto snsResultDto = new SnsResultDto();
-        System.out.println("1");
 
         try {
-            System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
 
             int count = dao.snsListTotalCount();
@@ -206,11 +205,12 @@ public class SnsServiceImpl implements SnsService {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 // System.out.println(snsResultDto);
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
             }
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
-            System.out.println(list.get(0));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -221,13 +221,21 @@ public class SnsServiceImpl implements SnsService {
     }
 
     @Override
-    public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto) {
+    public SnsResultDto snsListSearchWord(SnsParamDto dto) {
 
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
-            List<SnsDto> list = dao.snsListSearchWord(snsParamDto);
-            int count = dao.snsListSearchWordTotalCount();
+            List<SnsDto> list = dao.snsListSearchWord(dto.getSearchWord());
+            int count = dao.snsListSearchWordTotalCount(dto.getSearchWord());
+            for (int i = 0; i < count; i++) {
+                List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
+                list.get(i).setImageList(imageList);
+
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
+            }
+            // List<SnsReplyDto> replyList = dao.snsReplyList
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);

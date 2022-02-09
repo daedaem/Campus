@@ -34,6 +34,9 @@ import {ref} from 'vue'
 // import {useRouter} from 'vue'
 // import {useStore} from 'vuex'
 
+const SERVER_URL = `http://i6e102.p.ssafy.io`
+// const SERVER_URL = "http://localhost:8080"
+
 export default {
   name : 'Matematch',
   setup() {
@@ -43,8 +46,8 @@ export default {
     
     axios({
         method : 'get',
-        url : `http://i6e102.p.ssafy.io:8080/mate/match/4`
-        // url : `http://localhost:8080/mate/match/4`
+        url : `${SERVER_URL}/mate/match/4`
+   
     })
     .then(res => {
         const temp = res.data.matelist
