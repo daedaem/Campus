@@ -38,7 +38,6 @@ export default createStore({
     TODETAIL: function (state, detailFeed) {
       state.detailFeed = detailFeed;
     },
-
     FEEDLIST: function (state, feedList) {
       state.feedList = feedList;
     },

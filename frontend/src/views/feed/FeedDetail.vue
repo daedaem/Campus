@@ -50,6 +50,7 @@
               <div class="fs-6" style="overflow: auto">
                 {{ this.feedDetailContents.snsContent }}
               </div>
+              <p class="calcuatedTime text-end">{{ ContentTime }}</p>
             </div>
 
             <div
@@ -137,8 +138,12 @@
                             </div>
                           </div>
                           <div class="col" style="overflow: auto">
-                            {{ comment.snsReplyCreateTime }}
+                            {{ ReplyTime }}
                           </div>
+                          <i
+                            class="bi bi-x"
+                            @click="deleteComment(comment)"
+                          ></i>
                         </div>
                       </div>
                     </div>
@@ -215,7 +220,8 @@ export default {
       amiliked: 0,
       likedpeople: [],
       likeCount: 0,
-
+      ContentTime: "",
+      ReplyTime: "",
       feedDetailContents: "",
       comments: [],
       detailFeedsnsNo: "",
@@ -302,6 +308,24 @@ export default {
         alert(`Please input content.`);
       }
     },
+    deleteComment(comment) {
+      // console.log(comment);
+      axios({
+        method: "delete",
+        // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
+
+        url: `${SERVER_URL}/sns/reply/${comment.snsReplyNo}
+      `,
+      })
+        .then(() => {
+          console.log;
+          //
+          this.snsComments();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     snsComments() {
       this.comments = [];
       axios
@@ -311,6 +335,9 @@ export default {
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
+              this.ReplyTime = this.calculatedReplyTime(
+                res.data.list[i].snsReplyCreateTime
+              );
             }
           }
         })
@@ -318,29 +345,84 @@ export default {
           console.log(err);
         });
     },
+    calculatedContentTime(res) {
+      // console.log(res);
+      let ContentnewTime = new Date(res);
+      var ContentnowTime = new Date();
+      // console.log(ContentnewTime);
+      // console.log(ContentnowTime);
+      const milliSeconds = ContentnowTime - ContentnewTime - 9 * 60 * 60 * 1000;
+      const seconds = milliSeconds / 1000;
+      if (seconds < 60) return `방금 전`;
+      const minutes = seconds / 60;
+      if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+      const hours = minutes / 60;
+      if (hours < 24) return `${Math.floor(hours)}시간 전`;
+      const days = hours / 24;
+      if (days < 7) return `${Math.floor(days)}일 전`;
+      const weeks = days / 7;
+      if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+      const months = days / 30;
+      if (months < 12) return `${Math.floor(months)}개월 전`;
+      const years = days / 365;
+      return `${Math.floor(years)}년 전`;
+    },
+    calculatedReplyTime(res) {
+      // console.log(res);
+      let ReplynewTime = new Date(res);
+      var ReplynowTime = new Date();
+      // console.log(ReplynewTime);
+      // console.log(ReplynowTime);
+      const milliSeconds = ReplynowTime - ReplynewTime - 9 * 60 * 60 * 1000;
+      const seconds = milliSeconds / 1000;
+      if (seconds < 60) return `방금 전`;
+      const minutes = seconds / 60;
+      if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+      const hours = minutes / 60;
+      if (hours < 24) return `${Math.floor(hours)}시간 전`;
+      const days = hours / 24;
+      if (days < 7) return `${Math.floor(days)}일 전`;
+      const weeks = days / 7;
+      if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+      const months = days / 30;
+      if (months < 12) return `${Math.floor(months)}개월 전`;
+      const years = days / 365;
+      return `${Math.floor(years)}년 전`;
+    },
   },
 
   created: function () {
-    console.log(this.feed);
+    // console.log("뭐냐", this.feed);
     this.detailFeedsnsNo = this.$route.params.snsNo;
     this.my_comment.userNo = this.$store.state.userList.userNo;
     this.likedCheck();
     this.likesCountCheck();
-    this.snsComments;
+    this.snsComments();
+
     // console.log(this.$store.state.userList.userNo);
 
     // 디테일한 내용을 가져오기 위하여
     axios
       .get(`${SERVER_URL}/sns/${this.detailFeedsnsNo}`)
       .then((res) => {
-        // console.log("뭐고!!!!!!!!!!", res);
+        console.log("뭐고!!!!!!!!!!", res);
         this.feedDetailContents = res.data.dto;
         this.$store.dispatch("toDetail", res.data.dto);
-
+        this.ContentTime = this.calculatedContentTime(
+          res.data.dto.snsCreateTime
+        );
+        // if (res.data.dto.snsUpdateTime) {
+        //   this.ContentTime = this.calculatedContentTime(
+        //     res.data.dto.snsUpdateTime
+        //   );
+        // }
         // 댓글 창 보기
         if (res.data.dto.replyList.length > 0) {
           for (let i = 0; i < res.data.dto.replyList.length; i++) {
             this.comments.unshift(res.data.dto.replyList[i]);
+            this.ReplyTime = this.calculatedReplyTime(
+              res.data.dto.replyList[i].snsReplyCreateTime
+            );
           }
         }
       })

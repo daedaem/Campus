@@ -1,6 +1,7 @@
 <template>
-  <div class="FeedListTotalframe d-flex">
+  <div class="FeedListTotalframe">
     <!-- <infinite-scroll @infini></infinite-scroll> -->
+
     <div class="FeedListFrame">
       <div
         class="body d-flex flex-column justify-content-center align-items-center"
@@ -18,6 +19,11 @@
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <a href="#" class="btn_gotop">
+        <span class="glyphicon glyphicon-chevron-up"> </span>
+      </a>
     </div>
   </div>
 </template>
@@ -81,9 +87,20 @@ export default {
 //     }
 //   }
 // });
+//
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "myFont";
+  src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
+}
+* {
+  /* font-family: 본문용 서체 "-apple-system", "BlinkMacSystemFont", */
+  /* "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif, */
+  /* "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+  font-family: "myFont";
+}
 @media (min-width: 768px) {
   .FeedListTotalframe {
     width: 100%;
@@ -133,5 +150,19 @@ export default {
       }
     } */
   }
+}
+.btn_gotop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  padding: 15px 20px;
+  border-radius: 100%;
 }
 </style>

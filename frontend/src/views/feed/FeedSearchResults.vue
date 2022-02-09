@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="FeedSearchResults-TotalFrame">
     <div class="upBox mx-5 my-4">
       <div class="row g-0 d-flex justify-content-around align-items-center">
         <div class="col-md-4">
           <img
             :src="`${searchResult[0].imageList[0].snsImageUrl}`"
-            class="FeedSearchWordImage m-3"
+            class="FeedSearchWordImage ms-3 my-3"
             alt=""
           />
         </div>
@@ -83,10 +83,9 @@ export default {
 @media (min-width: 740px) {
   .searchResultText {
     text-align: start;
-    margin: 0 0 0 3rem;
+    margin: 0 0 0 0;
   }
 }
-
 .upBox {
   /* height: 400px; */
   width: 80%;
@@ -103,5 +102,6 @@ export default {
 .FeedSearchResultItems-ImageBox {
   border: 1px solid #fff;
   border-radius: 10%;
+  width: 100;
 }
 </style>

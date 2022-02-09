@@ -1,15 +1,24 @@
 <template>
   <!-- <b-card alt="" img-alt="Image" img-top> -->
-  <div class="py-4 mx-2">
-    <!-- <di class=""v> -->
-    <b-card-img
-      class="FeedSearchResultsItems-cards"
-      :src="`${searchedFeed.imageList[0].snsImageUrl}`"
-      @click="moveToDetail"
-    ></b-card-img>
-    <!-- <b-card-text class="my-1"> {{ newWord }} </b-card-text> -->
-    <!-- </di> -->
-  </div>
+  <!-- <di class=""v> -->
+  <!-- <b-card-text class="my-1"> {{ newWord }} </b-card-text> -->
+  <!-- <b-card-group> -->
+
+  <b-card
+    no-body
+    class="FeedSearchResultsItems-cards my-3"
+    :img-src="`${searchedFeed.imageList[0].snsImageUrl}`"
+    @click="moveToDetail"
+  >
+    <template #footer>
+      <small class="text-muted fw-bold text-start">{{
+        "@" + searchedFeed.userNickname
+      }}</small>
+    </template>
+  </b-card>
+
+  <!-- </b-card-group> -->
+  <!-- </di> -->
   <!-- </b-card> -->
 </template>
 
@@ -48,5 +57,19 @@ export default {
 .FeedSearchResultsItems-cards {
   border: 1px solid #eee;
   border-radius: 5%;
+  cursor: pointer;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+.FeedSearchResultsItems-cards:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
 }
 </style>
