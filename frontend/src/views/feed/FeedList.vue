@@ -30,8 +30,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 // const SERVER_URL = `http://i6e102.p.ssafy.io`;
 const SERVER_URL = `http://localhost:8080`;
+=======
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
+// const SERVER_URL = `http://localhost:8080`;
+>>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
@@ -54,10 +59,34 @@ export default {
     //
     // FeedDetail
   },
-  methods: {},
+  // methods: {},
   created: function () {
     // console.log(this.$store.state.user);
-    axios
+    // axios
+    //   .get(`${SERVER_URL}/sns`)
+    //   .then((res) => {
+    //     // console.log(res.data.list);
+    //     const data = res.data.list;
+    //     this.$store.dispatch("feedList", data);
+    //     console.log(res.data.list);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log("created feed list");
+    this.getFeedList();
+  },
+
+  computed: {
+    ...mapState(["feedList"]),
+    ...mapState(["user"]),
+  },
+  // created: function() {
+  //   console.log(this.feeds)
+  // }
+  methods: {
+    getFeedList: function() {
+      axios
       .get(`${SERVER_URL}/sns`)
       .then((res) => {
         // console.log(res.data.list);
@@ -68,15 +97,8 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    },
   },
-
-  computed: {
-    ...mapState(["feedList"]),
-    ...mapState(["user"]),
-  },
-  // created: function() {
-  //   console.log(this.feeds)
-  // }
 };
 // let pagNum = 0
 // 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
