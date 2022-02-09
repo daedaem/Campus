@@ -8,7 +8,7 @@ public interface CampRateService {
     public CampRateResultDto campRateList(String contentId);
 
     // 캠핑장 평점 상세 정보
-    public CampRateResultDto campRateDetail(int campRateNo);
+    public CampRateResultDto campRateDetail(int campRateNo, int userNo);
 
     // 캠핑장 평점 추가
     public CampRateResultDto campRateInsert(CampRateDto campRateDto);

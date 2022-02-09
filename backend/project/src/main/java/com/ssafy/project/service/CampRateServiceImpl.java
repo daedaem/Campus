@@ -36,10 +36,15 @@ public class CampRateServiceImpl implements CampRateService {
     }
 
     @Override
-    public CampRateResultDto campRateDetail(int campRateNo) {
+    public CampRateResultDto campRateDetail(int campRateNo, int userNo) {
         CampRateResultDto campRateResultDto = new CampRateResultDto();
         try {
             CampRateDto campRateDto = campRateDao.campRateDetail(campRateNo);
+            if (campRateDto.getUserNo() == userNo) {
+                campRateDto.setSameUser(true);
+            } else {
+                campRateDto.setSameUser(false);
+            }
             campRateResultDto.setDto(campRateDto);
             campRateResultDto.setResult(SUCCESS);
         } catch (Exception e) {
@@ -73,7 +78,6 @@ public class CampRateServiceImpl implements CampRateService {
         CampRateResultDto campRateResultDto = new CampRateResultDto();
         try {
             int result = campRateDao.campRateUpdate(campRateDto);
-            System.out.println("campRateUpdate : " + result);
             if (result == 1) {
                 campRateResultDto.setResult(SUCCESS);
             } else {
