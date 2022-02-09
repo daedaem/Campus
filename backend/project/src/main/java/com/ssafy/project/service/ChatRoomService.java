@@ -24,13 +24,28 @@ public class ChatRoomService implements IChatRoomService {
 	}
 
 	@Override
-	public List<ChatRoom> getAllChatRooms() {
-		return chatroomMapper.getAllChatRooms();
+	public long createPersonalRoom(int sendId, int receiveId) {
+		String connect = " 와 ";
+		String senderNickname = chatroomMapper.getNickName(sendId);
+		String title = senderNickname + connect;
+		String receiverNickname = chatroomMapper.getNickName(receiveId);
+		title = title + receiverNickname;
+		chatroomMapper.insertMaster(sendId);
+		long id = chatroomMapper.getChatId();
+
+		return 0;
+	}
+
+	@Override
+	public List<ChatRoom> getAllChatRooms(int userNo) {
+		return chatroomMapper.getAllChatRooms(userNo);
 	}
 
 	@Override
 	public String getRoomTitle(long mateNo) {
 		return chatroomMapper.getRoomTitle(mateNo);
 	}
+
+
 
 }

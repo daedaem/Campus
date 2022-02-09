@@ -10,7 +10,16 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ChatRoomMapper {
 
 	int createRoom(ChatRoom newRoom);
-	List<ChatRoom> getAllChatRooms();
+	List<ChatRoom> getAllChatRooms(int userNo);
 	String getRoomTitle(long mateNo);
+
+	int createPersonalRoom(int sendId, int receiveId);
+
+	String getNickName(int userNo);
+
+	void insertMaster(int sendId);
+
+	int getChatId();
+
 
 }
