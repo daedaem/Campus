@@ -2,11 +2,11 @@
   <Navbar class="Navbar"></Navbar>
   <body>
     <div class="box" style="width: 100%; height: 100vh">
-      <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
-      <div class="overlay">
+      <img class="box-image" src="@/assets/images/campingcar.jpg" alt="" />
+      <div class="overlay d-flex flex-column">
         <div>오른쪽으로 스와이프</div>
-        <a class="btn btn-lg" href="#">
-          <span>계정 만들기</span>
+        <a class="btn btn-md" href="#">
+          <div class="CreateAccountButton">계정 만들기</div>
         </a>
       </div>
     </div>
@@ -212,7 +212,8 @@ p {
     margin-bottom: 20px;
   }
 }
-
+.CreateAccountButton {
+}
 .filterbox {
   overflow: hidden;
 }
