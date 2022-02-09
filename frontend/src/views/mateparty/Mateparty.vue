@@ -28,7 +28,8 @@ import { ref, computed,} from 'vue'
 import { useStore } from 'vuex'
 // import {mapState} from 'vuex'
 import axios from 'axios'
-
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 
 
 export default {
@@ -57,8 +58,7 @@ export default {
     const matelist = computed(() => store.state.mateList);
     axios({
       methods: "get",
-      url: "http://i6e102.p.ssafy.io:8080/mate",
-      // url: "http://localhost:8080/mate",
+      url: `${SERVER_URL}/mate`,
     })
     .then((res) => {
       // console.log(res.data.list)

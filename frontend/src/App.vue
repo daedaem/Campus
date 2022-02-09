@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
+    <Chat />
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
@@ -8,11 +9,13 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
+    Chat,
   },
 };
 </script>
