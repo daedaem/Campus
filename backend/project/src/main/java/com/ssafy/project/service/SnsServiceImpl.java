@@ -18,6 +18,7 @@ import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.SnsDto;
 import com.ssafy.project.dto.SnsImageDto;
 import com.ssafy.project.dto.SnsParamDto;
+import com.ssafy.project.dto.SnsReplyDto;
 import com.ssafy.project.dto.SnsResultDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class SnsServiceImpl implements SnsService {
@@ -67,35 +67,36 @@ public class SnsServiceImpl implements SnsService {
     @Override
     @Transactional
     public SnsResultDto snsInsert(SnsDto dto) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
 
-        try{
+        try {
 
-            dao.snsInsert(dto); //dto는 키값
+            dao.snsInsert(dto); // dto는 키값
 
             dto.setSnsNo(dao.snsNoselect());
             dao.snsCheck(dto.getSnsNo());
 
-            snsResultDto.setDto(dto); 
+            snsResultDto.setDto(dto);
             snsResultDto.setResult(SUCCESS);
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);
         }
 
         return snsResultDto;
     }
+
     // sns 이미지 등록
     @Override
     public SnsResultDto snsImageInsert(int snsNo, List<MultipartFile> multipartFile) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
             for (MultipartFile files : multipartFile) {
-                
+
                 String fileName = files.getOriginalFilename();
                 fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
 
@@ -105,13 +106,13 @@ public class SnsServiceImpl implements SnsService {
                 SnsImageDto snsImageDto = new SnsImageDto();
                 snsImageDto.setSnsNo(snsNo);
                 snsImageDto.setSnsImageUrl(TEMP_URL);
-                
+
                 dao.snsImageInsert(snsImageDto);
 
             }
             snsResultDto.setImageList(dao.snsImageList(snsNo));
             snsResultDto.setResult(SUCCESS);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);
@@ -119,7 +120,8 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-    //sns 업데이트
+
+    // sns 업데이트
     @Override
     @Transactional
     public SnsResultDto snsUpdate(SnsDto dto) {
@@ -138,6 +140,7 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
+
     // sns 이미지 업데이트
     @Override
     public SnsResultDto snsImageUpdate(int snsNo, List<MultipartFile> multipartFile) {
@@ -147,7 +150,7 @@ public class SnsServiceImpl implements SnsService {
             dao.snsImageDelete(snsNo);
 
             for (MultipartFile files : multipartFile) {
-                
+
                 String fileName = files.getOriginalFilename();
                 fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
 
@@ -157,12 +160,12 @@ public class SnsServiceImpl implements SnsService {
                 SnsImageDto snsImageDto = new SnsImageDto();
                 snsImageDto.setSnsNo(snsNo);
                 snsImageDto.setSnsImageUrl(TEMP_URL);
-                
+
                 dao.snsImageInsert(snsImageDto);
 
                 snsResultDto.setResult(SUCCESS);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             snsResultDto.setResult(FAIL);
@@ -174,9 +177,9 @@ public class SnsServiceImpl implements SnsService {
     // sns 이미지 없을때 업데이트
     @Override
     public SnsResultDto snsImageNullUpdate(int snsNo) {
-        
+
         SnsResultDto snsResultDto = new SnsResultDto();
-        
+
         try {
             dao.snsImageDelete(snsNo);
 
@@ -188,16 +191,13 @@ public class SnsServiceImpl implements SnsService {
         return snsResultDto;
     }
 
-
     // 리스트를 생성하고 sns와 user를 join한 값들을 list에 순차적으로 저장(count는 sns에 있는 튜플의 개수로 지정)
     @Override
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
 
         SnsResultDto snsResultDto = new SnsResultDto();
-        System.out.println("1");
 
         try {
-            System.out.println("2");
             List<SnsDto> list = dao.snsList(snsParamDto);
 
             int count = dao.snsListTotalCount();
@@ -205,11 +205,12 @@ public class SnsServiceImpl implements SnsService {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 // System.out.println(snsResultDto);
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
             }
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
-            System.out.println(list.get(0));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,13 +221,21 @@ public class SnsServiceImpl implements SnsService {
     }
 
     @Override
-    public SnsResultDto snsListSearchWord(SnsParamDto snsParamDto) {
+    public SnsResultDto snsListSearchWord(SnsParamDto dto) {
 
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
-            List<SnsDto> list = dao.snsListSearchWord(snsParamDto);
-            int count = dao.snsListSearchWordTotalCount();
+            List<SnsDto> list = dao.snsListSearchWord(dto.getSearchWord());
+            int count = dao.snsListSearchWordTotalCount(dto.getSearchWord());
+            for (int i = 0; i < count; i++) {
+                List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
+                list.get(i).setImageList(imageList);
+
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
+            }
+            // List<SnsReplyDto> replyList = dao.snsReplyList
             snsResultDto.setList(list);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
@@ -238,8 +247,6 @@ public class SnsServiceImpl implements SnsService {
 
         return snsResultDto;
     }
-
-
 
     @Override
     @Transactional
@@ -271,7 +278,7 @@ public class SnsServiceImpl implements SnsService {
         try {
 
             SnsDto snsDto = dao.snsDetail(snsParamDto);
-            
+
             snsDto.setImageList(dao.snsImageList(snsParamDto.getSnsNo()));
             snsDto.setReplyList(dao.snsReplyList(snsParamDto.getSnsNo()));
             // 이미지 리스트 불러와주기

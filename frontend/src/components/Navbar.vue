@@ -75,7 +75,7 @@
       >
         <template #button-content>
           <div
-            v-if="this.$store.state.token"
+            v-if="this.$store.state.userEmail"
             class="d-flex justify-content-center align-items-center"
           >
             <img
@@ -94,11 +94,11 @@
               {{ this.$store.state.userList.userNickname }}
             </div>
           </div>
-          <div v-if="this.$store.state.token == null">
+          <div v-if="this.$store.state.userEmail == null">
             <i class="fs-5 bi bi-person-badge"></i>
           </div>
         </template>
-        <div class="dropdown-items" v-if="this.$store.state.token">
+        <div class="dropdown-items" v-if="this.$store.state.userEmail">
           <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
             >마이페이지</b-dropdown-item
           >
@@ -106,7 +106,9 @@
             >로그아웃</b-dropdown-item
           >
         </div>
-        <div v-if="this.$store.state.token === null">
+
+
+        <div v-if="this.$store.state.userEmail === null">
           <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
 
@@ -130,7 +132,8 @@
 </template>
 
 <script>
-const SERVER_URL = "http://localhost:8080";
+// const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
@@ -163,9 +166,12 @@ export default {
   methods: {
     logout: function () {
       this.$store.state.user = null;
-      localStorage.removeItem("jwt");
+      this.$store.state.userEmail  = null;
       this.$store.dispatch("logout");
-      alert("로그아웃");
+      sessionStorage.removeItem('userList')
+      sessionStorage.removeItem('myNum')
+      sessionStorage.removeItem('userEmail')
+      sessionStorage.removeItem('userPassword')
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
@@ -196,10 +202,6 @@ export default {
   },
 
   created: function () {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      this.$store.dispatch("login");
-    }
   },
   computed: {
     ...mapState(["userList"]),

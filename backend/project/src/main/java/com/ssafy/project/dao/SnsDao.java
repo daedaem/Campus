@@ -20,8 +20,8 @@ public interface SnsDao {
     public List<SnsDto> snsList(SnsParamDto dto);
     public int snsListTotalCount();
 
-    public List<SnsDto> snsListSearchWord(SnsParamDto dto);
-    public int snsListSearchWordTotalCount();
+    public List<SnsDto> snsListSearchWord(String str);
+    public int snsListSearchWordTotalCount(String str);
 
     public int snsImageInsert(SnsImageDto dto);
     public List<SnsImageDto> snsImageList(int snsNo);
