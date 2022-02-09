@@ -155,6 +155,7 @@ export default {
             userAge : null,
             mateNo : props.mateNm,
             userNo : myNum,
+            userNickname : store.state.userList.userNickname,
         } 
         
       meList.campStyle1 = me.value.campStyle1

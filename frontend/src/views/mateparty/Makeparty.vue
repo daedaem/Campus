@@ -93,6 +93,7 @@ export default {
           userNo : this.$store.state.myNum,
           mateTitle : null,
           mateContent: null,
+          userNickname : this.$store.state.userList.userNickname
         },
         mateImageUrl : null,
         mateChatNm : null,
