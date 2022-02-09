@@ -64,7 +64,8 @@ import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import axios from 'axios'
 
-
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 export default {
   name: 'Makeparty',
   components : {
@@ -84,16 +85,17 @@ export default {
           memberlimit : null,
           lowestAge : null,
           highestAge : null,
-          campingsite : null,
+          mateCampsite : null,
           mateCampstart : null,
           mateCampend : null,
           mateCamptype: null,
           campEquipRequiredList : null,
-
+          userNo : this.$store.state.myNum,
           mateTitle : null,
           mateContent: null,
         },
         mateImageUrl : null,
+        mateChatNm : null,
       }
   },
   created () {
@@ -155,7 +157,8 @@ export default {
       this.partyData.campEquipRequiredList = text
     },  
     campValue(text) {
-      this.paryDaa.campingsite = text
+      console.log(text)
+      this.partyData.mateCampsite = text
     },
     uploadedImage(file) {
       
@@ -234,24 +237,28 @@ export default {
     
 
     test() {
-      // console.log(this.partyData)
+      console.log(this.partyData)
       console.log(2)
       axios({
         method: 'post',
         
-        url : 'http://localhost:8080/mate',
+        url : "http://localhost:8080/mate",
+        
         data : this.partyData,
   
       })
       .then((res) => {
-        // console.log(res.dada.dto.mateNo)
+
+        // 이미지삽입
         console.log(res.data.dto.mateNo)
+        this.mateChatNm = res.data.dto.mateNo
         console.log(this.mateImageUrl)
         if (this.mateImageUrl) {
         axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
-        url : `http://localhost:8080/mate/${res.data.dto.mateNo}`,
+        url : `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
+        
         data : this.mateImageUrl
         
         })
@@ -265,13 +272,35 @@ export default {
         })
         } 
      
-        setTimeout(()=> {this.$router.push({name:'Mateparty'})},1000)
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
+
+
+        // 채팅방
+        const chatData = {
+          title : this.partyData.mateTitle,
+          masterId : this.$store.state.myNum,
+          id : this.mateChatNm
+        }
+        console.log(chatData)
+        axios({
+          method : 'post',
+          url : `${SERVER_URL}/api/chat/room`,
+          data : chatData
+        })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
         
       })
 
       .catch(err => {
         console.log(err)
       })
+
+
       
 
     
