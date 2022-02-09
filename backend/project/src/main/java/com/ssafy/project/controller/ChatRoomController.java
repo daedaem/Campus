@@ -73,4 +73,5 @@ public class ChatRoomController {
 		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx);
 		return ResponseEntity.status(HttpStatus.OK).body(msgList);
 	}
+	//
 }
