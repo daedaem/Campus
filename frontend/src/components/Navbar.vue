@@ -133,7 +133,7 @@
 
 <script>
 // const SERVER_URL = "http://localhost:8080";
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
@@ -166,9 +166,12 @@ export default {
   methods: {
     logout: function () {
       this.$store.state.user = null;
-      localStorage.removeItem("jwt");
+      this.$store.state.userEmail  = null;
       this.$store.dispatch("logout");
-      alert("로그아웃");
+      sessionStorage.removeItem('userList')
+      sessionStorage.removeItem('myNum')
+      sessionStorage.removeItem('userEmail')
+      sessionStorage.removeItem('userPassword')
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {

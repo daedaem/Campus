@@ -27,6 +27,7 @@
     "form-data": "^4.0.0",
     "infinite-loading-vue3": "^1.0.1",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "password-validator": "^5.2.1",
     "sockjs-client": "^1.5.2",
     "v-pagination-3": "^0.1.7",

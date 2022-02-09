@@ -16,11 +16,13 @@ export default {
     data: () => {
     return {
       id: 0,
-      nickname: ''
+      nickname: '',
+      randomNick : ['익명의 비버','익명의 고양이', '익명의 토끼', '익명의 사자', '익명의 악어','익명의 펭귄','익명의 올빼미','익명의 라이언','익명의 무지','익명의 어피치','익명의 죠르디', '베어그릴스' ]
     }
   },
   methods:{
-    enterChatRoom(){
+    randomItem(a) { return a[Math.floor(Math.random()* a.length)] },
+    enterChatRoom() {    
        axios({
         method:'post',
         url:'/api/chat/llogin',
@@ -29,7 +31,8 @@ export default {
         data : {"id":this.id,"nickname":this.nickname}
       }).then(res=>{
         this.nickname = res.data
-          this.$router.push({name:"Roomlist",params:{id : this.id, nickname: this.nickname}})
+        // 이거 수정해야댐.
+          this.$router.push({name:"Roomlist",params:{id : this.$store.state.myNum, nickname: this.randomItem(this.randomNick)}})
       }, err=>{
         alert("id, nickname error")
       console.log(err)
@@ -52,6 +55,9 @@ export default {
         console.log(err)
       })
     }
+  },
+  computed : {
+    
   }
 };
 </script>
