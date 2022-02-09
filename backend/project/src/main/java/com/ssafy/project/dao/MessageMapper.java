@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Param;
 public interface MessageMapper {
 
 	int insertMessage(Message chatMessage);
-	List<Message> getMessagesByChatroomId(@Param("roomId") long roomId, @Param("idx") long idx);
+	List<Message> getMessagesByChatroomTitle(@Param("title") String title, @Param("idx") long idx);
 
 }
