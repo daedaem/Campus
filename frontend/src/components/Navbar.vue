@@ -204,6 +204,7 @@ export default {
       sessionStorage.removeItem("myNum");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userPassword");
+      alert("로그아웃");
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {

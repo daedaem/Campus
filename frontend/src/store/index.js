@@ -19,13 +19,14 @@ export default createStore({
     uploadimages: "",
     // feeddetailnum: 0,
     detailFeed: "",
-    isLogin: localStorage.getItem("jwt") ? true : false,
+    isLogin: "",
     nickname: null,
     feedList: [],
     myNum: "",
     myProfileimageurl: "",
     userList: {},
     campList: [],
+    userGender: "",
   },
 
   mutations: {
@@ -65,32 +66,57 @@ export default createStore({
     USER_EMAIL(state, data) {
       state.userEmail = data;
     },
+    MYPROFILEIMAGEURL(state, data) {
+      state.myProfileimageurl = data
+      // if (data == "" && data2 =="W" ) {
+      //   state.myProfileimageurl = 'https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg'
+      // } else if (data == "" && data2 == 'M') {
+      //   state.myProfileimageurl = 'http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg'
+      // } else {
+      //   state.myProfileimageurl = data
+      // }
+      console.log(3)
+    },
+    USERGENDER(state, data) {
+      state.userGender = data
+    },
+    CHANGEMANIMAGE(state) {
+      console.log('http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg')
+      state.myProfileimageurl = 'http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg'
+    },
+    CHANGEWIMAGE(state) {
+      state.myProfileimageurl = 'http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg'
+    },
+    CHANGEIMAGE(state) {
+      state.myProfileimageurl = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+    },
+
 
     // 로그인
     LOGIN: function (state) {
-      state.token = localStorage.getItem("jwt");
       state.isLogin = true;
-      const token = state.token;
       axios({
         method: "get",
         url: `${SERVER_URL}/user/${state.user}`,
-        headers: { Authorization: `JWT ${token}` },
       }).then((res) => {
+<<<<<<< HEAD
         console.log(res);
         // state.myProfileimageurl = res.data.image;
         // state.nickname = res.data.nickname;
         // state.myNum = res.data.userNo;
         // state.userList = res.data
+=======
+        console.log(res)
+>>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
       });
     },
 
     LOGOUT: function (state) {
       state.myProfileimageurl = null;
-      state.token = null;
-      state.nickname = null;
+      state.userList = {};
+      state.userEmail=null;
       state.myNum = null;
       state.isLogin = false;
-      state.user = "";
     },
     SEARCH_DATA: function (state, data) {
       state.searchWord = data;
@@ -130,6 +156,21 @@ export default createStore({
     },
     userEmail({ commit }, data) {
       commit("USER_EMAIL", data);
+    },
+    myProfileimageurl({ commit}, data) {
+      commit('MYPROFILEIMAGEURL', data)
+    },
+    userGender({ commit}, data) {
+      commit('USERGENDER', data)
+    },
+    changeManImage ({ commit }) {
+      commit('CHANGEMANIMAGE')
+    },
+    changeWImage ({ commit }) {
+      commit ('CHANGEWIMAGE')
+    },
+    changeImage({ commit }) {
+      commit ('CHANGEIMAGE')
     },
     //mate
     viewMate({ commit }, data) {
