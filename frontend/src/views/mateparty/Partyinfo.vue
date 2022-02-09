@@ -99,7 +99,6 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/common/Navbar.vue";
-
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
 
@@ -134,13 +133,6 @@ export default {
         mateDetail.value.mateList.forEach(
           (ele) => (joinMembernum.value += ele.mateListNum)
         );
-        console.log(mateDetail.value);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((res) => {
-        mateDetail.value = res.data.dto;
         console.log(mateDetail.value);
       })
       .catch((err) => {
