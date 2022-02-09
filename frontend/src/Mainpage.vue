@@ -1,12 +1,7 @@
 <template>
   <body>
     <div class="box" style="width: 100%; height: 100vh">
-      <img
-        width="100%"
-        height="100%"
-        src="@/assets/images/bonfire-gab201fb38_1920.jpg"
-        alt=""
-      />
+      <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
       <div class="overlay">
         <div>오른쪽으로 스와이프</div>
         <a class="btn btn-lg" href="#">
@@ -14,6 +9,8 @@
         </a>
       </div>
     </div>
+    <div class="b-example-divider"></div>
+
     <div class="filterbox">
       <div
         style="
@@ -119,6 +116,11 @@ p {
 .box {
   position: relative;
 }
+.box-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
 
 .overlay {
   position: absolute;
@@ -205,4 +207,11 @@ p {
 .filterbox {
   overflow: hidden;
 }
+/* .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+} */
 </style>

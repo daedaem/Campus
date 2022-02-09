@@ -48,6 +48,7 @@
             </div>
           </div>
           <!-- 이미지 업로드 없다면 업로드 -->
+
           <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
               ref="image"
@@ -58,6 +59,14 @@
               @change="uploadImg"
             />
           </form>
+          <cropper
+            class="cropper"
+            :src="this.image"
+            :stencil-props="{
+              aspectRatio: 10 / 12,
+            }"
+            @change="change"
+          />
 
           <!-- <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
@@ -115,7 +124,8 @@
 <script>
 // const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 const SERVER_URL = "http://localhost:8080";
-
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
@@ -127,6 +137,8 @@ import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 export default {
   name: "FeedCreate",
   components: {
+    Cropper,
+
     FeedCreateCarousel,
     // FeedCreateModal,
     // FeedCreateCarousel,
@@ -155,6 +167,9 @@ export default {
     };
   },
   methods: {
+    change({ coordinates, canvas }) {
+      console.log(coordinates, canvas);
+    },
     uploadImg() {
       // 전송용
       var frm = new FormData();
@@ -388,7 +403,11 @@ export default {
   width: 42px;
   height: 42px;
 }
-
+.cropper {
+  height: 600px;
+  width: 600px;
+  background: #ddd;
+}
 /* .bi-x-lg {
   position: absolute;
   /* z-index: auto; */

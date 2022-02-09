@@ -57,14 +57,14 @@
             <div class="carousel-item active">
               <img
                 :src="`${imageinfo.ImageList[0]}`"
-                class="d-block w-100"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${imageinfo.ImageList[1]}`"
-                class="d-block w-100"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
@@ -92,7 +92,10 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.ImageList.length == 3">
+    <div
+      class="feed-picture-box d-flex"
+      v-if="this.imageinfo.ImageList.length == 3"
+    >
       <div class="feed-picture">
         <div>
           <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
@@ -138,21 +141,21 @@
             <div class="carousel-item active">
               <img
                 :src="`${imageinfo.ImageList[0]}`"
-                class="d-block w-100"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${imageinfo.ImageList[1]}`"
-                class="d-block w-100"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${imageinfo.ImageList[2]}`"
-                class="d-block w-100"
+                class="d-block w-100 h-100"
                 alt="..."
               />
             </div>
