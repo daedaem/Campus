@@ -9,7 +9,6 @@
         alt=""
       />
     </div>
-<<<<<<< HEAD
     <div
       align="left"
       style="
@@ -30,7 +29,7 @@
         :icon="['fas', 'user']"
         size="lg"
       />&nbsp;&nbsp;&nbsp;<span style="font-weight: 500; font-size: 20px"
-        >2/4</span
+        >{{ joinMembernum }}/{{ mateDetail.memberlimit }}</span
       >
       <br />
       <br />
@@ -49,22 +48,6 @@
           <span>@{{ mateDetail.userNickName }}</span
           ><br />메이트|뭐시기|후기|
         </div>
-=======
-    <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;"><div style="float:right;">{{mateDetail.mateCampstart}} ~ {{mateDetail.mateCampend}}</div>
-      <h4 style="font-weight:1000; font-size:25px;">{{mateDetail.mateTitle}}</h4>
-      <font-awesome-icon :icon="['fas','user']" size="lg"/>&nbsp;&nbsp;&nbsp;<span style="font-weight:500; font-size:20px;">{{joinMembernum}}/{{mateDetail.memberlimit}}</span>
-      <br>
-      <br>
-      <br>
-      <br>
-      
-      <hr>
-      <div style="display:flex; float:right;">
-        
-        <img style="margin-top:20px;" class="smallimage" :src="mateDetail.userProfileImage" alt="">
-        <div style="margin-left:20px; margin-top:20px;"><span>@{{mateDetail.userNickName}}</span><br>메이트|뭐시기|후기|</div>
-        
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
       </div>
     </div>
     <div style="visibility: hidden">
@@ -72,7 +55,6 @@
     </div>
     <hr />
 
-<<<<<<< HEAD
     <Carousel2 v-if="mateDetail.length != 0" :mateDetail="mateDetail" />
 
     <Cards
@@ -86,15 +68,9 @@
         v-if="mateDetail.length != 0"
         :mateDetail="mateDetail"
         :mateNm="mateNm"
+        @joinedmember="nowmember"
       />
     </div>
-=======
-    <Carousel2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    
-    <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail" :mateNm="mateNm" @joinedmember="nowmember"/></div>
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
     <button @click="goPartyrevise(mateDetail.mateNo)">수정</button>
 
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
@@ -146,29 +122,23 @@ export default {
     const mateNm = ref(props.mateNo);
     const userNm = store.state.myNum;
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
-<<<<<<< HEAD
     const mateDetail = ref([]);
-
+    const joinMembernum = ref(0);
     axios({
       method: "get",
       url: `${SERVER_URL}/mate/${props.mateNo}`,
-=======
-    const mateDetail = ref([])
-    const joinMembernum = ref(0)
-    axios({
-      method: 'get',
-      url : `${SERVER_URL}/mate/${props.mateNo}`
     })
-    .then(res => {
-      mateDetail.value = res.data.dto
-      
-      mateDetail.value.mateList.forEach( ele => joinMembernum.value += ele.mateListNum)
-      console.log(mateDetail.value)
-    })
-    .catch(err =>{
-      console.log(err)
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
-    })
+      .then((res) => {
+        mateDetail.value = res.data.dto;
+
+        mateDetail.value.mateList.forEach(
+          (ele) => (joinMembernum.value += ele.mateListNum)
+        );
+        console.log(mateDetail.value);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .then((res) => {
         mateDetail.value = res.data.dto;
         console.log(mateDetail.value);
@@ -183,9 +153,11 @@ export default {
         method: "delete",
         url: `${SERVER_URL}/mate/${temp}`,
       })
-<<<<<<< HEAD
         .then((res) => {
           console.log(res);
+          setTimeout(() => {
+            router.push({ name: "Mateparty" });
+          }, 3000);
         })
         .catch((err) => {
           console.log(err);
@@ -195,36 +167,18 @@ export default {
     const goPartyrevise = (Num) => {
       router.push({ name: "Materevise", params: { mateNo: Num } });
     };
-=======
-      .then(res => {
-        console.log(res)
-        setTimeout(()=> {router.push({name:'Mateparty'})},3000)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
 
-    const goPartyrevise = (Num) =>{
-      router.push({name : 'Materevise' , params : { mateNo : Num}})
-    }
-    
-    
     // const today = new Date()
     // var year = today.getFullYear();
     // var month = ('0' + (today.getMonth() + 1)).slice(-2);
     // var day = ('0' + today.getDate()).slice(-2);
-    
+
     // const todayy = year + '-' + month  + '-' + day;
     //     console.log(todayy)
-    
+
     // if (mateDetail.value.mateCampstart >= todayy) {
     //   console.log(1)
     // } else { console.log(mateDetail.value.mateCampstart - todayy)}
-    
-
-
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 
     return {
       // myMate,
@@ -233,15 +187,8 @@ export default {
       delPost,
       goPartyrevise,
       userNm,
-<<<<<<< HEAD
-
-=======
       joinMembernum,
-      
-      
- 
-      
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
+
       mateNm,
     };
   },

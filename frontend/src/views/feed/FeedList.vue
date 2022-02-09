@@ -30,13 +30,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 // const SERVER_URL = `http://i6e102.p.ssafy.io`;
 const SERVER_URL = `http://localhost:8080`;
-=======
-const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-// const SERVER_URL = `http://localhost:8080`;
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
@@ -85,18 +80,18 @@ export default {
   //   console.log(this.feeds)
   // }
   methods: {
-    getFeedList: function() {
+    getFeedList: function () {
       axios
-      .get(`${SERVER_URL}/sns`)
-      .then((res) => {
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-        // console.log(res.data.list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .get(`${SERVER_URL}/sns`)
+        .then((res) => {
+          // console.log(res.data.list);
+          const data = res.data.list;
+          this.$store.dispatch("feedList", data);
+          // console.log(res.data.list);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
