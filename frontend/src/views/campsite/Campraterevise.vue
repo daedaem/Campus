@@ -1,5 +1,6 @@
 <template>
   <div>
+        <div>
           <div class="container contact-form" >
         <div class="row">
             <div >
@@ -24,6 +25,7 @@
         </div>
       </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -33,11 +35,8 @@ import {useStore} from 'vuex'
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = 'http://localhost:8080'
-// import qs from 'query-string'
-
 export default {
-  name : 'Campsitereview',
-  
+  name : 'Campraterevise',
   setup() {
     const store = useStore()
     const campRateDto = ref({
@@ -61,7 +60,7 @@ export default {
       form.append("campRateTitle",campRateDto.value.campRateTitle)
       form.append("contentId",campRateDto.value.contentId)
       axios({
-        method : 'POST',
+        method : 'put',
         url : `${SERVER_URL}/camp/rate`,
         headers : {'content-type' : 'application/json'}, 
         data : form
@@ -75,13 +74,11 @@ export default {
     }
 
     return {
-      send,
       campRateDto,
-
+      send,
     }
   }
 }
-
 </script>
 
 <style>
