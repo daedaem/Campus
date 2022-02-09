@@ -30,17 +30,17 @@
 
 	<!-- follow list -->
 	<select id="followList" parameterType="Integer" resultType="com.ssafy.project.dto.UserDto">
-		SELECT u.userNo, u.userProfileImage, u.userNickname
+		SELECT u.userNo, u.userProfileImage, u.userNickname, u.userEmail
 		FROM follow f, user u
-		WHERE f.followUserNo = u.userNo
+		WHERE f.userNo = u.userNo
 		AND f.followUserNo = #{followUserNo};
 	</select>
 
 	<!-- follower list -->
     <select id="followerList" parameterType="Integer" resultType="com.ssafy.project.dto.UserDto">
-        SELECT u.userNo, u.userProfileImage, u.userNickname
+        SELECT u.userNo, u.userProfileImage, u.userNickname, u.userEmail
 		FROM follow f, user u
-		WHERE f.userNo = u.userNo
+		WHERE f.followUserNo = u.userNo
 		AND f.userNo = #{userNo};
 	</select>
 </mapper>
