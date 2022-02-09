@@ -7,10 +7,10 @@ import com.ssafy.project.dto.ChatRoom;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ChatRoomMapper {
-
+public interface ChatRoomMapperP {
+	// 수정 필요
 	int createRoom(ChatRoom newRoom);
 	List<ChatRoom> getAllChatRooms();
-	String getRoomTitle(long mateNo);
+	String getRoomTitle(long id);
 
 }
