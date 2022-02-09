@@ -99,7 +99,6 @@ export default {
   },
   data: function () {
     return {
-<<<<<<< HEAD
         partyData : {
           friendlimit : null,
           campStyleList : null,
@@ -118,25 +117,6 @@ export default {
         mateImageUrl : null,
         mateChatNm : null,
       }
-=======
-      partyData: {
-        friendlimit: null,
-        campStyleList: null,
-        memberlimit: null,
-        lowestAge: null,
-        highestAge: null,
-        mateCampsite: null,
-        mateCampstart: null,
-        mateCampend: null,
-        mateCamptype: null,
-        campEquipRequiredList: null,
-        userNo: this.$store.state.myNum,
-        mateTitle: null,
-        mateContent: null,
-      },
-      mateImageUrl: null,
-    };
->>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
   },
   created() {
     console.log(this.$store.state.userList);
@@ -279,13 +259,9 @@ export default {
       console.log(this.partyData);
       console.log(2);
       axios({
-<<<<<<< HEAD
         method: 'post',
-        
         url : "http://localhost:8080/mate",
-        
         data : this.partyData,
-  
       })
       .then((res) => {
 
@@ -294,7 +270,7 @@ export default {
         this.mateChatNm = res.data.dto.mateNo
         console.log(this.mateImageUrl)
         if (this.mateImageUrl) {
-        axios({
+          axios({
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
         url : `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
@@ -335,46 +311,7 @@ export default {
         })
         
       })
-=======
-        method: "post",
->>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
-
-        url: "http://localhost:8080/mate",
-        data: this.partyData,
-      })
-<<<<<<< HEAD
-
-
-      
-=======
-        .then((res) => {
-          // console.log(res.dada.dto.mateNo)
-          console.log(res.data.dto.mateNo);
-          console.log(this.mateImageUrl);
-          if (this.mateImageUrl) {
-            axios({
-              method: "post",
-              headers: { "Content-Type": "multipart/form-data" },
-              url: `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
-              data: this.mateImageUrl,
-            })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
->>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
-
-          setTimeout(() => {
-            this.$router.push({ name: "Mateparty" });
-          }, 3000);
-        })
-
-        .catch((err) => {
-          console.log(err);
-        });
+   
     },
   },
 };
