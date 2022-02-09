@@ -79,6 +79,8 @@ import Navbar from "@/components/common/Navbar.vue";
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
 
+
+
 export default {
   name: "Campsite",
   components: {
@@ -100,6 +102,12 @@ export default {
           // searchWord : '',
           // doNm : '',
         },
+     
+      })
+      .then(res => {
+        articles.value.push(...res.data.list)
+        
+        console.log(articles.value)
       })
         .then((res) => {
           articles.value.push(...res.data.list);

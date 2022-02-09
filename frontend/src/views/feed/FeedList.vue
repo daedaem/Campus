@@ -80,18 +80,18 @@ export default {
   //   console.log(this.feeds)
   // }
   methods: {
-    getFeedList: function () {
+    getFeedList: function() {
       axios
-        .get(`${SERVER_URL}/sns`)
-        .then((res) => {
-          // console.log(res.data.list);
-          const data = res.data.list;
-          this.$store.dispatch("feedList", data);
-          // console.log(res.data.list);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .get(`${SERVER_URL}/sns`)
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+        console.log(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     },
   },
 };

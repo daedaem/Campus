@@ -197,10 +197,11 @@ export default {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
       this.$store.dispatch("logout");
-      sessionStorage.removeItem("userList");
-      sessionStorage.removeItem("myNum");
-      sessionStorage.removeItem("userEmail");
-      sessionStorage.removeItem("userPassword");
+      sessionStorage.removeItem('userList')
+      sessionStorage.removeItem('myNum')
+      sessionStorage.removeItem('userEmail')
+      sessionStorage.removeItem('userPassword')
+      alert("로그아웃");
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {

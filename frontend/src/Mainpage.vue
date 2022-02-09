@@ -42,6 +42,8 @@ import { useStore } from "vuex";
 const SERVER_URL = `http://localhost:8080`;
 import Navbar from "@/components/common/Navbar.vue";
 
+
+
 export default {
   name: "Mainpage",
   components: {
@@ -56,6 +58,14 @@ export default {
     axios({
       method: "get",
       url: `${SERVER_URL}/mate/main`,
+
+    })
+    .then( res => {
+      console.log(res.data.list)
+      mainlist.value = res.data.list
+    })
+    .catch( err => {
+      console.log(err)
     })
       .then((res) => {
         // console.log(res.data.list);
@@ -73,6 +83,7 @@ export default {
         limit: 2906,
         offset: 0,
       },
+ 
     })
       .then((res) => {
         // console.log(res);

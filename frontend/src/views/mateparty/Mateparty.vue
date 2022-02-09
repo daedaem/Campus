@@ -39,7 +39,6 @@ import { useStore } from "vuex";
 // import {mapState} from 'vuex'
 import axios from "axios";
 import Navbar from "@/components/common/Navbar.vue";
-
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
 
@@ -69,15 +68,16 @@ export default {
       methods: "get",
       url: `${SERVER_URL}/mate`,
     })
-      .then((res) => {
-        // console.log(res.data.list)
-        viewFunc(res.data.list);
-        testlist.value = res.data.list;
-      })
+    .then((res) => {
+      // console.log(res.data.list)
+      viewFunc(res.data.list);
+      testlist.value = res.data.list
+    })
+      
 
-      .catch((err) => {
-        console.log(err);
-      });
+    .catch((err) => {
+      console.log(err);
+    });
 
     const goMakeparty = () => {
       router.push({ name: "Makeparty" });
