@@ -22,7 +22,7 @@
         <div class="fs-5 p-3 text-start">인기 게시물</div>
         <!-- {{ searchResult[0].imageList[0].snsImageUrl }} -->
         <div class="FeedSearchResultItems-ImageBox">
-          <b-card-group class="feed-search-results-items-group">
+          <b-card-group columns class="feed-search-results-items-group">
             <feed-search-results-items
               v-for="(feed, i) in searchResult"
               :key="i"
