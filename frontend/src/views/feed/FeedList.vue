@@ -1,6 +1,7 @@
 <template>
-  <div class="FeedListTotalframe d-flex">
+  <div class="FeedListTotalframe">
     <!-- <infinite-scroll @infini></infinite-scroll> -->
+
     <div class="FeedListFrame">
       <div
         class="body d-flex flex-column justify-content-center align-items-center"
@@ -19,12 +20,17 @@
         </div>
       </div>
     </div>
+    <div>
+      <a href="#" class="btn_gotop">
+        <span class="glyphicon glyphicon-chevron-up"> </span>
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
-// const SERVER_URL = `http://localhost:8080`;
+// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
+const SERVER_URL = `http://localhost:8080`;
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
@@ -45,20 +51,22 @@ export default {
     //
     // FeedDetail
   },
-  methods: {},
+  // methods: {},
   created: function () {
     // console.log(this.$store.state.user);
-    axios
-      .get(`${SERVER_URL}/sns`)
-      .then((res) => {
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-        console.log(res.data.list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(`${SERVER_URL}/sns`)
+    //   .then((res) => {
+    //     // console.log(res.data.list);
+    //     const data = res.data.list;
+    //     this.$store.dispatch("feedList", data);
+    //     console.log(res.data.list);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log("created feed list");
+    this.getFeedList();
   },
 
   computed: {
@@ -68,6 +76,21 @@ export default {
   // created: function() {
   //   console.log(this.feeds)
   // }
+  methods: {
+    getFeedList: function() {
+      axios
+      .get(`${SERVER_URL}/sns`)
+      .then((res) => {
+        // console.log(res.data.list);
+        const data = res.data.list;
+        this.$store.dispatch("feedList", data);
+        // console.log(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
+  },
 };
 // let pagNum = 0
 // 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
@@ -81,9 +104,20 @@ export default {
 //     }
 //   }
 // });
+//
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "myFont";
+  src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
+}
+* {
+  /* font-family: 본문용 서체 "-apple-system", "BlinkMacSystemFont", */
+  /* "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif, */
+  /* "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+  font-family: "myFont";
+}
 @media (min-width: 768px) {
   .FeedListTotalframe {
     width: 100%;
@@ -133,5 +167,19 @@ export default {
       }
     } */
   }
+}
+.btn_gotop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  padding: 15px 20px;
+  border-radius: 100%;
 }
 </style>

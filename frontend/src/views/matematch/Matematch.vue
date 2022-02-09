@@ -47,6 +47,7 @@ export default {
     axios({
         method : 'get',
         url : `${SERVER_URL}/mate/match/4`
+   
     })
     .then(res => {
         const temp = res.data.matelist

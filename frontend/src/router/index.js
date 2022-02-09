@@ -17,9 +17,17 @@ import Modify from "../views/user/ModifyUser.vue";
 import Campsite from "../views/campsite/Campsite.vue";
 import Campsitedetail from "../views/campsite/Campsitedetail.vue";
 import Materevise from "../views/mateparty/Materevise.vue";
+import test from "../components/common/test.vue";
+import Campsitereview from '../views/campsite/Campsitereview.vue'
+import Campratedetail from '../views/campsite/Campratedetail.vue'
+import Campraterevise from '../views/campsite/Campraterevise.vue'
+import Home from "../views/Home.vue";
+import Room from "../views/Room.vue";
+import RoomList from "../views/RoomList.vue";
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
+
 const routes = [
   {
     path: "/",
@@ -63,7 +71,7 @@ const routes = [
     component: FeedModify,
   },
   {
-    path: "/create",
+    path: "/sns/create",
     name: "FeedCreate",
     component: FeedCreate,
   },
@@ -100,7 +108,7 @@ const routes = [
     component: Matematch,
   },
   {
-    path: "/survey/",
+    path: "/survey",
     name: "Survey",
     component: Survey,
   },
@@ -115,7 +123,7 @@ const routes = [
     component: Modify,
   },
   {
-    path: "/campsite/",
+    path: "/campsite",
     name: "Campsite",
     component: Campsite,
   },
@@ -130,10 +138,47 @@ const routes = [
     component: Materevise,
   },
   {
-    path: "/searchresults/",
+    path: "/results",
     name: "FeedSearchResults",
     component: FeedSearchResults,
   },
+  {
+    path: "/test/",
+    name: "test",
+    component: test,
+  },
+  {
+    path: "/campsite/review",
+    name : "Campsitereview",
+    component : Campsitereview
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/room",
+    name: "Room",
+    component : Room
+  },
+  {
+    path: "/rooms",
+    name: "Roomlist",
+    component : RoomList
+  },
+  {
+    path: "/Campsite/review/:rateNo",
+    name: "Campratedetail",
+    component : Campratedetail
+  },
+  {
+    path : "/Campsite/review/revise",
+    name : "Campraterevise",
+    component : Campraterevise
+  },
+  
+
 ];
 
 const router = createRouter({

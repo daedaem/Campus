@@ -53,13 +53,21 @@
 
           <!-- 카카오 -->
           <!-- <div class="d-flex justify-content-between mx-3 mt-3">
-            <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png" 
+            <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png"
               @click="kakaoLogin"
               alt="">
           </div> -->
           <!-- <button @click="logout">
             로그아웃
           </button> -->
+
+          <div class="col">
+            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/oauth}">카카오로 로그인하기</a>
+          </div>
+          <div class="col">
+            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/logout}">로그아웃</a>
+          </div>
+
 
       
 
@@ -117,15 +125,24 @@ export default {
       })
         .then((res) => {
           alert("로그인")
-          console.log(res)
+          console.log("이건가",res)
           this.$store.dispatch("login");
           this.$store.dispatch('userList',res.data)
           this.$store.dispatch('myNum',res.data.userNo)
           this.$store.dispatch("userEmail", res.data.userEmail)
+          this.$store.dispatch("myProfileimageurl", res.data.userProfileImage)
+          this.$store.dispatch('userGender', res.data.userGender)
           sessionStorage.setItem("userList", this.$store.state.userList)
           sessionStorage.setItem("myNum", Number(this.$store.state.myNum))
           sessionStorage.setItem("userEmail", this.$store.state.userList.userEmail)
           sessionStorage.setItem("userPassword", this.$store.state.userList.userPassword)
+          if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === "M") {
+            this.$store.dispatch("changeManImage")
+          } else if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === "W") {
+            this.$store.dispatch('changeWImage')
+          } else if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === null) {
+            this.$store.dispatch('changeImage')
+          }
           
           this.$router.push({name: 'Mainpage'})
         })
@@ -157,13 +174,13 @@ export default {
     //     onfailure: this.onFailure,
     //   });
     // },
-    // kakaoLogin() {
-    //     // console.log(window.Kakao);
-    //     window.Kakao.Auth.login({
-    //         scope : 'account_email, gender',
-    //         success: this.GetMe,
-    //     });
-    // },
+    kakaoLogin() {
+        // console.log(window.Kakao);
+        window.Kakao.Auth.login({
+            scope : 'account_email, gender',
+            success: this.GetMe,
+        });
+    },
     // GetMe(authObj){
     //     console.log(authObj);
     //     window.Kakao.API.request({
@@ -200,22 +217,22 @@ export default {
     //     })
     // },
 
-    onSuccess(googleUser) {
-      console.log(googleUser);
-      this.googleUser = googleUser.getBasicProfile();
-      this.$router.push({ name: "Home" });
-    },
-    onFailure(error) {
-      console.log(error);
-    },
+    // onSuccess(googleUser) {
+    //   console.log(googleUser);
+    //   this.googleUser = googleUser.getBasicProfile();
+    //   this.$router.push({ name: "Home" });
+    // },
+    // onFailure(error) {
+    //   console.log(error);
+    // },
 
     // 구글 로그아웃
-    signout() {
-      const authInst = window.gapi.auth2.getAuthInstance();
-      authInst.signOut().then(() => {
-        console.log("User Signed Out!!!");
-      });
-    },
+    // signout() {
+    //   const authInst = window.gapi.auth2.getAuthInstance();
+    //   authInst.signOut().then(() => {
+    //     console.log("User Signed Out!!!");
+    //   });
+    // },
   },
 };
 </script>

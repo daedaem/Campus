@@ -64,6 +64,7 @@ export default {
       axios({
       methods: 'get',
       url :  `${SERVER_URL}/camp`,
+    
       params : {
         limit :limit.value,
         offset : offset.value,

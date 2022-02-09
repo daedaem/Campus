@@ -19,9 +19,7 @@ import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 // import {Tabs, Tab} from 'vue3-tabs-component';
 
-
 library.add(faPhone, fasImages, faUser);
-
 
 createApp(App)
   .use(store)
@@ -31,6 +29,10 @@ createApp(App)
   // .component('tabs', Tabs)
   // .component('tab', Tab)
 
-  
-  .component("font-awesome-icon", FontAwesomeIcon, "infinite-loading", InfiniteLoading)
+  .component(
+    "font-awesome-icon",
+    FontAwesomeIcon,
+    "infinite-loading",
+    InfiniteLoading
+  )
   .mount("#app");
