@@ -238,6 +238,7 @@ export default {
     
 
     test() {
+      
       console.log(this.partyData)
       console.log(2)
       axios({
@@ -276,24 +277,7 @@ export default {
         setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
 
 
-        // 채팅방
-        const chatData = {
-          title : this.partyData.mateTitle,
-          masterId : this.$store.state.myNum,
-          id : this.mateChatNm
-        }
-        console.log(chatData)
-        axios({
-          method : 'post',
-          url : `${SERVER_URL}/api/chat/room`,
-          data : chatData
-        })
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        
         
       })
 

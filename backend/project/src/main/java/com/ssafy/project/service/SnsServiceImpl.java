@@ -106,7 +106,7 @@ public class SnsServiceImpl implements SnsService {
                 SnsImageDto snsImageDto = new SnsImageDto();
                 snsImageDto.setSnsNo(snsNo);
                 snsImageDto.setSnsImageUrl(TEMP_URL);
-
+                file.delete();
                 dao.snsImageInsert(snsImageDto);
 
             }

@@ -66,5 +66,7 @@ public interface MateDao {
     public List<MateMatchDto> mateMatchList(MateMatchDto dto);
 
     public List<MateDto> mateListMain(MateParamDto mateParamDto);
+
+    public String getMateTitle(int mateNo);
     
 }

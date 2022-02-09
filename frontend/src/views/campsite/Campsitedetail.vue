@@ -89,7 +89,7 @@ export default {
     console.log(rateList.value)
     
     const review = () =>{
-      router.push({name:'Campsitereview'})
+      router.push({name:'Campsitereview', params: {rateNo : id}})
     }
     return {
       rateList,

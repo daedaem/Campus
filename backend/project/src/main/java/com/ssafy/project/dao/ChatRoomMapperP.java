@@ -12,5 +12,6 @@ public interface ChatRoomMapperP {
 	int createRoom(ChatRoom newRoom);
 	List<ChatRoom> getAllChatRooms();
 	String getRoomTitle(long id);
+	long getRoomId(String title);
 
 }
