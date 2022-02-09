@@ -41,4 +41,7 @@
         WHERE campRateNo = #{campRateNo};
     </delete>
 
+    <select id="getCampRateNo" resultType="int">
+        select campRateNo from campRate order by campRateNo desc limit 1
+    </select>
 </mapper>

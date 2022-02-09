@@ -56,6 +56,8 @@ public class CampRateServiceImpl implements CampRateService {
         try {
             int result = campRateDao.campRateInsert(campRateDto);
             if (result == 1) {
+                campRateDto.setCampRateNo(campRateDao.getCampRateNo());
+                campRateResultDto.setDto(campRateDto);
                 campRateResultDto.setResult(SUCCESS);
             } else {
                 campRateResultDto.setResult(FAIL);
