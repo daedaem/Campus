@@ -1,12 +1,7 @@
 <template>
   <body>
     <div class="box" style="width: 100%; height: 100vh">
-      <img
-        width="100%"
-        height="100%"
-        src="@/assets/images/bonfire-gab201fb38_1920.jpg"
-        alt=""
-      />
+      <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
       <div class="overlay">
         <div>오른쪽으로 스와이프</div>
         <a class="btn btn-lg" href="#">
@@ -14,6 +9,8 @@
         </a>
       </div>
     </div>
+    <div class="b-example-divider"></div>
+
     <div class="filterbox">
       <div
         style="
@@ -29,7 +26,7 @@
         전체보기
       </div>
     </div>
-    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist"/>
+    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" />
   </body>
 </template>
 
@@ -38,10 +35,10 @@ import Maincarousel from "@/components/mateparty/Maincarousel.vue";
 import axios from "axios";
 // import { useStore } from "vuex";
 import { ref } from "vue";
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = `http://localhost:8080`
+const SERVER_URL = `http://localhost:8080`;
 
 export default {
   name: "Mainpage",
@@ -50,38 +47,52 @@ export default {
   },
 
   setup() {
-    const store = useStore()
+    const store = useStore();
     // 메이트 데이터(5개)
-    const mainlist = ref('')
+    const mainlist = ref("");
     axios({
-      method : 'get',
-      url : `${SERVER_URL}/mate/main`
+      method: "get",
+      url: `${SERVER_URL}/mate/main`,
     })
-    .then( res => {
-      console.log(res.data.list)
-      mainlist.value = res.data.list
-    })
-    .catch( err => {
-      console.log(err)
-    })
+      .then((res) => {
+        // console.log(res.data.list);
+        mainlist.value = res.data.list;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 캠핑장 데이터
     axios({
-      method : 'get',
-      url : `${SERVER_URL}/camp`,
-      params :{
-        limit : 2906,
-        offset : 0
-      }
+      method: "get",
+      url: `${SERVER_URL}/camp`,
+      params: {
+        limit: 2906,
+        offset: 0,
+      },
     })
-    .then(res => {
-      console.log(res)
-      store.dispatch("campList",res.data.list)
+      .then((res) => {
+        // console.log(res);
+        store.dispatch("campList", res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios({
+      method: "get",
+      url: `${SERVER_URL}/sns`,
+      params: {
+        // limit: 2906,
+        // offset: 0,
+      },
     })
-    .catch(err => {
-      console.log(err)
-    })
-
+      .then((res) => {
+        // console.log(res);
+        store.dispatch("feedList", res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return {
       mainlist,
@@ -104,6 +115,11 @@ p {
 }
 .box {
   position: relative;
+}
+.box-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .overlay {
@@ -191,4 +207,11 @@ p {
 .filterbox {
   overflow: hidden;
 }
+/* .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+} */
 </style>

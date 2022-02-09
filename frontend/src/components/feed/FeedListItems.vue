@@ -37,6 +37,7 @@
         <p class="fs-6 text-start" style="overflow: auto">
           {{ feed.snsContent }}
         </p>
+        <p class="calcuatedTime text-end">{{ ContentTime }}</p>
       </div>
 
       <!-- 피드 게시글 밑 버튼들 -->
@@ -115,6 +116,7 @@
                       <div class="fw-bold">
                         {{ comment.userNickname }}
                       </div>
+
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
                         style="overflow: auto"
@@ -122,8 +124,14 @@
                         {{ comment.snsReplyContent }}
                       </div>
                     </div>
-                    <div class="col" style="overflow: auto">
-                      {{ comment.snsReplyCreateTime }}
+                    <div
+                      class="d-flex align-items-center me-3"
+                      style="overflow: auto"
+                    >
+                      <div class="ReplyTime me-1">
+                        {{ ReplyTime }}
+                      </div>
+                      <i class="bi bi-x" @click="deleteComment(comment)"></i>
                     </div>
                   </div>
                 </div>
@@ -174,8 +182,11 @@
   </div>
 </template>
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+
+
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
 // const SERVER_URL = "http://localhost:8080";
+
 
 import { mapState } from "vuex";
 import axios from "axios";
@@ -196,10 +207,8 @@ export default {
         userNo: this.$store.state.userList.userNo,
         snsNo: this.feed.snsNo,
       },
-      // snsReplyContent: {
-
-      //   commentcontent:""
-      // },
+      ContentTime: "",
+      ReplyTime: "",
       comments: [],
       visible: true,
       likeCount: 0,
@@ -216,6 +225,28 @@ export default {
     };
   },
   methods: {
+    deleteComment(comment) {
+      // console.log(comment);
+      axios({
+        method: "delete",
+        // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
+
+        url: `${SERVER_URL}/sns/reply/${comment.snsReplyNo}
+      `,
+        //         // headers: { "Access-Control-Allow-Origin": "*" },
+        //         // data: this.my_comment,
+        //         // credentials,
+        //         // headers: this.$store.getters.config,
+      })
+        .then(() => {
+          console.log;
+          //
+          this.snsComments();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     likesCountCheck() {
       axios
         .get(`${SERVER_URL}/sns/likecount/${this.feed.snsNo}/`)
@@ -244,27 +275,11 @@ export default {
               this.amiliked = 1;
             }
           }
-
-          //   let temp = likedpeople[i];
-
-          //     console.log("있습니다.");
-          // }
         });
-      // console.log("되나", this.feed.snsNo);
-      // });
     },
     giveHeart: function () {
-      // console.log("너", this.$store.state.myNum);
-      // console.log("나", this.feed.snsNo);
-      // const credentials = {
-      //   // userNo: this.$store.state.myNum,
-      //   snsNo: this.feed.snsNo,
-      // };
-
       axios({
         method: "post",
-        // url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.myNum}`,
-
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
         url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.userList.userNo}`,
         // headers: { "Access-Control-Allow-Origin": "*" },
@@ -328,17 +343,21 @@ export default {
         alert(`Please input content.`);
       }
     },
+
     snsComments() {
       this.comments = [];
       axios
         .get(`${SERVER_URL}/sns/reply/${this.feed.snsNo}`)
         .then((res) => {
-          // console.log(res);
+          console.log(res);
 
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
-              // console.log(this.comments);
+
+              this.ReplyTime = this.calculatedReplyTime(
+                res.data.list[i].snsReplyCreateTime
+              );
             }
           }
           // console.log("snscomments", this.comments)}};
@@ -347,7 +366,28 @@ export default {
           console.log(err);
         });
     },
-
+    calculatedReplyTime(res) {
+      // console.log(res);
+      let ReplynewTime = new Date(res);
+      var ReplynowTime = new Date();
+      // console.log(ReplynewTime);
+      // console.log(ReplynowTime);
+      const milliSeconds = ReplynowTime - ReplynewTime - 9 * 60 * 60 * 1000;
+      const seconds = milliSeconds / 1000;
+      if (seconds < 60) return `방금 전`;
+      const minutes = seconds / 60;
+      if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+      const hours = minutes / 60;
+      if (hours < 24) return `${Math.floor(hours)}시간 전`;
+      const days = hours / 24;
+      if (days < 7) return `${Math.floor(days)}일 전`;
+      const weeks = days / 7;
+      if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+      const months = days / 30;
+      if (months < 12) return `${Math.floor(months)}개월 전`;
+      const years = days / 365;
+      return `${Math.floor(years)}년 전`;
+    },
     follow() {
       axios({ method: "post", url: `{${SERVER_URL}}/follow` }).then((res) => {
         console.log(res);
@@ -358,11 +398,43 @@ export default {
       // } else this.followed == 1;
       // alert("정말 취소하시겠나요?");
     },
+
+    calculatedContentTime(res) {
+      // console.log(res);
+      let ContentnewTime = new Date(res);
+      var ContentnowTime = new Date();
+      // console.log(ContentnewTime);
+      // console.log(ContentnowTime);
+      const milliSeconds = ContentnowTime - ContentnewTime - 9 * 60 * 60 * 1000;
+      const seconds = milliSeconds / 1000;
+      if (seconds < 60) return `방금 전`;
+      const minutes = seconds / 60;
+      if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+      const hours = minutes / 60;
+      if (hours < 24) return `${Math.floor(hours)}시간 전`;
+      const days = hours / 24;
+      if (days < 7) return `${Math.floor(days)}일 전`;
+      const weeks = days / 7;
+      if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+      const months = days / 30;
+      if (months < 12) return `${Math.floor(months)}개월 전`;
+      const years = days / 365;
+      return `${Math.floor(years)}년 전`;
+    },
   },
   created: function () {
+    // console.log(this.comment.snsReplyCreateTim);
     this.likedCheck();
     this.likesCountCheck();
     this.snsComments();
+    this.ContentTime = this.calculatedContentTime(this.feed.snsCreateTime);
+    // if (this.feed.snsUpdateTime) {
+    //   this.ContentTime = this.calculatedContentTime(this.feed.snsUpdateTime);
+    // }
+    // console.log(this.calculated(this.feed.snsCreateTime));
+
+    // console.log("몇시간이냐", this.feed.snsCreateTime);
+
     // console.log(this.$store.state.myNum);
     // console.log(this.$store.state.userList.userNo);
     this.my_comment.userNo = this.$store.state.userList.userNo;
@@ -444,5 +516,11 @@ export default {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+.calcuatedTime {
+  font-size: 12px;
+}
+.ReplyTime {
+  font-size: 10px;
 }
 </style>

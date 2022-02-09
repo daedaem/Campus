@@ -21,7 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -162,6 +161,12 @@
 			<version>5.3.15</version>
 		</dependency>
 
+		<!--웹 소켓 사용, stomp가 들어있습니다.-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
 	</dependencies>
 
 
@@ -181,5 +186,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

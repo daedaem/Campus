@@ -339,7 +339,7 @@
 
 						<div class="mt-3">
 							<button @click.prevent="prev()">Previous</button>
-							<button @click.prevent="[checkmbti(),onSubmit()]">finish</button>
+							<button @click.prevent="checkmbti()">finish</button>
 						</div>
 					</div>
 				
@@ -360,7 +360,7 @@
 import axios from "axios";
 
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL
-const SERVER_URL = `http://i6e102.p.ssafy.io`;
+const SERVER_URL = 'http://localhost:8080';
 
 export default {
 	name: "Survey",
@@ -374,6 +374,7 @@ export default {
 					TF: "",
 					JP: "",
 				},
+				MBTI: "",
 
 			},
 			oneButton: false,
@@ -383,6 +384,7 @@ export default {
 			threeButton: false,
 			notthreeButton: false,
 			fourButton: false,
+			notfourButton: false,
 			fiveButton: false,
 			notfiveButton: false,
 			sixButton: false,
@@ -406,7 +408,13 @@ export default {
 			question2: 0,
 			question3: 0,
 			question4: 0,
+			userEmail: "",
+			isMBTI: false
 		}
+	},
+	created: function() {
+		console.log(this.$store.state.userEmail)
+		this.userEmail = this.$store.state.userEmail
 	},
 
 	methods: {
@@ -417,11 +425,11 @@ export default {
 			this.page++;
 		},
 		onSubmit() {
-			axios ({
-				method: "put",
-				url: `${SERVER_URL}/user/mbti`,
-				data: this.credentials,
-			})
+			axios
+				.put(`${SERVER_URL}/user/mbti`, {
+					userEmail: this.userEmail,
+					userMBTI: this.credentials.MBTI
+				})
 				.then((res) => {
 					console.log(res)
 					alert("설문조사 완료")
@@ -616,6 +624,26 @@ export default {
 			} else {
 				this.credentials.survey.JP = "P"
 			}
+
+			if (this.credentials.survey.EI !== null && 
+				this.credentials.survey.SN !== null &&
+				this.credentials.survey.TF !== null &&
+				this.credentials.survey.JP !== null) {
+					this.credentials.MBTI =
+					this.credentials.survey.EI.concat(
+						this.credentials.survey.SN,
+						this.credentials.survey.TF,
+						this.credentials.survey.JP
+					)
+					
+					this.isMBTI = true
+				}
+			if (this.isMBTI === true) {
+				this.onSubmit()
+			} else {
+				alert("다시 시도해주세요")
+			}
+			
 
 
 
