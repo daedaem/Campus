@@ -271,7 +271,7 @@ export default {
     border-radius: 20px;
   }
   .Navbar-User-profile-nickname {
-    color: black;
+    /* color: blacolor: #fff;ck; */
     font-size: 14px;
   }
 }
@@ -285,7 +285,7 @@ export default {
 @media (max-width: 478px) {
   .brandname {
     size: 5px;
-    color: black;
+    /* color: blaccolor: #fff;k; */
   }
   .dropdown-items {
     width: 10px;
@@ -303,33 +303,34 @@ export default {
 }
 
 .navbar {
-  background-color: #4a9f66;
+  background-color: #387d4f;
+
   /* border-bottom: 5px solid green; */
 }
 .bi-plus-square {
-  color: black;
+  color: #fff;
   border-radius: 30%;
 }
 .nav-link {
-  color: black;
+  color: #fff;
 }
 .nav-link:visited {
-  color: black;
+  color: #fff;
 }
 
 .Navbar-User-profile-nickname {
-  color: black;
+  color: #fff;
 }
 .form-control {
   border-radius: 15px;
 }
 .bi-person-badge {
-  color: black;
+  color: #fff;
 }
 .bi-person-badge-name {
-  color: black;
+  color: #fff;
 }
 .brandname {
-  color: black;
+  color: #fff;
 }
 </style>
