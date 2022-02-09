@@ -3,7 +3,6 @@ package com.ssafy.project.controller;
 import java.util.List;
 
 import com.ssafy.project.dto.ChatRoom;
-import com.ssafy.project.dto.ChatRoomP;
 import com.ssafy.project.dto.Message;
 import com.ssafy.project.service.IChatRoomService;
 import com.ssafy.project.service.IMessageService;
@@ -37,8 +36,8 @@ public class ChatRoomController {
 	// ---------------------mate 모집 단체 채팅--------------------------
 	// 특정 채팅방 타이틀 가져오기
 	@GetMapping("/room/{id}")
-	public ResponseEntity<String> roomTitle(@PathVariable long mateNo) {
-		String roomTitle = chatroomService.getRoomTitle(mateNo);
+	public ResponseEntity<String> roomTitle(@PathVariable long id) {
+		String roomTitle = chatroomService.getRoomTitle(id);
 		if (roomTitle == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
@@ -68,51 +67,10 @@ public class ChatRoomController {
 
 	// 특정 채팅방 의 메세지 최근 10개
 	@GetMapping("/room/message/{id}")
-	public ResponseEntity<List<Message>> roomInfo(@PathVariable long mateNo,
+	public ResponseEntity<List<Message>> roomInfo(@PathVariable long id,
 			@RequestParam(value = "page", defaultValue = "0") String page) {
 		long idx = page.equals("0") ? 0 : Integer.parseInt(page) * PAGE + 1;
-		List<Message> msgList = messageService.getMessagesByChatroomId(mateNo, idx);
-		return ResponseEntity.status(HttpStatus.OK).body(msgList);
-	}
-
-	// --------------------- 개인 채팅 ----------------------------------
-	// 특정 채팅방 타이틀 가져오기
-	@GetMapping("/proom/{id}")
-	public ResponseEntity<String> ProomTitle(@PathVariable long id) {
-		String roomTitle = chatroomService.getRoomTitle(id);// 수정 해야함
-		if (roomTitle == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
-		return ResponseEntity.status(HttpStatus.OK).body(roomTitle);
-	}
-
-	// 모든 채팅방 목록 반환
-	@GetMapping("/prooms")
-	public ResponseEntity<List<ChatRoom>> Proom() {
-		List<ChatRoom> rooms = chatroomService.getAllChatRooms(); // 수정 해야함
-		if (rooms == null || rooms.size() == 0)
-			return ResponseEntity.status(HttpStatus.OK).body(null);
-		else
-			return ResponseEntity.status(HttpStatus.OK).body(rooms);
-
-	}
-
-	// 방 생성
-	@PostMapping("/proom")
-	public ResponseEntity<Long> PcreateRoom(@RequestBody ChatRoomP newRoom) {
-		long resultOfCreation = chatroomService.createRoom(newRoom); // 수정 해야함
-		if (resultOfCreation >= 0)
-			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
-		else
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Long.MIN_VALUE);
-	}
-
-	// 특정 채팅방 의 메세지 최근 10개
-	@GetMapping("/proom/message/{id}")
-	public ResponseEntity<List<Message>> ProomInfo(@PathVariable long id,
-			@RequestParam(value = "page", defaultValue = "0") String page) {
-		long idx = page.equals("0") ? 0 : Integer.parseInt(page) * PAGE + 1;
-		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx); // 수정 해야함
+		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx);
 		return ResponseEntity.status(HttpStatus.OK).body(msgList);
 	}
 }
