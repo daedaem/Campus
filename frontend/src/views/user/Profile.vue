@@ -90,8 +90,8 @@ import ProfileFeed from '@/components/user/Profilefeed.vue'
 import ProfileHistory from '@/components/user/Profilehistory.vue'
 import ProfileInfo from '@/components/user/ProfileInfo.vue'
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = `http://i6e102.p.ssafy.io:8080`
+// const SERVER_URL = "http://localhost:8080";
 
 export default {
 	name: "Profile",

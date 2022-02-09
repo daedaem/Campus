@@ -6,7 +6,7 @@
     </div>
     <div align="left" style="margin-top: 20px; width: 65%; height: 250px;  float: right; word-break:break-all;"><div style="float:right;">{{mateDetail.mateCampstart}} ~ {{mateDetail.mateCampend}}</div>
       <h4 style="font-weight:1000; font-size:25px;">{{mateDetail.mateTitle}}</h4>
-      <font-awesome-icon :icon="['fas','user']" size="lg"/>&nbsp;&nbsp;&nbsp;<span style="font-weight:500; font-size:20px;">2/4</span>
+      <font-awesome-icon :icon="['fas','user']" size="lg"/>&nbsp;&nbsp;&nbsp;<span style="font-weight:500; font-size:20px;">{{joinMembernum}}/{{mateDetail.memberlimit}}</span>
       <br>
       <br>
       <br>
@@ -27,7 +27,7 @@
     
     <Cards class="mycard" v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
     <Items2 v-if="mateDetail.length != 0" :mateDetail="mateDetail"/>
-    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail" :mateNm="mateNm"/></div>
+    <div><Members  v-if="mateDetail.length != 0" :mateDetail="mateDetail" :mateNm="mateNm" @joinedmember="nowmember"/></div>
     <button @click="goPartyrevise(mateDetail.mateNo)">수정</button>
     
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
@@ -60,7 +60,8 @@ import {ref, } from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 
-
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = 'http://localhost:8080'
 
 export default {
   name : 'Partyinfo',
@@ -82,13 +83,15 @@ export default {
     const userNm = store.state.myNum
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([])
-    
+    const joinMembernum = ref(0)
     axios({
       method: 'get',
-      url : `http://localhost:8080/mate/${props.mateNo}`
+      url : `${SERVER_URL}/mate/${props.mateNo}`
     })
     .then(res => {
       mateDetail.value = res.data.dto
+      
+      mateDetail.value.mateList.forEach( ele => joinMembernum.value += ele.mateListNum)
       console.log(mateDetail.value)
     })
     .catch(err =>{
@@ -99,10 +102,11 @@ export default {
       const temp = mateDetail.value.mateNo
       axios({
         method :'delete',
-        url : `http://localhost:8080/mate/${temp}`
+        url : `${SERVER_URL}/mate/${temp}`
       })
       .then(res => {
         console.log(res)
+        setTimeout(()=> {router.push({name:'Mateparty'})},3000)
       })
       .catch(err => {
         console.log(err)
@@ -114,9 +118,20 @@ export default {
     }
     
     
+    // const today = new Date()
+    // var year = today.getFullYear();
+    // var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    // var day = ('0' + today.getDate()).slice(-2);
+    
+    // const todayy = year + '-' + month  + '-' + day;
+    //     console.log(todayy)
+    
+    // if (mateDetail.value.mateCampstart >= todayy) {
+    //   console.log(1)
+    // } else { console.log(mateDetail.value.mateCampstart - todayy)}
+    
 
-    
-    
+
 
     return {
       // myMate,
@@ -125,6 +140,8 @@ export default {
       delPost,
       goPartyrevise,
       userNm,
+      joinMembernum,
+      
       
  
       

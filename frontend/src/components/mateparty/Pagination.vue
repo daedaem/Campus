@@ -88,15 +88,15 @@ export default {
     // }, 2000)
   },
 
-  // watch : {
-  //   matelists : {
-  //     handler() {
-  //       this.paginate(this.perPage, 0)
-  //     },
-  //     deep : true
-  //   },
+  watch : {
+    matelists : {
+      handler() {
+        this.paginate(this.perPage, 0)
+      },
+      deep : true
+    },
     
-  // },
+  },
 
   computed : {
     ...mapState['mateList'],
