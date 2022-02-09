@@ -180,7 +180,7 @@
 
     <!-- 메이트 글 제목 가져오기-->
     <select id="getMateTitle" parameterType="int" resultType="String">
-        SELECT mateTitle FROM mate WHER mateNo = #{mateNo}
+        SELECT mateTitle FROM mate WHERE mateNo = #{mateNo}
     </select>
 
 </mapper>
