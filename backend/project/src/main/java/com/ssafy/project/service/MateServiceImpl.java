@@ -16,6 +16,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.ssafy.project.dao.ChatRoomMapper;
 import com.ssafy.project.dao.MateDao;
+import com.ssafy.project.dao.MessageMapper;
 import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.ChatRoom;
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
@@ -26,6 +27,7 @@ import com.ssafy.project.dto.MateMatchDto;
 import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
+import com.ssafy.project.dto.Message;
 import com.ssafy.project.dto.SnsImageDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,10 @@ public class MateServiceImpl implements MateService {
     SnsDao snsdao;
 
     @Autowired
-    ChatRoomMapper mapper;
+    ChatRoomMapper chatMapper;
+
+    @Autowired
+    MessageMapper messageMapper;
 
     // @Autowired
     // MateCampEquipRequiredDto mateCampEquipRequiredDto;
@@ -99,10 +104,18 @@ public class MateServiceImpl implements MateService {
         dto.getCampEquipRequiredList().setMateNo(dto.getMateNo());
         dao.campEquipReuireListInsert(dto.getCampEquipRequiredList());
         
+        // 모집글 생성후 바로 채팅방 생성(채팅방 생성자는 모집하는 사람)
         ChatRoom chatroom = new ChatRoom();
-        chatroom.set
-        
-        
+        chatroom.setTitle(dto.getMateTitle());
+        chatroom.setMasterId(dto.getUserNo());
+        chatMapper.createRoom(chatroom);
+        // 생성자는 바로 메세지를 보내 자신이 방에 참가 함
+        Message message = new Message();
+        // String content = dto.getUserNickName() +"님이 참가하셨습니다.";
+        message.setSenderId(dto.getUserNo());
+        message.setContent(dto.getUserNickName() +"님이 참가하셨습니다.");
+        messageMapper.insertMessage(message);
+
         mateResultDto.setDto(dto);
  
         mateResultDto.setResult(SUCCESS);
@@ -293,6 +306,13 @@ public class MateServiceImpl implements MateService {
         
         try {
            dao.mateApplyInsert(dto);
+
+           Message message = new Message();
+           message.setSenderId(dto.getUserNo());
+           message.setChatroomId(dto.getMateNo());
+           message.setContent(dto.getUserNickname() + "님이 입장하셨습니다.");
+           messageMapper.insertMessage(message);
+
            mateResultDto.setResult(SUCCESS);
        } catch (Exception e) {
             e.printStackTrace();

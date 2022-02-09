@@ -4,7 +4,7 @@
 
 	<insert id="createRoom" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="ChatRoom.id">
 		insert into chatroom( title, master_id)
-		values(#{title}, #{masterId})
+		values(#{title}, #{userNo})
 	</insert>
 
 	<select id="getNickName" parameterType="int" resultType="String">

@@ -1,22 +1,20 @@
 package com.ssafy.project.dto;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @NoArgsConstructor
-@Getter
-@ToString
+@Data
 public class ChatRoom {
-	private long mateNo;
+	private long id;
 	private String title;
 	private long masterId;
 
 	@Builder
-	public ChatRoom(long mateNo, String title, long masterId) {
+	public ChatRoom(long id, String title, long masterId) {
 		super();
-		this.mateNo = mateNo;
+		this.id = id;
 		this.title = title;
 		this.masterId = masterId;
 	}
