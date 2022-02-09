@@ -102,25 +102,6 @@ export default {
   },
   data: function () {
     return {
-<<<<<<< HEAD
-      partyData: {
-        friendlimit: null,
-        campStyleList: null,
-        memberlimit: null,
-        lowestAge: null,
-        highestAge: null,
-        mateCampsite: null,
-        mateCampstart: null,
-        mateCampend: null,
-        mateCamptype: null,
-        campEquipRequiredList: null,
-        userNo: this.$store.state.myNum,
-        mateTitle: null,
-        mateContent: null,
-      },
-      mateImageUrl: null,
-    };
-=======
         partyData : {
           friendlimit : null,
           campStyleList : null,
@@ -139,7 +120,6 @@ export default {
         mateImageUrl : null,
         mateChatNm : null,
       }
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
   },
   created() {
     console.log(this.$store.state.userList);
@@ -282,15 +262,12 @@ export default {
       console.log(this.partyData);
       console.log(2);
       axios({
-<<<<<<< HEAD
-        method: "post",
-=======
         method: 'post',
-        
+
         url : "http://localhost:8080/mate",
-        
+
         data : this.partyData,
-  
+
       })
       .then((res) => {
 
@@ -303,20 +280,20 @@ export default {
         method: 'post',
         headers: { 'Content-Type': 'multipart/form-data' },
         url : `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
-        
+
         data : this.mateImageUrl
-        
+
         })
         .then(res => {
           console.log(res)
-         
-          
+
+
         })
         .catch(err => {
           console.log(err)
         })
-        } 
-     
+        }
+
         setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
 
 
@@ -338,37 +315,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-        
+
       })
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 
         url: "http://localhost:8080/mate",
         data: this.partyData,
       })
-<<<<<<< HEAD
-        .then((res) => {
-          // console.log(res.dada.dto.mateNo)
-          console.log(res.data.dto.mateNo);
-          console.log(this.mateImageUrl);
-          if (this.mateImageUrl) {
-            axios({
-              method: "post",
-              headers: { "Content-Type": "multipart/form-data" },
-              url: `${SERVER_URL}/mate/${res.data.dto.mateNo}`,
-              data: this.mateImageUrl,
-            })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-=======
 
 
-      
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
+
 
           setTimeout(() => {
             this.$router.push({ name: "Mateparty" });

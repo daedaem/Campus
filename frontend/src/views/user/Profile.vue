@@ -96,11 +96,7 @@ import ProfileHistory from "@/components/user/Profilehistory.vue";
 import ProfileInfo from "@/components/user/ProfileInfo.vue";
 import Navbar from "@/components/common/Navbar.vue";
 
-<<<<<<< HEAD
 const SERVER_URL = `http://i6e102.p.ssafy.io`;
-=======
-const SERVER_URL = `http://i6e102.p.ssafy.io:8080`
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069
 // const SERVER_URL = "http://localhost:8080";
 
 export default {

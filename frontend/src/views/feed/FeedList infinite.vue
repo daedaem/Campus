@@ -41,8 +41,6 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
-<<<<<<< HEAD:frontend/src/views/feed/FeedList infinite.vue
-=======
 
     // FeedDetail
   },
@@ -61,7 +59,6 @@ export default {
       .catch((err) => {
         console.log(err);
       });
->>>>>>> a1e6018649b8a8d57bf799c0f2d57ea9d2091069:frontend/src/views/feed/FeedList copy.vue
   },
 
   computed: {
