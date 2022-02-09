@@ -27,6 +27,7 @@ import RoomList from "../views/RoomList.vue";
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
+
 const routes = [
   {
     path: "/",
@@ -70,7 +71,7 @@ const routes = [
     component: FeedModify,
   },
   {
-    path: "/create",
+    path: "/sns/create",
     name: "FeedCreate",
     component: FeedCreate,
   },
@@ -137,7 +138,11 @@ const routes = [
     component: Materevise,
   },
   {
+<<<<<<< HEAD
     path: "/searchresults",
+=======
+    path: "/results",
+>>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
     name: "FeedSearchResults",
     component: FeedSearchResults,
   },

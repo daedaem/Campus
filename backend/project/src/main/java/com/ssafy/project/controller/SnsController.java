@@ -50,9 +50,15 @@ public class SnsController {
     private static final int FAIL = -1;
 
     // 리스트 생성
+<<<<<<< HEAD
     @GetMapping(value = "/sns")
     private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto) {
 
+=======
+    @GetMapping(value="/sns")
+    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto){
+        
+>>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
         SnsResultDto snsResultDto;
 
         if (snsParamDto.getSearchWord() == null) { // 검색어가 없을시
@@ -113,9 +119,14 @@ public class SnsController {
 
         // HttpSession session = request.getSession();
 
+<<<<<<< HEAD
         // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고
         // 양희거 온다음
 
+=======
+        //UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        System.out.println(snsDto);
+>>>>>>> ce9f3cb85fa91356530793925e7462b19bed5fa3
         SnsResultDto snsResultDto = snsService.snsUpdate(snsDto);
 
         if (snsResultDto.getResult() == SUCCESS) {
