@@ -36,7 +36,7 @@
 <script>
 import Kakaomap from '@/components/campsite/Kakaomap.vue'
 // import {onMounted, } from 'vue'
-import {useRoute} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import axios from 'axios'
 import {ref} from 'vue'
 import CampRatelist from '@/components/campsite/CampRatelist.vue'
@@ -52,7 +52,7 @@ export default {
   setup() {
     const route = useRoute()
     const detailData = ref([])
-    
+    const router = useRouter()
     const id = route.params.contentId
     console.log(id)
     
@@ -88,9 +88,13 @@ export default {
     console.log(detailData.value)
     console.log(rateList.value)
     
+    const review = () =>{
+      router.push({name:'Campsitereview'})
+    }
     return {
       rateList,
       detailData,
+      review,
       
       
     }

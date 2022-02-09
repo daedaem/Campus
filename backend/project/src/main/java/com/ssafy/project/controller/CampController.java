@@ -370,7 +370,7 @@ public class CampController {
     // 캠핑장 평점 댓글 삭제
     @DeleteMapping(value = "/camp/rate/reply/{campRateReplyNo}")
     public ResponseEntity<CampRateReplyResultDto> campRateReplyDelete(
-            @PathVariable(value = "campRateNo") int campRateReplyNo) {
+            @PathVariable int campRateReplyNo) {
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyDelete(campRateReplyNo);
 
         if (campRateReplyResultDto.getResult() == SUCCESS) {
