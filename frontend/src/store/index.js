@@ -99,15 +99,12 @@ export default createStore({
         method: "get",
         url: `${SERVER_URL}/user/${state.user}`,
       }).then((res) => {
-<<<<<<< HEAD
         console.log(res);
         // state.myProfileimageurl = res.data.image;
         // state.nickname = res.data.nickname;
         // state.myNum = res.data.userNo;
         // state.userList = res.data
-=======
-        console.log(res)
->>>>>>> 718598346e95dc702d937f60de30fe46c2342de3
+
       });
     },
 
