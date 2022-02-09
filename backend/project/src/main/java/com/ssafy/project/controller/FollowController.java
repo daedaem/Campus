@@ -56,9 +56,9 @@ public class FollowController {
 
     // follower list
     @GetMapping(value = "/follower/{followUserNo}")
-    public ResponseEntity<FollowDto> followerSelect(@PathVariable int followUserId) {
+    public ResponseEntity<FollowDto> followerSelect(@PathVariable int followUserNo) {
         FollowDto follower = new FollowDto();
-        follower.setFollower(followService.followerList(followUserId));
+        follower.setFollower(followService.followerList(followUserNo));
         return new ResponseEntity<FollowDto>(follower, HttpStatus.OK);
     }
 
