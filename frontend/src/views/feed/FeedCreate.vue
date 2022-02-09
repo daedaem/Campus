@@ -26,16 +26,18 @@
       <div class="FeedCreate-contentbox d-flex">
         <!-- 이미지 업로드 -->
 
-        <div class="FeedCreate-leftbox">
+        <div
+          class="FeedCreate-leftbox d-flex justify-content-center align-items-center"
+        >
           <!-- carousel로 바꾸기 -->
           <div
-            v-if="feedCreateImageList.imageList.length > 0"
-            class="d-flex justify-content-center align-items-center"
+            v-if="feedCreateImageList.ImageList.length > 0"
+            class="FeedCreate-leftbox-contentBox-Frame d-flex justify-content-center align-items-center"
           >
             <div class="FeedCreate-contentbox-UploadImgFrame">
               <feed-create-carousel
                 class="feed-create-carousel"
-                :imageList="feedCreateImageList"
+                :ImageList="feedCreateImageList"
               ></feed-create-carousel>
               <!-- <img
                 v-for="(image, index) in feedCreateContent.imageList"
@@ -48,6 +50,7 @@
             </div>
           </div>
           <!-- 이미지 업로드 없다면 업로드 -->
+
           <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
               ref="image"
@@ -58,6 +61,14 @@
               @change="uploadImg"
             />
           </form>
+          <!-- <cropper
+            class="cropper"
+            :src="this.image"
+            :stencil-props="{
+              aspectRatio: 10 / 12,
+            }"
+            @change="change"
+          /> -->
 
           <!-- <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
@@ -113,9 +124,10 @@
 </template>
 
 <script>
-const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-// const SERVER_URL = "http://localhost:8080";
-
+// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
+const SERVER_URL = "http://localhost:8080";
+// import { Cropper } from "vue-advanced-cropper";
+// import "vue-advanced-cropper/dist/style.css";
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
@@ -127,6 +139,8 @@ import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 export default {
   name: "FeedCreate",
   components: {
+    // Cropper,
+
     FeedCreateCarousel,
     // FeedCreateModal,
     // FeedCreateCarousel,
@@ -149,12 +163,15 @@ export default {
       },
       frm: "",
       feedCreateImageList: {
-        imageList: [],
+        ImageList: [],
       },
       nowfeed: "",
     };
   },
   methods: {
+    change({ coordinates, canvas }) {
+      console.log(coordinates, canvas);
+    },
     uploadImg() {
       // 전송용
       var frm = new FormData();
@@ -185,19 +202,10 @@ export default {
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
         //   // imageList 폴더에 넣어둠
 
-        this.feedCreateImageList.imageList.push(url);
+        this.feedCreateImageList.ImageList.push(url);
       }
     },
-    // moveToDetail() {
 
-    // },
-
-    // clearImage() {
-    //   this.uploadReady = false;
-    //   this.$nextTick(() => {
-    //     this.uploadReady = true;
-    //   });
-    // },
     CreateFeed() {
       // console.log(this.feedCreateContent);
       // console.log(this.userList);
@@ -205,8 +213,13 @@ export default {
       // console.log(this.feedCreateContent);
       if (
         this.feedCreateContent.snsContent &&
-        this.feedCreateImageList.imageList
+        this.feedCreateImageList.ImageList
       ) {
+        if (this.feedCreateContent.snsContent[0] == "#") {
+          this.feedCreateContent.snsContent =
+            "#" + this.feedCreateContent.snsContent.substr(1).trim();
+          // console.log("된건가", this.inputData);
+        }
         if (
           // 문자열 양끝 공백 제거
           // feedCreateContent.images도 trim해야하는지확인해보자
@@ -235,7 +248,7 @@ export default {
                       // data: this.nowfeed,
                     },
                     data: {
-                      imageList: res.data.imageList,
+                      ImageList: res.data.ImageList,
                     },
                   });
                 })
@@ -298,7 +311,7 @@ export default {
     min-height: 400px;
     max-width: 460px;
     background-color: #ffff;
-    padding: 10px;
+    /* padding: 10px; */
     flex-grow: 1;
   }
 }
@@ -323,7 +336,7 @@ export default {
     min-height: 400px;
     /* max-width: 460px; */
     background-color: #ffff;
-    padding: 10px;
+    /* padding: 10px; */
     flex-grow: 1;
   }
 }
@@ -360,8 +373,12 @@ export default {
   min-height: 400px;
   background-color: #ffff;
 }
+.FeedCreate-leftbox-contentBox-Frame {
+  height: 100%;
+}
 .FeedCreate-contentbox-UploadImgFrame {
   position: relative;
+  height: 100%;
 }
 .FeedCreate-textarea {
   overflow: auto;
@@ -392,7 +409,11 @@ export default {
   width: 42px;
   height: 42px;
 }
-
+/* .cropper {
+  height: 600px;
+  width: 600px;
+  background: #ddd;
+} */
 /* .bi-x-lg {
   position: absolute;
   /* z-index: auto; */
