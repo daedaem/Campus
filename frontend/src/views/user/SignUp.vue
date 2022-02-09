@@ -64,6 +64,7 @@
 									@blur="nicknameValid">
 								</b-form-input>
 								<b-button
+								@click="checkNickname()"
 								>중복확인</b-button>
 							</div>
 							<div align="left" v-if="!nicknameValidFlag" class="check-form">
@@ -275,7 +276,7 @@ import Items from '@/components/user/Items.vue'
 import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
-import Fileupload from '@/components/mateparty/Fileupload.vue'
+import Fileupload from '@/components/user/Fileupload.vue'
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
@@ -367,46 +368,25 @@ export default {
 				.then((res) => {
 					console.log(res)
 					alert("회원가입 성공")
-					this.$router.push({name: 'Survey'})
+					this.$router.push({name: 'Mainpage'})
 				})
 				.catch(() => {
 					console.log(this.credentials)
 					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
 				})
+			
+			this.imageSend()
+		},
+		imageSend: function() {
 			axios ({
 				method: "put",
 				url: `${SERVER_URL}/user/image/${this.credentials.userEmail}`,
 				headers: { 'Content-Type': 'multipart/form-data' },
 				data: this.userProfileImage
 			})
-				// .catch(() => {
-				// 	alert("이미지 업로드 오류")
-				// })
-			// console.log(this.credentials)
-			// 유효성 통과못할 시
-			// if (this.emailValidFlag === true || this.nicknameValidFlag === true || this.passwordValidFlag === true || this.passwordCheckFlag === true) {
-			// 	console.log(this.emailValidFlag)
-			// 	console.log(this.nicknameValidFlag)
-			// 	console.log(this.passwordValidFlag)
-			// 	console.log(this.passwordCheckFlag)
-			// 	alert("유효성 검사 확인 부탁드립니다.")
-			// 유효성 통과 할시
-			// } else {
-			// 	axios ({
-			// 	method: "post",
-			// 	url: `${SERVER_URL}/user/signup`,
-			// 	data: this.credentials,
-			// })
-			// 	.then((res) => {
-			// 		console.log(res)
-			// 		alert("회원가입 성공")
-			// 		this.$router.push({name: 'Login'})
-			// 	})
-			// 	.catch(() => {
-			// 		console.log(this.credentials)
-			// 		alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
-			// 	})
-			// }
+				.catch(() => {
+					console.log("이미지가 없습니다.")
+				})
 		},
 
 		// 이메일 유효성 체크
@@ -455,6 +435,20 @@ export default {
         this.error.userGender = false;
       }
     },
+		checkNickname: function () {
+			axios
+				// console.log(this.credentials.userNickname)
+				.get(`${SERVER_URL}/user/dupl/${this.credentials.userNickname}`, {
+					userNickname: this.credentials.userNickname
+				})
+				.then(res => {
+					console.log("한번보자",res)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		},
+
     age_select() {
       console.log(this.credentials.userAge);
     },
