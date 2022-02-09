@@ -7,7 +7,11 @@
 		values(#{title}, #{masterId})
 	</insert>
 
-	<select id="getNickName" parameterType="int" resultType="String">
+	<select id="getRoomId" parameterType="String" resultType="long">
+		SELECT id FROM chatroom WHERE title = #{title}
+	</select>
+
+	<!-- <select id="getNickName" parameterType="int" resultType="String">
 		SELECT userNickname FROM user WHERE userNo = #{userNo}
 	</select>
 
@@ -22,7 +26,7 @@
 
 	<insert id="insertTitle" parameterType="String">
 		
-	</insert>
+	</insert> -->
 	
 	<select id="getAllChatRooms" parameterType="int" resultType="map">
 	select distinct c.id, c.title from chatroom c, message m 

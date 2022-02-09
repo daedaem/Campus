@@ -10,17 +10,76 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
+
 export default {
   name : 'Chat',
-  setup() {
-    // axios({
-    //   method :'get',
-
-    // })
-
-
+  data: () => {
     return {
-
+      id: -1,
+      nickname: '',
+      title:'',
+      roomid:-1,
+      idx:0,
+      msg:[],
+      content:"",
+      stompClient:null
+    }
+  },
+  created() {
+    // 채팅방 내용 불러오기
+       axios({
+         method:'get',
+        url:'/api/chat/room/message/'+this.roomid+"?page="+this.idx,
+        baseURL:'http://localhost:8080/'
+      }).then(res=>{
+        this.msg = []
+        for(let i=res.data.length-1; i>-1; i--){
+          let m={
+            'senderNickname':res.data[i].senderNickname,
+            'content':res.data[i].content,
+            'style': res.data[i].senderId == this.id ? 'myMsg':'otherMsg'
+          }
+          this.msg.push(m)
+        }
+      }, err=>{
+        console.log(err)
+        alert("error : 새로고침하세요")
+      })
+    // socket 연결
+     let socket = new SockJS('http://localhost:8080/ws')
+    this.stompClient = Stomp.over(socket)
+    this.stompClient.connect({}, frame=>{
+      console.log("success", frame)
+      this.stompClient.subscribe("/sub/"+this.roomid, res=>{
+        let jsonBody = JSON.parse(res.body)
+             let m={
+            'senderNickname':jsonBody.senderNickname,
+            'content': jsonBody.content,
+            'style': jsonBody.senderId == this.id ? 'myMsg':'otherMsg'
+          }
+          this.msg.push(m)
+      })
+    }, err=>{
+console.log("fail", err)
+    })
+  },
+  methods:{
+    sendMessage(){
+     if(this.content.trim() !='' && this.stompClient!=null) {
+        let chatMessage = {
+          'content': this.content,
+          'chatroomId' : this.roomid,
+          'senderNickname':this.nickname,
+          'senderId': this.id,
+          'id':"0"
+        }
+        this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
+   
+        this.content=''
+    }
     }
   }
   

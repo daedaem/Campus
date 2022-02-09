@@ -30,7 +30,8 @@
 import axios from 'axios'
 import {ref} from 'vue'
 import {useStore} from 'vuex'
-
+// import {useRoute} from 'vue-router'
+// import {useRouter} from 'vue-router'
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = 'http://localhost:8080'
 // import qs from 'query-string'
@@ -39,7 +40,10 @@ export default {
   name : 'Campsitereview',
   
   setup() {
+    // const router = useRouter()
     const store = useStore()
+    // const route = useRoute()
+    // const rateNm = route.params.rateNo
     const campRateDto = ref({
       campRateCleanliness : null,
       campRatePrice :null,
@@ -68,6 +72,8 @@ export default {
       })
       .then(res => {
         console.log(res)
+        // router.push({name: 'Campratedetail',params : { rateNo : rateNm}})
+
       })
       .catch(err => {
         console.log(err)
@@ -77,6 +83,7 @@ export default {
     return {
       send,
       campRateDto,
+
 
     }
   }

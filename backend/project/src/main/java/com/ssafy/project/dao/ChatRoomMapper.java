@@ -21,5 +21,7 @@ public interface ChatRoomMapper {
 
 	int getChatId();
 
+	long getRoomId(String title);
+
 
 }
