@@ -50,8 +50,9 @@ public class SnsController {
     private static final int FAIL = -1;
 
     // 리스트 생성
-    @GetMapping(value = "/sns")
-    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto) {
+    @GetMapping(value="/sns")
+    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto){
+        
 
         SnsResultDto snsResultDto;
 
