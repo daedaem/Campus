@@ -17,6 +17,7 @@ import com.google.cloud.storage.StorageOptions;
 import com.ssafy.project.dao.ChatRoomMapper;
 import com.ssafy.project.dao.MateDao;
 import com.ssafy.project.dao.SnsDao;
+import com.ssafy.project.dto.ChatRoom;
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
@@ -97,6 +98,10 @@ public class MateServiceImpl implements MateService {
 
         dto.getCampEquipRequiredList().setMateNo(dto.getMateNo());
         dao.campEquipReuireListInsert(dto.getCampEquipRequiredList());
+        
+        ChatRoom chatroom = new ChatRoom();
+        chatroom.set
+        
         
         mateResultDto.setDto(dto);
  
