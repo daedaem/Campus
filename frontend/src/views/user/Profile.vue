@@ -33,27 +33,8 @@
 				</div>
 			</section>
 		</section>
-    <!-- 프로필 정보 -->
-    <section>
-      <ul class="profile-stats">
-        <li>
-          <b>여정</b>
-          <p>18</p>
-        </li>
-        <li>
-          <b>게시글</b>
-          <p>18</p>
-        </li>
-        <li class="follow" @click="followShowOff2">
-          <b>팔로워</b>
-          <p>{{ followersList.length }}</p>
-        </li>
-        <li class="follow" @click="followShowOff">
-          <b>팔로우</b>
-          <p>{{ followingsList.length }}</p>
-        </li>
-      </ul>
-    </section>
+
+    
 
 		<!-- 프로필 정보 -->
 		<section>
