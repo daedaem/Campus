@@ -26,4 +26,8 @@ public interface CampRateDao {
 
     // 캠핑장 평점 삭제
     public int campRateDelete(int campRateNo);
+
+    // 최신 campRateNo 가져오기
+    public int getCampRateNo();
+
 }
