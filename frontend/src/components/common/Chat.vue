@@ -5,19 +5,32 @@
         <div class="header">
           <div v-if="visible===0">
             <div v-for="(item,idx) in chatList" :key="idx" >
-                <div @click="visibleCheck(),send(item.title),temp(item.id,item.title),socketConnect(item.title)">
+                <div @click="visibleCheck(),sendlist(item.id),temp(item.id,item.title),socketConnect(item.id)">
                   {{item}}
                 </div>
             </div>
           </div>
-          <div v-else>
-              {{MessageList}}
-              <input type="text" v-model="this.content"><button @click="sendMessage()">보내기</button>
+          <div v-else >
+              <!-- {{MessageList}} -->
+              <div v-for="(item2,idx) in MessageList" :key="idx">
+                <div v-bind:class="item2.style">
+                  <h5 style="margin: 3px">
+                    {{item2.senderNickname}}
+                  </h5>
+                  {{item2.content}}
+                </div>
+              </div>
+              <input type="text" v-model="content"><button @click="sendMessage()">보내기</button>
+              <button @click="visibleCheck(),delTrash(temps.id)" >뒤로가기</button>
+              <!-- {{MessageList}} -->
+              
           </div>
         </div>
       </div>
+      
   </div>
-</template>
+  
+</template>                            
 
 <script>
 import axios from 'axios'
@@ -48,7 +61,8 @@ export default {
       temps : {
         id : null,
         title :null,
-      }
+      },
+      socketStop : [],
     }
   },
   created() {
@@ -58,26 +72,36 @@ export default {
     
   },
   methods:{
-    socketConnect(roomtitle){
+    delTrash(roomNm){
+      this.MessageList = []
+      this.socketStop.push(roomNm)
+      console.log(this.socketStop)
+    },
+    socketConnect(roomid){
       // socket 연결
-    let socket = new SockJS('http://localhost:8080/ws')
-    this.stompClient = Stomp.over(socket)
-    this.stompClient.connect({}, frame=>{
-      console.log("success", frame)
-      this.stompClient.subscribe("/sub/"+roomtitle, res=>{
-        let jsonBody = JSON.parse(res.body)
-             let m={
-            'senderNickname':jsonBody.senderNickname,
-            'content': jsonBody.content,
-            'style': jsonBody.senderId == this.$store.state.userList.userNo ? 'myMsg':'otherMsg'
-          }
-          console.log(jsonBody)
-          this.MessageList.push(m)
-         
-      })
-    }, err=>{
-      console.log("fail", err)
-    })
+      console.log(this.socketStop.includes(roomid))
+      if (this.socketStop.includes(roomid) === false) {
+          console.log('check')
+        let socket = new SockJS('http://localhost:8080/ws')
+        this.stompClient = Stomp.over(socket)
+        this.stompClient.connect({}, frame=>{
+          console.log("success", frame)
+          this.stompClient.subscribe("/sub/"+roomid, res=>{
+            let jsonBody = JSON.parse(res.body)
+            let m={
+              'senderNickname':jsonBody.senderNickname,
+              'content': jsonBody.content,
+              'style': jsonBody.senderId == this.$store.state.userList.userNo ? 'myMsg':'otherMsg'
+            }
+            
+              console.log(m)
+              this.MessageList.push(m)
+            
+          })
+        }, err=>{
+          console.log("fail", err)
+        })
+        }
     },
     temp(id,title) {
       this.temps.id = id
@@ -129,14 +153,15 @@ export default {
       // })
     },
 
-    send(title) {
+    sendlist(id) {
       axios({
         method : 'get',
-        url : `${SERVER_URL}/api/chat/room/message/${title}`
+        url : `${SERVER_URL}/api/chat/room/message/${id}`
       })
       .then(res => {
         console.log(res)
-        this.MessageList = res.data
+        this.MessageList = res.data.reverse()
+
       })
       .catch(err => {
         console.log(err)
@@ -147,7 +172,7 @@ export default {
     sendMessage(){
       const roomNo = this.temps.id
       const roomTitle = this.temps.title
-      console.log(roomNo,roomTitle)
+      console.log('중복실행테스트')
       if(this.content.trim() !='' && this.stompClient!=null) {
           
           let chatMessage = {
@@ -160,8 +185,7 @@ export default {
           }
           console.log(chatMessage)
           this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
-    
-          this.content=''
+          this.content = ''
     }
     }
 
@@ -278,4 +302,14 @@ button {
 #check {
     display: none !important
 }
+
+.header .myMsg{
+text-align: right;
+
+}
+.otherMsg{
+  text-align: left;
+
+}
+
 </style>
