@@ -12,7 +12,7 @@
 				<div class="name-buttons d-flex justify-content-between">
 					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
 					<div class="">
-						<button @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+						<button v-if="this.$route.params.userEmail === this.myEmail" @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 					</div>
 				</div>
 				
@@ -37,13 +37,17 @@
     
 
 		<!-- 프로필 정보 -->
-		<section>
+		<section align="center">
 			<ul class="profile-stats">
 				<li>
-					<b>여정</b><p>{{ this.historyList.length}}</p>
+					<div @click="currentmove()">
+						<b>여정</b><p>{{ this.historyList.length}}</p>
+					</div>
 				</li>
 				<li>
-					<b>게시글</b><p>{{this.feedList.length}}</p>
+					<div @click="currentmove2()">
+						<b>게시글</b><p>{{this.feedList.length}}</p>
+					</div>
 				</li>
 				<li>
 					<div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -63,7 +67,6 @@
 				</li>
 
 				<li>
-
 					<div data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
 						<b>팔로잉</b><p>{{ this.followings }}</p>
 					</div>
@@ -187,6 +190,12 @@ export default {
 	},
 
 	methods : {
+		currentmove: function() {
+			this.currentTab = 2
+		},
+		currentmove2: function() {
+			this.currentTab = 1
+		},
 		getProfile: function() {
 			axios
 				.get(`${SERVER_URL}/user/${this.user_email}`)

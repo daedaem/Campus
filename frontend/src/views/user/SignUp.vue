@@ -1,4 +1,5 @@
 <template>
+	<Navbar></Navbar>
 	<div>
 		<form>
 			<div v-if="step === 1">
@@ -23,6 +24,7 @@
 								</b-form-input>
 
 								<b-button
+									@click="checkNickname()"
 									>인증</b-button>
 							</div>
 							<div align="left" v-if="!emailValidFlag" class="check-form">
@@ -119,7 +121,7 @@
 
 						<!--  약관동의 -->
 						<div class="form-group mt-3" align="left">
-							<input type="checkbox" id="term" />
+							<input type="checkbox" id="term" v-model="checkValue" :value="ischecked()" />
 							<span>약관을 동의합니다.</span>
 							<!-- <span>약관보기</span> -->
 						</div>
@@ -253,20 +255,18 @@
 
 						<div class="d-flex justify-content-between mt-5">
 							<button @click.prevent="prev()">Previous</button>
-							<button @click.prevent="onSubmit()">Save</button>
+							<button v-if="submitCheck" @click.prevent="onSubmit()">가입</button>
+							<button v-else type="button">불가</button>
 						</div>
 
 
 					</div>
 				</div>
 			
-
-				
-				
+	
 			</div>
 		</form>
 
-		<br/><br/>Debug: {{credentials}}
 	</div>
 </template>
 
@@ -277,6 +277,7 @@ import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
 import Fileupload from '@/components/user/Fileupload.vue'
+import Navbar from "@/components/common/Navbar.vue";
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = "http://localhost:8080";
@@ -289,6 +290,7 @@ export default {
 		EquipList,
 		style_Dropdown,
 		Fileupload,
+		Navbar,
 	},
 	data() {
     return {
@@ -344,20 +346,31 @@ export default {
 			userProfileImage: "", // 이미지
 			maleButton: false,
 			femaleButton: false,
-			emailValidFlag: "", // 이메일 유효성 검사
-			nicknameValidFlag: "", // 닉네임 유효성 검사
-			passwordValidFlag: "", // 비밀번호 유효성검사
-			passwordCheckFlag: "", // 비밀번호 동일 검사
+			emailValidFlag: false, // 이메일 유효성 검사
+			nicknameValidFlag: false, // 닉네임 유효성 검사
+			passwordValidFlag: false, // 비밀번호 유효성검사
+			passwordCheckFlag: false, // 비밀번호 동일 검사
+			submitCheck: false,
+			checkValue: false,
     }
   },
 
   methods:{
     prev() {
       this.step--;
+			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true) {
+				this.submitCheck = true
+			}
     },
     next() {
       this.step++;
+			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true) {
+				this.submitCheck = true
+			}
     },
+		ischecked() {
+
+		},
 
 		onSubmit() {
 			axios ({
@@ -391,7 +404,7 @@ export default {
 
 		// 이메일 유효성 체크
 		emailValid() {
-			if (/^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+).(.[0-9a-zA-Z_-]+){1,2}$/.test(this.credentials.email)) {
+			if (/^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+).(.[0-9a-zA-Z_-]+){1,2}$/.test(this.credentials.userEmail)) {
 				this.emailValidFlag = true
 				console.log(this.emailValidFlag)
 			} else {
@@ -420,7 +433,7 @@ export default {
 
 		// 비밀번호 확인 유효성 체크
 		passwordCheckValid() {
-			if (this.credentials.password === this.credentials.password_confirmation) {
+			if (this.credentials.userPassword === this.credentials.password_confirmation) {
 				this.passwordCheckFlag = true
 			} else {
 				this.passwordCheckFlag = false
@@ -438,8 +451,8 @@ export default {
 		checkNickname: function () {
 			axios
 				// console.log(this.credentials.userNickname)
-				.get(`${SERVER_URL}/user/dupl/${this.credentials.userNickname}`, {
-					userNickname: this.credentials.userNickname
+				.get(`${SERVER_URL}/user/dupl/${this.credentials.userEmail}`, {
+					userEmail: this.credentials.userEmail
 				})
 				.then(res => {
 					console.log("한번보자",res)
