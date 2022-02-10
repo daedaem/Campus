@@ -9,11 +9,18 @@
 	</insert>
 
 
-	<select id="getMessagesByChatroomTitle" resultType="com.ssafy.project.dto.Message">
+	<select id="getMessagesByChatroomId" resultType="com.ssafy.project.dto.Message">
+	 SELECT m.id ,m.content, m.chatroom_id AS chatroomId, m.sender_id, u.userNickname AS senderNickname 
+	 	FROM message m, user u 
+		 WHERE chatroom_id = #{id} AND u.userNo = m.sender_id;
+		ORDER BY m.chatroom_id DESC LIMIT #{idx}, 10;
+	</select>
+
+	<!-- <select id="getMessagesByChatroomTitle" resultType="com.ssafy.project.dto.Message">
 	 SELECT m.id ,m.content, m.chatroom_id AS chatroomId, m.sender_id, u.userNickname AS senderNickname FROM message m, user u
 		WHERE m.chatroom_id = (SELECT id FROM chatroom WHERE title = #{title}) AND u.userNo = m.sender_id
 		ORDER BY m.chatroom_id DESC LIMIT #{idx}, 10;
-	</select>
+	</select> -->
 	
 	<!-- <select id="getMessagesByChatroomId" resultType="com.ssafy.project.dto.Message">
 	select t1.id as id, #{roomId} as chatroomId, t1.content as content, t1.sender_id as senderId, t2.userNickname as senderNickname
