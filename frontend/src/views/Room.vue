@@ -113,9 +113,9 @@ console.log("fail", err)
 <style scoped>
 .myMsg{
 text-align: right;
-color : gray;
+color : red;
 }
 .otherMsg{
-  text-align: left;
+  text-align: green;
 }
 </style>
