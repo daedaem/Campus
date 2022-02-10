@@ -1,13 +1,14 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
         <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
         <div class="Navbar-buttons d-flex align-items-center">
           <div class="nav-item">
-            <a class="nav-link" aria-current="page" href="/sns"
-              ><i class="fs-5 bi bi-journal-richtext"></i><br />피드</a
-            >
+            <a class="nav-link" aria-current="page" href="/sns">
+              SNS
+              <!-- <i class="bi bi-journal-richtext"></i> -->
+            </a>
           </div>
 
           <div class="nav-item dropdown">
@@ -19,9 +20,9 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fs-5 bi bi-people"></i>
-              <br />메이트</a
-            >
+              메이트
+              <!-- <i class="bi bi-people"></i> -->
+            </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
@@ -33,9 +34,11 @@
             </div>
           </div>
           <div class="nav-item">
-            <a class="nav-link fa-campground-text" href="#"
-              ><i class="fs-5 pt-1 fas fa-campground"></i> <br />캠핑장</a
-            >
+            <a class="nav-link" href="/campsite"
+              >캠핑장
+              <!-- <i class="fas fa-campground"></i
+            > -->
+            </a>
           </div>
 
           <div class="Navbar-Searchbar ms-5">
@@ -60,97 +63,94 @@
             :to="{ name: 'FeedCreate' }"
           >
             <button type="button" class="btn">
-              <i class="bi bi-plus-square fs-5"></i>
+              <i class="bi bi-plus-square ></i>
             </button>
           </router-link>
         </div> -->
-      <div>
-        <router-link
-          class="text-decoration-none fw-bold text-primary align-middle align-self-center"
-          :to="{ name: 'FeedCreate' }"
-        >
-          <button type="button" class="btn m-3">
-            <i class="bi bi-plus-square fs-3"></i><br />
-          </button>
-        </router-link>
-        <b-dropdown
-          size="sm"
-          dropleft
-          variant="transparent"
-          toggle-class="text-decoration-none"
-          no-caret
-          class="Navbar-dropdown"
-        >
-          <template #button-content>
-            <div
-              v-if="this.$store.state.userEmail"
-              class="d-flex justify-content-center align-items-center"
-            >
-              <img
-                v-if="this.$store.state.userList.userProfileImage"
-                :src="`${this.$store.state.userList.userProfileImage}`"
-                alt=""
-                class="Navbar-User-profile-image ms-2"
-              />
-              <img
-                v-if="
-                  this.$store.state.userList.userProfileImage == null &&
-                  this.$store.state.userList.userGender == null
-                "
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
-                alt=""
-                class="Navbar-User-profile-image ms-2"
-              />
-              <img
-                v-if="
-                  this.$store.state.userList.userProfileImage == null &&
-                  this.$store.state.userList.userGender == 'M'
-                "
-                src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
-                alt=""
-                class="Navbar-User-profile-image ms-2"
-              />
-              <img
-                v-if="
-                  this.$store.state.userList.userProfileImage == null &&
-                  this.$store.state.userList.userGender == 'W'
-                "
-                src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg"
-                alt=""
-                class="Navbar-User-profile-image ms-2"
-              />
-              <div class="fw-bold Navbar-User-profile-nickname ms-3">
-                {{ this.$store.state.userList.userNickname }}
+      <div class="d-flex">
+        <a class="nav-link mt-2 me-5" aria-current="page" href="/sns/create">
+          <i class="bi bi-plus-square fs-3"></i>
+          <!-- <i class="bi bi-journal-richtext"></i> -->
+        </a>
+        <div class="d-flex justify-content-center align-items-center">
+          <b-dropdown
+            size="sm"
+            dropleft
+            variant="transparent"
+            toggle-class="text-decoration-none"
+            no-caret
+            class="Navbar-dropdown"
+          >
+            <template #button-content>
+              <div
+                v-if="this.$store.state.userEmail"
+                class="d-flex justify-content-center align-items-center"
+              >
+                <img
+                  v-if="this.$store.state.userList.userProfileImage"
+                  :src="`${this.$store.state.userList.userProfileImage}`"
+                  alt=""
+                  class="Navbar-User-profile-image ms-2"
+                />
+                <img
+                  v-if="
+                    this.$store.state.userList.userProfileImage == null &&
+                    this.$store.state.userList.userGender == null
+                  "
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
+                  alt=""
+                  class="Navbar-User-profile-image ms-2"
+                />
+                <img
+                  v-if="
+                    this.$store.state.userList.userProfileImage == null &&
+                    this.$store.state.userList.userGender == 'M'
+                  "
+                  src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
+                  alt=""
+                  class="Navbar-User-profile-image ms-2"
+                />
+                <img
+                  v-if="
+                    this.$store.state.userList.userProfileImage == null &&
+                    this.$store.state.userList.userGender == 'W'
+                  "
+                  src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg"
+                  alt=""
+                  class="Navbar-User-profile-image ms-2"
+                />
+                <div class="Navbar-User-profile-nickname ms-3">
+                  {{ this.$store.state.userList.userNickname }}
+                </div>
               </div>
+              <div
+                v-if="this.$store.state.userEmail == null"
+                class="d-flex justify-contents-center align-items-center"
+              >
+                <i class="fs-3 bi bi-person-badge"></i>
+                <div class="bi-person-badge-name ms-2">Guest</div>
+              </div>
+            </template>
+            <div class="dropdown-items" v-if="this.$store.state.userEmail">
+              <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
+                >마이페이지</b-dropdown-item
+              >
+              <b-dropdown-item text="Small" @click="logout"
+                >로그아웃</b-dropdown-item
+              >
             </div>
-            <div
-              v-if="this.$store.state.userEmail == null"
-              class="d-flex justify-contents-center align-items-center"
-            >
-              <i class="fs-3 bi bi-person-badge"></i>
-              <div class="bi-person-badge-name ms-2">Guest</div>
+
+            <div v-if="this.$store.state.userEmail === null">
+              <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
+
+              <b-dropdown-item @click="moveToLogin"> 로그인</b-dropdown-item>
             </div>
-          </template>
-          <div class="dropdown-items" v-if="this.$store.state.userEmail">
-            <b-dropdown-item text="Small" class="bnt-sm" @click="myProfile"
-              >마이페이지</b-dropdown-item
-            >
-            <b-dropdown-item text="Small" @click="logout"
-              >로그아웃</b-dropdown-item
-            >
-          </div>
-
-          <div v-if="this.$store.state.userEmail === null">
-            <b-dropdown-item @click="moveToSignUp">회원가입</b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-
-            <b-dropdown-item @click="moveToLogin"> 로그인</b-dropdown-item>
-          </div>
-        </b-dropdown>
-        <!-- </div> -->
+          </b-dropdown>
+          <!-- </div> -->
+        </div>
       </div>
-
-      <div class="col-11 hidden-Navbar-Searchbar my-3">
+      <div class="col-11 hidden-Navbar-Searchbar">
         <div class="d-flex">
           <searchbar></searchbar>
         </div>
@@ -160,13 +160,10 @@
 </template>
 
 <script>
-// const SERVER_URL = "http://localhost:8080";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-// import axios from "axios";
 import Searchbar from "./Searchbar.vue";
 
 export default {
@@ -197,10 +194,10 @@ export default {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
       this.$store.dispatch("logout");
-      sessionStorage.removeItem('userList')
-      sessionStorage.removeItem('myNum')
-      sessionStorage.removeItem('userEmail')
-      sessionStorage.removeItem('userPassword')
+      sessionStorage.removeItem("userList");
+      sessionStorage.removeItem("myNum");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userPassword");
       alert("로그아웃");
       this.$router.push({ name: "Login" });
     },
@@ -232,13 +229,25 @@ export default {
 <style scoped>
 /* 760보다 작으면 서치바 숨기고 */
 /* 숨겨져있던 서치바 길게 */
+.navbar {
+  /* height: 60px; */
+  font-family: "navfont";
+}
+@font-face {
+  font-family: "navfont";
+  src: url("./../../assets/fonts/Frip/NotoSansKR-Regular.otf");
+}
+a .Navbar-User-profile-nickname {
+  font-family: "navfont";
+}
+
 @media (max-width: 800px) {
   .Navbar-Searchbar {
     display: none;
   }
   .btn-group {
-    margin-right: 3rem;
-    padding-right: 3rem;
+    margin-right: 1rem;
+    padding-right: 1rem;
   }
 
   .hidden-Navbar-Searchbar {
@@ -273,13 +282,13 @@ export default {
   }
   .Navbar-User-profile-nickname {
     /* color: blacolor: #fff;ck; */
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 @media (min-width: 581px) {
   .Navbar-User-profile-image {
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     border-radius: 30px;
   }
 }
@@ -304,7 +313,7 @@ export default {
 }
 
 .navbar {
-  background-color: #387d4f;
+  background-color: #7ac4e1;
 
   /* border-bottom: 5px solid green; */
 }

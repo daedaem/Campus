@@ -34,11 +34,12 @@
 
           <!-- 로그인버튼 -->
           <div class="container-contact3-form-btn">
-            <button 
-              class="login-button" 
-              @click="login" 
+            <button
+              class="login-button"
+              @click="login"
               type="button"
-              @keyup.enter="login()">
+              @keyup.enter="login()"
+            >
               로그인
             </button>
           </div>
@@ -62,21 +63,24 @@
           </button> -->
 
           <div class="col">
-            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/oauth}">카카오로 로그인하기</a>
+            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/oauth}"
+              >카카오로 로그인하기</a
+            >
           </div>
           <div class="col">
-            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/logout}">로그아웃</a>
+            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/logout}"
+              >로그아웃</a
+            >
           </div>
-
-
-      
 
           <!-- 회원가입 및 비밀번호 찾기 -->
           <div class="d-flex justify-content-between mx-3 mt-3">
             <button type="button" class="btn-primary" @click="moveToSignUp">
               회원가입
             </button>
-            <button type="button" class="btn-primary" @click="movetofindPw">비밀번호</button>
+            <button type="button" class="btn-primary" @click="movetofindPw">
+              비밀번호
+            </button>
           </div>
         </div>
       </form>
@@ -86,10 +90,8 @@
 
 <script>
 import axios from "axios";
-// import { mapActions } from "vuex";
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Login",
@@ -103,7 +105,6 @@ export default {
       googleUser: null,
       value: "",
     };
-    
   },
 
   // 구글
@@ -124,32 +125,47 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          alert("로그인")
-          console.log("이건가",res)
+          alert("로그인");
+          console.log("이건가", res);
           this.$store.dispatch("login");
-          this.$store.dispatch('userList',res.data)
-          this.$store.dispatch('myNum',res.data.userNo)
-          this.$store.dispatch("userEmail", res.data.userEmail)
-          this.$store.dispatch("myProfileimageurl", res.data.userProfileImage)
-          this.$store.dispatch('userGender', res.data.userGender)
-          sessionStorage.setItem("userList", this.$store.state.userList)
-          sessionStorage.setItem("myNum", Number(this.$store.state.myNum))
-          sessionStorage.setItem("userEmail", this.$store.state.userList.userEmail)
-          sessionStorage.setItem("userPassword", this.$store.state.userList.userPassword)
-          if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === "M") {
-            this.$store.dispatch("changeManImage")
-          } else if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === "W") {
-            this.$store.dispatch('changeWImage')
-          } else if (this.$store.state.myProfileimageurl === null && this.$store.state.userGender === null) {
-            this.$store.dispatch('changeImage')
+          this.$store.dispatch("userList", res.data);
+          this.$store.dispatch("myNum", res.data.userNo);
+          this.$store.dispatch("userEmail", res.data.userEmail);
+          this.$store.dispatch("myProfileimageurl", res.data.userProfileImage);
+          this.$store.dispatch("userGender", res.data.userGender);
+          sessionStorage.setItem("userList", this.$store.state.userList);
+          sessionStorage.setItem("myNum", Number(this.$store.state.myNum));
+          sessionStorage.setItem(
+            "userEmail",
+            this.$store.state.userList.userEmail
+          );
+          sessionStorage.setItem(
+            "userPassword",
+            this.$store.state.userList.userPassword
+          );
+          if (
+            this.$store.state.myProfileimageurl === null &&
+            this.$store.state.userGender === "M"
+          ) {
+            this.$store.dispatch("changeManImage");
+          } else if (
+            this.$store.state.myProfileimageurl === null &&
+            this.$store.state.userGender === "W"
+          ) {
+            this.$store.dispatch("changeWImage");
+          } else if (
+            this.$store.state.myProfileimageurl === null &&
+            this.$store.state.userGender === null
+          ) {
+            this.$store.dispatch("changeImage");
           }
-          
-          this.$router.push({name: 'Mainpage'})
+
+          this.$router.push({ name: "Mainpage" });
         })
         .catch((err) => {
-          alert("이메일과 비밀번호를 확인해주세요")
-          console.log(err)
-        })
+          alert("이메일과 비밀번호를 확인해주세요");
+          console.log(err);
+        });
     },
 
     // 회원가입 이동
@@ -175,11 +191,11 @@ export default {
     //   });
     // },
     kakaoLogin() {
-        // console.log(window.Kakao);
-        window.Kakao.Auth.login({
-            scope : 'account_email, gender',
-            success: this.GetMe,
-        });
+      // console.log(window.Kakao);
+      window.Kakao.Auth.login({
+        scope: "account_email, gender",
+        success: this.GetMe,
+      });
     },
     // GetMe(authObj){
     //     console.log(authObj);

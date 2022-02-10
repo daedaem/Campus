@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <Chat />
     <router-view></router-view>
   </div>
@@ -65,12 +64,13 @@ export default {
 //   }
 // }
 // }
+@media (max-width: 420px) {
+  #nav {
+    // background: whitesmoke;
 
-#nav {
-  // background: whitesmoke;
-
-  width: 100vw;
-  position: fixed;
+    width: 100vw;
+    position: fixed;
+  }
 }
 #nav {
   padding: 30px;

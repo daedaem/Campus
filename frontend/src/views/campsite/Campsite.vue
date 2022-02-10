@@ -1,7 +1,6 @@
 <template>
+  <Navbar id="navbar"></Navbar>
   <body>
-    <Navbar></Navbar>
-
     <div>
       <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
@@ -76,10 +75,7 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/common/Navbar.vue";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = "http://localhost:8080";
-
-
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Campsite",
@@ -102,17 +98,17 @@ export default {
           // searchWord : '',
           // doNm : '',
         },
-     
       })
-      .then(res => {
-        articles.value.push(...res.data.list)
-        
-        console.log(articles.value)
-      })
+        .then((res) => {
+          console.log("뭔데", res);
+          articles.value.push(...res.data.list);
+
+          // console.log(articles.value);
+        })
         .then((res) => {
           articles.value.push(...res.data.list);
 
-          console.log(articles.value);
+          // console.log(articles.value);
         })
 
         .catch((err) => {
@@ -151,6 +147,12 @@ export default {
 </script>
 
 <style scoped>
+/* 수정해야함 */
+/* @media (max-width: 420px) {
+  .navbar {
+    display: none;
+  }
+} */
 @media (min-width: 768px) {
   body {
     width: 768px;
