@@ -75,11 +75,11 @@ public class ChatRoomController {
 	}
 
 	// 특정 채팅방 의 메세지 최근 10개
-	@GetMapping("/room/message/{title}")
-	public ResponseEntity<List<Message>> roomInfo(@PathVariable String title,
+	@GetMapping("/room/message/{id}")
+	public ResponseEntity<List<Message>> roomInfo(@PathVariable long id,
 			@RequestParam(value = "page", defaultValue = "0") String page) {
 		long idx = page.equals("0") ? 0 : Integer.parseInt(page) * PAGE + 1;
-		List<Message> msgList = messageService.getMessagesByChatroomTitle(title, idx);
+		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx);
 		return ResponseEntity.status(HttpStatus.OK).body(msgList);
 	}
 }

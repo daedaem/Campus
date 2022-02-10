@@ -6,5 +6,5 @@ import com.ssafy.project.dto.Message;
 
 public interface IMessageService {
 	int insertMessage(Message chatMessage);
-	List<Message> getMessagesByChatroomTitle(String title, long idx);
+	List<Message> getMessagesByChatroomId(long id, long idx);
 }
