@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io")
 @Slf4j
 @RequiredArgsConstructor
 @RestController
