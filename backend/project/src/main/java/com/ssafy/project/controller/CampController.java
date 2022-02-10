@@ -38,7 +38,7 @@ import com.ssafy.project.service.CampRateReplyService;
 import com.ssafy.project.service.CampRateService;
 import com.ssafy.project.service.CampSiteService;
 
-@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // 값자체를 리턴
@@ -354,12 +354,12 @@ public class CampController {
     public ResponseEntity<CampRateReplyResultDto> campRateReplyUpdate(@RequestBody CampRateReplyDto campRateReplyDto,
             HttpSession session) {
 
-        // UserDto userDto = (UserDto) session.getAttribute("userDto");
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        // campRateReplyDto.setUserNo(userDto.getUserNo());
-        
+        campRateReplyDto.setUserNo(userDto.getUserNo());
+
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
-        System.out.println(campRateReplyDto);
+
         if (campRateReplyResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateReplyResultDto>(campRateReplyResultDto, HttpStatus.OK);
         } else {
@@ -370,7 +370,7 @@ public class CampController {
     // 캠핑장 평점 댓글 삭제
     @DeleteMapping(value = "/camp/rate/reply/{campRateReplyNo}")
     public ResponseEntity<CampRateReplyResultDto> campRateReplyDelete(
-            @PathVariable int campRateReplyNo) {
+            @PathVariable(value = "campRateNo") int campRateReplyNo) {
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyDelete(campRateReplyNo);
 
         if (campRateReplyResultDto.getResult() == SUCCESS) {

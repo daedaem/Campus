@@ -88,6 +88,8 @@
 
     <!-- 게시물 삭제 -->
     <delete id="mateDelete" parameterType="int">
+        DELETE FROM message WHERE chatroom_id = (SELECT id FROM chatroom WHERE title = (SELECT mateTitle FROM mate WHERE mateNo = #{mateNo}));
+        DELETE FROM chatroom WHERE title = (SELECT mateTitle FROM mate WHERE mateNo = #{mateNo});
         DELETE FROM mateCampEquipRequire WHERE mateNo = #{mateNo};
         DELETE FROM mateCampStyle WHERE mateNo = #{mateNo};
         DELETE FROM mateList WHERE mateNo = #{mateNo};
