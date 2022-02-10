@@ -54,8 +54,14 @@ export default {
     //
     // FeedDetail
   },
+  data() {
+    return {
+      limit: 10,
+      offset: 0,
+    }
+  },
   // methods: {},
-  created: function () {
+  // created: function () {
     // console.log(this.$store.state.user);
     // axios
     //   .get(`${SERVER_URL}/sns`)
@@ -68,21 +74,48 @@ export default {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    console.log("created feed list");
-    this.getFeedList();
-  },
+    // console.log("created feed list");
+    // this.getFeedList();
+  // },
 
   computed: {
     ...mapState(["feedList"]),
     ...mapState(["user"]),
+  },
+  mounted: function() {
+    this.getFeedList();
+    window.addEventListener("scroll", () => {
+      let scrollTop = document.documentElement.scrollTop;
+      let scrollHeight = document.documentElement.scrollHeight;
+      let clientHeight = document.documentElement.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        this.offset += 10;
+        // this.limit += 10
+        this.getFeedList();
+      }
+    });
   },
   // created: function() {
   //   console.log(this.feeds)
   // }
   methods: {
     getFeedList: function() {
-      axios
-      .get(`${SERVER_URL}/sns`)
+      var params = {
+        limit: this.limit,
+        offset: this.offset,
+      };
+      console.log(params);
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/sns`,
+        params: {
+          limit: this.limit,
+          offset: this.offset
+        }
+      })
+      // axios
+      // .get(`${SERVER_URL}/sns`, params)
       .then((res) => {
         // console.log(res.data.list);
         const data = res.data.list;
