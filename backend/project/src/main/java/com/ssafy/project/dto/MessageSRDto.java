@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatRoom {
-	private long id;
-	private String title;
-	private long masterId;
-
-
+public class MessageSRDto {
+    private int sendId;
+    private int receiveId;
 }
