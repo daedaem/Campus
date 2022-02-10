@@ -183,4 +183,8 @@
         SELECT mateTitle FROM mate WHERE mateNo = #{mateNo}
     </select>
 
+    <!-- 메이트 모집 종료 -->
+    <update id="mateStatusUpdate" parameterType="int">
+        UPDATE mate SET mateStatus = 'N' WHERE mateNo = #{mateNo};
+    </update>
 </mapper>

@@ -376,6 +376,22 @@ public class MateServiceImpl implements MateService {
         return mateResultDto;
     }
 
+    @Override
+    public MateResultDto mateStatusUpdate(int mateNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+            
+            dao.mateStatusUpdate(mateNo);
+            mateResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
 
 
 
