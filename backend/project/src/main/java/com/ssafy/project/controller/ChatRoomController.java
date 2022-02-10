@@ -10,6 +10,7 @@ import com.ssafy.project.service.IMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,5 +92,29 @@ public class ChatRoomController {
 		long idx = page.equals("0") ? 0 : Integer.parseInt(page) * PAGE + 1;
 		List<Message> msgList = messageService.getMessagesByChatroomId(id, idx);
 		return ResponseEntity.status(HttpStatus.OK).body(msgList);
+	}
+
+	// 개인채팅 삭제 (전체 삭제)
+	@DeleteMapping("/room/delete/{id}")
+	public ResponseEntity<Long> deletePersonalRoom(@PathVariable int id) {
+		
+		long resultOfCreation = chatroomService.deletePersonalRoom(id);
+
+		if (resultOfCreation >= 0)
+			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Long.MIN_VALUE);
+	}
+
+	// 단체 채팅에서 나만 나가기
+	@DeleteMapping("/room/delete/mymessage/{id}/{sendId}")
+	public ResponseEntity<Long> deleteMyMessage(@PathVariable int id, @PathVariable int sendId) {
+		
+		long resultOfCreation = chatroomService.deleteMyMessage(id, sendId);
+
+		if (resultOfCreation >= 0)
+			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Long.MIN_VALUE);
 	}
 }
