@@ -1,9 +1,19 @@
 <template>
   <div >
-    <input type="checkbox" id="check"> <label class="chat-btn" for="check"> <i class="fa fa-commenting-o comment"></i> <i class="fa fa-close close"></i> </label>
+    <input type="checkbox" id="check" @click="showRooms()" > <label class="chat-btn" for="check" > <i class="fa fa-commenting-o comment" ></i> <i class="fa fa-close close" ></i> </label>
       <div class="wrapper">
         <div class="header">
-          
+          <div v-if="visible===0">
+            <div v-for="(item,idx) in chatList" :key="idx" >
+                <div @click="visibleCheck(),send(item.title),temp(item.id,item.title),socketConnect(item.title)">
+                  {{item}}
+                </div>
+            </div>
+          </div>
+          <div v-else>
+              {{MessageList}}
+              <input type="text" v-model="this.content"><button @click="sendMessage()">보내기</button>
+          </div>
         </div>
       </div>
   </div>
@@ -14,8 +24,14 @@ import axios from 'axios'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
+
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 export default {
   name : 'Chat',
+  components : {
+
+  },
   data: () => {
     return {
       id: -1,
@@ -25,62 +41,137 @@ export default {
       idx:0,
       msg:[],
       content:"",
-      stompClient:null
+      stompClient:null,
+      chatList : null,
+      visible : 0,
+      MessageList : [],
+      temps : {
+        id : null,
+        title :null,
+      }
     }
   },
   created() {
+    console.log('채팅창열림')
     // 채팅방 내용 불러오기
-       axios({
-         method:'get',
-        url:'/api/chat/room/message/'+this.roomid+"?page="+this.idx,
-        baseURL:'http://localhost:8080/'
-      }).then(res=>{
-        this.msg = []
-        for(let i=res.data.length-1; i>-1; i--){
-          let m={
-            'senderNickname':res.data[i].senderNickname,
-            'content':res.data[i].content,
-            'style': res.data[i].senderId == this.id ? 'myMsg':'otherMsg'
-          }
-          this.msg.push(m)
-        }
-      }, err=>{
-        console.log(err)
-        alert("error : 새로고침하세요")
-      })
-    // socket 연결
-     let socket = new SockJS('http://localhost:8080/ws')
+       
+    
+  },
+  methods:{
+    socketConnect(roomtitle){
+      // socket 연결
+    let socket = new SockJS('http://localhost:8080/ws')
     this.stompClient = Stomp.over(socket)
     this.stompClient.connect({}, frame=>{
       console.log("success", frame)
-      this.stompClient.subscribe("/sub/"+this.roomid, res=>{
+      this.stompClient.subscribe("/sub/"+roomtitle, res=>{
         let jsonBody = JSON.parse(res.body)
              let m={
             'senderNickname':jsonBody.senderNickname,
             'content': jsonBody.content,
-            'style': jsonBody.senderId == this.id ? 'myMsg':'otherMsg'
+            'style': jsonBody.senderId == this.$store.state.userList.userNo ? 'myMsg':'otherMsg'
           }
-          this.msg.push(m)
+          console.log(jsonBody)
+          this.MessageList.push(m)
+         
       })
     }, err=>{
-console.log("fail", err)
+      console.log("fail", err)
     })
-  },
-  methods:{
+    },
+    temp(id,title) {
+      this.temps.id = id
+      this.temps.title = title
+      
+    },
+    visibleCheck() {
+      if (this.visible === 0) {
+        this.visible = 1 
+      } else {
+        this.visible = 0
+      }
+    },
+    showRooms() {
+      console.log('오잉')
+      console.log(this.$store.state.myNum)
+      axios({
+        method: 'get',
+        url : `${SERVER_URL}/api/chat/rooms/${this.$store.state.myNum}`,
+      })
+      .then(res => {
+        console.log(res.data)
+        this.chatList = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+      console.log(this.chatList)
+      // axios({
+      //    method:'get',
+      //   url:'/api/chat/room/message/'+this.roomid+"?page="+this.idx,
+      //   baseURL:'http://localhost:8080/'
+      // })
+      // .then(res=>{
+      //   this.msg = []
+      //   for(let i=res.data.length-1; i>-1; i--){
+      //     let m={
+      //       'senderNickname':res.data[i].senderNickname,
+      //       'content':res.data[i].content,
+      //       'style': res.data[i].senderId == this.id ? 'myMsg':'otherMsg'
+      //     }
+      //     this.msg.push(m)
+      //   }
+      // })
+      // .catch(err=>{
+      //   console.log(err)
+      //   alert("error : 새로고침하세요")
+      // })
+    },
+
+    send(title) {
+      axios({
+        method : 'get',
+        url : `${SERVER_URL}/api/chat/room/message/${title}`
+      })
+      .then(res => {
+        console.log(res)
+        this.MessageList = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+
+
     sendMessage(){
-     if(this.content.trim() !='' && this.stompClient!=null) {
-        let chatMessage = {
-          'content': this.content,
-          'chatroomId' : this.roomid,
-          'senderNickname':this.nickname,
-          'senderId': this.id,
-          'id':"0"
-        }
-        this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
+      const roomNo = this.temps.id
+      const roomTitle = this.temps.title
+      console.log(roomNo,roomTitle)
+      if(this.content.trim() !='' && this.stompClient!=null) {
+          
+          let chatMessage = {
+            'title' : roomTitle,
+            'content': this.content,
+            'chatroomId' : roomNo,
+            'senderNickname':this.$store.state.userList.userNickname,
+            'senderId': this.$store.state.userList.userNo,
+            'id':"0"
+          }
+          console.log(chatMessage)
+          this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
+    
+          this.content=''
+    }
+    }
+
+
+
+
+
+
+
    
-        this.content=''
-    }
-    }
   }
   
 }
