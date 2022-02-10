@@ -53,16 +53,8 @@ public class CampRateReplyServiceImpl implements CampRateReplyService {
     public CampRateReplyResultDto campRateReplyUpdate(CampRateReplyDto campRateReplyDto) {
         CampRateReplyResultDto campRateReplyResultDto = new CampRateReplyResultDto();
         try {
-            int result = campRateReplyDao.campRateReplyUpdate(campRateReplyDto);
-            
+            campRateReplyDao.campRateReplyUpdate(campRateReplyDto);
             campRateReplyResultDto.setResult(SUCCESS);
-            if (result == 1) {
-                // campRateReplyDto.setCampRateReplyNo(campRateReplyDao.)
-                campRateReplyResultDto.setResult(SUCCESS);
-                
-            } else {
-                campRateReplyResultDto.setResult(FAIL);
-            }
         } catch (Exception e) {
             e.printStackTrace();
             campRateReplyResultDto.setResult(FAIL);
