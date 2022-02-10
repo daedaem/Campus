@@ -211,10 +211,9 @@ public class SnsController {
     @PostMapping(value = "/sns/reply")
     public ResponseEntity<SnsReplyResultDto> snsReplyInsert(@RequestBody SnsReplyDto snsReplyDto, HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        // snsReplyDto.setUserNo(userDto.getUserNo());
-        snsReplyDto.setUserNo(19);
+        snsReplyDto.setUserNo(snsReplyDto.getUserNo());
 
         SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
 
