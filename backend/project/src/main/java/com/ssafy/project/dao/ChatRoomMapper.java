@@ -13,7 +13,7 @@ public interface ChatRoomMapper {
 	List<ChatRoom> getAllChatRooms(int userNo);
 	String getRoomTitle(long mateNo);
 
-	int createPersonalRoom(int sendId, int receiveId);
+	int createPersonalRoom(ChatRoom newRoom);
 
 	String getNickName(int userNo);
 
@@ -22,6 +22,14 @@ public interface ChatRoomMapper {
 	int getChatId();
 
 	long getRoomId(String title);
+
+	int checkReceiverRoom(int sendId, int receiveId);
+
+	int checkCountReceiver(int sendId, int receiveId);
+
+	int checkCountSender(int sendId, int receiveId);
+
+	int checkSenderRoom(int sendId, int receiveId);
 
 
 }

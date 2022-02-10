@@ -10,4 +10,7 @@ public interface IChatRoomService {
 	String getRoomTitle(long id);
 
 	long createPersonalRoom(int sendId, int receiveId);
+
+	int checkReceiverRoom(int sendId, int receiveId);
+
 }
