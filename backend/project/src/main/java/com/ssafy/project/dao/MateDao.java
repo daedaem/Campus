@@ -69,4 +69,5 @@ public interface MateDao {
 
     public String getMateTitle(int mateNo);
     
+    public void mateStatusUpdate(int mateNo);
 }
