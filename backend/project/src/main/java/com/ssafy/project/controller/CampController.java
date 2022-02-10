@@ -354,12 +354,12 @@ public class CampController {
     public ResponseEntity<CampRateReplyResultDto> campRateReplyUpdate(@RequestBody CampRateReplyDto campRateReplyDto,
             HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        campRateReplyDto.setUserNo(userDto.getUserNo());
-
+        // campRateReplyDto.setUserNo(userDto.getUserNo());
+        
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
-
+        System.out.println(campRateReplyDto);
         if (campRateReplyResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateReplyResultDto>(campRateReplyResultDto, HttpStatus.OK);
         } else {
@@ -370,7 +370,7 @@ public class CampController {
     // 캠핑장 평점 댓글 삭제
     @DeleteMapping(value = "/camp/rate/reply/{campRateReplyNo}")
     public ResponseEntity<CampRateReplyResultDto> campRateReplyDelete(
-            @PathVariable(value = "campRateNo") int campRateReplyNo) {
+            @PathVariable int campRateReplyNo) {
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyDelete(campRateReplyNo);
 
         if (campRateReplyResultDto.getResult() == SUCCESS) {

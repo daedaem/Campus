@@ -106,7 +106,7 @@ public class SnsServiceImpl implements SnsService {
                 SnsImageDto snsImageDto = new SnsImageDto();
                 snsImageDto.setSnsNo(snsNo);
                 snsImageDto.setSnsImageUrl(TEMP_URL);
-
+                file.delete();
                 dao.snsImageInsert(snsImageDto);
 
             }
@@ -201,7 +201,7 @@ public class SnsServiceImpl implements SnsService {
             List<SnsDto> list = dao.snsList(snsParamDto);
 
             int count = dao.snsListTotalCount();
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < list.size(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 // System.out.println(snsResultDto);
