@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div>
+    <div class="searchFrame">
+<i class="bi bi-search"></i>
       <input
         class="text-secondary Searchbar-inputBox"
         @input="async"
         @keyup.enter="SearchData()"
-        placeholder="Search..."
       />
+      
     </div>
     <!-- <div class="ui cards" style="margin: 10px" v-if="inputData">
       <div
@@ -117,9 +118,15 @@ export default {
 </script>
 
 <style>
-.Searchbar-inputBox {
-  border-radius: 10px;
+.searchFrame{
+    /* border-radius: 10px; */
   min-width: 200px;
   height: 40px;
+  background: transparent;
+  border: transparent;
+  border-bottom: 1px solid white;
+}
+.Searchbar-inputBox {
+
 }
 </style>
