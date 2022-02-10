@@ -17,7 +17,8 @@
 export default {
 	name: 'followerModal',
 	props: {
-		followerlist: Object
+		followerlist: Object,
+		popupVal: {}
 	},
 	methods: {
 		myProfile: function (e) {

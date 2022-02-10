@@ -18,12 +18,17 @@
 									type="text"
 									style="width:50%; float: left"
 									placeholder="닉네임을 입력하세요"
-									v-model="exam_user"
+									v-model="credentials.userNickname"
+									@blur="nicknameValid"
 									autofocus
 									>
 								</b-form-input>
 								<b-button
+								@click="duplNickname()"
 								>중복확인</b-button>
+							</div>
+							<div align="left" v-if="!nicknameValidFlag" class="check-form">
+								특수문자를 사용할 수 없습니다.
 							</div>
 						</div>
 
@@ -76,7 +81,7 @@
 							@click.prevent="next()">Next</button>
 
 						<br>
-						<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
+						<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
 
 					</div>
 				</div>		
@@ -175,7 +180,7 @@
 					</div>
 
 					<br>
-					<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
+					<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
 
 
 					</div>
@@ -227,7 +232,7 @@
 
 						</div>
 						<br>
-						<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
+						<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
 					
 
 					
@@ -266,10 +271,10 @@ import EquipList from '@/components/user/equip_list.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
 import Navbar from "@/components/common/Navbar.vue";
 // import Modal from '@/components/user/Modal.vue'
+import Swal from 'sweetalert2'
 
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 
 export default {
@@ -341,6 +346,7 @@ export default {
 			},
 			maleButton: false,
 			femaleButton: false,
+			nicknameValidFlag: false,
 		}
 	},
 
@@ -355,6 +361,21 @@ export default {
     next() {
       this.step++;
     },
+		onSubmit: function() {
+			this.credentials.userEmail = this.myEmail
+			console.log(1)
+			axios({
+				method: "put",
+				url: `${SERVER_URL}/user`,
+				data: this.credentials
+			})
+				.then((res) => {
+					console.log(res)
+				})
+				.catch(() => {
+					console.log("수정안됨")
+				})
+		},
 		getProfile: function() {
 			axios.get(`${SERVER_URL}/user/${this.myEmail}`)
 			.then(res => {
@@ -397,17 +418,52 @@ export default {
 				console.log(err)
 			})
 		},
-		deleteAccount: function () {
-			console.log(1)
-			console.log("여기", this.myEmail)
-			axios.delete(`${SERVER_URL}/user/${this.myEmail}`)
-			.then(() => {
-				alert("함께할 시간을 기다리겠습니다.")
-				this.logout()
-				this.$router.push({ name:"Mainpage"})
+		duplNickname: function () {
+			axios ({
+				method: "get",
+				url: `${SERVER_URL}/user/duplnickname/${this.credentials.userNickname}`,
+				data: this.credentials.userNickname,
+				contentType: "charset=utf-8"
 			})
-			.catch(() => {
-				alert("잠시 후 다시 시도해주세요.")
+				.then((res) => {
+					if (res.data.result === -1) {
+						this.namecheck = false
+						alert("이미 존재하는 닉네임입니다.")
+					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
+						alert("닉네임 형식에 맞지 않습니다.")
+					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
+						this.namecheck = true
+						alert("사용 가능한 닉네임 입니다.")
+					}
+				})
+		},
+		deleteAccount: function () {
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					axios.delete(`${SERVER_URL}/user/${this.myEmail}`)
+					.then(() => {
+						Swal.fire({
+							title: '계정이 안전하게 삭제되었습니다.!',
+							icons: 'success'
+						})
+						this.logout()
+						this.$router.push({ name:"Mainpage"})
+					})
+					.catch(() => {
+						Swal.fire({
+							title: '잠시 후 다시 시도해주세요.',
+							icons: 'warning'
+						})
+					})
+				}
 			})
 
 		},
@@ -559,6 +615,13 @@ export default {
 			} else {
 				this.credentials.styleStatus.campStyle6 = "N"
 				this.credentials.campStyle6 = "N"
+			}
+		},
+		nicknameValid() {
+			if (!/[~!@#$%^&*()_+|<>?:{}]/.test(this.credentials.userNickname)) {
+				this.nicknameValidFlag = true
+			} else {
+				this.nicknameValidFlag = false
 			}
 		},
 		

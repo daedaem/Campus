@@ -45,7 +45,7 @@ export default {
     axios({
         method:'get',
         url:'/api/chat/rooms',
-        baseURL:'http://localhost:8080/'
+        baseURL:`${SERVER_URL}/`
       }).then(res=>{
         console.log(res)
         this.room_list=[]
@@ -69,7 +69,7 @@ export default {
          axios({
         method:'post',
         url:'/api/chat/room',
-        baseURL:'http://localhost:8080/',
+        baseURL:`${SERVER_URL}/`,
         headers:{'content-type': 'application/json'},
         data : {"id":this.id,"title":this.title, "masterId":this.id}
       }).then(res=>{

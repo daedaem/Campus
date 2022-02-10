@@ -26,7 +26,7 @@ export default {
        axios({
         method:'post',
         url:'/api/chat/llogin',
-        baseURL:'http://localhost:8080/',
+        baseURL:`${SERVER_URL}/`,
         headers:{'content-type': 'application/json'},
         data : {"id":this.id,"nickname":this.nickname}
       }).then(res=>{
@@ -43,7 +43,7 @@ export default {
       axios({
         method:'post',
         url:'/api/chat/uuser',
-        baseURL:'http://localhost:8080/',
+        baseURL:`${SERVER_URL}`,
         headers:{'content-type': 'application/json'},
         data : {"id":this.id,"nickname":this.nickname}
       }).then(res=>{

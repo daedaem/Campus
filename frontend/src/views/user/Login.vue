@@ -87,9 +87,9 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
+import Swal from 'sweetalert2'
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Login",
@@ -124,7 +124,7 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          alert("로그인")
+          Swal.fire({title:'로그인!', timer:2000})
           console.log("이건가",res)
           this.$store.dispatch("login");
           this.$store.dispatch('userList',res.data)
@@ -147,7 +147,7 @@ export default {
           this.$router.push({name: 'Mainpage'})
         })
         .catch((err) => {
-          alert("이메일과 비밀번호를 확인해주세요")
+          Swal.fire({title: '이메일과 비밀번호를 확인해주세요', icons:'error', time:2000})
           console.log(err)
         })
     },

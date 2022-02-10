@@ -49,10 +49,21 @@
 						<b>게시글</b><p>{{this.feedList.length}}</p>
 					</div>
 				</li>
+
 				<li>
+					<div @click="popupOpen">
+						<popup
+						:popup-val="popupVal"
+						@close:popup="popupClose"
+						/>
+					</div>
+				</li>
+
+				<li>
+					<!-- <div data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
 					<div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 						<b>팔로워</b><p>{{ this.followers }}</p>
-					</div>
+					</div>	
 					<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog">
 									<div class="modal-content">
@@ -130,8 +141,8 @@ import ProfileInfo from '@/components/user/ProfileInfo.vue'
 import followerModal from '@/components/user/followerModal.vue'
 import followingModal from '@/components/user/followingModal.vue'
 import Navbar from "@/components/common/Navbar.vue";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = "http://localhost:8080";
+import popup from "@/components/user/popup.vue"
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Profile",
@@ -162,6 +173,8 @@ export default {
 
 			campstylelist : [],
 
+			popupVal: false,
+
 
 			followersList: [], // userId 팔로워 리스트
 			followingsList: [], // userId 팔로잉 리스트
@@ -175,6 +188,7 @@ export default {
     ProfileInfo,
 		followerModal,
 		followingModal,
+		popup,
   },
 
 	created: function () {
@@ -190,6 +204,12 @@ export default {
 	},
 
 	methods : {
+		popupOpen() {
+			this.popupVal = true
+		},
+		popupClose: function (value) {
+			this.popupVal = value
+		},
 		currentmove: function() {
 			this.currentTab = 2
 		},
@@ -214,7 +234,7 @@ export default {
 					
 				})
 				.catch(() => {
-					alert("프로필을 가져올 수 없습니다.")
+					console.log("프로필을 가져올 수 없습니다.")
 				})
 		},
 		// 음식/음주, 불명/수다, 캠프파이어, 등산, 사진찍기, 음악감상
