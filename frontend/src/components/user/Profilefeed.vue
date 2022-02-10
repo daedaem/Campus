@@ -1,9 +1,9 @@
 <template>
 	<div class="instagram-container">
 		<div class="post" v-for="(value, idx) in feedList" :key="idx">
-			{{ value.imageList.snsImageUrl }}
+			<!-- {{ value.imageList.snsImageUrl }} -->
 			<img class="img-photo" :src="value.imageList[0].snsImageUrl">
-			<span class="hover-img">
+			<span class="hover-img" @click="movetofeed(value.snsNo)">
 				<p class="icon-heart">{{value.snsCreateTime}}</p>
 			</span>
 		</div>
@@ -16,6 +16,13 @@ export default {
 	props: {
 		feedList: Object,
 	},
+	methods: {
+		movetofeed: function (e) {
+			this.$router.push({ 
+				name: 'FeedDetail',
+				params: { snsNo: e}})
+		}
+	}
 }
 </script>
 

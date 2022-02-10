@@ -1,4 +1,5 @@
 <template>
+	<Navbar></Navbar>	
 	<div>
 		<form>
 			<div v-if="step === 1">
@@ -73,6 +74,9 @@
 						<button
 							class="mt-5" 
 							@click.prevent="next()">Next</button>
+
+						<br>
+						<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
 
 					</div>
 				</div>		
@@ -167,8 +171,11 @@
 					
 					<div class="d-flex justify-content-between mt-5">
 						<button @click.prevent="prev()">Previous</button>
-						<button @click.prevent="next()">Next</button>
+						<button @click.prevent="next()">Next</button>	
 					</div>
+
+					<br>
+					<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
 
 
 					</div>
@@ -217,14 +224,19 @@
 						<div class="d-flex justify-content-between mt-5">
 							<button @click.prevent="prev()">Previous</button>
 							<button @click.prevent="onSubmit()">Save</button>
+
 						</div>
+						<br>
+						<button class="btn-danger mt-3" @click="deleteAccount">회원탈퇴</button>
+					
+
 					
 					</div>
 				</div>
 			</div>
 			
 				
-				<div class="filterbox">
+				<!-- <div class="filterbox">
 					<button type="button" class="btn btn-secondary launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 회원탈퇴
 					</button>
 					<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -238,11 +250,10 @@
 									</div>
 							</div>
 					</div>
-				</div>
+				</div> -->
 			
 		</form>
-		<button class="btn-danger" @click="deleteAccount">정말 떠나시나요...?</button>
-		<br/><br/>Debug: {{credentials}}
+		
 	</div>
 </template>
 
@@ -253,7 +264,8 @@ import CampStyle2 from '@/components/user/campstyle2.vue'
 import EquipInput from '@/components/user/equip_input.vue'
 import EquipList from '@/components/user/equip_list.vue'
 import Fileupload from '@/components/mateparty/Fileupload.vue'
-import Modal from '@/components/user/Modal.vue'
+import Navbar from "@/components/common/Navbar.vue";
+// import Modal from '@/components/user/Modal.vue'
 
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
@@ -268,7 +280,8 @@ export default {
 		EquipInput,
 		EquipList,
 		Fileupload,
-		Modal,
+		// Modal,
+		Navbar,
 	},
 	
 	data() {
@@ -342,6 +355,17 @@ export default {
     next() {
       this.step++;
     },
+	onSubmit: function() {
+            this.credentials.userEmail = this.myEmail
+            axios({
+                method: "put",
+                url: `${SERVER_URL}/user`,
+                data: this.credentials
+            })
+                .catch(() => {
+                    console.log("수정안됨")
+                })
+        },
 		getProfile: function() {
 			axios.get(`${SERVER_URL}/user/${this.myEmail}`)
 			.then(res => {
