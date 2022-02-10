@@ -25,6 +25,6 @@ public class MessageController {
 		log.info("전달 메세지 : " + chatMessage);
 		
 		messageService.insertMessage(chatMessage);
-		template.convertAndSend("/sub/" + chatMessage.getTitle(), chatMessage);
+		template.convertAndSend("/sub/" + chatMessage.getChatroomId(), chatMessage);
 	}
 }
