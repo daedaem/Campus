@@ -17,6 +17,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+
 // import {Tabs, Tab} from 'vue3-tabs-component';
 
 library.add(faPhone, fasImages, faUser);
@@ -28,6 +32,7 @@ createApp(App)
   .use(VueUniversalModal, { teleportTarget: "#modals" })
   // .component('tabs', Tabs)
   // .component('tab', Tab)
+  .use(VueSweetalert2)
 
   .component(
     "font-awesome-icon",

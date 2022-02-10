@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResultDto userUpdate(UserDto userDto) {
         UserResultDto userResultDto = new UserResultDto();
-        if (userDao.userUpdate(userDto) == SUCCESS) { // 수정 성공
+        if (userDao.userUpdate(userDto) == 3) { // 수정 성공
             userResultDto.setResult(SUCCESS);
         } else { // 수정 실패
             userResultDto.setResult(FAIL);

@@ -90,6 +90,8 @@
 
 <script>
 import axios from "axios";
+// import { mapActions } from "vuex";
+import Swal from 'sweetalert2'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -125,8 +127,8 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          alert("로그인");
-          console.log("이건가", res);
+          Swal.fire({title:'로그인!', timer:2000})
+          console.log("이건가",res)
           this.$store.dispatch("login");
           this.$store.dispatch("userList", res.data);
           this.$store.dispatch("myNum", res.data.userNo);
@@ -163,9 +165,9 @@ export default {
           this.$router.push({ name: "Mainpage" });
         })
         .catch((err) => {
-          alert("이메일과 비밀번호를 확인해주세요");
-          console.log(err);
-        });
+          Swal.fire({title: '이메일과 비밀번호를 확인해주세요', icons:'error', time:2000})
+          console.log(err)
+        })
     },
 
     // 회원가입 이동
