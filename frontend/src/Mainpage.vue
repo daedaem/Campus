@@ -60,6 +60,7 @@ export default {
     const store = useStore();
     // 메이트 데이터(5개)
     const mainlist = ref("");
+    
     axios({
       method: "get",
       url: `${SERVER_URL}/mate/main`,
