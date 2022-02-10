@@ -86,6 +86,8 @@ import axios from "axios";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
+
+
 export default {
   name: "Makeparty",
   components: {
@@ -99,24 +101,25 @@ export default {
   },
   data: function () {
     return {
-      partyData: {
-        friendlimit: null,
-        campStyleList: null,
-        memberlimit: null,
-        lowestAge: null,
-        highestAge: null,
-        mateCampsite: null,
-        mateCampstart: null,
-        mateCampend: null,
-        mateCamptype: null,
-        campEquipRequiredList: null,
-        userNo: this.$store.state.myNum,
-        mateTitle: null,
-        mateContent: null,
-      },
-      mateImageUrl: null,
-      mateChatNm: null,
-    };
+        partyData : {
+          friendlimit : null,
+          campStyleList : null,
+          memberlimit : null,
+          lowestAge : null,
+          highestAge : null,
+          mateCampsite : null,
+          mateCampstart : null,
+          mateCampend : null,
+          mateCamptype: null,
+          campEquipRequiredList : null,
+          userNo : this.$store.state.myNum,
+          mateTitle : null,
+          mateContent: null,
+          userNickname : this.$store.state.userList.userNickname
+        },
+        mateImageUrl : null,
+        mateChatNm : null,
+      }
   },
   created() {
     console.log(this.$store.state.userList);
@@ -256,16 +259,15 @@ export default {
     },
 
     test() {
-      console.log(this.partyData);
-      console.log(2);
+      
+      console.log(this.partyData)
+      console.log(2)
       axios({
         method: "post",
-
-        url: "http://localhost:8080/mate",
-
-        data: this.partyData,
+        url : `${SERVER_URL}/mate`,
+        data : this.partyData,
       })
-        .then((res) => {
+      .then((res) => {
           // 이미지삽입
           console.log(res.data.dto.mateNo);
           this.mateChatNm = res.data.dto.mateNo;
@@ -309,10 +311,30 @@ export default {
               console.log(err);
             });
         })
+    
+        .catch(err => {
+          console.log(err)
+        })
+        
+        setTimeout(()=> {this.$router.push({name:'Mateparty'})},3000)
 
-        .catch((err) => {
-          console.log(err);
-        });
+
+        
+        
+   
+
+      .catch(err => {
+        console.log(err)
+      })
+
+
+      
+
+    
+      
+ 
+  
+        
     },
   },
 };

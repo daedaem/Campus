@@ -58,13 +58,14 @@
 <script>
 import Kakaomap from "@/components/campsite/Kakaomap.vue";
 // import {onMounted, } from 'vue'
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import { ref } from "vue";
 import CampRatelist from "@/components/campsite/CampRatelist.vue";
 import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 
 export default {
   name: "Campsitedetail",
@@ -74,16 +75,18 @@ export default {
     CampRatelist,
   },
   setup() {
-    const route = useRoute();
-    const detailData = ref([]);
+    const route = useRoute()
+    const detailData = ref([])
+    const router = useRouter()
+    const id = route.params.contentId
+
     const checksbrsEtc = () => {
       // console.log("하이", res);
       if (detailData.value.sbrsEtc.includes("수영장")) {
         // console.log("있어요");
       }
     };
-    const id = route.params.contentId;
-    // console.log(id);
+ 
 
     // 캠핑장 정보
     axios({
@@ -107,23 +110,30 @@ export default {
       method: "get",
       url: `${SERVER_URL}/camp/rate/${id}`,
     })
-      .then((res) => {
-        rateList.value = res.data.list;
-        // console.log(rateList.value);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // console.log(detailData.value);
-    // console.log(rateList.value);
-
+    .then(res => {
+      rateList.value = res.data.list
+      console.log(rateList.value)
+     
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    console.log(detailData.value)
+    console.log(rateList.value)
+    
+    const review = () =>{
+      router.push({name:'Campsitereview', params: {rateNo : id}})
+    }
     return {
       rateList,
       detailData,
+      review,
       checksbrsEtc,
-    };
-  },
-};
+      
+      
+    }
+  }
+}
 </script>
 
 <style scoped>

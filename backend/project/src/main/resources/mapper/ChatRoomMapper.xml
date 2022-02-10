@@ -3,13 +3,83 @@
 <mapper namespace="com.ssafy.project.dao.ChatRoomMapper">
 
 	<insert id="createRoom" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="ChatRoom.id">
-		insert into chatroom( title, master_id)
-		values(#{title}, #{masterId})
+		insert into chatroom( title, master_id, roomStyle)
+		values(#{title}, #{masterId}, 1)
 	</insert>
+
+	<insert id="createPersonalRoom" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="ChatRoom.id">
+		insert into chatroom( title, master_id, roomStyle)
+		values(#{title}, #{masterId}, 2)
+	</insert>
+
+	<select id="getRoomId" parameterType="String" resultType="long">
+		SELECT id FROM chatroom WHERE title = #{title}
+	</select>
+
+	<select id="getNickName" parameterType="int" resultType="String">
+		SELECT userNickname FROM user WHERE userNo = #{masterId}
+	</select>
 	
-	<select id="getAllChatRooms" resultType="map">
-	select mateNo, title
-	from chatroom
+	<select id="checkCountReceiver" parameterType="map" resultType="int">
+		SELECT COUNT(*) as count
+		FROM message 
+		WHERE chatroom_id IN (
+								SELECT id 
+									FROM chatroom 
+									WHERE master_id = #{sendId} 
+									AND roomStyle = 2) 
+				AND sender_id = #{receiveId};
+	</select>
+
+	<select id="checkReceiverRoom" parameterType="map" resultType="int">
+		SELECT chatroom_id
+			FROM message 
+			WHERE chatroom_id IN (
+									SELECT id 
+										FROM chatroom 
+										WHERE master_id = #{sendId} 
+										AND roomStyle = 2) 
+				  AND sender_id = #{receiveId};
+	</select>
+
+	<select id="checkCountSender" parameterType="map" resultType="int">
+		SELECT COUNT(*) as count
+		FROM message 
+		WHERE chatroom_id IN (
+								SELECT id 
+									FROM chatroom 
+									WHERE master_id = #{receiveId} 
+									AND roomStyle = 2) 
+				AND sender_id = #{sendId};
+	</select>
+
+	<select id="checkSenderRoom" parameterType="map" resultType="int">
+		SELECT chatroom_id
+			FROM message 
+			WHERE chatroom_id IN (
+									SELECT id 
+										FROM chatroom 
+										WHERE master_id = #{receiveId} 
+										AND roomStyle = 2) 
+				  AND sender_id = #{sendId};
+	</select>
+
+	<!-- <insert id="insertMaster" parameterType="int">
+		insert into chatroom( master_id )
+		values(#{sendId})
+	</insert>
+
+	<select id="getChatId" resultType="int">
+		SELECT id FROM chatroom WHERE title IS NULL
+	</select>
+
+	<insert id="insertTitle" parameterType="String">
+		
+	</insert> -->
+	
+	<select id="getAllChatRooms" parameterType="int" resultType="map">
+	select distinct c.id, c.title from chatroom c, message m 
+	where c.id in (select distinct chatroom_id AS chatroomId from message where sender_id = #{userNo});
 	</select>
 	
 	<select id="getRoomTitle" resultType="String" parameterType="long">
@@ -17,6 +87,7 @@
 	from chatroom
 	where id=#{id}
 	</select>
+
 </mapper>
 
 <!--useGeneratedKeys="true" keyProperty="id" keyColumn="ChatRoom.id"-->

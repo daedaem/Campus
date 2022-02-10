@@ -178,4 +178,13 @@
             limit 5;
     </select>
 
+    <!-- 메이트 글 제목 가져오기-->
+    <select id="getMateTitle" parameterType="int" resultType="String">
+        SELECT mateTitle FROM mate WHERE mateNo = #{mateNo}
+    </select>
+
+    <!-- 메이트 모집 종료 -->
+    <update id="mateStatusUpdate" parameterType="int">
+        UPDATE mate SET mateStatus = 'N' WHERE mateNo = #{mateNo};
+    </update>
 </mapper>

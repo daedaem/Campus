@@ -102,7 +102,9 @@ import { ref } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
 
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
+
 export default {
   name: "Members",
   props: ["mateDetail", "mateNm"],
@@ -174,39 +176,64 @@ export default {
             campStyle5: null,
             campStyle6: null,
             mateListNum: null,
-            userGender: null,
-            userMBTI: null,
-            userRatePoint: null,
-            userAge: null,
-            mateNo: props.mateNm,
-            userNo: myNum,
-          };
+            userGender : null,
+            userMBTI : null,
+            userRatePoint : null,
+            userAge : null,
+            mateNo : props.mateNm,
+            userNo : myNum,
+            userNickname : store.state.userList.userNickname,
+        } 
+        
+      meList.campStyle1 = me.value.campStyle1
+      meList.campStyle2 = me.value.campStyle2
+      meList.campStyle3 = me.value.campStyle3
+      meList.campStyle4 = me.value.campStyle4
+      meList.campStyle5 = me.value.campStyle5
+      meList.campStyle6 = me.value.campStyle6
+      meList.mateListNum = Number(friendnum.value)
+      meList.userGender = me.value.userGender
+      meList.userMBTI = me.value.userMBTI
+      meList.userRatePoint = me.value.userRatePoint
+      meList.userAge = me.value.userAge
+      member.value.push(meList)
+      console.log(meList)
+      axios({
+        method : 'post',
+        url : `${SERVER_URL}/mate/apply`,
+        data : meList
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
-          meList.campStyle1 = me.value.campStyle1;
-          meList.campStyle2 = me.value.campStyle2;
-          meList.campStyle3 = me.value.campStyle3;
-          meList.campStyle4 = me.value.campStyle4;
-          meList.campStyle5 = me.value.campStyle5;
-          meList.campStyle6 = me.value.campStyle6;
-          meList.mateListNum = Number(friendnum.value);
-          meList.userGender = me.value.userGender;
-          meList.userMBTI = me.value.userMBTI;
-          meList.userRatePoint = me.value.userRatePoint;
-          meList.userAge = me.value.userAge;
-          member.value.push(meList);
-          console.log(meList);
-          axios({
-            method: "post",
-            // url : 'http://localhost:8080/mate/apply',
-            url: "http://i6e102.p.ssafy.io:8080/mate/apply",
-            data: meList,
-          })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+        // meList.campStyle1 = me.value.campStyle1
+        // meList.campStyle2 = me.value.campStyle2
+        // meList.campStyle3 = me.value.campStyle3
+        // meList.campStyle4 = me.value.campStyle4
+        // meList.campStyle5 = me.value.campStyle5
+        // meList.campStyle6 = me.value.campStyle6
+        // meList.mateListNum = Number(friendnum.value)
+        // meList.userGender = me.value.userGender
+        // meList.userMBTI = me.value.userMBTI
+        // meList.userRatePoint = me.value.userRatePoint
+        // meList.userAge = me.value.userAge
+        // member.value.push(meList)
+        // console.log(meList)
+        // axios({
+        //   method : 'post',
+        //   url : `${SERVER_URL}/mate/apply`,
+        //   data : meList
+        // })
+        // .then(res => {
+        //   console.log(res)
+        // })
+        // .catch(err => {
+        //   console.log(err)
+        // })
 
           meList.campStyle1 = me.value.campStyle1;
           meList.campStyle2 = me.value.campStyle2;
@@ -240,15 +267,13 @@ export default {
           check.value -= 1;
         }
       }
-    };
+    }
 
     const delCard = (temp) => {
-      axios({
-        method: "delete",
-        url: `http://localhost:8080/mate/apply/${temp}`,
-      })
-        .then((res) => {
-          console.log(res);
+        axios({
+          method :'delete',
+          url : `${SERVER_URL}/mate/apply/${temp}`
+          
         })
         .catch((err) => {
           console.log(err);
@@ -256,12 +281,25 @@ export default {
     };
 
     const mateDefine = () => {
-      endCheck.value += 1;
-    };
-
-    const moment = require("moment");
-    const today = moment().add(1, "days").format("YYYY-MM-DD");
-
+      endCheck.value += 1
+      axios({
+        method : 'put',
+        url : `${SERVER_URL}/mate/detail/status/${mate.value.mateNo}`,
+      
+        
+      })      
+      .then(res =>{
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+    
+    const moment = require('moment'); 
+    const today = moment().add(1,'days').format('YYYY-MM-DD');
+    
+    
     if (today === mate.value.mateCampstart) {
       console.log(1);
       endCheck.value += 1;

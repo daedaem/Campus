@@ -17,15 +17,19 @@
 export default {
 	name: 'followerModal',
 	props: {
-		followerlist: Object
+		followerlist: Object,
+		popupVal: {}
 	},
 	methods: {
 		myProfile: function (e) {
-			this.$router.push({
-				name: 'Profile',
-				// query: {userEmail: e}
-				params: { userEmail: e}
-			})
+			console.log(this.$route)
+			console.log(e)
+			this.$router.push(this.$route)
+			// this.$router.push({
+			// 	name: 'Profile',
+			// 	// query: {userEmail: e}
+			// 	params: { userEmail: e}
+			// })
 		}
 	}
 }

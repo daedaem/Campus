@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-
 public class MessageService implements IMessageService {
 	
     @Autowired
