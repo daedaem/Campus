@@ -13,7 +13,7 @@
                     <h5>{{item.userMBTI}}</h5>
                     <ul class="social-icons d-flex justify-content-center">
                         <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
-                        <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting"></i>  </li>
+                        <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting(item.userNo)"></i>  </li>
                         <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="'I am popover content!'" title="Popover Title"></i> </li>
                     </ul>
                 </div>
@@ -32,21 +32,21 @@
 import axios from 'axios'
 import {ref} from 'vue'
 // import {useRouter} from 'vue'
-// import {useStore} from 'vuex'
+import {useStore} from 'vuex'
 
-const SERVER_URL = `http://i6e102.p.ssafy.io`
-// const SERVER_URL = "http://localhost:8080"
+// const SERVER_URL = `http://i6e102.p.ssafy.io`
+const SERVER_URL = "http://localhost:8080"
 
 export default {
   name : 'Matematch',
   setup() {
-    //   const store = useStore()
-    //   const userNo = store.state.myNum
+      const store = useStore()
+      const userNo = store.state.myNum
     const matchData = ref([])
     
     axios({
         method : 'get',
-        url : `${SERVER_URL}/mate/match/4`
+        url : `${SERVER_URL}/mate/match/30`
    
     })
     .then(res => {
@@ -63,9 +63,25 @@ export default {
       // router.push({name : 'Profile' , params : { userEmail : userEmail} })
     }
     
+
+    //채팅방 구현
+    const goChatting = (id) => {
+      axios({
+        method : 'post',
+        url : `${SERVER_URL}/api/chat/room/${userNo}/${id}`
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
       return {
         matchData,
         goProfile,
+        goChatting,
       }
   }
 

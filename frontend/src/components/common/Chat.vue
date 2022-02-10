@@ -159,8 +159,17 @@ export default {
         url : `${SERVER_URL}/api/chat/room/message/${id}`
       })
       .then(res => {
-        console.log(res)
-        this.MessageList = res.data.reverse()
+        const temp = res.data
+        temp.forEach(e => {
+          if (e.senderId === this.$store.state.userList.userNo) {
+            e['style'] = 'myMsg'
+          } else {
+            e['style'] = 'otherMsg'
+          }
+          
+        });
+        console.log(temp)
+        this.MessageList = temp.reverse()
 
       })
       .catch(err => {
