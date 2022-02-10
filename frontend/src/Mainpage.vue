@@ -2,12 +2,19 @@
   <Navbar class="Navbar"></Navbar>
   <body>
     <div class="box" style="width: 100%; height: 100vh">
-      <img class="box-image" src="@/assets/images/campingcar.jpg" alt="" />
+      <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
       <div class="overlay d-flex flex-column">
-        <div>오른쪽으로 스와이프</div>
-        <a class="btn btn-md" href="#">
-          <div class="CreateAccountButton">계정 만들기</div>
-        </a>
+        <div class="overlay-title">
+          <!-- 타이틀은 이미지로 만들어서 붙여야 할 듯 배민보고 -->
+          <div class="text-start pb-5 mb-5">
+            당신의 캠핑 메이트를 만나보세요.
+            <div class="text-center">
+              <a class="btn btn-sm" href="#">
+                <div class="CreateAccountButton">계정 만들기</div>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="b-example-divider"></div>
@@ -39,9 +46,8 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 import Navbar from "@/components/common/Navbar.vue";
-
-
 
 export default {
   name: "Mainpage",
@@ -57,15 +63,14 @@ export default {
     axios({
       method: "get",
       url: `${SERVER_URL}/mate/main`,
-
     })
-    .then( res => {
-      console.log(res.data.list)
-      mainlist.value = res.data.list
-    })
-    .catch( err => {
-      console.log(err)
-    })
+      .then((res) => {
+        console.log(res.data.list);
+        mainlist.value = res.data.list;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .then((res) => {
         // console.log(res.data.list);
         mainlist.value = res.data.list;
@@ -82,7 +87,6 @@ export default {
         limit: 2906,
         offset: 0,
       },
- 
     })
       .then((res) => {
         // console.log(res);
@@ -147,6 +151,8 @@ p {
   height : 100vh;
   justify-content: center;
   align-items: center; */
+  width: 50%;
+  margin: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

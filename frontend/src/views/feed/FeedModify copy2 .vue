@@ -4,6 +4,7 @@
 
 <script>
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 import axios from "axios";
 
 export default {

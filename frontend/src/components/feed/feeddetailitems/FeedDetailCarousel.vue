@@ -1,7 +1,10 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
+    <div
+      class="feed-picture-box d-flex"
+      v-if="this.imageinfo.imageList.length == 1"
+    >
       <div class="feed-picture align-items-center">
         <img
           :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
@@ -12,7 +15,10 @@
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
+    <div
+      class="feed-picture-box d-flex"
+      v-if="this.imageinfo.imageList.length == 2"
+    >
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -26,7 +32,7 @@
             :key="indicator.key" -->
             <button
               type="button"
-              @click="carouselidadd(image)"
+              @click="carouselidadd"
               :data-bs-target="feedlink"
               data-bs-slide-to="0"
               class="active sm"
@@ -35,7 +41,7 @@
             ></button>
             <button
               type="button"
-              @click="carouselidadd(image)"
+              @click="carouselidadd"
               :data-bs-target="feedlink"
               data-bs-slide-to="1"
               aria-label="Slide 2"
@@ -60,7 +66,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            @click="carouselidadd(image)"
+            @click="carouselidadd"
             :data-bs-target="feedlink"
             data-bs-slide="prev"
           >
@@ -69,7 +75,7 @@
           </button>
           <button
             class="carousel-control-next"
-            @click="carouselidadd(image)"
+            @click="carouselidadd"
             :data-bs-target="feedlink"
             data-bs-slide="next"
           >
@@ -80,8 +86,11 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
-      <div class="feed-picture d-flex">
+    <div
+      class="feed-picture-box d-flex"
+      v-if="this.imageinfo.imageList.length == 3"
+    >
+      <div class="feed-picture">
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -94,7 +103,7 @@
             :key="indicator.key" -->
             <button
               type="button"
-              @click="carouselidadd()"
+              @click="carouselidadd"
               :data-bs-target="feedlink"
               data-bs-slide-to="0"
               class="active"
@@ -104,7 +113,7 @@
             ></button>
             <button
               type="button"
-              @click="carouselidadd()"
+              @click="carouselidadd"
               :data-bs-target="feedlink"
               data-bs-slide-to="1"
               aria-label="Slide 2"
@@ -112,7 +121,7 @@
             ></button>
             <button
               type="button"
-              @click="carouselidadd()"
+              @click="carouselidadd"
               :data-bs-target="feedlink"
               data-bs-slide-to="2"
               aria-label="Slide 3"
@@ -145,7 +154,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            @click="carouselidadd()"
+            @click="carouselidsubstract"
             :data-bs-target="feedlink"
             data-bs-slide="prev"
             style="z-index: 100"
@@ -155,7 +164,7 @@
           </button>
           <button
             class="carousel-control-next"
-            @click="carouselidadd()"
+            @click="carouselidadd"
             :data-bs-target="feedlink"
             data-bs-slide="next"
             style="z-index: 100"
@@ -180,18 +189,36 @@ export default {
   },
   data() {
     return {
+      nums: "",
       imageinfo: [],
       feedid: "",
       feedlink: "",
     };
   },
   methods: {
-    carouselidadd: function (nums) {
+    carouselidsubstract: function () {
       // for (let i; 0 < this.imageinfo.length; i++){
-      // console.log(nums);
-      this.feedid = "feed" + nums;
+      this.nums -= 1;
+      if (this.nums < 0) {
+        this.nums += this.imageinfo.imageList.length - 1;
+      }
+
+      this.feedid = "feed" + this.nums;
       this.feedlink = "#" + this.feedid;
-      // console.logf(this.feedlink);
+      console.log(this.feedlink);
+      // console.log(;
+    },
+    carouselidadd: function () {
+      // for (let i; 0 < this.imageinfo.length; i++){
+      // console.log("넘스", nums);
+      this.nums += 1;
+      if (this.nums >= this.imageinfo.imageList.length) {
+        this.nums = this.nums % this.imageinfo.imageList.length;
+      }
+
+      this.feedid = "feed" + this.nums;
+      this.feedlink = "#" + this.feedid;
+      console.log(this.feedlink);
       // console.log(;
     },
     // cancelUploadImage() {
@@ -208,8 +235,11 @@ export default {
   },
 
   created: function () {
-    console.log("디테일", this.ImageList);
+    this.nums = 0;
+    // console.log("디테일", this.ImageList);
     this.imageinfo = this.ImageList;
+    console.log("뭐지", this.imageinfo.imageList);
+
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
 
@@ -235,9 +265,9 @@ export default {
 }
 
 .feed-picture {
-  width: 100%;
-  height: 100%;
-  margin: auto;
+  /* width: 100%; */
+  /* height: 100%; */
+  /* margin: auto; */
   min-height: 370px;
   min-width: 370px;
 

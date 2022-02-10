@@ -67,16 +67,15 @@ export default {
       methods: "get",
       url: `${SERVER_URL}/mate`,
     })
-    .then((res) => {
-      // console.log(res.data.list)
-      viewFunc(res.data.list);
-      testlist.value = res.data.list
-    })
-      
+      .then((res) => {
+        // console.log(res.data.list)
+        viewFunc(res.data.list);
+        testlist.value = res.data.list;
+      })
 
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch((err) => {
+        console.log(err);
+      });
 
     const goMakeparty = () => {
       router.push({ name: "Makeparty" });

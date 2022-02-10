@@ -51,7 +51,7 @@
               <div class="fs-6" style="overflow: auto">
                 {{ this.feedDetailContents.snsContent }}
               </div>
-              <p class="calcuatedTime text-end">{{ ContentTime }}</p>
+              <p class="calculatedTime text-end">{{ ContentTime }}</p>
             </div>
 
             <div
@@ -126,7 +126,7 @@
                               alt=""
                               class="user-comment-profile-image ms-2"
                             />
-                            <div class="fw-bold">
+                            <div class="commentUserNickname fw-bold">
                               {{ comment.userNickname }}
                             </div>
                             <div
@@ -138,7 +138,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col" style="overflow: auto">
+                          <div class="replytime" style="overflow: auto">
                             {{ ReplyTime[i] }}
                           </div>
                           <i
@@ -335,7 +335,6 @@ export default {
       axios
         .get(`${SERVER_URL}/sns/reply/${this.detailFeedsnsNo}`)
         .then((res) => {
-          // console.log(res);
           if (res.data.list.length > 0) {
             for (let i = 0; i < res.data.list.length; i++) {
               this.comments.unshift(res.data.list[i]);
@@ -610,5 +609,15 @@ export default {
   border-top: 1px solid #eee;
   min-height: 30px;
   max-height: 200px;
+}
+.replytime {
+  font-size: 11px;
+  color: grey;
+}
+.calculatedTime {
+  font-size: 12px;
+}
+.commentUserNickname {
+  font-size: 14px;
 }
 </style>
