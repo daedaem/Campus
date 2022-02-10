@@ -48,7 +48,7 @@ export default {
     axios({
         method:'get',
         url:'/api/chat/room/'+this.roomid,
-        baseURL:'http://localhost:8080/'
+        baseURL:`${SERVER_URL}`
       }).then(res=>{
         this.title = res.data
       }, err=>{
@@ -59,7 +59,7 @@ export default {
        axios({
          method:'get',
         url:'/api/chat/room/message/'+this.roomid+"?page="+this.idx,
-        baseURL:'http://localhost:8080/'
+        baseURL:`${SERVER_URL}`
       }).then(res=>{
         this.msg = []
         for(let i=res.data.length-1; i>-1; i--){
@@ -75,7 +75,8 @@ export default {
         alert("error : 새로고침하세요")
       })
     // socket 연결
-     let socket = new SockJS('http://localhost:8080/ws')
+    SERVER_URL
+     let socket = new SockJS(`${SERVER_URL}/ws`)
     this.stompClient = Stomp.over(socket)
     this.stompClient.connect({}, frame=>{
       console.log("success", frame)

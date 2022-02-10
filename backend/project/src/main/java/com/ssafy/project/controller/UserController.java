@@ -57,7 +57,8 @@ public class UserController {
     // user 정보 업데이트
     @PutMapping(value = "/user")
     public ResponseEntity<UserResultDto> update(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로 같이
-                                                                                // 넘겨준다.
+        
+        System.out.println(userDto);// 넘겨준다.
         UserResultDto userResultDto = userService.userUpdate(userDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
@@ -139,7 +140,7 @@ public class UserController {
     }
 
     // userEmail에 해당하는 user 정보 구하기
-    @GetMapping(value = "/user/dupl/{userEmail}")
+    @GetMapping(value = "/user/duplemail/{userEmail}")
     public ResponseEntity<UserResultDto> duplEmail(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공
                                                                                      // 실패여부로 같이
         // 넘겨준다.
@@ -148,7 +149,7 @@ public class UserController {
     }
 
     // userEmail에 해당하는 user 정보 구하기
-    @GetMapping(value = "/user/dupl/{userNickname}")
+    @GetMapping(value = "/user/duplnickname/{userNickname}")
     public ResponseEntity<UserResultDto> duplNickname(@PathVariable String userNickname) { // restapi를 이용해서 http 상태코드를
                                                                                            // 성공 실패여부로 같이
         // 넘겨준다.

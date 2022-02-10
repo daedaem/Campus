@@ -24,28 +24,26 @@
 								</b-form-input>
 
 								<b-button
-									@click="checkNickname()"
-									>인증</b-button>
+									@click="duplEmail()"
+									>중복확인</b-button>
 							</div>
-							<div align="left" v-if="!emailValidFlag" class="check-form">
+							<div align="left" v-if="!emailValidFlag && this.credentials.userEmail.length > 0" class="check-form">
 								유효하지 않은 이메일 입니다.
 							</div>
 						</div>
 
-						<!-- 인증번호 입력 -->
+						<!-- 이름 입력 -->
 						<div class="emailcode-container mt-2">
 							<h6 align="left">
-								인증번호
+								이름
 							</h6>
 							<div class="form-group">
 								<b-form-input
 									type="text"
 									style="width:50%; float: left"
-									placeholder="인증번호를 입력하세요"
+									placeholder="이름을 입력하세요."
 									autofocus>
 								</b-form-input>
-								<b-button
-								>확인</b-button>
 							</div>
 							<div align="left">
 							</div>
@@ -66,10 +64,10 @@
 									@blur="nicknameValid">
 								</b-form-input>
 								<b-button
-								@click="checkNickname()"
+								@click="duplNickname()"
 								>중복확인</b-button>
 							</div>
-							<div align="left" v-if="!nicknameValidFlag" class="check-form">
+							<div align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form">
 								특수문자를 사용할 수 없습니다.
 							</div>
 						</div>
@@ -91,7 +89,7 @@
 								</b-form-input>
 							</div>
 							<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
-							<div align="left" v-if="!passwordValidFlag" class="check-form">
+							<div align="left" v-if="!passwordValidFlag && this.credentials.userPassword.length > 0" class="check-form">
 								유효하지 않은 비밀번호 입니다.
 							</div>
 						</div>
@@ -114,14 +112,14 @@
 								</b-form-input>
 							</div>
 							<!-- 비밀번호 확인 -->
-							<div align="left" v-if="!passwordCheckFlag" class="check-form">
+							<div align="left" v-if="!passwordCheckFlag && this.credentials.password_confirmation.length > 0" class="check-form">
 								비밀번호가 다릅니다.
 							</div>
 						</div>
 
 						<!--  약관동의 -->
 						<div class="form-group mt-3" align="left">
-							<input type="checkbox" id="term" v-model="checkValue" :value="ischecked()" />
+							<input type="checkbox" id="term" v-model="checkValue"/>
 							<span>약관을 동의합니다.</span>
 							<!-- <span>약관보기</span> -->
 						</div>
@@ -278,9 +276,9 @@ import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
 import Fileupload from '@/components/user/Fileupload.vue'
 import Navbar from "@/components/common/Navbar.vue";
+import Swal from 'sweetalert2'
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
 	name: "Signup",
@@ -352,25 +350,32 @@ export default {
 			passwordCheckFlag: false, // 비밀번호 동일 검사
 			submitCheck: false,
 			checkValue: false,
+			emailcheck: false,
+			namecheck: false,
+
+			resultAlert: false,
+
     }
   },
 
   methods:{
     prev() {
       this.step--;
-			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true) {
+			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true
+				&& this.emailcheck === true && this.namecheck === true) {
 				this.submitCheck = true
 			}
     },
     next() {
       this.step++;
-			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true) {
+			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true
+				&& this.emailcheck === true && this.namecheck === true) {
 				this.submitCheck = true
 			}
     },
-		ischecked() {
-
-		},
+		// ischecked() {
+		// 	if ()
+		// },
 
 		onSubmit() {
 			axios ({
@@ -448,18 +453,47 @@ export default {
         this.error.userGender = false;
       }
     },
-		checkNickname: function () {
+		duplEmail: function () {
 			axios
 				// console.log(this.credentials.userNickname)
-				.get(`${SERVER_URL}/user/dupl/${this.credentials.userEmail}`, {
+				.get(`${SERVER_URL}/user/duplemail/${this.credentials.userEmail}`, {
 					userEmail: this.credentials.userEmail
 				})
 				.then(res => {
-					console.log("한번보자",res)
+					console.log("한번보자",res.data.result)
+					if (res.data.result === -1) {
+						this.emailcheck = false
+						Swal.fire({ title: "이미 존재하는 이메일입니다.", icons: 'warning', timer:2000})
+					} else if (res.data.result === 1 && this.emailValidFlag === false) {
+						Swal.fire({ title: "이메일 형식에 맞지 않습니다.", icons: 'warning', timer:2000})
+					} else if (res.data.result === 1 && this.emailValidFlag === true){
+						this.emailcheck = true
+						Swal.fire({title:'사용가능한 이메일 입니다.', icon: 'success', timer: 2000})
+					}
 				})
 				.catch(err => {
 					console.log(err)
 				})
+		},
+		duplNickname: function () {
+			axios ({
+				method: "get",
+				url: `${SERVER_URL}/user/duplnickname/${this.credentials.userNickname}`,
+				data: this.credentials.userNickname,
+				contentType: "charset=utf-8"
+			})
+				.then((res) => {
+					if (res.data.result === -1) {
+						this.namecheck = false
+						alert("이미 존재하는 닉네임입니다.")
+					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
+						alert("닉네임 형식에 맞지 않습니다.")
+					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
+						this.namecheck = true
+						alert("사용 가능한 닉네임 입니다.")
+					}
+				})
+
 		},
 
     age_select() {
@@ -711,5 +745,11 @@ export default {
   padding: 0.5vw;
   border-radius: 1vw;
   transition-duration: 0.5s;
+}
+.swal-button 
+{
+	background-color: #FFB2D9;
+	font-size: 12px;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

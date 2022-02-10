@@ -71,8 +71,7 @@ import {ref, } from 'vue'
 import axios from 'axios'
 import {useStore} from 'vuex'
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = "http://localhost:8080"
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name : 'Members',
   props : ['mateDetail','mateNm'],
@@ -172,8 +171,7 @@ export default {
       console.log(meList)
       axios({
         method : 'post',
-        // url : 'http://localhost:8080/mate/apply',
-        url : 'http://i6e102.p.ssafy.io:8080/mate/apply',
+        url : `${SERVER_URL}/mate/apply`,
         data : meList
       })
       .then(res => {
@@ -217,11 +215,10 @@ export default {
       }
     }
     
-    
     const delCard = (temp) => {
         axios({
           method :'delete',
-          url : `http://localhost:8080/mate/apply/${temp}`
+          url : `${SERVER_URL}/mate/apply/${temp}`
           
         })
         .then(res => {

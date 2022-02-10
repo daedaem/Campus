@@ -34,8 +34,7 @@ import {ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 
-// const SERVER_URL = `http://i6e102.p.ssafy.io`
-const SERVER_URL = 'http://localhost:8080'
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name : 'Campraterevise',
   setup() {
