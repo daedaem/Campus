@@ -160,8 +160,7 @@
 </template>
 
 <script>
-// const SERVER_URL = "http://localhost:8080";
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
+
 import { mapState } from "vuex";
 
 import { useRouter } from "vue-router";
