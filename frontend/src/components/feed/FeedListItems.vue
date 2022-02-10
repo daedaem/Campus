@@ -1,5 +1,5 @@
 <template>
-  <div class="feed-frame col-12 col-sm-12 col-md-10">
+  <div class="feed-frame col-12 col-sm-12 col-md-12">
     <div class="user-feed-cards">
       <div class="user-feed-card">
         <div class="d-flex justify-content-between align-items-center">
@@ -61,7 +61,7 @@
           <p class="fs-6 my-auto">{{ likeCount }}</p>
         </span>
 
-        <div class="comment-box my-auto">
+        <span class="comment-box my-auto">
           <span>
             <!-- visible? visible이 참이면 null 거짓이면 collapsed -->
             <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
@@ -77,7 +77,7 @@
             >
             </b-icon>
           </span>
-        </div>
+        </span>
         <span class="share-box d-flex me-3 my-auto">
           <i class="bi bi-envelope-plus"></i>
         </span>
@@ -182,8 +182,7 @@
   </div>
 </template>
 <script>
-// const SERVER_URL = `http://i6e102.p.ssafy.io`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 import { mapState } from "vuex";
 import axios from "axios";
@@ -449,14 +448,13 @@ export default {
 .feed-frame {
   min-height: 400px;
   /* max-width: 600px; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
 
   /* max-height: 800px; */
 }
 .user-feed-cards {
   border-radius: 3px;
-
-  margin: 5px 0px 30px 0px;
+  margin: 0px 0px 30px 0px;
   background-color: white;
   border: 1px solid #dbdbdb;
 }

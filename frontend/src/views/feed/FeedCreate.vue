@@ -124,18 +124,15 @@
 </template>
 
 <script>
-// const SERVER_URL = `http://i6e102.p.ssafy.io:8080`;
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 // import { Cropper } from "vue-advanced-cropper";
 // import "vue-advanced-cropper/dist/style.css";
-
 
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
-
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
 
 export default {
