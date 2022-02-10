@@ -104,6 +104,7 @@ import { useStore } from "vuex";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
+
 export default {
   name: "Members",
   props: ["mateDetail", "mateNm"],
@@ -266,7 +267,7 @@ export default {
           check.value -= 1;
         }
       }
-    };
+    }
 
     const delCard = (temp) => {
         axios({

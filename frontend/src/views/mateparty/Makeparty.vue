@@ -87,6 +87,7 @@ import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 
+
 export default {
   name: "Makeparty",
   components: {
@@ -263,12 +264,10 @@ export default {
       console.log(2)
       axios({
         method: "post",
-
-        url: "http://localhost:8080/mate",
-
-        data: this.partyData,
+        url : `${SERVER_URL}/mate`,
+        data : this.partyData,
       })
-        .then((res) => {
+      .then((res) => {
           // 이미지삽입
           console.log(res.data.dto.mateNo);
           this.mateChatNm = res.data.dto.mateNo;
