@@ -3,7 +3,6 @@ package com.ssafy.project.controller;
 import java.util.List;
 
 import com.ssafy.project.dto.ChatRoom;
-import com.ssafy.project.dto.ChatRoomP;
 import com.ssafy.project.dto.Message;
 import com.ssafy.project.service.IChatRoomService;
 import com.ssafy.project.service.IMessageService;
@@ -45,9 +44,9 @@ public class ChatRoomController {
 	}
 
 	// 모든 채팅방 목록 반환
-	@GetMapping("/rooms")
-	public ResponseEntity<List<ChatRoom>> room() {
-		List<ChatRoom> rooms = chatroomService.getAllChatRooms();
+	@GetMapping("/rooms/{userNo}")
+	public ResponseEntity<List<ChatRoom>> room(@PathVariable int userNo) {
+		List<ChatRoom> rooms = chatroomService.getAllChatRooms(userNo);
 		if (rooms == null || rooms.size() == 0)
 			return ResponseEntity.status(HttpStatus.OK).body(null);
 		else
@@ -59,6 +58,26 @@ public class ChatRoomController {
 	@PostMapping("/room")
 	public ResponseEntity<Long> createRoom(@RequestBody ChatRoom newRoom) {
 		long resultOfCreation = chatroomService.createRoom(newRoom);
+		if (resultOfCreation >= 0)
+			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Long.MIN_VALUE);
+	}
+
+	// 1:1 채팅방 생성
+	@PostMapping("/room/{sendId}/{receiveId}")
+	public ResponseEntity<Long> createRoom(@PathVariable int sendId, @PathVariable int receiveId) {
+		long resultOfCreation;
+		// 먼저 지금 대화를 신청할 사람과의 채팅방이 있는지 확인
+		// 요기 만들어야한디~
+		int check = chatroomService.checkReceiverRoom(sendId, receiveId);
+		System.out.println("컨트롤러에서 체크한 값 : " + check);
+		if(check == 0){ // 만약 sendId와의 개인 채팅방이 없다면....
+			resultOfCreation = chatroomService.createPersonalRoom(sendId, receiveId);
+		}else{ //방이 있다면..
+			resultOfCreation = check;
+		}
+		
 		if (resultOfCreation >= 0)
 			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
 		else

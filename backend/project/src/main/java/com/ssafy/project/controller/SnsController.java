@@ -214,7 +214,6 @@ public class SnsController {
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
         snsReplyDto.setUserNo(snsReplyDto.getUserNo());
-        // snsReplyDto.setUserNo(42);
 
         SnsReplyResultDto snsReplyResultDto = snsReplyService.snsReplyInsert(snsReplyDto);
 

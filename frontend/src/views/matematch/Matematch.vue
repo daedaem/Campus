@@ -1,41 +1,27 @@
 <template>
   <body>
     <div class="flex">
-      <p>CAMP<sub>with</sub>US</p>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx">
-          <div class="card p-0">
-            <div class="card-image">
-              <img :src="item.userProfileImage" alt="" />
+  <p>CAMP<sub>with</sub>US</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx"  >
+            <div class="card p-0" >
+                <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
+                <div class="card-content d-flex flex-column align-items-center">
+                    <h4 class="pt-2">{{item.userNickname}}</h4>
+                    <h5>{{item.userMBTI}}</h5>
+                    <ul class="social-icons d-flex justify-content-center">
+                        <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
+                        <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting(item.userNo)"></i>  </li>
+                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="'I am popover content!'" title="Popover Title"></i> </li>
+                    </ul>
+                </div>
             </div>
-            <div class="card-content d-flex flex-column align-items-center">
-              <h4 class="pt-2">{{ item.userNickname }}</h4>
-              <h5>{{ item.userMBTI }}</h5>
-              <ul class="social-icons d-flex justify-content-center">
-                <li style="--i: 1">
-                  <i
-                    class="bi bi-instagram white"
-                    @click="goProfile(item.userEmail)"
-                  ></i>
-                </li>
-                <li style="--i: 2">
-                  <i class="bi bi-chat white" @click="goChatting"></i>
-                </li>
-                <li style="--i: 3">
-                  <i
-                    class="bi bi-person-circle white"
-                    v-b-popover.hover="'I am popover content!'"
-                    title="Popover Title"
-                  ></i>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
+
+  </div>
   </body>
 </template>
 
@@ -44,20 +30,21 @@
 import axios from "axios";
 import { ref } from "vue";
 // import {useRouter} from 'vue'
-// import {useStore} from 'vuex'
+import {useStore} from 'vuex'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
   setup() {
-    //   const store = useStore()
-    //   const userNo = store.state.myNum
-    const matchData = ref([]);
-
+      const store = useStore()
+      const userNo = store.state.myNum
+    const matchData = ref([])
+    
     axios({
-      method: "get",
-      url: `${SERVER_URL}/mate/match/4`,
+        method : 'get',
+        url : `${SERVER_URL}/mate/match/30`
+   
     })
       .then((res) => {
         const temp = res.data.matelist;
@@ -71,14 +58,38 @@ export default {
     const goProfile = (userEmail) => {
       console.log(userEmail);
       // router.push({name : 'Profile' , params : { userEmail : userEmail} })
-    };
+    }
+    
 
-    return {
-      matchData,
-      goProfile,
-    };
-  },
-};
+    //채팅방 구현
+    const goChatting = (id) => {
+      axios({
+        method : 'post',
+        url : `${SERVER_URL}/api/chat/room/${userNo}/${id}`
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+      return {
+        matchData,
+        goProfile,
+        goChatting,
+      }
+  }
+
+  
+
+
+
+}
+
+
+
 </script>
 
 <style scoped>

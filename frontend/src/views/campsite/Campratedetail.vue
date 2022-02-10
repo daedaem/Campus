@@ -7,22 +7,21 @@
   <div>가격 평가 : {{ detailData.campRatePrice }}</div>
   <div>청결 평가 : {{ detailData.campRateCleanliness }}</div>
   <button @click="rev(detailData.campRateNo)">수정</button>
-  <button @click="del(detailData.campRateNo)">삭제</button>
+  <button @click="del(detailData.campRateNo)" v-if="detailData.userNo===Nm">삭제</button>
   <div>
     <CampRatecomment v-if="detailData.length != 0" :detailData="detailData" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import {useRoute, useRouter} from 'vue-router'
+import {ref} from 'vue'
+import CampRatecomment from '@/components/campsite/CampRatecomment.vue'
+import {useStore} from 'vuex'
 import Navbar from "@/components/common/Navbar.vue";
 
-import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
-import { ref } from "vue";
-import CampRatecomment from "@/components/campsite/CampRatecomment.vue";
-
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-
 export default {
   name: "Campratedetail",
   components: {
@@ -30,10 +29,13 @@ export default {
     CampRatecomment,
   },
   setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const rateNo = route.params.rateNo;
-    const detailData = ref([]);
+    const route = useRoute()
+    const router = useRouter()
+    const rateNo = route.params.rateNo
+    const detailData = ref([])
+    const store = useStore()
+    const Nm = store.state.myNum
+
 
     axios({
       method: "get",
@@ -71,9 +73,11 @@ export default {
       detailData,
       rev,
       del,
-    };
-  },
-};
+      Nm,
+    
+    }
+  }
+}
 </script>
 
 <style></style>

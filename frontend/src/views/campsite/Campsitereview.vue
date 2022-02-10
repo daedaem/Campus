@@ -45,19 +45,20 @@
 </template>
 
 <script>
-import axios from "axios";
-import { ref } from "vue";
-import { useStore } from "vuex";
+import axios from 'axios'
+import {ref} from 'vue'
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-
 // import qs from 'query-string'
 
 export default {
   name: "Campsitereview",
 
   setup() {
-    const store = useStore();
+    const router = useRouter()
+    const store = useStore()
     const campRateDto = ref({
       campRateCleanliness: null,
       campRatePrice: null,
@@ -84,20 +85,24 @@ export default {
         headers: { "content-type": "application/json" },
         data: form,
       })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+      .then(res => {
+        const rateNm = res.data.dto.campRateNo
+        router.push({name: 'Campratedetail',params : { rateNo : rateNm}})
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
 
     return {
       send,
       campRateDto,
-    };
-  },
-};
+
+
+    }
+  }
+}
 </script>
 
 <style></style>

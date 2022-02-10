@@ -34,6 +34,6 @@ public interface MateService {
 
     public MateResultDto mateListMain(MateParamDto mateParamDto);
 
-    
+    public MateResultDto mateStatusUpdate(int mateNo);
 
 }

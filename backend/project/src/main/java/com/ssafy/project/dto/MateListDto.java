@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class MateListDto {
     private int mateNo;
     private int userNo;
+    private String userNickname;
     private int mateListNo;
     private int userAge;
     private int mateListNum;

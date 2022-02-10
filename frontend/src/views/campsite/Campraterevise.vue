@@ -50,18 +50,18 @@
 </template>
 
 <script>
-import axios from "axios";
-import { ref } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import axios from 'axios'
+import {ref} from 'vue'
+import {useStore} from 'vuex'
+import {useRoute,useRouter} from 'vue-router'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-
 export default {
   name: "Campraterevise",
   setup() {
-    const route = useRoute();
-    const store = useStore();
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
     const campRateDto = ref({
       campRateCleanliness: null,
       campRatePrice: null,
@@ -89,13 +89,14 @@ export default {
         headers: { "content-type": "application/json" },
         data: form,
       })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+      .then(res => {
+        console.log(res)
+        router.push({ name : 'Campratedetail', params : { rateNo : route.params.rateNo}})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
 
     return {
       campRateDto,
