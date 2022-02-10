@@ -2,7 +2,7 @@
   <div>
     <span>!코멘트리스트!</span>
     <div v-for="(item,idx) in commentList" :key="idx">
-      <span v-if="visible===0">{{item.campRateReplyContent}}</span>
+      <span v-if="visible===0">{{item.campRateReplyContent}}(내용) |</span>  <img :src="item.userProfileImage" alt="">{{item.userNickname}}(닉네임)
       <span v-if="myNo===item.userNo">
         <span v-if="visible ===0">
           <button  @click="revBtn">수정</button>

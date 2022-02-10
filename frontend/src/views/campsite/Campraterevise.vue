@@ -32,7 +32,7 @@
 import axios from 'axios'
 import {ref} from 'vue'
 import {useStore} from 'vuex'
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 
 // const SERVER_URL = `http://i6e102.p.ssafy.io`
 const SERVER_URL = 'http://localhost:8080'
@@ -40,6 +40,7 @@ export default {
   name : 'Campraterevise',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const store = useStore()
     const campRateDto = ref({
       campRateCleanliness : null,
@@ -70,7 +71,7 @@ export default {
       })
       .then(res => {
         console.log(res)
-        
+        router.push({ name : 'Campratedetail', params : { rateNo : route.params.rateNo}})
       })
       .catch(err => {
         console.log(err)
