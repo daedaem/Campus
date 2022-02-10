@@ -1,7 +1,6 @@
 <template>
+  <Navbar id="navbar"></Navbar>
   <body>
-    <Navbar></Navbar>
-
     <div>
       <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
@@ -101,17 +100,17 @@ export default {
           // searchWord : '',
           // doNm : '',
         },
-     
       })
-      .then(res => {
-        articles.value.push(...res.data.list)
-        
-        console.log(articles.value)
-      })
+        .then((res) => {
+          console.log("뭔데", res);
+          articles.value.push(...res.data.list);
+
+          // console.log(articles.value);
+        })
         .then((res) => {
           articles.value.push(...res.data.list);
 
-          console.log(articles.value);
+          // console.log(articles.value);
         })
 
         .catch((err) => {
@@ -150,6 +149,12 @@ export default {
 </script>
 
 <style scoped>
+/* 수정해야함 */
+/* @media (max-width: 420px) {
+  .navbar {
+    display: none;
+  }
+} */
 @media (min-width: 768px) {
   body {
     width: 768px;

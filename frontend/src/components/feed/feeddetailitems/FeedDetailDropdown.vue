@@ -100,28 +100,7 @@ export default {
         });
     },
     modifyFeed() {
-      // axios
-      // .put(`${SERVER_URL}/sns/${this.feedDetailContents.snsNo}`)
-      // .then((res) => {
-      // console.log(res);
       this.$router.push({ name: "FeedModify" });
-      // this.feedDetailContents = res.data.dto;
-      // console.log(this.feedDetailContents);
-      // if (res.data.rate) {
-      //   this.currentRate = res.data.rate;
-      //   this.ratingDone = 1;
-      // }
-      // })
-      // .catch((err) => {
-      // console.log(err);
-      // alert("실패하였습니다.");
-      // });
-      // // this.$router.push({
-      // //   name: "FeedDetail",
-      // //   data: {
-      // //     feed: this.feed,
-      // //   },
-      // });
     },
     // spamReport() {
     //   // this.$router.push({ name: "Reviews" });

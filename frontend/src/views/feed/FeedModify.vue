@@ -128,7 +128,6 @@ import FeedModifyCarousel from "../../components/feed/FeedModifyCarousel.vue";
 // import FeedDetailCarousel from "../../components/feed/feeddetailitems/FeedDetailCarousel.vue";
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
 
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
 
 export default {

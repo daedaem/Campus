@@ -125,9 +125,9 @@
 
 <script>
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 // import { Cropper } from "vue-advanced-cropper";
 // import "vue-advanced-cropper/dist/style.css";
-
 
 import axios from "axios";
 import { mapState } from "vuex";
@@ -135,6 +135,7 @@ import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
 
 
+// import { ValidationProvider } from "vee-validate"
 
 export default {
   name: "FeedCreate",

@@ -1,6 +1,8 @@
 <template>
-  <div class="FeedListTotalframe d-flex">
+  <Navbar></Navbar>
+  <div class="FeedListTotalframe">
     <!-- <infinite-scroll @infini></infinite-scroll> -->
+
     <div class="FeedListFrame">
       <div
         class="body d-flex flex-column justify-content-center align-items-center"
@@ -9,7 +11,7 @@
           <div>
             <!-- <infinite-scroll @infinite-scroll="feed"> -->
             <feed-list-items
-              v-for="(feed, i) in feedLists"
+              v-for="(feed, i) in feedList"
               :key="i"
               :feed="feed"
             >
@@ -18,6 +20,11 @@
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <a href="#" class="btn_gotop">
+        <span class="glyphicon glyphicon-chevron-up"> </span>
+      </a>
     </div>
   </div>
 </template>
@@ -28,9 +35,9 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
-import { ref, onMounted } from "vue";
 // import { ref } from "vue";
 // import InfiniteScroll from "infinite-loading-vue3";
+import Navbar from "@/components/common/Navbar.vue";
 
 // import FeedDetail from "./FeedDetail.vue";
 // import InfiniteLoading from "v3-infinite-loading";
@@ -39,81 +46,53 @@ import { ref, onMounted } from "vue";
 export default {
   name: "FeedList",
   components: {
+    // InfiniteScroll,
+    // FeedListItemModal,
     FeedListItems,
-
+    Navbar,
+    //
     // FeedDetail
   },
-  methods: {},
+  // methods: {},
   created: function () {
     // console.log(this.$store.state.user);
-    axios
-      // .get("http://localhost:8080/sns")
-      .get("http://i6e102.p.ssafy.io:8080/sns")
-      .then((res) => {
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(`${SERVER_URL}/sns`)
+    //   .then((res) => {
+    //     // console.log(res.data.list);
+    //     const data = res.data.list;
+    //     this.$store.dispatch("feedList", data);
+    //     console.log(res.data.list);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log("created feed list");
+    this.getFeedList();
   },
 
   computed: {
     ...mapState(["feedList"]),
     ...mapState(["user"]),
   },
-  setup() {
-    const feedLists = ref([]);
-    const limit = ref(10);
-    const offset = ref(0);
-    const getDatas = () => {
-      axios({
-        methods: "get",
-        url: `${SERVER_URL}/sns`,
-        params: {
-          limit: limit.value,
-          offset: offset.value,
-          // searchWord : '',
-          // doNm : '',
-        },
-      })
+  // created: function() {
+  //   console.log(this.feeds)
+  // }
+  methods: {
+    getFeedList: function () {
+      axios
+        .get(`${SERVER_URL}/sns`)
         .then((res) => {
+          // console.log(res.data.list);
+          const data = res.data.list;
+          this.$store.dispatch("feedList", data);
           console.log(res.data.list);
-          feedLists.value.push(...res.data.ist);
-          // this.$store.dispatch("feedList", data);
-          console.log(feedLists.value);
         })
         .catch((err) => {
           console.log(err);
         });
-    };
-    onMounted(() => {
-      getDatas();
-      window.addEventListener("scroll", () => {
-        let scrollTop = document.documentElement.scrollTop;
-        let scrollHeight = document.documentElement.scrollHeight;
-        let clientHeight = document.documentElement.clientHeight;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10) {
-          offset.value += 10;
-          // this.limit += 10
-          getDatas();
-        }
-      });
-    });
-
-    return {
-      feedLists,
-      limit,
-      offset,
-      getDatas,
-    };
+    },
   },
-  // created: function() {
-  //   console.log(this.feeds)
-  // }
 };
 // let pagNum = 0
 // 스크롤 높이에서 스크롤바의 탑의 차이가 내가 보는 창길이와 같을 때
@@ -122,13 +101,25 @@ export default {
 //   if (scrollHeight - Math.round(scrollTop) === clientHeight) {
 //     axios({
 //       method: 'get',
+//       url:`/feed/?page=${pageNum}`,
 //     })
 //     }
 //   }
 // });
+//
 </script>
 
 <style scoped>
+/* @font-face {
+  font-family: "myFont";
+  src: url("../../assets/fonts/BM/BMDOHYEON_ttf.ttf");
+} */
+/* * { */
+/* font-family: 본문용 서체 "-apple-system", "BlinkMacSystemFont", */
+/* "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Segoe UI", Sans-Serif, */
+/* "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+/* font-family: "myFont"; */
+/* } */
 @media (min-width: 768px) {
   .FeedListTotalframe {
     width: 100%;
@@ -178,5 +169,19 @@ export default {
       }
     } */
   }
+}
+.btn_gotop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  padding: 15px 20px;
+  border-radius: 100%;
 }
 </style>

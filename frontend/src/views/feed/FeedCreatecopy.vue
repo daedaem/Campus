@@ -120,7 +120,6 @@ import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
 
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import { ValidationProvider } from "vee-validate"
 
 export default {
