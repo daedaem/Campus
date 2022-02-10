@@ -241,4 +241,18 @@ public class MateController {
 
     }
 
+    @PutMapping(value = "/mate/detail/status/{mateNo}")
+    private ResponseEntity<MateResultDto> mateStatusUpdate(@PathVariable int mateNo) {
+        
+        MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
 }
+//mateStatusUpdate
