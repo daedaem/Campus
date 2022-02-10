@@ -355,6 +355,17 @@ export default {
     next() {
       this.step++;
     },
+	onSubmit: function() {
+            this.credentials.userEmail = this.myEmail
+            axios({
+                method: "put",
+                url: `${SERVER_URL}/user`,
+                data: this.credentials
+            })
+                .catch(() => {
+                    console.log("수정안됨")
+                })
+        },
 		getProfile: function() {
 			axios.get(`${SERVER_URL}/user/${this.myEmail}`)
 			.then(res => {

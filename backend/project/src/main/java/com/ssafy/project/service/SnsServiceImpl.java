@@ -201,7 +201,8 @@ public class SnsServiceImpl implements SnsService {
             List<SnsDto> list = dao.snsList(snsParamDto);
 
             int count = dao.snsListTotalCount();
-            for (int i = 0; i < count; i++) {
+            System.out.println(list);
+            for (int i = 0; i < snsParamDto.getLimit(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 // System.out.println(snsResultDto);

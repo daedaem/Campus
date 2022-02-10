@@ -21,12 +21,13 @@
                 VALUES ( #{snsNo}, #{snsImageUrl} )
     </insert>
 
-    <select id="snsList" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
+    <select id="snsList" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
+            LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">

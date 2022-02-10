@@ -40,7 +40,7 @@ export default createStore({
       state.detailFeed = detailFeed;
     },
     FEEDLIST: function (state, feedList) {
-      state.feedList = feedList;
+      state.feedList += feedList;
     },
 
     //mate

@@ -80,7 +80,7 @@ export default {
       method: "get",
       url: `${SERVER_URL}/camp`,
       params: {
-        limit: 2906,
+        limit: 5000,
         offset: 0,
       },
  
@@ -96,8 +96,8 @@ export default {
       method: "get",
       url: `${SERVER_URL}/sns`,
       params: {
-        // limit: 2906,
-        // offset: 0,
+        limit: 10,
+        offset: 0,
       },
     })
       .then((res) => {

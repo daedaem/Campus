@@ -451,8 +451,8 @@ export default {
 		checkNickname: function () {
 			axios
 				// console.log(this.credentials.userNickname)
-				.get(`${SERVER_URL}/user/dupl/${this.credentials.userEmail}`, {
-					userEmail: this.credentials.userEmail
+				.get(`${SERVER_URL}/user/duplnickname/${this.credentials.userNickname}`, {
+					userNickname: this.credentials.userNickname
 				})
 				.then(res => {
 					console.log("한번보자",res)
