@@ -2,7 +2,7 @@
 	<div class="instagram-container">
 		<div class="post" v-for="(value, idx) in historyList" :key="idx">
 			<img class="img-photo" :src="value.mateImageUrl">
-			<span class="hover-img">
+			<span class="hover-img" @click="movetohistory(value.mateNo)">
 				<p class="icon-heart">{{value.mateTitle}}</p>
 			</span>
 		</div>
@@ -14,6 +14,13 @@ export default {
 	name: "Profilehistory",
 	props: {
 		historyList: Object,
+	},
+	methods: {
+		movetohistory: function (e) {
+		this.$router.push({ 
+			name: 'Partyinfo',
+			params: { mateNo: e}})
+		},
 	}
 }
 </script>
