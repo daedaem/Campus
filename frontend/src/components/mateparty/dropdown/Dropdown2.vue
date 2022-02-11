@@ -28,8 +28,8 @@ export default {
   name : 'Dropdown2',
   data() {
     return {
-    ageValue1 : 0,
-    ageValue2 : 0
+    ageValue1 : '',
+    ageValue2 : '',
     }
   },
   watch : {

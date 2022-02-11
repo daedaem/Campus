@@ -2,7 +2,7 @@
   <body>
     
   
-
+    <div>
       <div class="btn-group filterbox1">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="position:relative; color: #7ac4e1; z-index:10;">
         날짜
@@ -36,7 +36,7 @@
       </ul>
     </div>
     
-
+  </div>
   </body>
 </template>
 
