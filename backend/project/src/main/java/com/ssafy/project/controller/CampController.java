@@ -35,7 +35,6 @@ import com.ssafy.project.dto.CampSiteInfoDto;
 import com.ssafy.project.dto.CampSiteInfoDtoRepository;
 import com.ssafy.project.dto.CampSiteParamDto;
 import com.ssafy.project.dto.CampSiteResultDto;
-import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.CampLikeService;
 import com.ssafy.project.service.CampRateReplyService;
 import com.ssafy.project.service.CampRateService;
