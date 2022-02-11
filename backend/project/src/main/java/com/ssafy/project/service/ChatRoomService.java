@@ -87,6 +87,18 @@ public class ChatRoomService implements IChatRoomService {
 		return chatroomMapper.getRoomTitle(mateNo);
 	}
 
+	@Override
+	public int deletePersonalRoom(int id) {
+		chatroomMapper.deletePersonalRoom(id);
+		return 1;
+	}
+
+	@Override
+	public int deleteMyMessage(int id, int sendId) {
+		chatroomMapper.deleteMyMessage(id, sendId);
+		return 1;
+	}
+
 
 
 

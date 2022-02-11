@@ -103,7 +103,7 @@ public class MateServiceImpl implements MateService {
 
         dto.getCampEquipRequiredList().setMateNo(dto.getMateNo());
         dao.campEquipReuireListInsert(dto.getCampEquipRequiredList());
-        System.out.println("!!!!" + dto);
+        
         // 모집글 생성후 바로 채팅방 생성(채팅방 생성자는 모집하는 사람)
         ChatRoom chatroom = new ChatRoom();
         chatroom.setTitle(dto.getMateTitle());
