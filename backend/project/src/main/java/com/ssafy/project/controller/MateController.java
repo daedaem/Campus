@@ -254,4 +254,21 @@ public class MateController {
         }
     }
 
+    // ----------------------------------------- 필터링 -----------------------------------------//
+    //캠핑장 유형 필터링
+    @GetMapping(value = "/mate/filter")
+    private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
+
+
+        MateResultDto mateResultDto = service.mateFilter(mateDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
 }
