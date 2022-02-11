@@ -88,6 +88,15 @@
 	where id=#{id}
 	</select>
 
+	<delete id="deletePersonalRoom" parameterType="int">
+		DELETE FROM message WHERE chatroom_id = #{id};
+		DELETE FROM chatroom WHERE id = #{id}
+	</delete>
+
+	<delete id="deleteMyMessage" parameterType="map">
+		DELETE FROM message WHERE chatroom_id = #{id} AND sender_id = #{sendId}
+	</delete>
+
 </mapper>
 
 <!--useGeneratedKeys="true" keyProperty="id" keyColumn="ChatRoom.id"-->

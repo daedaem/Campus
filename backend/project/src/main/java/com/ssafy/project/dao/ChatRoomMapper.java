@@ -31,5 +31,7 @@ public interface ChatRoomMapper {
 
 	int checkSenderRoom(int sendId, int receiveId);
 
+	int deletePersonalRoom(int id);
 
+	int deleteMyMessage(int id, int sendId);
 }
