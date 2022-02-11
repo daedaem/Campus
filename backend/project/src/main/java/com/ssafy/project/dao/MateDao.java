@@ -76,11 +76,11 @@ public interface MateDao {
     
     public List<Integer> mateFilterCampDate(MateDto dto);
 
-    public List<Integer> mateFilterStyleNum3(MateDto dto);
+    public List<Integer> mateFilterStyleNum3(MateCampStyleDto dto);
 
-    public List<Integer> mateFilterStyleNum2(MateDto dto);
+    public List<Integer> mateFilterStyleNum2(MateCampStyleDto dto);
 
-    public List<Integer> mateFilterStyleNum1(MateDto dto);
+    public List<Integer> mateFilterStyleNum1(MateCampStyleDto dto);
 
     public List<MateDto> mateFilterResult(DemoDto demoList);
 }
