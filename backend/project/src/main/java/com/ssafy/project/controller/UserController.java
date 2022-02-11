@@ -20,7 +20,7 @@ import com.ssafy.project.dto.UserRateDto;
 import com.ssafy.project.dto.UserResultDto;
 import com.ssafy.project.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // == > @Controller + @ResponseBody ==> 여기는 다 json 으로 넘어간다!! // 값자체를 리턴
@@ -57,9 +57,10 @@ public class UserController {
     // user 정보 업데이트
     @PutMapping(value = "/user")
     public ResponseEntity<UserResultDto> update(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로 같이
-        
-        System.out.println(userDto);// 넘겨준다.
+                                                                                // 넘겨준다.
+        System.out.println(userDto);
         UserResultDto userResultDto = userService.userUpdate(userDto);
+        System.out.println(userResultDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
         } else {
