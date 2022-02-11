@@ -160,7 +160,7 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    /* background: beige; */
   }
 }
 

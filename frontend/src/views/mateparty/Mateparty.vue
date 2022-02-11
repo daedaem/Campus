@@ -1,27 +1,38 @@
 <template>
   <Navbar></Navbar>
+  <div style="height:400px; overflow:hidden;">
+  <img style="object-fit:cover;" class="dd" src="https://images.pexels.com/photos/7148973/pexels-photo-7148973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+  </div>
   <body>
-    <h1>Mate party</h1>
-    <Searchbar class="col" style="margin: 20px 0" />
-    <Filters @filter-data="filterData" />
-    <Newmodal />
+ 
+      
 
-    <div style="overflow: hidden">
-      <div style="float: left; margin-top: 20px">캠핑 검색 결과</div>
-      <div style="float: right; margin-top: 20px; margin-: 20px">
+    <!-- <h1>Mate party</h1> -->
+    <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
+    <h1 style="margin-top:50px;">메이트 모집</h1>
+    <div style="margin-top:30px;">
+      <Filters @filter-data="filterData" style="width:100%;"/>
+    </div>
+    <!-- <Newmodal /> -->
+    <br>
+    <!-- <div style="overflow:hidden z-index:30"> -->
+
+      <div align="right">
         <b-button
           pill
-          style="width: 100px; height: 40px; margin-bottom: 20px"
+          style="width: 100px; height: 40px; margin-top: 40px; margin-bottom: 20px; background-color:#7ac4e1; border-color:#7ac4e1; align:right;"
           @click="goMakeparty"
+          
           >글 작성</b-button
         >
       </div>
-    </div>
+
     <Pagination
       v-if="testlist.length != 0"
       :matelists="matelists"
       :filterlist="filterlist"
       :testlist="testlist"
+      
     />
     <!-- {{matelists}} -->
   </body>
@@ -30,8 +41,8 @@
 <script>
 import Pagination from "../../components/mateparty/Pagination.vue";
 import Filters from "@/components/mateparty/Filters.vue";
-import Newmodal from "@/components/mateparty/Newmodal.vue";
-import Searchbar from "../../components/mateparty/Searchbar.vue";
+// import Newmodal from "@/components/mateparty/Newmodal.vue";
+// import Searchbar from "../../components/mateparty/Searchbar.vue";
 // import {mapState} from 'vuex'
 import router from "@/router";
 import { ref, computed } from "vue";
@@ -48,8 +59,8 @@ export default {
   components: {
     Pagination,
     Filters,
-    Newmodal,
-    Searchbar,
+    // Newmodal,
+    // Searchbar,
     Navbar,
   },
 
@@ -230,11 +241,22 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    background: #fff;
   }
 }
 
+body {
+
+    /* margin: 0 20; */
+    padding: 0 20px;
+
+}
 .test {
   width: 100%;
+}
+
+.dd {
+  width :100%;
+  height:100%;
 }
 </style>

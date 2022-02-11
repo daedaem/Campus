@@ -70,7 +70,7 @@
         @joinedmember="nowmember"
       />
     </div>
-    <button @click="goPartyrevise(mateDetail.mateNo)">수정</button>
+    <button @click="goPartyrevise(mateDetail.mateNo)" v-if="userNm===mateDetail.userNo">수정</button>
 
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">

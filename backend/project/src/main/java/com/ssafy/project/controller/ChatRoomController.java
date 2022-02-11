@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io")
+@CrossOrigin(origins = "http://localhost:5500")
 @Slf4j
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor

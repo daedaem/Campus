@@ -1,51 +1,43 @@
 <template>
-<div class="filterbox">
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 날짜
-</button>
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal1 @date-check="dateCheck"/>
-            </div>
-        </div>
+  <body>
+    
+  
+
+      <div class="btn-group filterbox1">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="position:relative; color: #7ac4e1; z-index:10;">
+        날짜
+      </button>
+      <Modal1 @date-check="dateCheck" style=" opacity: 0.1; position:absolute; z-index:10;" />
+       </div>
+        
+
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        유형
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal2 @date-check="dateCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"> <i class="fa fa-info"></i> 유형
-</button>
-<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal2 @camp-check="campCheck"/>
-            </div>
-        </div>
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        스타일
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal3 @date-check="dateCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"> <i class="fa fa-info"></i> 스타일
-</button>
-<div class="modal fade" id="staticBackdrop3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal3 @style-check="styleCheck"/>
-            </div>
-        </div>
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        정렬
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal4 @date-check="dateCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop4"> <i class="fa fa-info"></i> 정렬
-</button>
-<div class="modal fade" id="staticBackdrop4" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal4 @sortListcheck="sortListCheck"/>
-            </div>
-        </div>
-    </div>
-</div>
-<button type="button" class="btn btn-danger filterbox1 col-xs-4" @click="cancleFilter">필터 취소</button>
-</div>
+    
+
+  </body>
 </template>
 
 <script>
@@ -129,15 +121,24 @@ export default {
   }
 }
 
+
 .filterbox {
   overflow: hidden;
 }
 
 .filterbox1 {
   float: left;
-  width: 100px;
+  width: 90px;
   height: 40px;
   margin-left: 0px;
+  background-color: #fff;
+  color: #7ac4e1;
+  border: 3px solid #7ac4e1;
+  border-radius: 30px;
+  font-size : 14px;
+  position : relative;
+  
+  
 } 
 
 .modal-content{
@@ -149,4 +150,24 @@ export default {
   border-radius: 45px;
   background: linear-gradient(#3a7bd5, #3a6073);
 }
+
+
+
+
+.dropdown-menu{
+      height:200px;
+      overflow-y:auto;
+  }
+
+
+
 </style>
+
+
+
+
+
+
+
+
+

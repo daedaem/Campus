@@ -1,7 +1,8 @@
 <template>
- <h4>캠핑 유형</h4>
+
 
     <div id="checkboxgroup" class="filterbox">
+     
       <div class="form-check filterbox1">
         <input :disabled="campCheck.length > 0 && !campCheck.includes('오토캠핑')"  class="form-check-input" v-model="campCheck" type="checkbox" value="오토캠핑" id="flexCheckDefault" name="check[]">
         <label class="form-check-label" for="flexCheckDefault">
@@ -28,13 +29,13 @@
       </div>
     </div>
    
-    <div align="center">
+    <!-- <div align="center">
         <div class="col-sm-3">
         <a data-bs-dismiss="modal" class="btn btn-lg" href="#" @click="$emit('camp-check',campCheck) ">
             <span>button</span>
         </a>
     </div>
-</div>
+</div> -->
 </template>
 
 <script >
@@ -79,7 +80,7 @@ export default {
     top: 1px;
 }
 .form-check label{
-    color:white;
+    color:rgba(20, 20, 20, 0.5);
     font-size: 20px;
     line-height: 26px;
     padding-left: 35px;
@@ -94,7 +95,7 @@ export default {
     content: "";
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
+    border: 3px solid #818181;
     border-radius: 4px;
     position: absolute;
     top: 3px;
@@ -105,7 +106,7 @@ export default {
     height: 10px;
     width: 16px;
     border-radius: 0 0 0 4px;
-    border: 5px solid #fff;
+    border: 5px solid #7ac4e1;
     border-top: none;
     border-right: none;
     opacity: 0;

@@ -25,7 +25,7 @@ import com.ssafy.project.service.KaKaoLoginServiceImpl;
 import com.ssafy.project.service.LoginService;
 import com.ssafy.project.service.UserService;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // 값자체를 리턴
