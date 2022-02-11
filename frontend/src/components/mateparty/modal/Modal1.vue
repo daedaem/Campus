@@ -10,7 +10,7 @@
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import 'vue3-date-time-picker/dist/main.css'
 // import Datepicker from '../Datepicker.vue'
-import {ref} from 'vue'
+// import {ref} from 'vue'
 // const date = ref(new Date())
 // const dateFrom = ref(new Date())
 import {useStore} from 'vuex'
@@ -22,11 +22,25 @@ export default {
 
   },
   setup() {
-    const date = ref('')
+    const dateFormat = (date) => {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+       
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+       
+
+        return date.getFullYear() + '-' + month + '-' + day
+      }
     const store = useStore()    
     const dateIn = (val) => {
-      date.value = val
-      store.dispatch('dateCheck',val)
+      if (val) {
+        const start = dateFormat(val[0])
+        const end = dateFormat(val[1])
+        const data = [start,end]
+        store.dispatch('dateCheck',data)
+      }
       }
     
 
@@ -35,8 +49,8 @@ export default {
   
     
   return {
-    date,
-    dateIn
+    dateIn,
+    dateFormat
 
   
  

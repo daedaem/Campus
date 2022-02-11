@@ -67,6 +67,9 @@ export default {
   name: "Mateparty",
   setup() {
     const store = useStore();
+    
+
+
     const testlist = ref("");
     const viewFunc = (data) => {
       // console.log(data)
@@ -230,6 +233,7 @@ export default {
       test,
       matelist,
       testlist,
+      
     };
   },
 };

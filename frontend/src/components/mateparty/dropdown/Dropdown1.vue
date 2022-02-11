@@ -1,7 +1,6 @@
 <template>
   <div>
-      <h4>인원 제한</h4>
-      <input class="form-control item" list="member" placeholder="인원 제한 " v-model="memberValue">
+      <input class="form-control item" list="member" placeholder="인원 제한 " v-model="memberValue" style="border-radius : 20px;">
   <datalist id="member">
     <option v-for="option in 20" :key="option" :value="option"></option>
   </datalist>  

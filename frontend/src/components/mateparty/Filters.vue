@@ -47,7 +47,7 @@ import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
 import {ref,watch } from 'vue'
 import { useRouter } from "vue-router";
-
+// import {useStore} from 'vuex'
 export default {
   emits : ['filter-data'],
   name : 'Filters',
@@ -60,6 +60,7 @@ export default {
   },
   
   setup(props,{emit}) {
+    // const store = useStore()
     const router = useRouter()
     const allData = ref({
       date : ref(null),

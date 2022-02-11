@@ -53,7 +53,13 @@ export default {
   },
   data() {
     return {
-    
+      allData :{
+        startDate : this.$store.state.dateCheck[0],
+        endDate : this.$store.state.dateCheck[1],
+        camp : this.$store.state.campCheck,
+        style : this.$store.state.styleCheck,
+        sortList : null,
+      },
      
       paginatedItems: '',
       totalRows: this.matelists.length,

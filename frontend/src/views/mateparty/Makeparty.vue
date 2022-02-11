@@ -14,11 +14,11 @@
           <div align="left" class="filterbox2">
             <Dropdown1 @member-value="memberValue" />
           </div>
-          <div align="left" class="filterbox1">
-            <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" />
-          </div>
+     
+            
+        
         </div>
-
+        <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
         <Campchoice
           align="left"
           style="margin-top: 50px; margin-bottom: 20px"
@@ -76,7 +76,7 @@
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="username" placeholder="Username">
+                <input type="text" class="form-control item" id="username" placeholder="제목을 입력하세요.." v-model="partyData.mateTitle">
             </div>
             <div class="form-group">
                 <textarea
@@ -88,7 +88,8 @@
               ></textarea>
             </div>
             <div class="form-group">
-                <Dropdown1 @member-value="memberValue" />
+                <Dropdown1 @member-value="memberValue" class="members"/>
+                <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
@@ -433,6 +434,19 @@ body {
   border-radius: 1rem;
 }
 
+.form-control{
+  border-radius: 20px;
+}
+
+.members{
+  width:25%;
+  border-radius : 20px;
+}
+
+.ages{
+  width:100px;
+  height:100px;
+}
 
 .contact-image {
   text-align: center;
