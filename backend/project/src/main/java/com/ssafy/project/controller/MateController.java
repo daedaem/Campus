@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -247,6 +247,23 @@ public class MateController {
         MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
 
         if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    // ----------------------------------------- 필터링 -----------------------------------------//
+    //캠핑장 유형 필터링
+    @GetMapping(value = "/mate/filter")
+    private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
+
+
+        MateResultDto mateResultDto = service.mateFilter(mateDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
             return new ResponseEntity<MateResultDto>(mateResultDto,
