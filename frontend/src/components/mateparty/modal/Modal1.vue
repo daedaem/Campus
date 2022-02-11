@@ -1,16 +1,7 @@
 <template>
-<div>
-  <h4>날짜</h4>
-  <Datepicker/>
-  <Datepicker @date-in="dateIn" />
-  
-    <div align="center">
-        <div class="col-sm-3">
-        <a class="btn btn-lg" @click="sendData" @date-in="dateIn">
-            <span data-bs-dismiss="modal">button</span>
-        </a>
-    </div>
-</div>
+<div class="test">
+  <Datepicker @date-in="dateIn" :inline="true" opened />
+
 </div>
 
 </template>
@@ -51,6 +42,11 @@ export default {
 </script>
 
 <style scoped>
+/* .test {
+  width : 50%;
+  left:0;
+} */
+
 .box {
   visibility: hidden;
 }
