@@ -26,6 +26,9 @@ export default createStore({
     userList: {},
     campList: [],
     userGender: "",
+    campCheck: null,
+    styleCheck: null,
+    dateCheck: null,
   },
 
   mutations: {
@@ -123,6 +126,16 @@ export default createStore({
     SEARCHRESULT: function (state, data) {
       state.searchResult = data;
     },
+    CAMP_CHECK(state,data) {
+      state.campCheck = data
+    },
+    STYLE_CHECK(state,data) {
+      state.styleCheck = data
+    },
+    DATE_CHECK(state,data) {
+      state.dateCheck = data
+    },
+    
     // SCROLLEDFEEDLIST: function (state, data) {
     //   state.scrolledFeedList
     // }
@@ -191,6 +204,16 @@ export default createStore({
     //   context.commit("SCROLLEDFEEDLIST",data)
 
     // }_
+    campCheck({ commit }, data) {
+      commit("CAMP_CHECK" , data)
+    },
+    styleCheck({ commit }, data) {
+      commit("STYLE_CHECK" , data)
+    },
+    dateCheck({ commit }, data) {
+      commit("DATE_CHECK" , data)
+    },
+    
   },
   getters: {
     config: function (state) {

@@ -1,7 +1,6 @@
 <template>
-<div class="test">
-  <Datepicker @date-in="dateIn" :inline="true" opened />
-
+<div>
+  <Datepicker @date-in="dateIn" />
 </div>
 
 </template>
@@ -12,25 +11,33 @@ import Datepicker from '@/components/mateparty/Datepicker.vue'
 import 'vue3-date-time-picker/dist/main.css'
 // import Datepicker from '../Datepicker.vue'
 import {ref} from 'vue'
-
+// const date = ref(new Date())
+// const dateFrom = ref(new Date())
+import {useStore} from 'vuex'
 export default {
-  emits : ['date-check'],
+
   name: 'Modal1',
   components: {
     Datepicker
 
   },
-  setup(props,{emit}) {
-    const myData = ref('')
+  setup() {
+    const date = ref('')
+    const store = useStore()    
+    const dateIn = (val) => {
+      date.value = val
+      store.dispatch('dateCheck',val)
+      }
     
-    const dateIn = (val) => {myData.value = val}
 
-    const sendData = () => {emit('date-check', myData.value)}
   
+   
   
+    
   return {
-    dateIn,
-    sendData,
+    date,
+    dateIn
+
   
  
   }
@@ -42,11 +49,6 @@ export default {
 </script>
 
 <style scoped>
-/* .test {
-  width : 50%;
-  left:0;
-} */
-
 .box {
   visibility: hidden;
 }
