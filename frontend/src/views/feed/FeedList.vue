@@ -11,6 +11,7 @@
               v-for="(feed, i) in feedLists"
               :key="i"
               :feed="feed"
+              class="feedListItems"
             >
             </feed-list-items>
           </div>
@@ -48,6 +49,7 @@ export default {
       .get(`${SERVER_URL}/sns`)
       // .get("http://i6e102.p.ssafy.io:8080/sns")
       .then((res) => {
+        console.log("나옵니까",res);
         // console.log(res.data.list);
         const data = res.data.list;
         this.$store.dispatch("feedList", data);
@@ -86,7 +88,7 @@ export default {
         })
         .then((res) => {
           // console.log("되나요?", res.data.list);
-          feedLists.value.push(...res.data.ist);
+          feedLists.value.push(...res.data.list);
           // this.$store.dispatch("feedList", data);
           // console.log("넣습니다", this.feedLists);
         })
@@ -134,6 +136,10 @@ export default {
 </script>
 
 <style scoped>
+.feedListItems{
+  border-radius: 30px;
+}
+
 @media (min-width: 768px) {
   .FeedListTotalframe {
     padding-top: 3%;

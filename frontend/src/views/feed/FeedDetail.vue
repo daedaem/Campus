@@ -12,7 +12,9 @@
             <div class="">
               <feed-detail-carousel
                 class="feed-detail-carousel d-flex"
+                v-if="feedDetailContents.length !=0 "
                 :ImageList="feedDetailContents"
+
               ></feed-detail-carousel>
             </div>
           </div>
@@ -82,23 +84,19 @@
                 </p>
               </span>
 
-              <div class="comment-box my-auto">
+              <span class="comment-box my-auto">
                 <span>
                   <!-- visible? visible이 참이면 null 거짓이면 collapsed -->
                   <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
                   <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
-                  <b-icon
-                    style="cursor: pointer"
-                    icon="chat-dots"
-                    font-size="25px"
-                    :class="visible ? null : 'collapsed'"
-                    :aria-expanded="visible ? 'true' : 'false'"
-                    aria-controls="comment"
-                    @click="visible = !visible"
-                  >
-                  </b-icon>
+              <i class="bi bi-chat-dots"    font-size="25px"
+              :class="visible ? null : 'collapsed'"
+              :aria-expanded="visible ? 'true' : 'false'"
+              aria-controls="comment"
+              @click="visible = !visible" style="cursor: pointer"></i>
+    
                 </span>
-              </div>
+              </span>
               <span class="share-box d-flex me-3 my-auto">
                 <i class="bi bi-envelope-plus"></i>
               </span>
@@ -183,7 +181,6 @@
                 </div>
               </div>
             </b-collapse>
-            <div class="nothing"></div>
           </div>
         </div>
       </div>
@@ -208,9 +205,7 @@ export default {
     FeedDetailCarousel,
     FeedDetailDropdown,
   },
-  props: {
-    feed: Object,
-  },
+
   data() {
     return {
       my_comment: {
@@ -224,7 +219,7 @@ export default {
       likeCount: 0,
       ContentTime: "",
       ReplyTime: [],
-      feedDetailContents: "",
+      feedDetailContents: [],
       comments: [],
       detailFeedsnsNo: "",
       commentContent: "",

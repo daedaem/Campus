@@ -4,7 +4,8 @@
 
     <!-- 캠핑장 전체 리스트 -->
 	<select id="campSiteList" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
-		SELECT *
+		SELECT *, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore,
+		(SELECT count(*) from campRate where contentId = camp_site.content_id) as campRateNum
 		FROM camp_site
 		LIMIT #{limit} OFFSET #{offset};
 	</select>
@@ -29,7 +30,8 @@
 	AND (site_mg1co >= 1 OR site_mg2co >= 1 OR site_mg3co >= 1); -->
     <!-- 캠핑장 검색 리스트 (캠핑장비 대여 -> is not null) -->
 	<select id="campSiteSearch" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
-		SELECT *
+		SELECT *, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore,
+		(SELECT count(*) from campRate where contentId = camp_site.content_id) as campRateNum
 		FROM camp_site
         WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
 		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
@@ -69,7 +71,8 @@
 
 	<!-- 캠핑장 검색 리스트 (캠핑장비 대여 -> is null) -->
 	<select id="campSiteSearchNull" parameterType="com.ssafy.project.dto.CampSiteParamDto" resultType="com.ssafy.project.dto.CampSiteDto">
-		SELECT *
+		SELECT *, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore,
+		(SELECT count(*) from campRate where contentId = camp_site.content_id) as campRateNum
 		FROM camp_site
         WHERE faclt_nm LIKE CONCAT('%', #{searchWord}, '%')
 		AND do_nm LIKE CONCAT('%', #{doNm}, '%')
@@ -109,7 +112,8 @@
 
 	<!-- 캠핑장 상세정보 -->
 	<select id="campSiteDetail" parameterType="String" resultType="com.ssafy.project.dto.CampSiteDto">
-		SELECT *
+		SELECT *, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore,
+		(SELECT count(*) from campRate where contentId = camp_site.content_id) as campRateNum
 		FROM camp_site
 		WHERE content_id = #{contentId};
 	</select>
