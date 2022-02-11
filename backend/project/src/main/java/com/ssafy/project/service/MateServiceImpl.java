@@ -398,18 +398,21 @@ public class MateServiceImpl implements MateService {
         try {
             // 캠프 타입 일치하는 mateNo list 반환
             List<Integer> list1 = dao.mateFilterCampType(dto);
+            System.out.println("list1 : " + list1.size());
             // 캠프 날짜에 포함되는 mateNo list 반환
             List<Integer> list2 = dao.mateFilterCampDate(dto);
+            System.out.println("list2 : " + list2.size());
             //들어가있는 스타일 개수에 따라 matNo list 반환
             List<Integer> list3 = new ArrayList<Integer>();
             if(dto.getCampStyleList() != null){
                 if(dto.getCampStyleList().getStyle3() != null){
-                    list3 = dao.mateFilterStyleNum3(dto);
+                    list3 = dao.mateFilterStyleNum3(dto.getCampStyleList());
                 }else if(dto.getCampStyleList().getStyle2() != null){
-                    list3 = dao.mateFilterStyleNum2(dto);
+                    list3 = dao.mateFilterStyleNum2(dto.getCampStyleList());
                 }else if(dto.getCampStyleList().getStyle1() != null){
-                    list3 = dao.mateFilterStyleNum1(dto);
+                    list3 = dao.mateFilterStyleNum1(dto.getCampStyleList());
                 }
+                System.out.println("list3 : " + list3.size());
             }else{
                 list3 = new ArrayList<Integer>();
                 list3.clear();
@@ -424,10 +427,14 @@ public class MateServiceImpl implements MateService {
                         listResult = list3;
                     }
                 }else{
-                    for (int i = 0; i < list2.size(); i++) {
-                        for (int j = i; j < list3.size(); j++) {
-                            if(list2.get(i) == list3.get(j))
-                                listResult.add(list2.get(i));
+                    if(list3.size() == 0){
+                        listResult = list2;
+                    }else{
+                        for (int i = 0; i < list2.size(); i++) {
+                            for (int j = i; j < list3.size(); j++) {
+                                if(list2.get(i).equals(list3.get(j)))
+                                    listResult.add(list2.get(i));
+                            }
                         }
                     }
                 }
@@ -438,17 +445,30 @@ public class MateServiceImpl implements MateService {
                     }else{
                         for (int i = 0; i < list1.size(); i++) {
                             for (int j = i; j < list3.size(); j++) {
-                                if(list1.get(i) == list3.get(j))
+                                if(list1.get(i).equals(list3.get(j)))
                                     listResult.add(list1.get(i));
                             }
                         }
                     }
                 }else{
-                    for (int i = 0; i < list1.size(); i++) {
-                        for (int j = i; j < list2.size(); j++) {
-                            for (int k = j; k < list3.size(); k++) {
-                                if(list1.get(i) == list2.get(j) && list2.get(j) == list3.get(k))
+                    if(list3.size() == 0){
+                        for (int i = 0; i < list1.size(); i++) {
+                            for (int j = i; j < list2.size(); j++) {
+                                if(list1.get(i).equals(list2.get(j))){
                                     listResult.add(list1.get(i));
+                                }
+                            }
+                        }
+                    }else{
+                        for (int i = 0; i < list1.size(); i++) {
+                            for (int j = i; j < list2.size(); j++) {
+                                for (int k = j; k < list3.size(); k++) {
+                                    if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
+                                        System.out.println("check!");
+                                        listResult.add(list1.get(i));
+                                    }
+                                        
+                                }
                             }
                         }
                     }
@@ -457,9 +477,8 @@ public class MateServiceImpl implements MateService {
             
             DemoDto demoList = new DemoDto();
             demoList.setDemoList(listResult);
-
+            System.out.println(demoList);
             List<MateDto> list = dao.mateFilterResult(demoList);
-            System.out.println(list);
             mateResultDto.setList(list);
             for (MateDto mateDto : list) {
                 MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());

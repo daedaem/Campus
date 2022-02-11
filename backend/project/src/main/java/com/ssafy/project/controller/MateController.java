@@ -256,7 +256,7 @@ public class MateController {
 
     // ----------------------------------------- 필터링 -----------------------------------------//
     //캠핑장 유형 필터링
-    @GetMapping(value = "/mate/filter")
+    @PostMapping(value = "/mate/filter")
     private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
 
 
