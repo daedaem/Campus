@@ -237,7 +237,7 @@
                 AND m.mateNo in <foreach collection="demoList" item="item" index="index" open="(" close=")" separator=",">
                                     #{item}
                                 </foreach>
-            order by m.mateNo desc
+            <!-- order by m.mateNo desc -->
     </select>
 
 </mapper>

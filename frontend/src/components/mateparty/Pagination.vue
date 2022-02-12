@@ -40,6 +40,8 @@
 
 <script>
 import {mapState} from 'vuex'
+// import axios from "axios";
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   props : {
@@ -53,13 +55,7 @@ export default {
   },
   data() {
     return {
-      allData :{
-        startDate : this.$store.state.dateCheck[0],
-        endDate : this.$store.state.dateCheck[1],
-        camp : this.$store.state.campCheck,
-        style : this.$store.state.styleCheck,
-        sortList : null,
-      },
+      
      
       paginatedItems: '',
       totalRows: this.matelists.length,
@@ -95,8 +91,9 @@ export default {
   },
 
   watch : {
-    matelists : {
+    allData : {
       handler() {
+        
         this.paginate(this.perPage, 0)
       },
       deep : true

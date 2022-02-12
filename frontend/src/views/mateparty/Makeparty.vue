@@ -92,7 +92,11 @@
                 <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
+                <Campchoice
+          align="left"
+          style="margin-top: 50px; margin-bottom: 20px"
+          @camp-data="campValue"
+        />
             </div>
             <div class="form-group">
                 <input type="text" class="form-control item" id="birth-date" placeholder="Birth Date">
@@ -439,7 +443,7 @@ body {
 }
 
 .members{
-  width:25%;
+  width:7.5rem;
   border-radius : 20px;
 }
 

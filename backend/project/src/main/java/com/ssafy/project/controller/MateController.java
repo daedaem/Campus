@@ -245,7 +245,7 @@ public class MateController {
     private ResponseEntity<MateResultDto> mateStatusUpdate(@PathVariable int mateNo) {
         
         MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
-
+        
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
@@ -256,10 +256,10 @@ public class MateController {
 
     // ----------------------------------------- 필터링 -----------------------------------------//
     //캠핑장 유형 필터링
-    @GetMapping(value = "/mate/filter")
+    @PostMapping(value = "/mate/filter")
     private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
 
-
+        System.out.println(mateDto);
         MateResultDto mateResultDto = service.mateFilter(mateDto);
 
         if (mateResultDto.getResult() == SUCCESS) {
