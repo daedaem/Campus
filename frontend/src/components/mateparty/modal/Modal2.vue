@@ -40,19 +40,19 @@
 
 <script >
 import {ref,watch} from 'vue'
-import {useStore} from 'vuex'
+// import {useStore} from 'vuex'
 export default {
   name : 'Modal2',
   emits : ['camp-check'],
-  setup() {
-    const store = useStore()
+  setup(props,{emit}) {
+    // const store = useStore()
     const campCheck = ref([])
 
     watch(
     () => campCheck,
     (state) => {
-      store.dispatch('campCheck',state)
-      console.log(store.state.campCheck)
+      emit('camp-check',state.value[0])
+      
     },
     { deep: true }
     )

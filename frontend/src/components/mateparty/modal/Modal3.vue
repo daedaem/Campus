@@ -75,12 +75,12 @@
 
 <script >
 import {ref,watch} from 'vue'
-import {useStore} from 'vuex'
+
 export default {
   name : 'Modal3',
   emits : ['style-check'],
-  setup() {
-    const store = useStore()
+  setup(props,{emit}) {
+
     const styleCheck = ref([])
     const submit = () => {
       // console.log(campCheck.value)
@@ -89,9 +89,9 @@ export default {
     watch(
     () => styleCheck,
     (state) => {
-      store.dispatch('styleCheck',state)
-      console.log(store.state.styleCheck)
-    },
+   
+      emit('style-check',state.value)
+      },
     { deep: true }
     )
     return {
