@@ -6,8 +6,10 @@
       <div class="overlay d-flex flex-column">
         <div class="overlay-title">
           <!-- 타이틀은 이미지로 만들어서 붙여야 할 듯 배민보고 -->
-          <div class="text-start pb-5 mb-5">
-            당신의 캠핑 메이트를 만나보세요.
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
             <div class="text-center">
               <a class="btn btn-sm" href="#">
                 <div class="CreateAccountButton">계정 만들기</div>
@@ -133,6 +135,10 @@ export default {
 /* background: beige; */
 /* } */
 
+.brandSlogan {
+  max-width: 600px;
+  max-height: 500px;
+}
 p {
   line-height: 6px;
 }

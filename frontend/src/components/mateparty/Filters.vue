@@ -1,6 +1,6 @@
 <template>
 <div class="filterbox">
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 날짜
+  <button type="button" class="btn launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">  <p class="buttonfont">날짜</p>
 </button>
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"> <i class="fa fa-info"></i> 유형
+  <button type="button" class="btn launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"> <p class="buttonfont">유형</p>
 </button>
 <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"> <i class="fa fa-info"></i> 스타일
+  <button type="button" class="btn launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"> <p class="buttonfont">스타일</p>
 </button>
 <div class="modal fade" id="staticBackdrop3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop4"> <i class="fa fa-info"></i> 정렬
+  <button type="button" class="btn launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop4"><p class="buttonfont">정렬</p>
 </button>
 <div class="modal fade" id="staticBackdrop4" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-danger filterbox1 col-xs-4" @click="cancleFilter">필터 취소</button>
+<!-- <button type="button" class="btn filterbox1 col-xs-4" @click="cancleFilter"></button> -->
 </div>
 </template>
 
@@ -123,9 +123,12 @@ export default {
 @media (max-width: 599px) {
   .filterbox1 {
     float: left;
-    width: 100px;
-    height : 40px;
+  width: 80px;
+  height: 30px;
     margin-bottom: 10px;
+    background: #fff;
+    border:0.5px solid #ccc;
+    font:black;
   }
 }
 
@@ -135,15 +138,20 @@ export default {
 
 .filterbox1 {
   float: left;
-  width: 100px;
-  height: 40px;
+  width: 70px;
+  height: 30px;
   margin-left: 0px;
+  font:black;
+  background: #fff;  
+  border:2px solid #ccc;
 } 
 
 .modal-content{
    border-radius: 45px;
 }
-
+.buttonfont{
+    font-size:12px
+}
 .modal-body {
 
   border-radius: 45px;

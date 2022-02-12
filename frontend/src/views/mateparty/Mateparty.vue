@@ -1,21 +1,23 @@
 <template>
   <Navbar></Navbar>
   <body>
-    <h1>Mate party</h1>
-    <Searchbar class="col" style="margin: 20px 0" />
-    <Filters @filter-data="filterData" />
+    <h2 class="mt-4 mb-2">메이트 모집</h2>
+    <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
     <Newmodal />
 
     <div style="overflow: hidden">
-      <div style="float: left; margin-top: 20px">캠핑 검색 결과</div>
-      <div style="float: right; margin-top: 20px; margin-: 20px">
+      <!-- <div style="float: left; margin-top: 20px">캠핑 검색 결과</div> -->
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <Filters @filter-data="filterData" />
+      <div>
         <b-button
-          pill
-          style="width: 100px; height: 40px; margin-bottom: 20px"
+        class="writebutton"
+          style="width: 100px; height: 40px;"
           @click="goMakeparty"
           >글 작성</b-button
         >
       </div>
+    </div>
     </div>
     <Pagination
       v-if="testlist.length != 0"
@@ -31,7 +33,7 @@
 import Pagination from "../../components/mateparty/Pagination.vue";
 import Filters from "@/components/mateparty/Filters.vue";
 import Newmodal from "@/components/mateparty/Newmodal.vue";
-import Searchbar from "../../components/mateparty/Searchbar.vue";
+// import Searchbar from "../../components/mateparty/Searchbar.vue";
 // import {mapState} from 'vuex'
 import router from "@/router";
 import { ref, computed } from "vue";
@@ -49,7 +51,7 @@ export default {
     Pagination,
     Filters,
     Newmodal,
-    Searchbar,
+    // Searchbar,
     Navbar,
   },
 
@@ -230,8 +232,13 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    background: #fff 
+
   }
+}
+.writebutton{
+background-color: #7ac4e1;
+border:1px solid #fff
 }
 
 .test {

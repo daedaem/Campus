@@ -26,17 +26,20 @@
           </div>
           <hr />
           <h4>캠핑장 소개</h4>
-          <div>{{ detailData.intro }}</div>
+          <div class="campsitedetailContent">
+            <p>{{ detailData.intro }}</p></div>
           <hr />
           <h4>편의시설 및 테마</h4>
           <!-- <div v-if="detailData.value.sbrsEtc.includes('수영장')"> -->
           <!-- 부대시설 -->
-          <div>{{ detailData.sbrsCl }}</div>
+          <div class="campsitedetailContent">
+            <p>{{ detailData.sbrsCl }}</p>
           <!-- 부대시설 기타-->
-          {{ detailData.sbrsEtc }}
+          <p>{{ detailData.sbrsEtc }}</p>
           <!-- </div> -->
           <!-- 부대이용가능 -->
-          <div>{{ detailData.posblFcltyCl }}</div>
+          <p>{{ detailData.posblFcltyCl }}</p>
+          </div>
           <hr />
           <h4>캠핑장 위치</h4>
 
@@ -172,8 +175,19 @@ export default {
   }
   .CampSiteDetail-TotalFrame {
     /* margin-top: 4%; */
+    min-width:768px;
+    max-width:768px;
+    background:#fff;
+    margin-top:5%;
+    margin-bottom:5%;
+    border-radius: 20px;
+    /* height:90vh */
 
     /* width: 90%; */
+  }
+  .campsitedetailContent p{
+    font-family: "Comfortaa";
+
   }
   .CampSiteDetail-ImageFrame img {
     /* width: 100%; */
