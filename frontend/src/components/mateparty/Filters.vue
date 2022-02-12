@@ -35,6 +35,12 @@
         <Modal4 @date-check="dateCheck"/>
       </ul>
     </div>
+    <div class="btn-group filterbox1">
+      <button class="btn" type="button" aria-expanded="false" style="color: #7ac4e1;" @click="apply">
+        적용
+      </button>
+      
+    </div>
     
   </div>
   </body>
@@ -45,9 +51,11 @@ import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
 import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
-import {ref,watch } from 'vue'
-import { useRouter } from "vue-router";
-// import {useStore} from 'vuex'
+import {ref,} from 'vue'
+import {useStore} from 'vuex'
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 export default {
   emits : ['filter-data'],
   name : 'Filters',
@@ -59,54 +67,49 @@ export default {
 
   },
   
-  setup(props,{emit}) {
-    // const store = useStore()
-    const router = useRouter()
+  setup() {
+    const store = useStore()
+
     const allData = ref({
-      date : ref(null),
-      camp : ref(null),
-      style : ref(null),
+      mateCampstart : store.state.dateCheck[0],
+      mateCampend : store.state.dateCheck[1],
+      mateCamptype : store.state.campCheck[0],
+      // mateCampstyle : store.state.styleCheck,
       sortList : ref(null),
     })
+    
+    const apply = () =>{
+      console.log(allData.value)
+      axios({
+          method : 'post',
+          url : `${SERVER_URL}/mate/filter`,
+          data : allData.value
+        })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
     // const endData = ref([])
 
-    const campCheck = (box) => {
-      allData.value.camp= box
-      
-    }
-    const styleCheck = (box2) => {
-      allData.value.style= box2
-      
-    }
-    const dateCheck = (box3) => {
-      allData.value.date= box3
-     
-    }
-    const sortListCheck = (box4) => {
-      allData.value.sortList= box4
-     
-    }
-    const cancleFilter = () => {
-      
-      router.go();
-    }
-  watch(
-  () => allData,
-  (state) => {
-    // console.log('deep', state.value)
-    emit('filter-data',state.value)
-  },
-  { deep: true }
-  )
+    
+  // watch(
+  // () => allData,
+  // (state) => {
+  //   // console.log('deep', state.value)
+  //   emit('filter-data',state.value)
+  // },
+  // { deep: true }
+  // )
 
 
     return {
-      campCheck,
-      styleCheck,
-      dateCheck,
-      sortListCheck,
+      apply,
       allData,
-      cancleFilter
+      
+
     }
   }
 }

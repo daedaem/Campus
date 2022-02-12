@@ -37,17 +37,18 @@ export default {
 .left {
   /* border-top-left-radius: 20; */
   border-radius : 20px;
-  width:4rem;
+  width:7rem;
   border: 1px solid #ced4da;
-  padding-left: 15px;
+
+  text-align: center;
 }
 
 .right {
   border-radius: 20px;
-  width:4rem;
+  width:7rem;
   margin-left:5px;
   border: 1px solid #ced4da;
-  padding-left: 15px;
 
+  text-align: center;
 }
 </style>
