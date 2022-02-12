@@ -214,7 +214,6 @@ public class MateController {
 
         // call mateList from MateService
         mateMatchResultDto = service.mateMatch(userNo);
-        System.out.println(mateMatchResultDto.toString());
 
         if (mateMatchResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.OK);// 성공
@@ -227,7 +226,7 @@ public class MateController {
     // 메인 페이지에 메이트 5개 띄우기
     @GetMapping(value = "/mate/main")
     private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
-
+        
         MateResultDto mateResultDto;
 
         // call mateList from MateService

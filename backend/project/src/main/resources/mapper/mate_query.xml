@@ -169,6 +169,15 @@
         LIMIT 4;
     </select>
 
+    <select id="mateMatchListAll" parameterType="com.ssafy.project.dto.MateMatchDto" resultType="com.ssafy.project.dto.MateMatchDto">
+        SELECT u.userNo, u.userNickname, u.userEmail, u.userGender, u.userMBTI, u.userProfileImage,c.campStyle1, c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6
+        FROM user u, campStyle c 
+        WHERE u.userNo IN (SELECT userNo FROM user WHERE userMBTI IN (SELECT mbti2 FROM mbti WHERE mbtiValue > 0 AND mbti1 = #{userMBTI})) 
+        AND c.userNo = u.userNo AND u.userNo != #{userNo}
+        ORDER BY rand()
+        LIMIT 4;
+    </select>
+
     <!-- mate main select -->
     <select id="mateListMain" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
         select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
