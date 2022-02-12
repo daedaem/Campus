@@ -346,8 +346,14 @@ public class MateServiceImpl implements MateService {
             MateMatchDto matchDto = new MateMatchDto();
             matchDto.setUserNo(userNo);
             matchDto.setUserMBTI(dao.userMBTIselect(userNo));
-
-            mateMatchResultDto.setMatelist(dao.mateMatchList(matchDto));
+            List<MateMatchDto> list = dao.mateMatchList(matchDto);
+            // 매치된 인원이 4보다 작으면 모든 유저에서 매칭
+            if(list.size() < 4){
+                mateMatchResultDto.setMatelist(dao.mateMatchListAll(matchDto));
+            }else{
+                mateMatchResultDto.setMatelist(list);
+            }
+            
             
             mateMatchResultDto.setResult(SUCCESS);
         } catch (Exception e) {
