@@ -99,9 +99,9 @@ export default {
 
 
     const dateCheck = (val) => {
-      // console.log(val)
-      allData.value.mateCampstart = val[0]
-      allData.value.mateCampend = val[1]
+      console.log(val)
+      // allData.value.mateCampstart = val[0]
+      // allData.value.mateCampend = val[1]
       console.log(allData.value)
        
     }

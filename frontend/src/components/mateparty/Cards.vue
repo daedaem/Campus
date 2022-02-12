@@ -5,9 +5,11 @@
         <div class="card-big-shadow">
             <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                 <div class="content">
-                    <h6 class="category">Best cards</h6>
-                    <h4 class="title"><a href="#">유형</a></h4>
+        
+                    <h4 class="title">유형</h4>
                     <p class="description">!고쳐야함! </p>
+                    <h4 class="title">스타일</h4>
+                    <p class="description" >{{`# `+cardData.campStyleList.style1}}<br>{{`# `+cardData.campStyleList.style2}}<br>{{`# `+cardData.campStyleList.style3}}<br></p>
                 </div>
             </div> <!-- end card -->
         </div>
@@ -17,9 +19,11 @@
         <div class="card-big-shadow">
             <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                 <div class="content">
-                    <h6 class="category">Best cards</h6>
-                    <h4 class="title"><a href="#">스타일</a></h4>
-                    <p class="description" >{{`# `+cardData.campStyleList.style1}}<br>{{`# `+cardData.campStyleList.style2}}<br>{{`# `+cardData.campStyleList.style3}}<br></p>
+                    <h4 class="title">호스트</h4>
+                    <p class="description">@{{ cardData.userNickname}}</p>
+                    <h4 class="title">캠핑장</h4>
+                    <p class="description">{{cardData.mateCampsite}}</p>
+                    
                 </div>
             </div> <!-- end card -->
         </div>
@@ -29,10 +33,12 @@
         <div class="card-big-shadow">
             <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                 <div class="content">
-                    <h6 class="category">Best cards</h6>
-                    <h4 class="title"><a href="#">정보</a></h4>
-                    <p class="description"># 연령대<br>{{cardData.lowestAge}}↑~ {{cardData.highestAge}}↓<br># 인원<br>!고쳐야함!<br># 지역<br>{{cardData.mateCampsite}}</p>
-                    
+              
+                    <h4 class="title"><a href="#">연령대</a></h4>
+                    <p class="description">{{cardData.lowestAge}}↑ ~ {{cardData.highestAge}}↓</p>
+                    <h4 class="title">날짜</h4>
+                    <p class="description" style="margin-bottom:0px;">출발 | {{ mateDetail.mateCampstart }}</p>
+                    <p class="description">도착 | {{ mateDetail.mateCampend }}</p>
                 </div>
             </div> <!-- end card -->
         </div>
@@ -121,8 +127,9 @@ body{margin-top:20px;}
     color: #FFFFFF;
 }
 .card.card-just-text .content {
-    padding: 30px 40px;
+    padding: 10px 20px;
     text-align: center;
+    height : 222px;
 }
 .card .content {
     padding: 20px 20px 10px 20px;

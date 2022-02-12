@@ -1,8 +1,8 @@
 <template>
-  <div class="test">
-    <body>
-      <Fileupload @image="uploadedImage" />
-
+  <div class="test row" >
+    <body class="col-12">
+      
+<!-- 
       <div style="margin-left: 30px">
         <Filtermake
           @style-check="styleCheck"
@@ -25,9 +25,9 @@
           @camp-data="campValue"
         />
         <Datepicker @date-in="dateIn" />
-        <!-- <div class="camping">
+        <div class="camping">
         <input class="input1" type="text" placeholder="캠핑장 선택">
-      </div> -->
+      </div>
       </div>
       <br />
       <Items @img-status="imgStatus" />
@@ -69,16 +69,22 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
+      <!-- <Fileupload @image="uploadedImage" /> -->
       <div class="registration-form">
         <form>
-            <div class="form-icon">
-                <span><i class="icon icon-user"></i></span>
+          
+            <div class="">
+              
+              <Fileupload @image="uploadedImage" align="left"/>
+           
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top:100px;">
+              <h4>메이트 제목</h4>
                 <input type="text" class="form-control item" id="username" placeholder="제목을 입력하세요.." v-model="partyData.mateTitle">
             </div>
             <div class="form-group">
+              <h4>내용</h4>
                 <textarea
                 v-model="partyData.mateContent"
                 name="txtMsg"
@@ -87,22 +93,35 @@
                 style="width: 100%; height: 150px"
               ></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group"  >
+              <h4>나이&인원 제한</h4>
                 <Dropdown1 @member-value="memberValue" class="members"/>
                 <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top:20px;">
+              <h4>캠핑장 선택</h4>
                 <Campchoice
           align="left"
-          style="margin-top: 50px; margin-bottom: 20px"
+          style=" margin-bottom: 20px"
           @camp-data="campValue"
         />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="birth-date" placeholder="Birth Date">
+              <h4>날짜 선택</h4>
+                <Datepicker @date-in="dateIn" class="date"/>
+            </div>
+            <div class="form-group" style="margin-top:50px;">
+              <Filtermake
+                @style-check="styleCheck"
+                @limit-check="limitCheck"
+                @camp-check="campCheck"
+              />
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-block create-account">Create Account</button>
+              <Items @img-status="imgStatus" id="test"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-block create-account" @click="test">Create Account</button>
             </div>
         </form>
         
@@ -337,18 +356,8 @@ export default {
             id: this.mateChatNm,
           };
           console.log(chatData);
-          axios({
-            method: "post",
-            url: `${SERVER_URL}/api/chat/room`,
-            data: chatData,
+        
           })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
     
         .catch(err => {
           console.log(err)
@@ -360,10 +369,6 @@ export default {
         
         
    
-
-      .catch(err => {
-        console.log(err)
-      })
 
 
       
@@ -379,6 +384,14 @@ export default {
 </script>
 
 <style scoped>
+#test {
+  padding : 0px;
+  margin-left: 0px;
+  margin-right : 0px;
+  border-color: white;
+  border-style:solid;
+}
+
 body {
   /* width: 768px; */
   width: 768px;
@@ -408,8 +421,8 @@ body {
 
 .filterbox1 {
   float: left;
-  margin-left: 50px;
-  margin-right: 20px;
+  /* margin-left: 50px; */
+  /* margin-right: 20px; */
 }
 .filterbox2 {
   float: left;
@@ -445,11 +458,17 @@ body {
 .members{
   width:7.5rem;
   border-radius : 20px;
+  float: left;
 }
 
 .ages{
   width:100px;
   height:100px;
+  float: right;
+}
+
+.date{
+  border-radius: 20px;
 }
 
 .contact-image {
@@ -521,7 +540,7 @@ body {
     color: white;
     width: 100px;
     height: 100px;
-    margin: auto;
+  
     margin-bottom: 50px;
     line-height: 100px;
 }

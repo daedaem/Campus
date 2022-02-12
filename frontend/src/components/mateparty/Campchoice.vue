@@ -9,9 +9,9 @@
     <option value="Opera"></option>
     <option value="Safari"></option>
   </datalist>   -->
-  <h4>캠핑장 선택</h4>
+
   <div class="ui icon input" style="width: 100%">
-    <input type="text" placeholder="Search..." v-on:input="test" :value="searchQuery"/>
+    <input type="text" placeholder="캠핑장 선택.." v-on:input="test" :value="searchQuery"/>
     <i class="search icon"></i>
   </div>
     <div class="ui cards" style="margin: 10px" v-if="searchQuery">
@@ -76,6 +76,13 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
+input {
+  width : 100%;
+  height : 2.5rem;
+  border-radius : 20px;
+  padding-left: 20px;
+}
 
 </style>
