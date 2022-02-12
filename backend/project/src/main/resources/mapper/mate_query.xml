@@ -202,7 +202,7 @@
         <![CDATA[  
         select mateNo
             from mate
-            where date(mateCampstart) >= date(#{mateCampstart}) AND date(mateCampend) <= date(#{mateCampend})
+            where date(mateCampstart) >= date(#{mateCampstart}) AND date(mateCampstart) <= date(#{mateCampend})
             ORDER BY mateNo DESC;
         ]]>
     </select>
