@@ -41,7 +41,7 @@ import {ref, computed, reactive} from 'vue'
 export default {
   emits : ['camp-data'],
   name : 'Campchoice',
-  setup(orops,{emit}) {
+  setup(props,{emit}) {
     // console.log(2)
     const store = useStore()
     const campList = reactive(store.state.campList)

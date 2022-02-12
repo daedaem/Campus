@@ -16,7 +16,7 @@
         유형
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
-        <Modal2 @date-check="dateCheck"/>
+        <Modal2 @camp-check="campCheck"/>
       </ul>
     </div>
     <div class="btn-group filterbox1">
@@ -24,7 +24,7 @@
         스타일
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
-        <Modal3 @date-check="dateCheck"/>
+        <Modal3 @style-check="styleCheck"/>
       </ul>
     </div>
     <div class="btn-group filterbox1">
@@ -32,7 +32,7 @@
         정렬
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
-        <Modal4 @date-check="dateCheck"/>
+        <Modal4 @sort-check="sortCheck"/>
       </ul>
     </div>
     <div class="btn-group filterbox1">
@@ -52,7 +52,7 @@ import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
 import {ref,} from 'vue'
-import {useStore} from 'vuex'
+
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -68,17 +68,21 @@ export default {
   },
   
   setup() {
-    const store = useStore()
-
+  
     const allData = ref({
-      mateCampstart : store.state.dateCheck[0],
-      mateCampend : store.state.dateCheck[1],
-      mateCamptype : store.state.campCheck[0],
-      // mateCampstyle : store.state.styleCheck,
+      mateCampstart : null,
+      mateCampend : null,
+      mateCamptype : null,
+      campStyleList : {
+        style1 : null,
+        style2 : null,
+        style3 : null
+      },
       sortList : ref(null),
     })
     
     const apply = () =>{
+
       console.log(allData.value)
       axios({
           method : 'post',
@@ -92,8 +96,51 @@ export default {
           console.log(err)
         })
     }
-    // const endData = ref([])
 
+
+    const dateCheck = (val) => {
+      // console.log(val)
+      allData.value.mateCampstart = val[0]
+      allData.value.mateCampend = val[1]
+      console.log(allData.value)
+       
+    }
+    const styleCheck = (val) => {
+      console.log(val)
+      if (val) {
+        if (val.length === 1) {
+          allData.value.campStyleList.style1 =val[0];
+    
+        } else if (val.length === 2) {
+          allData.value.campStyleList.style1 = val[0] 
+          allData.value.campStyleList.style2 = val[1] 
+           
+            
+   
+        } else if (val.length === 3) {
+         allData.value.campStyleList.style1 = val[0]
+         allData.value.campStyleList.style2 = val[1]
+         allData.value.campStyleList.style3 = val[2]
+          
+          }
+        }
+      console.log(allData.value)
+      }
+
+    
+
+    const campCheck = (val) => {
+      
+      allData.value.mateCamptype = val
+      console.log(allData.value)
+    }
+    // const sortCheck = (val) => {
+    //   console.log(val.value)
+    // }
+
+   
+    // const endData = ref([])
+  
     
   // watch(
   // () => allData,
@@ -108,6 +155,10 @@ export default {
     return {
       apply,
       allData,
+      dateCheck,
+      campCheck,
+      styleCheck,
+      // sortCheck,
       
 
     }
