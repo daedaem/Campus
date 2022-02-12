@@ -54,9 +54,9 @@ export default createStore({
     },
 
     USER_LIST(state, data) {
-      console.log(2);
+      // console.log(2);
       state.userList = data;
-      console.log(state.userList);
+      // console.log(state.userList);
     },
     MY_NUM(state, data) {
       // console.log(3)

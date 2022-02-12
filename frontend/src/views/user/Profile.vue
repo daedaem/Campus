@@ -276,6 +276,7 @@ export default {
 			axios
 				.get(`${SERVER_URL}/sns`)
 				.then((res) => {
+					console.log('뭐야', res);
 					for (let i=0; i<res.data.count; i++) {
 						if (res.data.list[i].userNo === this.UserNo) {
 							this.feedList.push(res.data.list[i])

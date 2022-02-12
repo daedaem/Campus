@@ -1,24 +1,18 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 1"
-    >
-      <div class="feed-picture align-items-center">
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
+      <div class="feed-picture">
         <img
           :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-          class="d-block w-100 h-100"
+          class="FeedDetailCarousel-image"
           alt="..."
         />
       </div>
     </div>
     <!-- 두개이상일 때 -->
     <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 2"
-    >
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -51,14 +45,14 @@
             <div class="carousel-item active">
               <img
                 :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-                class="d-block w-100"
+                class="FeedDetailCarousel-image"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
-                class="d-block w-100"
+                class="FeedDetailCarousel-image"
                 alt="..."
               />
             </div>
@@ -86,10 +80,7 @@
       </div>
     </div>
     <!-- 세장일 때 -->
-    <div
-      class="feed-picture-box d-flex"
-      v-if="this.imageinfo.imageList.length == 3"
-    >
+    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
       <div class="feed-picture">
         <div
           :id="feedid"
@@ -132,21 +123,21 @@
             <div class="carousel-item active">
               <img
                 :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-                class="d-block w-100"
+                class="FeedDetailCarousel-image"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
-                class="d-block w-100"
+                class="FeedDetailCarousel-image"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
                 :src="`${this.imageinfo.imageList[2].snsImageUrl}`"
-                class="d-block w-100"
+                class="FeedDetailCarousel-image"
                 alt="..."
               />
             </div>
@@ -252,6 +243,9 @@ export default {
 </script>
 
 <style scoped>
+.FeedDetailCarousel-image {
+  width: 100%;
+}
 .total-feed-box {
   width: 100%;
   height: 100%;
@@ -260,18 +254,22 @@ export default {
   /* padding: 10px; */
   /* height: 100%; */
   /* min-height: 400px; */
-  max-height: 600px;
+  /* width: 100%; */
+  /* max-height: 600px; */
   /* border: 1px solid #dbdbdb; */
 }
 
-.feed-picture {
+.feed-picture img {
   /* width: 100%; */
   /* height: 100%; */
   /* margin: auto; */
-  min-height: 370px;
-  min-width: 370px;
-
-  /* max-height: 400 px; */
+  /* min-height: 370px; */
+  /* min-width: 370px; */
+  /* object-fit: cover; */
+  /* max-width: 600px;
+   */
+  max-height: 600px;
+  /* max-height: calc(100%-40px); */
 }
 /* .bi-x-circle {
   position: absolute;

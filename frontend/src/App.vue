@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Chat />
+    <!-- <Chat /> -->
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->
@@ -9,14 +9,14 @@
 <script>
 // import Navbar from "@/components/Navbar.vue";
 // import Navbar from "@/components/Navbar.vue";
-import Chat from "@/components/common/Chat.vue";
+// import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
     // Navbar,
     // Navbar,
-    Chat,
+    // Chat,
   },
 };
 </script>
@@ -32,20 +32,20 @@ export default {
 * {
   font-family: "myFont";
 }
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   background-color: #fafafa;
-//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-//     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-//   // font-style: normal;
-//   font-size: 14px;
-//   // line-height: 18px;
-//   font-weight: 400;
-//   // color: #2c3e50;
-// }
+#app {
+  //   font-family: Avenir, Helvetica, Arial, sans-serif;
+  //   -webkit-font-smoothing: antialiased;
+  //   -moz-osx-font-smoothing: grayscale;
+  //   text-align: center;
+  background-color: #fafafa;
+  //   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  //     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  //   // font-style: normal;
+  //   font-size: 14px;
+  //   // line-height: 18px;
+  //   font-weight: 400;
+  //   // color: #2c3e50;
+}
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
