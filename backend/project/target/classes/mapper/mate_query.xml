@@ -103,7 +103,7 @@
 
     <!-- detail -->
     <select id="mateDetail" parameterType="int" resultType="com.ssafy.project.dto.MateDto">
-        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, 
+        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, m.mateCamptype, m.mateStatus,
                 m.lowestAge, m.highestAge, m.mateTitle, m.mateContent, m.friendlimit, m.memberlimit, u.userProfileImage, u.userNickName
         FROM mate m, user u
         WHERE m.userNo = u.userNo
@@ -117,7 +117,7 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        select u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        select u.userNo, r.userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
         from user u, userRate r, campStyle c, mateList m
         where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
             and u.userNo = r.userNo
