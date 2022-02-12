@@ -464,7 +464,6 @@ public class MateServiceImpl implements MateService {
                             for (int j = 0; j < list2.size(); j++) {
                                 for (int k = 0; k < list3.size(); k++) {
                                     if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
-                                       
                                         listResult.add(list1.get(i));
                                     }
                                         
@@ -475,20 +474,27 @@ public class MateServiceImpl implements MateService {
                 }
             }
             
-            DemoDto demoList = new DemoDto();
-            demoList.setDemoList(listResult);
-            System.out.println(demoList);
-            List<MateDto> list = dao.mateFilterResult(demoList);
-            mateResultDto.setList(list);
-            for (MateDto mateDto : list) {
-                MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());
-                mateDto.setCampStyleList(campStyleList);
 
-                List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
-                mateDto.setMateList(mateApplyList);
-
-
+            if(listResult.size() == 0){
+                dto.setMatefilter(-1);
+                mateResultDto.setDto(dto);
+            }else{
+                DemoDto demoList = new DemoDto();
+                demoList.setDemoList(listResult);
+                System.out.println(demoList);
+                List<MateDto> list = dao.mateFilterResult(demoList);
+                mateResultDto.setList(list);
+                for (MateDto mateDto : list) {
+                    MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());
+                    mateDto.setCampStyleList(campStyleList);
+    
+                    List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                    mateDto.setMateList(mateApplyList);
+    
+    
+                }
             }
+
             mateResultDto.setResult(SUCCESS);
 
 
