@@ -28,8 +28,13 @@ public class MateDto {
     private int friendlimit;
     private int memberlimit;
     private String mateGender;
+<<<<<<< HEAD
     private int matefilter;
     
+=======
+
+
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
     private Date mateCreateTime;
     private Date mateUpdateTime;
 

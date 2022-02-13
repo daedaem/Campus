@@ -79,7 +79,7 @@
                         type="button"
                         >
                         음악감상
-                    </button> 
+                    </button>
                 </li>
 			</ul>
 		</div>
@@ -90,42 +90,64 @@
 // import {ref} from 'vue'
 export default {
 	name: 'campstyle2',
+    props: {
+        campStyle1: {
+            type: String
+        },
+        campStyle2: {
+            type: String
+        },
+        campStyle3: {
+            type: String
+        },
+        campStyle4: {
+            type: String
+        },
+        campStyle5: {
+            type: String
+        },
+        campStyle6: {
+            type: String
+        },
+    },
     created: function () {
-        if (this.styleStatus.campStyle1 === "Y") {
-            this.campStyle1 = 1
+        if (this.campStyle1 === "Y") {
+            this.styleStatus.campStyle1 = 1
+            this.foodbutton = true
         } else {
-            this.campStyle1 = 0
+            this.styleStatus.campStyle1 = 0
         }
-        if (this.styleStatus.campStyle2 === "Y") {
-            this.campStyle2 = 1
+        if (this.campStyle2 === "Y") {
+            this.styleStatus.campStyle2 = 1
+            this.talkbutton = true
         } else {
-            this.campStyle2 = 0
+            this.styleStatus.campStyle2 = 0
         }
-        if (this.styleStatus.campStyle3 === "Y") {
-            this.campStyle3 = 1
+        if (this.campStyle3 === "Y") {
+            this.styleStatus.campStyle3 = 1
+            this.campfirebutton = SVGComponentTransferFunctionElement
         } else {
-            this.campStyle3 = 0
+            this.styleStatus.campStyle3 = 0
         }
-        if (this.styleStatus.campStyle4 === "Y") {
-            this.campStyle4 = 1
+        if (this.campStyle4 === "Y") {
+            this.styleStatus.campStyle4 = 1
+            this.climbbutton = true
         } else {
-            this.campStyle4 = 0
+            this.styleStatus.campStyle4 = 0
         }
-        if (this.styleStatus.campStyle5 === "Y") {
-            this.campStyle5 = 1
+        if (this.campStyle5 === "Y") {
+            this.styleStatus.campStyle5 = 1
+
+            this.photobutton = true
         } else {
-            this.campStyle5 = 0
+            this.styleStatus.campStyle5 = 0
         }
-        if (this.styleStatus.campStyle6 === "Y") {
-            this.campStyle6 = 1
+        if (this.campStyle6 === "Y") {
+            this.styleStatus.campStyle6 = 1
+            this.musicbutton = true
         } else {
-            this.campStyle6 = 0
+            this.styleStatus.campStyle6 = 0
         }
-        this.styleStatus.campStyle2 = this.campStyle2
-        this.styleStatus.campStyle3 = this.campStyle3
-        this.styleStatus.campStyle4 = this.campStyle4
-        this.styleStatus.campStyle5 = this.campStyle5
-        this.styleStatus.campStyle6 = this.campStyle6
     },
     methods: {
         styleControl(x) {
