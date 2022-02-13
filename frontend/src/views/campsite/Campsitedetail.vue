@@ -6,10 +6,10 @@
         <div>
           <h2 align="left">{{ detailData.facltNm }}</h2>
           <div class="ms-3 d-flex justify- content-center align-items-center">
-            <div class="mx-2"><i class="bi bi-star-fill"></i>4.7</div>
+            <div class="mx-2"><i class="bi bi-star-fill"></i>{{rateAvg}}</div>
 
             <div class="mx-2">
-              <i class="bi bi-chat-left-dots px-2"></i>리뷰 90개
+              <i class="bi bi-chat-left-dots px-2"></i>리뷰 {{rateList.length}}
             </div>
             <div class="mx-2">
               <i class="bi bi-geo-alt"></i> {{ detailData.doNm }}
@@ -48,14 +48,15 @@
 
           <Kakaomap v-if="detailData.length != 0" :detailData="detailData" />
         </div>
-        <hr />
-        <button @click="review">후기 작성</button>
-        <hr />
-        <div>
-          <h4>후기</h4>
 
-          <CampRatelist v-if="rateList.length != 0" :rateList="rateList" />
+        <div class="d-flex flex-row justify-content-between " style="margin-top:29px;">
+          <div>
+            <h4 style="">후기</h4>
+          </div>
+          <button @click="review" class="write">후기 작성</button>
         </div>
+          <CampRatelist v-if="rateList.length != 0" :rateList="rateList" />
+        
       </div>
     </div>
   </div>
@@ -67,7 +68,7 @@ import Kakaomap from "@/components/campsite/Kakaomap.vue";
 // import {onMounted, } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-import { ref } from "vue";
+import { ref,computed } from "vue";
 import CampRatelist from "@/components/campsite/CampRatelist.vue";
 import Navbar from "@/components/common/Navbar.vue";
 
@@ -81,6 +82,7 @@ export default {
     CampRatelist,
   },
   setup() {
+    const totalAvg = ref(0)
     const route = useRoute();
     const detailData = ref([]);
     const router = useRouter();
@@ -118,6 +120,10 @@ export default {
       .then((res) => {
         rateList.value = res.data.list;
         console.log(rateList.value);
+        rateList.value.forEach( ele => {
+        console.log(ele.campRateCleanliness + ele.campRateFacility + ele.campRatePrice)
+        totalAvg.value += ele.campRateCleanliness + ele.campRateFacility + ele.campRatePrice
+      })
       })
       .catch((err) => {
         console.log(err);
@@ -128,11 +134,27 @@ export default {
     const review = () => {
       router.push({ name: "Campsitereview", params: { rateNo: id } });
     };
+
+    
+    
+
+    const rateAvg = computed(() => {
+      return totalAvg.value / (3*rateList.value.length) 
+    })
+
+    
+
+
+
+
+
     return {
       rateList,
       detailData,
       review,
       checksbrsEtc,
+      totalAvg,
+      rateAvg,
     };
   },
 };
@@ -195,5 +217,24 @@ export default {
 }
 .CampSiteDetail-TotalFrame {
   /* margin-top: 4%; */
+}
+
+.bi-star-fill{
+  color: #7ac4e1;
+}
+
+.bi-chat-left-dots{
+  color: #7ac4e1;
+}
+
+.bi-geo-alt {
+  color: #7ac4e1;
+}
+
+.write { 
+  color: #7ac4e1;
+  border: 3px solid #7ac4e1;
+  border-radius: 30px;
+  background-color:#fff
 }
 </style>

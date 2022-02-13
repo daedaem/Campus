@@ -104,14 +104,7 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 768px) {
-  body {
-    width: 768px;
-    margin: 0 auto;
-    padding: 0 20px;
-    background: #fff;
-  }
-}
+
 .writebutton{
 background-color: #7ac4e1;
 border:1px solid #fff

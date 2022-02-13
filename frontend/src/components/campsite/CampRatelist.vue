@@ -1,87 +1,104 @@
 <template>
   <body>
-    <div v-for="(data,idx) in rateData" :key="idx">
-      <!-- <div @click="goDetail(data.campRateNo)">{{data.campRateTitle}}</div> -->
-      <details>
-        <summary style="font-size:20px;">제목 : {{data.campRateTitle}} <i class="bi bi-arrow-down-circle"></i></summary>
-        <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="media g-mb-30 media-comment">
-                
-                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" @click="goDetail(data.campRateNo)">
-                      <div class="g-mb-15">
-                        <h5 class="h5 g-color-gray-dark-v1 mb-0">{{data.campRateTitle}}</h5>
-                        <span class="g-color-gray-dark-v4 g-font-size-12">{{data.campRateUpdateTime}}</span>
-                      </div>
-                
-                      <p style="min-height:100px">{{data.campRateContent}}</p>
 
-                      <ul class="list-inline d-sm-flex my-0">
-                        <li class="list-inline-item g-mr-20">
-                          <div>청결도</div>
-                            <div class="star-ratings" style="margin-top: 0px">
-                              <div
-                                class="star-ratings-fill space-x-2 text-lg"
-                                :style="{ width: data.campRateCleanliness * 20 + 1.5 + '%' }"
-                              >
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div class="star-ratings-base space-x-2 text-lg">
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div></div>
-                            </div>
-                        </li>
-                        <li class="list-inline-item g-mr-20">
-                            시설
-                            <div class="star-ratings" style="margin-top: 0px">
-                              <div
-                                class="star-ratings-fill space-x-2 text-lg"
-                                :style="{ width: data.campRateFacility * 20 + 1.5 + '%' }"
-                              >
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div class="star-ratings-base space-x-2 text-lg">
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div></div>
-                            </div>
-       
-                        </li>
-                        <li class="list-inline-item g-mr-20">
-                          가격
-                   
-                            <div class="star-ratings" style="margin-top: 0px">
-                              <div
-                                class="star-ratings-fill space-x-2 text-lg"
-                                :style="{ width: data.campRatePrice * 20 + 1.5 + '%' }"
-                              >
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div class="star-ratings-base space-x-2 text-lg">
-                                <span>★</span><span>★</span><span>★</span><span>★</span
-                                ><span>★</span>
-                              </div>
-                              <div></div>
-                            </div>
-                  
-                        </li>
-                      </ul>
-                    </div>
-                </div>
+
+<div clsss="container">
+  <div class="row">
+    <div v-for="(data,idx) in rateData" :key="idx" class="col-md-6 col-12" style="margin-top:20px;">
+      <div class="d-flex flex-row justify-content-between">
+        <div  class="title">{{data.campRateTitle}}</div>
+        <div>
+          <div class="star-ratings" style="margin-top: 0px">
+            <div
+              class="star-ratings-fill space-x-2 text-lg"
+              :style="{ width: (data.campRateFacility+data.campRatePrice+data.campRateCleanliness)/3 * 13 + 1.5 + '%' }"
+            >
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span>
             </div>
-
+            <div class="star-ratings-base space-x-2 text-lg">
+              <span>★</span><span>★</span><span>★</span><span>★</span
+              ><span>★</span><span style="margin-left:10px; color:yellow">{{((data.campRateFacility+data.campRatePrice+data.campRateCleanliness)/3).toFixed(1)}}</span>
+            </div>
+            <div></div>
+          </div>
         </div>
-        </div>
-        <CampRatecomment/>
-      </details>
+      </div>
+      <div class="d-flex flex-row justify-content-between box">
+        <div class="nickname">@{{data.userNickname}}</div>
+        <div class="date">{{data.campRateUpdateTime}}</div>
+      </div>
+      <div class="content">{{data.campRateContent}}</div>
+      <div class="show d-flex align-items: center;" >
+        <details>
+        <summary>Show more<i class="bi bi-chevron-double-right " style="padding-top:5px;"></i> </summary>
+          <hr>
+          <h5 style="margin-top:10px;">평점</h5>
+          <div style="margin-top:10px;">
+            <div class="d-flex">
+              <div style="margin-right:10px;">Facility</div>
+              <div class="star-ratings" style="margin-top: 0px">
+                <div
+                  class="star-ratings-fill space-x-2 text-lg"
+                  :style="{ width: (data.campRateFacility) * 13 + 1.5 + '%' }"
+                >
+                
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
+                </div>
+                <div class="star-ratings-base space-x-2 text-lg">
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span><span style="margin-left:10px; color:yellow">{{(data.campRateFacility).toFixed(1)}}</span>
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div style="margin-right:10px;">Price</div>
+            <div class="star-ratings" style="margin-top: 0px">
+              <div
+                class="star-ratings-fill space-x-2 text-lg"
+                :style="{ width: (data.campRatePrice) * 13 + 1.5 + '%' }"
+              >
+                <span>★</span><span>★</span><span>★</span><span>★</span
+                ><span>★</span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>★</span><span>★</span><span>★</span><span>★</span
+                ><span>★</span><span style="margin-left:10px; color:yellow">{{(data.campRatePrice).toFixed(1)}}</span>
+              </div>
+              <div></div>
+            </div>
+            </div>
+            <div class="d-flex">
+              <div style="margin-right:10px;">Cleanliness</div>
+            <div class="star-ratings" style="margin-top: 0px">
+              <div
+                class="star-ratings-fill space-x-2 text-lg"
+                :style="{ width: (data.campRateCleanliness) * 13 + 1.5 + '%' }"
+              >
+                <span>★</span><span>★</span><span>★</span><span>★</span
+                ><span>★</span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>★</span><span>★</span><span>★</span><span>★</span
+                ><span>★</span><span style="margin-left:10px; color:yellow">{{(data.campRateCleanliness).toFixed(1)}}</span>
+              </div>
+              <div></div>
+            </div>
+            </div>
+          </div>
+        </details>
+      </div>
+      <hr>
+      
+      </div>
     </div>
+    </div>
+    
+  
+
+    
   </body>
 </template>
 
@@ -95,8 +112,9 @@ export default {
   props: ["rateList"],
   setup(props) {
     const router = useRouter();
-    console.log(props.rateList);
-    const rateData = ref(props.rateList);
+    const temp = ref(props.rateList)
+    const rateData = ref([]);
+    rateData.value = temp.value.reverse()
     const goDetail = (no) => {
       router.push({ name: "Campratedetail", params: { rateNo: no } });
     };
@@ -105,6 +123,7 @@ export default {
       rateData,
       goDetail,
       CampRatecomment,
+      temp,
     }
   }
 
@@ -115,7 +134,7 @@ export default {
 
 @media (min-width: 768px) {
   body {
-    width: 70%;
+    width: 100%;
 
     /* padding: 0 20px; */
     background: #fff;
@@ -205,5 +224,55 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+.title{
+  font-weight: 1000;
+    
+  height : 25px;
+  font-size: 14px;
+  display:block;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1 ;
+  -webkit-box-orient: vertical; 
+}
+
+.nickname {
+  margin-top : 10px;
+  color:rgb(117, 117, 117);
+
+}
+.date {
+  color:rgb(117, 117, 117);
+  margin-top : 10px;
+  font-size: 12px;
+}
+.content {
+  
+  height : 43px;
+  font-size: 14px;
+  display:block;
+  overflow:hidden;
+  margin-top : 20px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 ;
+  -webkit-box-orient: vertical; 
+  
+}
+
+summary{
+  text-decoration: underline;
+  text-underline-position: under;
+  margin-top:7px;
+
 }
 </style>
