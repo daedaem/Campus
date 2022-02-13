@@ -86,5 +86,5 @@ public interface MateDao {
 
     public List<MateDto> mateFilterResult(DemoDto demoList);
 
-    public int userMatchValue(int userNo, int otherNo);
+    public int userMatchValue(String userMBTI, String otherMBTI);
 }

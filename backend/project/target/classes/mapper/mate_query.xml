@@ -157,12 +157,13 @@
 
     <!-- mate match -->
     <select id="userMBTIselect" parameterType="int" resultType="com.ssafy.project.dto.MateMatchDto">
-        SELECT userNo, userMBTI, campStyle1, campStyle2, campStyle3, campStyle4, campStyle5, campStyle6 
-        FROM user WHERE userNo = #{userNo}
+        SELECT u.userNo, u.userMBTI, c.campStyle1, c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6 
+        FROM user u, campStyle c 
+        WHERE u.userNo = c.userNo AND u.userNo = #{userNo}
     </select>
 
     <select id="userMatchValue" parameterType="map" resultType="int">
-        SELECT mbtiValue FROM mbti WHERE mbti1 = #{userNo} AND mbti2 = #{receiveNo}
+        SELECT mbtiValue FROM mbti WHERE mbti1 = #{userMBTI} AND mbti2 = #{otherMBTI}
     </select>
 
     <select id="mateMatchList" parameterType="com.ssafy.project.dto.MateMatchDto" resultType="com.ssafy.project.dto.MateMatchDto">
