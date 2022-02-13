@@ -13,6 +13,7 @@
             ><button
               v-if="item.userNo === myNum"
               @click="delCard(item.mateListNo)"
+              style="background-color:white; color:red; border-color:red;"
             >
               x
             </button>
@@ -35,7 +36,7 @@
                 class="d-flex flex-row"
                 style="margin-left: 10px; margin-bottom: 7px"
               >
-                <div class="star-ratings" style="margin-top: 7px">
+                <div class="star-ratings" style="margin-top: 0px">
                   <div
                     class="star-ratings-fill space-x-2 text-lg"
                     :style="{ width: item.userRatePoint * 20 + 1.5 + '%' }"
@@ -68,28 +69,33 @@
       </div>
     </div>
 
-    <div>
+    <div align="center">
       <b-button
-        :class="visible ? null : 'collapsed'"
+        :class="visible ? 'null' : 'collapsed'"
         :aria-expanded="visible ? 'true' : 'false'"
         aria-controls="collapse-4"
         @click="visible = !visible"
+        style="background-color: #7ac4e1; border-color:#7ac4e1; border-size:2px;"
       >
-        <span v-if="check === 0 && mate.userNo != myNum">메이트 참가</span>
-        <span v-else>참가완료</span>
+        <span v-if="check === 0 && mate.userNo != myNum" >메이트 참가</span>
+        <span v-else >참가 중</span>
       </b-button>
       <b-button v-if="mate.userNo === myNum" @click="mateDefine"
         >모집마감</b-button
       >
       <b-collapse id="collapse-4" v-model="visible" class="mt-2">
-        <b-card
-          ><div style="float: center">
+        <b-card 
+          ><div style="float: center; ">
             <div v-if="check === 0">
-              <input type="text" v-model="friendnum" /><button @click="join">
-                메이트 참가
+              <div><i class="bi bi-exclamation-lg" style="font-size:20px;"></i>동행인원 제한 : {{mate.friendlimit}}인</div>
+              <input type="text" v-model="friendnum" style=" width:25%; text-align:center;" />
+              <button @click="join" class="box">
+                확인
               </button>
             </div>
-            <div v-else><button @click="join">참가 취소</button></div>
+            <div v-else>
+              <button @click="join" class="box">참가 취소</button>
+            </div>
           </div></b-card
         >
       </b-collapse>
@@ -139,7 +145,6 @@ export default {
       }
     });
     const member = ref(props.mateDetail.mateList);
-    console.log(member.value);
     const endCheck = ref(0);
     const friendnum = ref(0);
     const me = ref(store.state.userList);
@@ -156,18 +161,16 @@ export default {
     };
     const join = () => {
       if (
-        props.mateDetail.memberlimit <
-        Number(friendnum.value) + Number(memberSum.value)
-      ) {
-        console.log(props.mateDetail.memberlimit);
-        console.log(Number(friendnum.value) + Number(memberSum.value));
-        alert("인원초과 수고");
+        props.mateDetail.memberlimit < Number(friendnum.value) + Number(memberSum.value) ) {
+        alert("인원 초과입니다.");
       } else if (Number(friendnum.value) > props.mateDetail.friendlimit) {
-        alert("인원초과 수고");
-      } else {
+        alert("동행인원 수를 확인해주세요.");
+      } else if (mate.value.lowestAge > me.value.userAge || me.value.userAge > mate.value.highestAge ) {
+        alert("연령대를 확인해주세요.")
+      }
+      else {
         if (check.value === 0) {
           visible.value = false;
-          console.log(me.value);
           const meList = {
             campStyle1: null,
             campStyle2: null,
@@ -185,80 +188,43 @@ export default {
             userNickname : store.state.userList.userNickname,
         } 
         
-      meList.campStyle1 = me.value.campStyle1
-      meList.campStyle2 = me.value.campStyle2
-      meList.campStyle3 = me.value.campStyle3
-      meList.campStyle4 = me.value.campStyle4
-      meList.campStyle5 = me.value.campStyle5
-      meList.campStyle6 = me.value.campStyle6
-      meList.mateListNum = Number(friendnum.value)
-      meList.userGender = me.value.userGender
-      meList.userMBTI = me.value.userMBTI
-      meList.userRatePoint = me.value.userRatePoint
-      meList.userAge = me.value.userAge
-      member.value.push(meList)
-      console.log(meList)
-      axios({
-        method : 'post',
-        url : `${SERVER_URL}/mate/apply`,
-        data : meList
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-
-        // meList.campStyle1 = me.value.campStyle1
-        // meList.campStyle2 = me.value.campStyle2
-        // meList.campStyle3 = me.value.campStyle3
-        // meList.campStyle4 = me.value.campStyle4
-        // meList.campStyle5 = me.value.campStyle5
-        // meList.campStyle6 = me.value.campStyle6
-        // meList.mateListNum = Number(friendnum.value)
-        // meList.userGender = me.value.userGender
-        // meList.userMBTI = me.value.userMBTI
-        // meList.userRatePoint = me.value.userRatePoint
-        // meList.userAge = me.value.userAge
+        meList.campStyle1 = me.value.campStyle1
+        meList.campStyle2 = me.value.campStyle2
+        meList.campStyle3 = me.value.campStyle3
+        meList.campStyle4 = me.value.campStyle4
+        meList.campStyle5 = me.value.campStyle5
+        meList.campStyle6 = me.value.campStyle6
+        meList.mateListNum = Number(friendnum.value)
+        meList.userGender = me.value.userGender
+        meList.userMBTI = me.value.userMBTI
+        meList.userRatePoint = me.value.userRatePoint
+        meList.userAge = me.value.userAge
         // member.value.push(meList)
-        // console.log(meList)
-        // axios({
-        //   method : 'post',
-        //   url : `${SERVER_URL}/mate/apply`,
-        //   data : meList
-        // })
-        // .then(res => {
-        //   console.log(res)
-        // })
-        // .catch(err => {
-        //   console.log(err)
-        // })
-
-          meList.campStyle1 = me.value.campStyle1;
-          meList.campStyle2 = me.value.campStyle2;
-          meList.campStyle3 = me.value.campStyle3;
-          meList.campStyle4 = me.value.campStyle4;
-          meList.campStyle5 = me.value.campStyle5;
-          meList.campStyle6 = me.value.campStyle6;
-          meList.mateListNum = Number(friendnum.value);
-          meList.userGender = me.value.userGender;
-          meList.userMBTI = me.value.userMBTI;
-          meList.userRatePoint = me.value.userRatePoint;
-          meList.userAge = me.value.userAge;
-          member.value.push(meList);
-          console.log(meList);
+        console.log(meList)
+        axios({
+          method : 'post',
+          url : `${SERVER_URL}/mate/apply`,
+          data : meList
+        })
+        .then(res => {
+          console.log(res)
           axios({
-            method: "post",
-            url: `${SERVER_URL}/mate/apply`,
-            data: meList,
+            method: "get",
+            url: `${SERVER_URL}/mate/${props.mateNm}`,
           })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          .then((res) => {
+            const temp = res.data.dto;
+            member.value = temp.mateList
+            
+            
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
           check.value += 1;
         } else {
@@ -270,15 +236,33 @@ export default {
     }
 
     const delCard = (temp) => {
+        console.log(temp)
+        console.log(member.value[0])
         axios({
-          method :'delete',
+          method : 'delete',
           url : `${SERVER_URL}/mate/apply/${temp}`
-          
         })
-        .catch((err) => {
+        .then(res => {
+          console.log(res)
+          axios({
+            method: "get",
+            url: `${SERVER_URL}/mate/${props.mateNm}`,
+          })
+          .then((res) => {
+            const temp = res.data.dto;
+            member.value = temp.mateList
+            check.value -=1
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        })
+
+        .catch(err => {
           console.log(err);
-        });
-    };
+        })
+    
+    }
 
     const mateDefine = () => {
       endCheck.value += 1
@@ -329,7 +313,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 body {
-  background-color: #eee;
+  /* background-color: #eee; */
   font-family: "Roboto", sans-serif;
 }
 
@@ -387,5 +371,22 @@ body {
 .star-ratings-base {
   z-index: 0;
   padding: 0;
+}
+
+button{
+  /* color: #7ac4e1;
+  background-color: #fff;
+  border: 3px solid #7ac4e1;
+  border-radius: 30px; */
+}
+
+.card {
+  background-color:white;
+  border: 0px solid white;
+}
+
+.bi-exclamation-lg {
+  color:red;
+
 }
 </style>

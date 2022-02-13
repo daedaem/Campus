@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!-- <Chat /> -->
+    <Chat/>
     <router-view></router-view>
   </div>
   <!-- 삭제금지 -->

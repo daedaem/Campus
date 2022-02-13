@@ -1,77 +1,65 @@
 <template>
-  <div class="test">
-    <body>
-      <Fileupload @image="uploadedImage" />
-
-      <div style="margin-left: 30px">
-        <Filtermake
-          @style-check="styleCheck"
-          @limit-check="limitCheck"
-          @camp-check="campCheck"
-        />
-
-        <div align="left" class="filterbox">
-          <div align="left" class="filterbox2">
-            <Dropdown1 @member-value="memberValue" />
-          </div>
-          <div align="left" class="filterbox1">
-            <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" />
-          </div>
-        </div>
-
-        <Campchoice
-          align="left"
-          style="margin-top: 50px; margin-bottom: 20px"
-          @camp-data="campValue"
-        />
-        <Datepicker @date-in="dateIn" />
-        <!-- <div class="camping">
-        <input class="input1" type="text" placeholder="캠핑장 선택">
-      </div> -->
-      </div>
-      <br />
-      <Items @img-status="imgStatus" />
-
-      <div class="container contact-form">
-        <div class="row">
-          <div>
-            <p align="left">제목</p>
-            <div class="form-group">
-              <input
-                v-model="partyData.mateTitle"
-                type="text"
-                name="txtName"
-                class="form-control"
-                placeholder="Your Name *"
-              />
+  <div class="test row" >
+    <body class="col-12">
+      
+      <div class="registration-form">
+        <form>
+          
+            <div class="">
+              
+              <Fileupload @image="uploadedImage" align="left"/>
+           
             </div>
-          </div>
-          <div>
-            <p align="left">메이트 소개</p>
+            <div class="form-group" style="margin-top:100px;">
+              <h4>메이트 제목</h4>
+                <input type="text" class="form-control item" id="username" placeholder="제목을 입력하세요.." v-model="partyData.mateTitle">
+            </div>
             <div class="form-group">
-              <textarea
+              <h4>내용</h4>
+                <textarea
                 v-model="partyData.mateContent"
                 name="txtMsg"
-                class="form-control"
+                class="form-control item"
                 placeholder="Your Message *"
                 style="width: 100%; height: 150px"
               ></textarea>
             </div>
-          </div>
-
-          <div class="form-group">
-            <input
-              type="submit"
-              name="btnSubmit"
-              class="btnContact"
-              value="Send Message"
-              @click="test"
-            />
-          </div>
-        </div>
-      </div>
+            <div class="form-group"  >
+              <h4>나이&인원 제한</h4>
+                <Dropdown1 @member-value="memberValue" class="members"/>
+                <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+              <h4>캠핑장 선택</h4>
+                <Campchoice
+          align="left"
+          style=" margin-bottom: 20px"
+          @camp-data="campValue"
+        />
+            </div>
+            <div class="form-group">
+              <h4>날짜 선택</h4>
+                <Datepicker @date-in="dateIn" class="date"/>
+            </div>
+            <div class="form-group" style="margin-top:50px;">
+              <Filtermake
+                @style-check="styleCheck"
+                @limit-check="limitCheck"
+                @camp-check="campCheck"
+              />
+            </div>
+            <div class="form-group">
+              <Items @img-status="imgStatus" id="test"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-block create-account" @click="test">Create Account</button>
+            </div>
+        </form>
+        
+    </div>
     </body>
   </div>
+  
 </template>
 
 <script>
@@ -143,21 +131,21 @@ export default {
       }
     },
 
-    styleCheck(text) {
+    styleCheck() {
       const temp = {
         style1: null,
         style2: null,
         style3: null,
       };
 
-      if (text.length === 1) {
-        temp.style1 = text[0];
-      } else if (text.length === 2) {
-        (temp.style1 = text[0]), (temp.style2 = text[1]);
-      } else if (text.length === 3) {
-        (temp.style1 = text[0]),
-          (temp.style2 = text[1]),
-          (temp.style3 = text[2]);
+      if (this.$store.state.styleCheck.length === 1) {
+        temp.style1 = this.$store.state.styleCheck[0];
+      } else if (this.$store.state.styleCheck.length === 2) {
+        (temp.style1 = this.$store.state.styleCheck[0]), (temp.style2 = this.$store.state.styleCheck[1]);
+      } else if (this.$store.state.styleCheck.length === 3) {
+        (temp.style1 = this.$store.state.styleCheck[0]),
+          (temp.style2 = this.$store.state.styleCheck[1]),
+          (temp.style3 = this.$store.state.styleCheck[2]);
       }
       this.partyData.campStyleList = temp;
     },
@@ -165,8 +153,8 @@ export default {
     limitCheck(text) {
       this.partyData.friendlimit = Number(text);
     },
-    campCheck(text) {
-      this.partyData.mateCamptype = text[0];
+    campCheck() {
+      this.partyData.mateCamptype = this.$store.state.campCheck[0];
     },
     memberValue(text) {
       this.partyData.memberlimit = Number(text);
@@ -180,8 +168,10 @@ export default {
     imgStatus(text) {
       this.partyData.campEquipRequiredList = text;
     },
-    campValue(text) {
+    campValue(text,id) {
       console.log(text);
+      console.log(id)
+      this.$store.dispatch('campInfo',id)
       this.partyData.mateCampsite = text;
     },
     uploadedImage(file) {
@@ -299,18 +289,8 @@ export default {
             id: this.mateChatNm,
           };
           console.log(chatData);
-          axios({
-            method: "post",
-            url: `${SERVER_URL}/api/chat/room`,
-            data: chatData,
+        
           })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
     
         .catch(err => {
           console.log(err)
@@ -322,10 +302,6 @@ export default {
         
         
    
-
-      .catch(err => {
-        console.log(err)
-      })
 
 
       
@@ -341,12 +317,20 @@ export default {
 </script>
 
 <style scoped>
+#test {
+  padding : 0px;
+  margin-left: 0px;
+  margin-right : 0px;
+  border-color: white;
+  border-style:solid;
+}
+
 body {
   /* width: 768px; */
   width: 768px;
   margin: 0 auto;
   padding: 0 20px;
-  background: beige;
+  background-color: #dee9ff;
 }
 
 .test {
@@ -370,8 +354,8 @@ body {
 
 .filterbox1 {
   float: left;
-  margin-left: 50px;
-  margin-right: 20px;
+  /* margin-left: 50px; */
+  /* margin-right: 20px; */
 }
 .filterbox2 {
   float: left;
@@ -399,6 +383,27 @@ body {
 .contact-form .form-control {
   border-radius: 1rem;
 }
+
+.form-control{
+  border-radius: 20px;
+}
+
+.members{
+  width:7.5rem;
+  border-radius : 20px;
+  float: left;
+}
+
+.ages{
+  width:100px;
+  height:100px;
+  float: right;
+}
+
+.date{
+  border-radius: 20px;
+}
+
 .contact-image {
   text-align: center;
 }
@@ -444,5 +449,99 @@ body {
   overflow: hidden;
   margin-top: 100px;
   margin-bottom: 40px;
+}
+
+.registration-form{
+	padding: 50px 0;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 7500px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color: #5891ff;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+  
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    border-top: 1px solid #dee9ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
 }
 </style>
