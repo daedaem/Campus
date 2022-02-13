@@ -1,9 +1,9 @@
 <template>
   <Navbar></Navbar>
-  <div class="FeedListBackground" v-if="this.$store.state.userEmail != null">
+  <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
     <div
       class="FeedListTotalframe d-flex"
-      v-if="this.$store.state.userList.userNickname"
+      v-if="this.$store.state.isLogin"
     >
       <div class="FeedListFrame">
         <div
@@ -11,7 +11,7 @@
         >
           <div class="total-frame col-12">
             <div
-              v-if="this.$store.state.userList.userNickname"
+              v-if="this.$store.state.isLogin"
               class="FeedCreateFrame"
             >
               <div class="d-flex justify-content-center align-items-center">

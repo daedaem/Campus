@@ -1,5 +1,6 @@
 <template>
   <Navbar id="navbar"></Navbar>
+  <div style="width:100%; height:200px; background:black;"></div>
   <body>
     <div>
       <div class="container mt-5 mb-5">
