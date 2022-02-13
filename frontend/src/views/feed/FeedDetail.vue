@@ -11,7 +11,7 @@
           >
             <div class="">
               <feed-detail-carousel
-                class="feed-detail-carousel d-flex"
+                class="feed-detail-carousel d-flex" v-if="feedDetailContents.length != 0 "
                 :ImageList="feedDetailContents"
               ></feed-detail-carousel>
             </div>
