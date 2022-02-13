@@ -20,9 +20,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		registry.setApplicationDestinationPrefixes("/pub"); // publisher : message-handling methods로 라우팅됨
 		registry.enableSimpleBroker("/sub"); // subscriber : topic으로 시작되는 메시지가 메세지브로커로 라우팅됨
 	}
-	
+
 	@Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-        registration.interceptors(new MyChannelInterceptor());
-    }
+	public void configureClientInboundChannel(ChannelRegistration registration) {
+		registration.interceptors(new MyChannelInterceptor());
+	}
 }

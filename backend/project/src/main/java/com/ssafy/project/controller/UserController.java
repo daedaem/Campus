@@ -20,7 +20,7 @@ import com.ssafy.project.dto.UserRateDto;
 import com.ssafy.project.dto.UserResultDto;
 import com.ssafy.project.service.UserService;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // == > @Controller + @ResponseBody ==> 여기는 다 json 으로 넘어간다!! // 값자체를 리턴
@@ -33,8 +33,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping(value = "/user")
-    public ResponseEntity<UserResultDto> register(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
-        // 같이 넘겨준다.
+    public ResponseEntity<UserResultDto> register(@RequestBody UserDto userDto) {
         System.out.println(userDto);
         UserResultDto userResultDto = userService.userRegister(userDto);
         if (userResultDto.getResult() == SUCCESS) {
@@ -46,9 +45,9 @@ public class UserController {
 
     // userEmail에 해당하는 user 정보 구하기
     @GetMapping(value = "/user/{userEmail}")
-    public ResponseEntity<UserDto> select(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공 실패여부로 같이
+    public ResponseEntity<UserDto> select(@PathVariable String userEmail) {
         System.out.println(1);
-        System.out.println(userEmail);// 넘겨준다.
+        System.out.println(userEmail);
         UserDto userDto = userService.userSelect(userEmail);
         System.out.println(userDto);
         return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
@@ -56,8 +55,7 @@ public class UserController {
 
     // user 정보 업데이트
     @PutMapping(value = "/user")
-    public ResponseEntity<UserResultDto> update(@RequestBody UserDto userDto) { // restapi를 이용해서 http 상태코드를 성공 실패여부로 같이
-                                                                                // 넘겨준다.
+    public ResponseEntity<UserResultDto> update(@RequestBody UserDto userDto) {
         System.out.println(userDto);
         UserResultDto userResultDto = userService.userUpdate(userDto);
         System.out.println(userResultDto);
@@ -116,9 +114,7 @@ public class UserController {
 
     // userEmail에 해당하는 user 탈퇴
     @DeleteMapping(value = "/user/{userEmail}")
-    public ResponseEntity<UserResultDto> delete(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공 실패여부로
-                                                                                  // 같이
-                                                                                  // 넘겨준다.
+    public ResponseEntity<UserResultDto> delete(@PathVariable String userEmail) {
         UserResultDto userResultDto = userService.userDelete(userEmail);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
@@ -129,9 +125,7 @@ public class UserController {
 
     // 유저 평점
     @PostMapping(value = "/user/rate")
-    public ResponseEntity<UserResultDto> rate(@RequestBody UserRateDto userRateDto) { // restapi를 이용해서 http 상태코드를 성공
-                                                                                      // 실패여부로
-                                                                                      // 같이 넘겨준다.
+    public ResponseEntity<UserResultDto> rate(@RequestBody UserRateDto userRateDto) {
         UserResultDto userResultDto = userService.userRate(userRateDto);
         if (userResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
@@ -142,18 +136,14 @@ public class UserController {
 
     // userEmail에 해당하는 user 정보 구하기
     @GetMapping(value = "/user/duplemail/{userEmail}")
-    public ResponseEntity<UserResultDto> duplEmail(@PathVariable String userEmail) { // restapi를 이용해서 http 상태코드를 성공
-                                                                                     // 실패여부로 같이
-        // 넘겨준다.
+    public ResponseEntity<UserResultDto> duplEmail(@PathVariable String userEmail) {
         UserResultDto userResultDto = userService.userDuplEmail(userEmail);
         return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
     }
 
     // userEmail에 해당하는 user 정보 구하기
     @GetMapping(value = "/user/duplnickname/{userNickname}")
-    public ResponseEntity<UserResultDto> duplNickname(@PathVariable String userNickname) { // restapi를 이용해서 http 상태코드를
-                                                                                           // 성공 실패여부로 같이
-        // 넘겨준다.
+    public ResponseEntity<UserResultDto> duplNickname(@PathVariable String userNickname) {
         UserResultDto userResultDto = userService.userDuplNickname(userNickname);
         return new ResponseEntity<UserResultDto>(userResultDto, HttpStatus.OK);
     }

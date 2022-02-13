@@ -66,16 +66,12 @@
             <!-- visible? visible이 참이면 null 거짓이면 collapsed -->
             <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
             <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
-            <b-icon
-              style="cursor: pointer"
-              icon="chat-dots"
-              font-size="25px"
+            <i class="bi bi-chat-dots"    font-size="25px"
               :class="visible ? null : 'collapsed'"
               :aria-expanded="visible ? 'true' : 'false'"
               aria-controls="comment"
-              @click="visible = !visible"
-            >
-            </b-icon>
+              @click="visible = !visible" style="cursor: pointer"></i>
+    
           </span>
         </span>
         <span class="share-box d-flex me-3 my-auto">
@@ -445,6 +441,15 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width:420px) {
+
+  .user-feed-cards {
+  border-radius: 20px;
+  margin: 0px 0px 30px 0px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  }
+}
 .feed-frame {
   min-height: 400px;
   /* max-width: 600px; */
@@ -453,7 +458,7 @@ export default {
   /* max-height: 800px; */
 }
 .user-feed-cards {
-  border-radius: 3px;
+  /* border-radius: 20px; */
   margin: 0px 0px 30px 0px;
   background-color: white;
   border: 1px solid #dbdbdb;
@@ -474,7 +479,7 @@ export default {
 
 .user-feed-card {
   padding: 20px 30px 20px 30px;
-  border: 1px solid #dbdbdb;
+  /* border: 1px solid #dbdbdb; */
 
   /* border-bottom: 1px solid #eee; */
   /* border-bottom: 1px solid black; */
@@ -486,7 +491,7 @@ export default {
 }
 
 .feed-text {
-  border: 1px solid #dbdbdb;
+  /* border: 1px solid #dbdbdb; */
   text-align: justify;
   font-size: 16px;
   padding: 20px 20px;
@@ -498,7 +503,8 @@ export default {
 .user-feed-buttons {
   /* margin: 10px 0px; */
   padding: 10px 0px;
-  border: 1px solid #dbdbdb;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
 }
 .collapsed-comment {
   min-height: 80px;

@@ -117,7 +117,7 @@ export default {
       console.log(this.socketStop.includes(roomid))
       if (this.socketStop.includes(roomid) === false) {
           console.log('check')
-        let socket = new SockJS('http://localhost:8080/ws')
+        let socket = new SockJS('http://i6e102.p.ssafy.io:8080/ws')
         this.stompClient = Stomp.over(socket)
         this.stompClient.connect({}, frame=>{
           console.log("success", frame)
