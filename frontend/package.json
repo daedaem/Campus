@@ -33,6 +33,7 @@
     "sockjs-client": "^1.5.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.4.0",
+    "swiper": "^8.0.5",
     "v-pagination-3": "^0.1.7",
     "v3-infinite-loading": "^1.0.1",
     "vee-validate": "^4.5.8",
