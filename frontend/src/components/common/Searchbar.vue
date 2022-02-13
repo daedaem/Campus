@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div>
-      <input
-        class="text-secondary Searchbar-inputBox"
-        @input="async"
-        @keyup.enter="SearchData()"
-        placeholder="Search..."
-      />
-    </div>
+    <input
+      class="Searchbar-inputBox"
+      @input="async"
+      @keyup.enter="SearchData()"
+      placeholder=""
+    />
+
     <!-- <div class="ui cards" style="margin: 10px" v-if="inputData">
       <div
         class="card ui fluid"
@@ -118,8 +117,11 @@ export default {
 
 <style>
 .Searchbar-inputBox {
-  border-radius: 10px;
-  min-width: 200px;
+  min-width: 100px;
+  max-width: 150px;
   height: 40px;
+  background: transparent;
+  border: transparent;
+  border-bottom: 1px solid white;
 }
 </style>

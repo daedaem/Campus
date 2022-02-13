@@ -4,84 +4,70 @@
 			<h4 align="left">캠핑 스타일</h4>
 			<hr>
 			<ul class="list-inline">
-                <li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: foodbutton,
-                            modifycampButtonOff: !foodbutton,
-                        }"
-                        @click="styleControl('1')"
-                        type="button"
-                        >
-                        음식/음주
-                    </button> 
-                </li>
+        <li class="list-inline-item">
+          <button
+            :class="{
+                modifycampButtonOn: foodbutton,
+                modifycampButtonOff: !foodbutton,}"
+            @click="styleControl('1')"
+            type="button">
+            음식/음주
+          </button> 
+        </li>
 
-                <li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: talkbutton,
-                            modifycampButtonOff: !talkbutton,
-                        }"
-                        @click="styleControl('2')"
-                        type="button"
-                        >
-                        불멍/수다
-                    </button> 
-                </li>
+        <li class="list-inline-item">
+          <button
+            :class="{
+                modifycampButtonOn: talkbutton,
+                modifycampButtonOff: !talkbutton,}"
+            @click="styleControl('2')"
+            type="button">
+            불멍/수다
+          </button> 
+        </li>
 
 				<li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: campfirebutton,
-                            modifycampButtonOff: !campfirebutton,
-                        }"
-                        @click="styleControl('3')"
-                        type="button"
-                        >
-                        캠프파이어
-                    </button> 
-                </li>
-				
-                <li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: climbbutton,
-                            modifycampButtonOff: !climbbutton,
-                        }"
-                        @click="styleControl('4')"
-                        type="button"
-                        >
-                        등산
-                    </button> 
-                </li>
-
-				<li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: photobutton,
-                            modifycampButtonOff: !photobutton,
-                        }"
-                        @click="styleControl('5')"
-                        type="button"
-                        >
-                        사진찍기
-                    </button> 
-                </li>
-				
-                <li class="list-inline-item">
-                    <button
-                        :class="{
-                            modifycampButtonOn: musicbutton,
-                            modifycampButtonOff: !musicbutton,
-                        }"
-                        @click="styleControl('6')"
-                        type="button"
-                        >
-                        음악감상
-                    </button> 
-                </li>
+          <button
+            :class="{
+              modifycampButtonOn: campfirebutton,
+              modifycampButtonOff: !campfirebutton,}"
+            @click="styleControl('3')"
+            type="button">
+            캠프파이어</button> 
+        </li>  
 			</ul>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <button
+            :class="{
+              modifycampButtonOn: climbbutton,
+              modifycampButtonOff: !climbbutton,}"
+            @click="styleControl('4')"
+            type="button">
+            등산</button> 
+        </li>
+
+				<li class="list-inline-item">
+          <button
+            :class="{
+              modifycampButtonOn: photobutton,
+              modifycampButtonOff: !photobutton,
+            }"
+            @click="styleControl('5')"
+            type="button">
+            사진찍기</button> 
+        </li>
+        <li class="list-inline-item">
+          <button
+            :class="{
+                modifycampButtonOn: musicbutton,
+                modifycampButtonOff: !musicbutton,}"
+            @click="styleControl('6')"
+            type="button">
+            음악감상</button> 
+        </li>
+      </ul>
 		</div>
 	</div>
 </template>
@@ -213,29 +199,26 @@ export default {
 
 <style scoped>
 .modifycampButtonOn {
-  
-  color:black;
-  /* font-size: 20px;
-  line-height: 26px;
-  padding-left: 35px; */
-  background-color: blue;
-  /* margin: 0;
-  display: block;
-  border: 5px solid #fff;
-  border-top: none;
-  border-right: none; */
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  width: 140px;
+  background-color: skyblue;
+  color: white;
+  transition-duration: 0.5s;
+  font-size: 20px;
   
 }
 .modifycampButtonOff {
-  color:black;
-  /* font-size: 20px;
-  line-height: 26px;
-  padding-left: 35px; */
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  width: 140px;
   background-color: white;
-  /* margin: 0;
-  display: block;
-  border: 5px solid #fff;
-  border-top: none;
-  border-right: none; */
+  border: none;
+  transition-duration: 0.5s;
+  font-size: 20px;
 }
 </style>

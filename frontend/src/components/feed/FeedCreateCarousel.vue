@@ -1,14 +1,14 @@
 <template>
   <div class="total-feed-box">
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
+    <div>
+      <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
+    </div>
     <div
       class="feed-picture-box d-flex justify-content-center align-items-center"
       v-if="this.imageinfo.ImageList.length == 1"
     >
       <div class="feed-picture pt-4">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <img
           :src="`${imageinfo.ImageList[0]}`"
           class="d-block w-100 h-100"
@@ -23,9 +23,6 @@
       v-if="this.imageinfo.ImageList.length == 2"
     >
       <div class="feed-picture pt-4">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
@@ -97,15 +94,40 @@
       v-if="this.imageinfo.ImageList.length == 3"
     >
       <div class="feed-picture pt-4">
-        <div>
-          <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
-        </div>
         <div
           :id="feedid"
           class="carousel carousel-dark slide"
           data-bs-ride="carousel"
           data-bs-interval="false"
         >
+          <div class="carousel-indicators">
+            <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
+            v-for="indicator in feed.imgurl.length"
+            :key="indicator.key" -->
+            <button
+              type="button"
+              @click="carouselidadd(imageinfo.ImageList)"
+              :data-bs-target="feedlink"
+              data-bs-slide-to="0"
+              class="active sm"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              @click="carouselidadd(imageinfo.ImageList)"
+              :data-bs-target="feedlink"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              @click="carouselidadd(imageinfo.ImageList)"
+              :data-bs-target="feedlink"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
@@ -152,37 +174,6 @@
           </button>
         </div>
       </div>
-    </div>
-    <div class="carousel-indicators">
-      <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
-            v-for="indicator in feed.imgurl.length"
-            :key="indicator.key" -->
-      <button
-        type="button"
-        @click="carouselidadd(image)"
-        :data-bs-target="feedlink"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-        style="z-index: 100"
-      ></button>
-      <button
-        type="button"
-        @click="carouselidadd(image)"
-        :data-bs-target="feedlink"
-        data-bs-slide-to="1"
-        aria-label="Slide 2"
-        style="z-index: 100"
-      ></button>
-      <button
-        type="button"
-        @click="carouselidadd(image)"
-        :data-bs-target="feedlink"
-        data-bs-slide-to="2"
-        aria-label="Slide 3"
-        style="z-index: 100"
-      ></button>
     </div>
   </div>
 </template>
