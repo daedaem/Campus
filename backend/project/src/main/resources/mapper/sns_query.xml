@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.project.dao.SnsDao">
+
+    <!-- snsPost -->
+    <insert id="snsInsert" parameterType="com.ssafy.project.dto.SnsDto" useGeneratedKeys="true" keyProperty="snsNo">
+        INSERT INTO sns ( userNo, snsContent, snsCreateTime )
+                    VALUES ( #{userNo}, #{snsContent}, now() )
+    </insert>
+
+    <select id="snsNoselect" resultType="int">
+        SELECT snsNo FROM sns WHERE snsCheck is null
+    </select>
+
+    <update id="snsCheck" parameterType="int">
+        UPDATE sns SET snsCheck = 1 WHERE snsNo = #{snsNo}
+    </update>
+
+    <insert id="snsImageInsert" parameterType="com.ssafy.project.dto.SnsImageDto">
+        INSERT INTO snsImage ( snsNo, snsImageUrl )
+                VALUES ( #{snsNo}, #{snsImageUrl} )
+    </insert>
+
+    <select id="snsList" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT s.snsNo, s.userNo, 
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+            FROM sns s, user u
+            WHERE s.userNo = u.userNo
+            ORDER BY s.snsNo DESC
+            LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
+        UPDATE sns
+            SET snsContent = #{snsContent}, snsUpdateTime = now()
+            WHERE snsNo = #{snsNo}
+    </update>
+
+    <delete id="snsImageDelete" parameterType="int">
+        DELETE FROM snsImage WHERE snsNo = #{snsNo}
+    </delete>
+
+    <delete id="snsDelete" parameterType="int">
+        DELETE FROM sns WHERE snsNo = #{snsNo}
+    </delete>
+
+    <select id="snsDetail" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime, s.snsUpdateTime, u.userNickname, u.userProfileImage
+        FROM sns s, user u
+        WHERE s.snsNo = #{snsNo}
+        AND s.userNo = u.userNo
+    </select>
+
+    <select id="snsReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
+            SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
+                u.userNickname, u.userProfileImage
+                FROM snsReply s, user u
+                WHERE s.userNo = u.userNo
+                AND snsNo = #{snsNo};
+    </select>
+
+    <select id="snsListTotalCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM sns
+    </select>
+
+    <!-- search word-->
+    <select id="snsListSearchWord" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT s.snsNo, s.userNo, u.userNickname,
+                s.snsContent, s.snsCreateTime, u.userProfileImage
+            FROM sns s, user u
+            WHERE s.userno = u.userNo
+                AND s.snsContent LIKE CONCAT('%', #{searchword}, '%')
+            ORDER BY s.snsNo DESC
+    </select>
+
+    <select id="snsListSearchWordTotalCount" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM sns
+        WHERE snsContent LIKE CONCAT('%', #{searchword}, '%')
+    </select>
+
+
+    <select id="snsImageList" parameterType="int" resultType="com.ssafy.project.dto.SnsImageDto">
+        SELECT snsImageNo, snsImageUrl
+            FROM snsImage
+            WHERE snsNo = #{snsNo}
+    </select>
+    <!--<delete id="snsImageUrlDeleteList" parameterType="int" resultType="string">-->
+    
+
+</mapper>
+
