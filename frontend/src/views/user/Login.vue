@@ -1,48 +1,59 @@
 <template>
-  <div class="wrapC">
-    <div class="wrap-contact3">
-      <form class="contact3-form validate-form">
-        <h1 class="contact3-form-title">Camp-Us</h1>
-        <!-- 로그인 -->
-        <div class="login-header">
-          <!-- 이메일 -->
-          <div class="email-container">
-            <div align="left">이메일</div>
-            <div class="wrap-input3">
-              <input
-                class="input3"
-                type="text"
-                placeholder="example@google.com"
-                v-model="credentials.userEmail"
-                id="email"
-              />
-            </div>
-          </div>
-          <!-- 패스워드 -->
-          <div class="password-container">
-            <div align="left">패스워드</div>
-            <div class="wrap-input3">
-              <input
-                class="input3"
-                type="password"
-                placeholder="Password"
-                v-model="credentials.userPassword"
-                id="password"
-              />
-            </div>
-          </div>
+  <Navbar></Navbar>
+  <div class="registration-form">
+      <form>
+        <div class="form-icon">
+          <h1>Camp-Us</h1>
+          <span><i class="icon icon-user"></i></span>
+        </div>
 
-          <!-- 로그인버튼 -->
-          <div class="container-contact3-form-btn">
-            <button
-              class="login-button"
-              @click="login"
-              type="button"
-              @keyup.enter="login()"
-            >
-              로그인
-            </button>
+        <div class="form-group">
+          <input 
+            type="text"
+            class="form-control item" 
+            id="username" 
+            placeholder="Username"
+            v-model="credentials.userEmail">
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="password" 
+            class="form-control item" 
+            id="password" 
+            placeholder="Password"
+            v-model="credentials.userPassword">
+        </div>
+
+        <!-- 회원가입 및 비밀번호 찾기 -->
+        <div class="d-flex justify-content-between mx-3">
+          <div @click="moveToSignUp">
+            회원가입
           </div>
+          <div @click="movetofindPw">
+            비밀번호
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button 
+            type="button" 
+            class="btn btn-block login-account"
+            @click="login"
+            @keyup.enter="login()"
+            >Login</button>
+        </div>
+
+      </form>
+
+      <div class="social-media">
+        <h5>Social Login</h5>
+        <div class="social-icons">
+            <a href="#"><i class="icon-social-google" title="Google"></i></a>
+        </div>
+      </div>
+
+      
 
           <!-- 구글 로그인 -->
           <!-- <div class="d-flex justify-content-between mx-3 mt-3">
@@ -62,7 +73,7 @@
             로그아웃
           </button> -->
 
-          <div class="col">
+          <!-- <div class="col">
             <a class="btn btn-lg btn-secondary" th:href="@{/kakao/oauth}"
               >카카오로 로그인하기</a
             >
@@ -71,20 +82,7 @@
             <a class="btn btn-lg btn-secondary" th:href="@{/kakao/logout}"
               >로그아웃</a
             >
-          </div>
-
-          <!-- 회원가입 및 비밀번호 찾기 -->
-          <div class="d-flex justify-content-between mx-3 mt-3">
-            <button type="button" class="btn-primary" @click="moveToSignUp">
-              회원가입
-            </button>
-            <button type="button" class="btn-primary" @click="movetofindPw">
-              비밀번호
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+          </div> -->
   </div>
 </template>
 
@@ -92,6 +90,7 @@
 import axios from "axios";
 // import { mapActions } from "vuex";
 import Swal from 'sweetalert2'
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -107,6 +106,9 @@ export default {
       googleUser: null,
       value: "",
     };
+  },
+  components: {
+    Navbar,
   },
 
   // 구글
@@ -256,7 +258,88 @@ export default {
 </script>
 
 <style scoped>
-.test {
+.registration-form{
+	padding: 50px 0;
+}
+
+.registration-form form{
+  /* background-color: #fff; */
+  background-color: #dee9ff;
+  max-width: 600px;
+  margin: auto;
+  padding: 50px 70px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+.registration-form .item{
+	border-radius: 20px;
+  margin-bottom: 25px;
+  padding: 10px 20px;
+}
+
+.registration-form .login-account{
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #5791ff;
+  border: none;
+  color: white;
+  margin-top: 20px;
+}
+
+.registration-form .social-media{
+  max-width: 600px;
+  background-color: #fff;
+  margin: auto;
+  padding: 35px 0;
+  text-align: center;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: #9fadca;
+  border-top: 1px solid #dee9ff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+  .registration-form form{
+      padding: 50px 20px;
+  }
+
+  .registration-form .form-icon{
+      width: 70px;
+      height: 70px;
+      font-size: 30px;
+      line-height: 70px;
+  }
+}
+
+/* .test {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -274,104 +357,5 @@ export default {
   justify-content: center;
   cursor: pointer;
 }
-
-.wrapC {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  background-color: white;
-  align-items: center;
-  justify-content: top;
-  padding: 0 4vw;
-  min-height: 100vh;
-}
-
-.wrap-contact3 {
-  width: 500px;
-  background: #80c64a;
-  background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: linear-gradient(45deg, #56ab2f, #a8e063);
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 72px 55px 65px 55px;
-}
-.login-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 5vh;
-  padding: 0 15vw;
-  /* align-items: center; */
-}
-
-.contact3-form {
-  width: 100%;
-}
-
-.contact3-form-title {
-  display: block;
-  font-family: Poppins-Bold;
-  font-size: 39px;
-  color: #fff;
-  line-height: 1.2;
-  text-align: center;
-  padding-bottom: 70px;
-}
-
-.login-button {
-  width: 100%;
-  margin-top: 2vh;
-  background-color: white;
-  color: green;
-  border: 0.3vw solid;
-  border-color: green;
-  font-weight: bold;
-  font-size: 1vw;
-  padding: 0.5vw;
-  border-radius: 1vw;
-  transition-duration: 0.5s;
-}
-input {
-  outline: none;
-  border: none;
-}
-
-.wrap-input3 {
-  width: 100%;
-  position: relative;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.24);
-  border-top: 2px solid #f3a90800;
-  margin-bottom: 27px;
-}
-
-.input3 {
-  display: block;
-  width: 100%;
-  background: transparent;
-  font-family: Poppins-Regular;
-  font-size: 15px;
-  color: #fff;
-  line-height: 1.2;
-  padding: 0 5px;
-}
-
-.focus-input3 {
-  position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-}
-
-.validate-input {
-  position: relative;
-}
-
-.container-contact3-form-btn {
-  padding-top: 23px;
-}
+*/
 </style>
