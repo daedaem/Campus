@@ -36,7 +36,11 @@
             </div>
           <div v-else >
             <div class="col-md-12 col-xl-12 chat">
+              
               <div class="card"> 
+  
+                <button @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px; left:20px;">뒤로가기</button>  
+                
                 <div class="card-body msg_card_body" style="position:relative;">
                   <div v-for="(item2,idx) in MessageList" :key="idx">
                     <div v-bind:class="item2.style">
@@ -48,7 +52,7 @@
                   </div>
 
  
-                  <button @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px;">뒤로가기</button>  
+                  
                   <div class="card-footer" style="position:absolute; bottom:0px;">
                     <div class="input-group" >
                       <textarea name="" class="form-control type_msg" placeholder="Type your message..." v-model="content" @keyup.enter ="sendMessage()"></textarea>
@@ -382,6 +386,7 @@ body{
     height: 500px;
     border-radius: 15px !important;
     background-color: #98cde2 !important;
+  
   }
   .contacts_body{
     padding:  0.75rem 0 !important;
@@ -398,13 +403,15 @@ body{
 
 @media (max-width: 700px) {
   .card-body {
-    width: 90vw;
+    width: 80vw;
     margin: 0 auto;
+    
    
   }
 }
   .card-body { 
     width:350px;
+    margin-top: 30px;
     
   }
   .card-footer{
