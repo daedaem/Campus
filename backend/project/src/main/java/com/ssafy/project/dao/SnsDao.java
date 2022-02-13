@@ -43,4 +43,6 @@ public interface SnsDao {
     
     public int snsNoselect();
     public int snsCheck(int snsNo);
+
+    public List<SnsDto> userSnsList(int userNo);
 }
