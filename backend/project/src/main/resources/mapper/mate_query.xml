@@ -103,7 +103,7 @@
 
     <!-- detail -->
     <select id="mateDetail" parameterType="int" resultType="com.ssafy.project.dto.MateDto">
-        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, 
+        SELECT m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstart, m.mateCampend, m.userNo, m.mateCamptype, m.mateStatus,
                 m.lowestAge, m.highestAge, m.mateTitle, m.mateContent, m.friendlimit, m.memberlimit, u.userProfileImage, u.userNickName
         FROM mate m, user u
         WHERE m.userNo = u.userNo
@@ -117,7 +117,7 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        select u.userNo, r.userRatePoint, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        select u.userNo, r.userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
         from user u, userRate r, campStyle c, mateList m
         where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
             and u.userNo = r.userNo
@@ -169,6 +169,15 @@
         LIMIT 4;
     </select>
 
+    <select id="mateMatchListAll" parameterType="com.ssafy.project.dto.MateMatchDto" resultType="com.ssafy.project.dto.MateMatchDto">
+        SELECT u.userNo, u.userNickname, u.userEmail, u.userGender, u.userMBTI, u.userProfileImage,c.campStyle1, c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6
+        FROM user u, campStyle c 
+        WHERE u.userNo IN (SELECT userNo FROM user WHERE userMBTI IN (SELECT mbti2 FROM mbti WHERE mbtiValue > 0 AND mbti1 = #{userMBTI})) 
+        AND c.userNo = u.userNo AND u.userNo != #{userNo}
+        ORDER BY rand()
+        LIMIT 4;
+    </select>
+
     <!-- mate main select -->
     <select id="mateListMain" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
         select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
@@ -189,4 +198,55 @@
     <update id="mateStatusUpdate" parameterType="int">
         UPDATE mate SET mateStatus = 'N' WHERE mateNo = #{mateNo};
     </update>
+
+    <!-- 메이트 필터링 -->
+    <select id="mateFilterCampType" parameterType="map" resultType="int">
+        select mateNo
+            from mate
+            where mateCamptype = #{mateCamptype}
+            order by mateNo desc;
+    </select>
+
+    <select id="mateFilterCampDate" parameterType="map" resultType="int">
+        <![CDATA[  
+        select mateNo
+            from mate
+            where date(mateCampstart) >= date(#{mateCampstart}) AND date(mateCampstart) <= date(#{mateCampend})
+            ORDER BY mateNo DESC;
+        ]]>
+    </select>
+
+    <select id="mateFilterStyleNum3" parameterType="map" resultType="int">
+        SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1} AND style2 = #{style2} AND style3 = #{style3})
+                                            OR (style1 = #{style1} AND style2 = #{style3} AND style3 = #{style2})
+                                            OR (style1 = #{style2} AND style2 = #{style1} AND style3 = #{style3})
+                                            OR (style1 = #{style2} AND style2 = #{style3} AND style3 = #{style1})
+                                            OR (style1 = #{style3} AND style2 = #{style1} AND style3 = #{style2})
+                                            OR (style1 = #{style3} AND style2 = #{style2} AND style3 = #{style1})
+                                        ORDER BY mateNo DESC
+    </select>
+    
+    <select id="mateFilterStyleNum2" parameterType="map" resultType="int">
+        SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1} AND style2 = #{style2})
+                                            OR (style1 = #{style2} AND style2 = #{style1})
+                                        ORDER BY mateNo DESC
+    </select>
+
+    <select id="mateFilterStyleNum1" parameterType="map" resultType="int">
+        SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1})
+                                        ORDER BY mateNo DESC
+    </select>
+
+    <select id="mateFilterResult" parameterType="map" resultType="com.ssafy.project.dto.MateDto">
+        select m.mateNo, m.mateCreateTime, m.mateUpdateTime, m.mateImageUrl, m.mateCampsite, m.mateCampstyle,
+            m.mateCamptype, m.mateCampstart, m.mateCampend, m.contentId, m.mateStatus, m.userNo, m.lowestAge, m.mateContent,
+            m.highestAge, m.mateTitle, m.memberlimit, u.userNickname
+            from mate m, user u
+            where m.userNo = u.userNo 
+                AND m.mateNo in <foreach collection="demoList" item="item" index="index" open="(" close=")" separator=",">
+                                    #{item}
+                                </foreach>
+            order by m.mateNo desc
+    </select>
+
 </mapper>

@@ -25,6 +25,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.ssafy.project.dto.CampLikeParamDto;
+import com.ssafy.project.dto.CampLikeResultDto;
 import com.ssafy.project.dto.CampRateDto;
 import com.ssafy.project.dto.CampRateReplyDto;
 import com.ssafy.project.dto.CampRateReplyResultDto;
@@ -33,12 +35,12 @@ import com.ssafy.project.dto.CampSiteInfoDto;
 import com.ssafy.project.dto.CampSiteInfoDtoRepository;
 import com.ssafy.project.dto.CampSiteParamDto;
 import com.ssafy.project.dto.CampSiteResultDto;
-import com.ssafy.project.dto.UserDto;
+import com.ssafy.project.service.CampLikeService;
 import com.ssafy.project.service.CampRateReplyService;
 import com.ssafy.project.service.CampRateService;
 import com.ssafy.project.service.CampSiteService;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // 값자체를 리턴
@@ -46,6 +48,9 @@ public class CampController {
 
     @Autowired
     CampSiteService campSiteService;
+
+    @Autowired
+    CampLikeService campLikeService;
 
     @Autowired
     CampRateService campRateService;
@@ -237,6 +242,48 @@ public class CampController {
         }
     }
 
+    @GetMapping(value = "/camp/like/{userNo}")
+    public ResponseEntity<CampLikeResultDto> campLikeList(@PathVariable int userNo) {
+
+        CampLikeResultDto campLikeResultDto = campLikeService.campLikeList(userNo);
+
+        if (campLikeResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "/camp/like/{userNo}/{contentId}")
+    public ResponseEntity<CampLikeResultDto> campLikeInsert(@PathVariable int userNo, @PathVariable String contentId) {
+
+        CampLikeParamDto campLikeParamDto = new CampLikeParamDto();
+        campLikeParamDto.setUserNo(userNo);
+        campLikeParamDto.setContentId(contentId);
+        CampLikeResultDto campLikeResultDto = campLikeService.campLikeInsert(campLikeParamDto);
+
+        if (campLikeResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "/camp/like/{userNo}/{contentId}")
+    public ResponseEntity<CampLikeResultDto> campLikeDelete(@PathVariable int userNo, @PathVariable String contentId) {
+
+        CampLikeParamDto campLikeParamDto = new CampLikeParamDto();
+        campLikeParamDto.setUserNo(userNo);
+        campLikeParamDto.setContentId(contentId);
+        CampLikeResultDto campLikeResultDto = campLikeService.campLikeInsert(campLikeParamDto);
+
+        if (campLikeResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // 캠핑장 평점 리스트
     @GetMapping(value = "/camp/rate/{contentId}")
     public ResponseEntity<CampRateResultDto> campRateList(@PathVariable String contentId) {
@@ -354,12 +401,12 @@ public class CampController {
     public ResponseEntity<CampRateReplyResultDto> campRateReplyUpdate(@RequestBody CampRateReplyDto campRateReplyDto,
             HttpSession session) {
 
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
-        campRateReplyDto.setUserNo(userDto.getUserNo());
+        // campRateReplyDto.setUserNo(userDto.getUserNo());
 
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
-
+        System.out.println(campRateReplyDto);
         if (campRateReplyResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampRateReplyResultDto>(campRateReplyResultDto, HttpStatus.OK);
         } else {
@@ -370,7 +417,7 @@ public class CampController {
     // 캠핑장 평점 댓글 삭제
     @DeleteMapping(value = "/camp/rate/reply/{campRateReplyNo}")
     public ResponseEntity<CampRateReplyResultDto> campRateReplyDelete(
-            @PathVariable(value = "campRateNo") int campRateReplyNo) {
+            @PathVariable int campRateReplyNo) {
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyDelete(campRateReplyNo);
 
         if (campRateReplyResultDto.getResult() == SUCCESS) {

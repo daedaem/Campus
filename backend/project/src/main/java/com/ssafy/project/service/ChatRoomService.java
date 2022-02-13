@@ -33,7 +33,7 @@ public class ChatRoomService implements IChatRoomService {
 		int result = -1;
 		// receiver가 sender와 방이 있는지
 		int count1 = chatroomMapper.checkCountReceiver(sendId, receiveId);
-		// sender가 receiver와 방이 있는지
+		// sender가 receiver와 방이 있는지//
 		int count2 = chatroomMapper.checkCountSender(sendId, receiveId);
 		System.out.println(count1);
 		System.out.println(count2);
