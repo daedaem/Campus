@@ -106,11 +106,7 @@ export default {
 
           // console.log(articles.value);
         })
-        .then((res) => {
-          articles.value.push(...res.data.list);
-
-          // console.log(articles.value);
-        })
+        
 
         .catch((err) => {
           console.log(err);

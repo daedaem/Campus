@@ -1,17 +1,16 @@
 <template>
-   <h4>캠핑 유형</h4>
 
     <div class="filterbox">
       <div class="form-check filterbox1">
         <input class="form-check-input" v-model="sortListCheck" type="checkbox" value="멤버" id="flexCheckDefault71">
         <label class="form-check-label" for="flexCheckDefault71">
-          멤버 많은 순
+          멤버 
         </label>
       </div>
       <div class="form-check filterbox1">
         <input class="form-check-input" v-model="sortListCheck" type="checkbox" value="빠른" id="flexCheckChecked72" >
         <label class="form-check-label" for="flexCheckChecked72">
-          시작날짜 빠른 순
+          시작날짜
         </label>
       </div>
       <div class="form-check filterbox1">
@@ -22,13 +21,13 @@
       </div>
       
     </div>
-  <div align="center">
+  <!-- <div align="center">
     <div class="col-sm-3">
     <a data-bs-dismiss="modal" class="btn btn-lg" href="#" @click="$emit('sortListcheck',sortListCheck) ">
         <span>button</span>
     </a>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -69,7 +68,7 @@ export default {
     top: 1px;
 }
 .form-check label{
-    color:white;
+    color:rgba(20, 20, 20, 0.5);
     font-size: 20px;
     line-height: 26px;
     padding-left: 35px;
@@ -84,7 +83,7 @@ export default {
     content: "";
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
+    border: 3px solid #818181;
     border-radius: 4px;
     position: absolute;
     top: 3px;
@@ -95,7 +94,7 @@ export default {
     height: 10px;
     width: 16px;
     border-radius: 0 0 0 4px;
-    border: 5px solid #fff;
+    border: 5px solid #7ac4e1;
     border-top: none;
     border-right: none;
     opacity: 0;

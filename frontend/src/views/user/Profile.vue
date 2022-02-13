@@ -22,12 +22,12 @@
 				</div>
 
 				<div class="mt-2">
-					{{this.user_data.userRatePoint}} / 5
+					유저 평점: {{this.user_data.userRatePoint}} / 5
 				</div>
 				
 				<div class="userInfo-follow" v-if="this.UserNo !== this.myId">
-					<button v-if="isFollow" @click="unfollow(); followcnt()">언팔로우</button>
-					<button v-else @click="follow(); followcnt()">팔로우</button>
+					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">언팔로우</button>
+					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >팔로우</button>
 					<!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
 					<button class="follow-btn " v-else @click="follow">팔로우</button> -->
 				</div>
@@ -47,15 +47,6 @@
 				<li>
 					<div @click="currentmove2()">
 						<b>게시글</b><p>{{this.feedList.length}}</p>
-					</div>
-				</li>
-
-				<li>
-					<div @click="popupOpen">
-						<popup
-						:popup-val="popupVal"
-						@close:popup="popupClose"
-						/>
 					</div>
 				</li>
 
@@ -141,7 +132,6 @@ import ProfileInfo from '@/components/user/ProfileInfo.vue'
 import followerModal from '@/components/user/followerModal.vue'
 import followingModal from '@/components/user/followingModal.vue'
 import Navbar from "@/components/common/Navbar.vue";
-import popup from "@/components/user/popup.vue"
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -173,11 +163,10 @@ export default {
 
 			campstylelist : [],
 
-			popupVal: false,
-
 
 			followersList: [], // userId 팔로워 리스트
 			followingsList: [], // userId 팔로잉 리스트
+
 		}
 	},
 	components: {
@@ -188,7 +177,6 @@ export default {
     ProfileInfo,
 		followerModal,
 		followingModal,
-		popup,
   },
 
 	created: function () {
@@ -204,12 +192,6 @@ export default {
 	},
 
 	methods : {
-		popupOpen() {
-			this.popupVal = true
-		},
-		popupClose: function (value) {
-			this.popupVal = value
-		},
 		currentmove: function() {
 			this.currentTab = 2
 		},
@@ -273,18 +255,28 @@ export default {
 				})
 		},
 		getSns: function () {
-			axios
-				.get(`${SERVER_URL}/sns`)
+			axios({
+        methods: "get",
+        url: `${SERVER_URL}/sns`,
+        params: {
+          limit: 57,
+          offset: 0,
+          // searchWord : '',
+          // doNm : '',
+				}
+        })
 				.then((res) => {
-					console.log('뭐야', res);
+					console.log("뭐야", res.data)
 					for (let i=0; i<res.data.count; i++) {
 						if (res.data.list[i].userNo === this.UserNo) {
 							this.feedList.push(res.data.list[i])
 						}
 					}
+					console.log("피드확인",this.feedList)
 				})
 		},
 		follow: function () {
+			console.log("뭐야", this.myId)
 			axios
 				// console.log(follow_data)
 				.post(`${SERVER_URL}/follow/${this.myId}/${this.UserNo}`, {
@@ -293,6 +285,7 @@ export default {
 				})
 				.then((res => {
 					this.isFollow = true
+					this.$router.go()
 					console.log("팔로우", res)
 				}))
 				.catch(err => {
@@ -308,6 +301,7 @@ export default {
 				})
 				.then((res => {
 					this.isFollow = false
+					this.$router.go()
 					console.log("언팔로우", res)
 				}))
 				.catch(err => {
@@ -338,11 +332,6 @@ export default {
 						}
 					}
 				})
-				// for (let i=0; i<res.data.count; i++) {
-				// 		if (res.data.list[i].userNo === this.UserNo) {
-				// 			this.feedList.push(res.data.list[i])
-				// 		}
-				// 	}
 		},
 		followinglist: function () {
 			axios
@@ -350,6 +339,11 @@ export default {
 				.then((res) => {
 					console.log("확인2",res.data)
 					this.followingsList = res.data.follower
+					// for (let i=0; i<res.data.follower.length; i++) {
+					// 	if (res.data.follower[i].userEmail === this.myEmail) {
+					// 		this.followingsList.push(res.data.follow[i])
+					// 	}
+					// }
 				})
 		},
 
@@ -447,7 +441,7 @@ export default {
   justify-content: center;
   grid-template-columns: repeat(3, minmax(auto, 293px));
   grid-template-rows: auto;
-  background-color: #fafafa;
+  
   row-gap: 25px;
   column-gap: 25px;
 }
@@ -458,6 +452,7 @@ export default {
   justify-content: center;
   grid-column-start: 1;
   grid-column-end: 4;
+	background-color: #fafafa;
 }
 .instagram-container .image-footer div {
   display: flex;
@@ -500,5 +495,19 @@ export default {
   color: white;
   text-align: center;
   font-size: 2.2rem;
+}
+
+.follow-buttonOn {
+	border-radius: 10px;
+	background-color: black;
+	font-size: 18px;
+	color: white;
+}
+.follow-buttonOff {
+	border-radius: 10px;
+	background-color: blue;
+	font-size: 18px;
+	color: white;
+	border: none;
 }
 </style>

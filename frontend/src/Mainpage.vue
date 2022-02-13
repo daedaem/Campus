@@ -11,6 +11,7 @@
           >
             <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
             <div class="text-center">
+
               <a class="btn btn-sm" href="#">
                 <div class="CreateAccountButton">계정 만들기</div>
               </a>
@@ -73,13 +74,7 @@ export default {
       .catch((err) => {
         console.log(err);
       })
-      .then((res) => {
-        // console.log(res.data.list);
-        mainlist.value = res.data.list;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      
 
     // 캠핑장 데이터
     axios({

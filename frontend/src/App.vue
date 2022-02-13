@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <Chat /> -->
-    <router-view></router-view>
+    <Chat />
+    <router-view :key="$route.fullPath"></router-view>
   </div>
   <!-- 삭제금지 -->
 </template>
@@ -9,14 +9,14 @@
 <script>
 // import Navbar from "@/components/Navbar.vue";
 // import Navbar from "@/components/Navbar.vue";
-// import Chat from "@/components/common/Chat.vue";
+import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
     // Navbar,
     // Navbar,
-    // Chat,
+    Chat,
   },
 };
 </script>

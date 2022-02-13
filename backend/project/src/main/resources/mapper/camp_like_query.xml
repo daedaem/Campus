@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.CampLikeDao">
+
+    <select id="campLikeList" parameterType="int" resultType="com.ssafy.project.dto.CampSiteDto">
+        SELECT c.content_id, c.faclt_nm, c.first_image_url, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore
+        FROM campLike l, camp_site c
+        WHERE l.contentId = c.content_id
+        AND userNo = #{userNo};
+    </select>
+
+    <insert id="campLikeInsert" parameterType="com.ssafy.project.dto.CampLikeParamDto">
+        INSERT INTO campLike(userNo, contentId)
+            VALUES( #{userNo}, #{contentId} );
+    </insert>
+
+    <delete id="campLikeDelete" parameterType="com.ssafy.project.dto.CampLikeParamDto">
+        DELETE FROM campLike
+        WHERE userNo = #{userNo} AND contentId = #{contentId};
+    </delete>
+
+</mapper>

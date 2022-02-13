@@ -1,16 +1,6 @@
 <template>
 <div>
-  <h4>날짜</h4>
-  <Datepicker/>
   <Datepicker @date-in="dateIn" />
-  
-    <div align="center">
-        <div class="col-sm-3">
-        <a class="btn btn-lg" @click="sendData" @date-in="dateIn">
-            <span data-bs-dismiss="modal">button</span>
-        </a>
-    </div>
-</div>
 </div>
 
 </template>
@@ -20,26 +10,47 @@
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import 'vue3-date-time-picker/dist/main.css'
 // import Datepicker from '../Datepicker.vue'
-import {ref} from 'vue'
+// import {ref} from 'vue'
 
+// import {useStore} from 'vuex'
 export default {
-  emits : ['date-check'],
+  emits : ['dateCheck'],
   name: 'Modal1',
   components: {
     Datepicker
 
   },
   setup(props,{emit}) {
-    const myData = ref('')
-    
-    const dateIn = (val) => {myData.value = val}
+    const dateFormat = (date) => {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+       
 
-    const sendData = () => {emit('date-check', myData.value)}
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+       
+
+        return date.getFullYear() + '-' + month + '-' + day
+      }
+    // const store = useStore()    
+    const dateIn = (val) => {
+      if (val) {
+        const start = dateFormat(val[0])
+        const end = dateFormat(val[1])
+        const data = [start,end]
+        emit('date-check',data)
+      }
+      }
+    
+
   
+   
   
+    
   return {
     dateIn,
-    sendData,
+    dateFormat
+
   
  
   }
