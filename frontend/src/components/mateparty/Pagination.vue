@@ -5,7 +5,7 @@
     <b-row :per-page="perPage" :current-page="currentPage"> 
       <b-card-group class ="col-md-4 col-sm-6 col-xs-12" v-for="(item,idx) in paginatedItems" :key="idx"  >
         
-        <b-card class="mb-5" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})" >
+        <b-card class="test mb-5" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})" >
           <b-card-text >
             <div align="left" v-if="item.campStyleList" >
               <span>{{'#'+item.campStyleList.style1}}</span><span>{{'#'+item.campStyleList.style2}}</span><span>{{'#'+item.campStyleList.style3}}</span>
@@ -125,5 +125,8 @@ export default {
 
 .card-img-top {
   height: 150px;
+}
+.test{
+  
 }
 </style>
