@@ -72,13 +72,7 @@ export default {
       .catch((err) => {
         console.log(err);
       })
-      .then((res) => {
-        // console.log(res.data.list);
-        mainlist.value = res.data.list;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      
 
     // 캠핑장 데이터
     axios({

@@ -117,7 +117,7 @@ export default {
       console.log(this.socketStop.includes(roomid))
       if (this.socketStop.includes(roomid) === false) {
           console.log('check')
-        let socket = new SockJS('http://localhost:8080/ws')
+        let socket = new SockJS(`${SERVER_URL}/ws`)
         this.stompClient = Stomp.over(socket)
         this.stompClient.connect({}, frame=>{
           console.log("success", frame)
@@ -289,7 +289,9 @@ export default {
     background-color: blue;
     color: #fff;
     font-size: 22px;
-    border: none
+    border: none;
+    position: fixed;
+    z-index: 10001;
 }
 
 .wrapper {
@@ -308,11 +310,15 @@ export default {
 }
 
 .header {
+    position: fixed;
+    z-index: 10001;
     padding: 13px;
     /* background-color: blue; */
     border-radius: 5px 5px 0px 0px;
     margin-bottom: 10px;
-    color: #fff
+    color: #fff;
+    bottom : 80px;
+    right : 20px;
 }
 
 .chat-form {
@@ -356,11 +362,13 @@ text-align: right;
 
 
 body{
+    
     height: 100%;
     margin: 0;
     background: #7F7FD5;
         background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
         background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+    
   }
 
   .chat{
@@ -370,7 +378,7 @@ body{
   .card{
     height: 500px;
     border-radius: 15px !important;
-    background-color: rgba(7, 147, 165, 0.4) !important;
+    background-color: #98cde2 !important;
   }
   .contacts_body{
     padding:  0.75rem 0 !important;
