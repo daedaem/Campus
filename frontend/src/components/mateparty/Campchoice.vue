@@ -21,7 +21,7 @@
       :key="idx"
       style="margin: 0"
     >
-      <div class="content" @click="doSelect(camp.facltNm)">
+      <div class="content" @click="doSelect(camp.facltNm, camp.contentId)">
         <div style="float:left;">
         <img class="right floated mini ui image" :src="camp.firstImageUrl" style="width:50px; height:50px;"/>
         </div>
@@ -59,9 +59,9 @@ export default {
       });
     });
     
-    const doSelect = (name) => {
+    const doSelect = (name, id) => {
       searchQuery.value = name
-      emit('camp-data', name)
+      emit('camp-data', name, id)
     }
 
     return {

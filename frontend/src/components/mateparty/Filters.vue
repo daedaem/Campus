@@ -67,7 +67,7 @@ export default {
 
   },
   
-  setup() {
+  setup(props,{emit}) {
   
     const allData = ref({
       mateCampstart : null,
@@ -91,6 +91,8 @@ export default {
         })
         .then(res => {
           console.log(res)
+          emit('filter-data',res)
+          
         })
         .catch(err => {
           console.log(err)

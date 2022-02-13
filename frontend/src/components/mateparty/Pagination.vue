@@ -39,15 +39,15 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+
 // import axios from "axios";
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   props : {
-      matelists : Array,
-      filterlist : Array,
-      testlist : Array,
+
+      newFilter : Array,
+ 
     },
   name : 'Pagination',
   components : {
@@ -55,23 +55,19 @@ export default {
   },
   data() {
     return {
-      
-     
       paginatedItems: '',
-      totalRows: this.matelists.length,
+      totalRows: this.newFilter.length,
       perPage: 6,
       currentPage: 1,
-  
-
     }
   },
   methods: {
     
     paginate (page_size, page_number) {
-        console.log(this.matelists)
-        let itemsToParse = this.testlist
+        
+        let itemsToParse = this.newFilter
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
-     
+        console.log(this.paginatedItems)
        
     },
     onPageChanged() {
@@ -82,16 +78,13 @@ export default {
 
   },
   created(){
-   
-    // setTimeout(() => {
-    if (this.testlist) {
+    if (this.newFilter) {
       this.paginate(this.perPage, 0)
     }
-    // }, 2000)
   },
 
   watch : {
-    allData : {
+    newFilter : {
       handler() {
         
         this.paginate(this.perPage, 0)
@@ -102,24 +95,9 @@ export default {
   },
 
   computed : {
-    ...mapState['mateList'],
-    // filterItems() {
-    //   return this.paginatedItems.filter(item => {return item.})
-    // }
-  }
+ 
+  },
   
-  
-  // computed: {
-  //   filterItems() {
-  //     return this.items.filter(item => )
-  //   }
-
-  // },
-  // filterSearch() {
-  //      return this.products
-  //                 .filter(product => product.topic.toLowerCase().match(this.search.toLowerCase()))
-  //                 .filter(product => product.price < checkbox.Value)
-  //   } 
 
 }
 </script>
