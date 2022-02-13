@@ -354,7 +354,7 @@ public class MateServiceImpl implements MateService {
             if(list.size() < 4){
                 list = dao.mateMatchListAll(matchDto);
                 for(int i = 0 ; i < list.size() ; i++){
-                    int value = dao.userMatchValue(matchDto.getUserNo(), list.get(i).getUserNo());
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
                     int count = 0;
                     if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
                     if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
@@ -367,7 +367,7 @@ public class MateServiceImpl implements MateService {
                 mateMatchResultDto.setMatelist(list);
             }else{
                 for(int i = 0 ; i < list.size() ; i++){
-                    int value = dao.userMatchValue(matchDto.getUserNo(), list.get(i).getUserNo());
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
                     int count = 0;
                     if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
                     if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
