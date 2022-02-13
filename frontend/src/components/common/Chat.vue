@@ -37,7 +37,7 @@
           <div v-else >
             <div class="col-md-12 col-xl-12 chat">
               <div class="card"> 
-                <div class="card-body msg_card_body">
+                <div class="card-body msg_card_body" style="position:relative;">
                   <div v-for="(item2,idx) in MessageList" :key="idx">
                     <div v-bind:class="item2.style">
                         <div class="msg_cotainer">
@@ -48,12 +48,12 @@
                   </div>
 
  
-                  <button @click="visibleCheck(),delTrash(temps.id)" >뒤로가기</button>  
-                  <div class="card-footer">
-                    <div class="input-group">
-                      <textarea name="" class="form-control type_msg" placeholder="Type your message..." v-model="content"></textarea>
+                  <button @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px;">뒤로가기</button>  
+                  <div class="card-footer" style="position:absolute; bottom:0px;">
+                    <div class="input-group" >
+                      <textarea name="" class="form-control type_msg" placeholder="Type your message..." v-model="content" @keyup.enter ="sendMessage()"></textarea>
                       <div class="input-group-append">
-                        <span class="input-group-text send_btn" @click="sendMessage()"><i class="fas fa-location-arrow"></i></span>
+                        <span class="input-group-text send_btn"  @click="sendMessage()"><i class="fas fa-location-arrow"></i></span>
                       </div>
                     </div>
                   </div>         
@@ -230,8 +230,11 @@ export default {
           console.log(chatMessage)
           this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
           this.content = ''
-    }
-    }
+      }
+    },
+   
+
+    
 
 
 
@@ -392,6 +395,18 @@ body{
     border-radius: 15px 15px 0 0 !important;
     border-bottom: 0 !important;
   }
+
+@media (max-width: 700px) {
+  .card-body {
+    width: 90vw;
+    margin: 0 auto;
+   
+  }
+}
+  .card-body { 
+    width:350px;
+    
+  }
   .card-footer{
   border-radius: 0 0 15px 15px !important;
     border-top: 0 !important;
@@ -492,6 +507,15 @@ background-color: rgba(0,0,0,0.3) !important;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 15px;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  /*        height: 4.8em;*/
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1 ;
+    -webkit-box-orient: vertical;
 }
 .user_info span{
   font-size: 20px;

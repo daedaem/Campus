@@ -143,18 +143,18 @@ img{
 .card-title{
   font-size: 18px;
   height:43.19px;
-        display: block;
-        color: black;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: normal;
-        line-height: 1.2;
+  display: block;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
 /*        height: 4.8em;*/
-        text-align: left;
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2 ;
-        -webkit-box-orient: vertical;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 ;
+  -webkit-box-orient: vertical;
 
 }
 
