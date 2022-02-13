@@ -68,10 +68,6 @@
           </router-link>
         </div> -->
       <div class="d-flex">
-        <a class="nav-link mt-2 me-5" aria-current="page" href="/sns/create">
-          <i class="bi bi-plus-square fs-3"></i>
-          <!-- <i class="bi bi-journal-richtext"></i> -->
-        </a>
         <div class="d-flex justify-content-center align-items-center">
           <b-dropdown
             size="sm"
@@ -150,17 +146,11 @@
           <!-- </div> -->
         </div>
       </div>
-      <div class="col-11 hidden-Navbar-Searchbar">
-        <div class="d-flex">
-          <searchbar></searchbar>
-        </div>
-      </div>
     </div>
   </nav>
 </template>
 
 <script>
-
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapState } from "vuex";
 
@@ -252,17 +242,11 @@ a .Navbar-User-profile-nickname {
     padding-right: 1rem;
   }
 
-  .hidden-Navbar-Searchbar {
-    margin: auto;
-  }
   .btn-group {
     padding-right: 2rem;
   }
 }
 @media (min-width: 800px) {
-  .hidden-Navbar-Searchbar {
-    display: none;
-  }
   .btn-group {
     margin-right: 3rem;
     padding-right: 3rem;

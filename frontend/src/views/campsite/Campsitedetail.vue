@@ -26,17 +26,23 @@
           </div>
           <hr />
           <h4>캠핑장 소개</h4>
-          <div>{{ detailData.intro }}</div>
+          <div class="campsitedetailContent">
+            <p>{{ detailData.intro }}</p>
+          </div>
           <hr />
           <h4>편의시설 및 테마</h4>
           <!-- <div v-if="detailData.value.sbrsEtc.includes('수영장')"> -->
           <!-- 부대시설 -->
-          <div>{{ detailData.sbrsCl }}</div>
-          <!-- 부대시설 기타-->
-          {{ detailData.sbrsEtc }}
-          <!-- </div> -->
-          <!-- 부대이용가능 -->
-          <div>{{ detailData.posblFcltyCl }}</div>
+          <div class="campSiteDetailContent">
+            <p style="font-style: oblique" class="">{{ detailData.sbrsCl }}</p>
+            <!-- 부대시설 기타-->
+            <p style="font-style: oblique" class="">{{ detailData.sbrsEtc }}</p>
+            <!-- </div> -->
+            <!-- 부대이용가능 -->
+            <p style="font-style: oblique" class="">
+              {{ detailData.posblFcltyCl }}
+            </p>
+          </div>
           <hr />
           <h4>캠핑장 위치</h4>
 
@@ -53,6 +59,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -66,7 +73,6 @@ import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
-
 export default {
   name: "Campsitedetail",
   components: {
@@ -75,10 +81,10 @@ export default {
     CampRatelist,
   },
   setup() {
-    const route = useRoute()
-    const detailData = ref([])
-    const router = useRouter()
-    const id = route.params.contentId
+    const route = useRoute();
+    const detailData = ref([]);
+    const router = useRouter();
+    const id = route.params.contentId;
 
     const checksbrsEtc = () => {
       // console.log("하이", res);
@@ -86,7 +92,6 @@ export default {
         // console.log("있어요");
       }
     };
- 
 
     // 캠핑장 정보
     axios({
@@ -110,30 +115,27 @@ export default {
       method: "get",
       url: `${SERVER_URL}/camp/rate/${id}`,
     })
-    .then(res => {
-      rateList.value = res.data.list
-      console.log(rateList.value)
-     
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    console.log(detailData.value)
-    console.log(rateList.value)
-    
-    const review = () =>{
-      router.push({name:'Campsitereview', params: {rateNo : id}})
-    }
+      .then((res) => {
+        rateList.value = res.data.list;
+        console.log(rateList.value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(detailData.value);
+    console.log(rateList.value);
+
+    const review = () => {
+      router.push({ name: "Campsitereview", params: { rateNo: id } });
+    };
     return {
       rateList,
       detailData,
       review,
       checksbrsEtc,
-      
-      
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -172,8 +174,18 @@ export default {
   }
   .CampSiteDetail-TotalFrame {
     /* margin-top: 4%; */
+    min-width: 768px;
+    max-width: 768px;
+    background: #fff;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    /* height:90vh */
 
     /* width: 90%; */
+  }
+  .campsitedetailContent p {
+    font-family: "Comfortaa";
   }
   .CampSiteDetail-ImageFrame img {
     /* width: 100%; */

@@ -66,12 +66,15 @@
             <!-- visible? visible이 참이면 null 거짓이면 collapsed -->
             <!-- ara-expanded가 visible이 참이면 true 아니면 false -->
             <!-- 그래서 클릭할 때마다 visible이 참 거짓이 바뀜 -->
-            <i class="bi bi-chat-dots"    font-size="25px"
+            <i
+              class="bi bi-chat-dots"
+              font-size="25px"
               :class="visible ? null : 'collapsed'"
               :aria-expanded="visible ? 'true' : 'false'"
               aria-controls="comment"
-              @click="visible = !visible" style="cursor: pointer"></i>
-    
+              @click="visible = !visible"
+              style="cursor: pointer"
+            ></i>
           </span>
         </span>
         <span class="share-box d-flex me-3 my-auto">
@@ -274,10 +277,6 @@ export default {
         method: "post",
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
         url: `${SERVER_URL}/sns/like/${this.feed.snsNo}/${this.$store.state.userList.userNo}`,
-        // headers: { "Access-Control-Allow-Origin": "*" },
-        // data: this.my_comment,
-        // credentials,
-        // headers: this.$store.getters.config,
       })
         .then(() => {
           // console.log
@@ -441,13 +440,12 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width:420px) {
-
+@media (min-width: 420px) {
   .user-feed-cards {
-  border-radius: 20px;
-  margin: 0px 0px 30px 0px;
-  background-color: white;
-  border: 1px solid #dbdbdb;
+    border-radius: 20px;
+    margin: 0px 0px 30px 0px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
   }
 }
 .feed-frame {
@@ -504,7 +502,7 @@ export default {
   /* margin: 10px 0px; */
   padding: 10px 0px;
   border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
+  /* border-bottom: 1px solid #dbdbdb; */
 }
 .collapsed-comment {
   min-height: 80px;

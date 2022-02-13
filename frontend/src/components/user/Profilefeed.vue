@@ -1,5 +1,5 @@
 <template>
-	<div class="instagram-container">
+	<div v-if="feedList.length !== 0" class="instagram-container">
 		<div class="post" v-for="(value, idx) in feedList" :key="idx">
 			<!-- {{ value.imageList.snsImageUrl }} -->
 			<img class="img-photo" :src="value.imageList[0].snsImageUrl">
@@ -7,6 +7,9 @@
 				<p class="icon-heart">{{value.snsCreateTime}}</p>
 			</span>
 		</div>
+	</div>
+	<div v-else>
+		<h1>아직 피드가 없습니다!</h1>
 	</div>
 </template>
 
