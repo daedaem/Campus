@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <Carousel :itemsToShow="3.95" :wrapAround="true">
+  <div v-if="mateData.imageList.length != 0">
+    <Carousel :itemsToShow="res" :wrapAround="true">
       <Slide v-for="(item,idx) in mateData.imageList" :key="idx">
-        <div class="carousel__item" style="width: 150px; height: 150px">
+        <div class="carousel__item">
           <img
             style="width: 100%; height: 100%; border-radius: 10px"
             :src="item.snsImageUrl"
@@ -12,6 +12,22 @@
       </Slide>
     </Carousel>
     <Pagination />
+  </div>
+  <div v-else>
+    <Carousel :itemsToShow="res" :wrapAround="true">
+      <Slide v-for="(item,idx) in items" :key="idx">
+        <div class="carousel__item" style="">
+          <img
+            style="width: 100%; height: 100%; border-radius: 10px"
+            :src="item.imgurl"
+            alt="321"
+          />
+        </div>
+      </Slide>
+    </Carousel>
+    <Pagination />
+
+
   </div>
 </template>
 
@@ -92,12 +108,43 @@ export default defineComponent({
   data() {
     return {
       items: items,
-      mateData : this.mateDetail
+      mateData : this.mateDetail,
+      width : 768,
+      height : 0,
+      res : 3.95,
+
     };
+  },
+
+  created() {
+    if (this.width < 500) {
+            this.res = 2.3
+          } else {
+            this.res = 3.95
+          }
   },
   mounted() {
     console.log(this.mateData)
+     window.addEventListener('resize', this.handleResize);
+ 
+
+  },
+  beforeUnmount() {
+        // console.log("beforeDestroy...");
+        window.removeEventListener('resize', this.handleResize);
+  },
+  methods: {
+      handleResize() {
+          this.width = window.innerWidth;
+          this.height = window.innerHeight;
+          if (this.width <= 768) {
+            this.res = 2.3
+          } else {
+            this.res = 3.95
+          }
+      }
   }
+  
   
 });
 </script>
@@ -111,6 +158,7 @@ export default defineComponent({
 .carousel__slide--visible > .carousel__item {
   opacity: 1;
   transform: rotateY(0);
+
 }
 .carousel__slide--next > .carousel__item {
   transform: scale(0.9) translate(-10px);
@@ -120,5 +168,16 @@ export default defineComponent({
 }
 .carousel__slide--active > .carousel__item {
   transform: scale(1.1);
+}
+
+.carousel__item {
+  width: 150px;
+  height: 150px;
+}
+
+@media (max-width: 768px) {
+  .carousel__item {
+   width :100px; 
+  }
 }
 </style>
