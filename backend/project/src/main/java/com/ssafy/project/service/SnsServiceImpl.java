@@ -295,4 +295,32 @@ public class SnsServiceImpl implements SnsService {
         return snsResultDto;
     }
 
+    @Override
+    public SnsResultDto userSnsList(int userNo) {
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            List<SnsDto> list = dao.userSnsList(userNo);
+
+            int count = dao.snsListTotalCount();
+
+            for (int i = 0; i < list.size() ; i++) {
+                List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
+                list.get(i).setImageList(imageList);
+                // System.out.println(snsResultDto);
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
+            }
+            snsResultDto.setList(list);
+            snsResultDto.setCount(count);
+            snsResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
 }
