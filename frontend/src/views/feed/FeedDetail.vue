@@ -49,7 +49,7 @@
             </div>
 
             <div
-              class="FeedDetail-RightBox-ButtonBox d-flex justify-content-around fs-4 py-3"
+              class="FeedDetail-RightBox-ButtonBox d-flex justify-content-around fs-5 py-2"
             >
               <!-- 밑에 삽입 예정 
           @click="[changedheart(), heartcount()]"-->
@@ -102,42 +102,44 @@
               >
                 <div class="my-auto col-12">
                   <div class="form-floating">
-                    <div
-                      v-for="(comment, i) in this.comments"
-                      :key="i"
-                      :comment="comment"
-                    >
-                      <div v-if="this.comments">
-                        <div
-                          class="FeedDetail-RightBox-CommentBox d-flex px-2 justify-content-between align-items-center"
-                        >
+                    <div class="FeedDetail-RightBox-CommentBox">
+                      <div
+                        v-for="(comment, i) in this.comments"
+                        :key="i"
+                        :comment="comment"
+                      >
+                        <div v-if="this.comments">
                           <div
-                            class="d-flex justify-content-start align-items-center ms-1 col-10"
+                            class="FeedDetail-RightBox-CommentBoxDetail d-flex px-2 justify-content-between align-items-center"
                           >
-                            <img
-                              :src="`${comment.userProfileImage}`"
-                              alt=""
-                              class="user-comment-profile-image ms-2"
-                            />
-                            <div class="commentUserNickname fw-bold">
-                              {{ comment.userNickname }}
-                            </div>
                             <div
-                              class="FeedListItems-commentContent col text-start ms-3"
-                              style="overflow: auto"
+                              class="d-flex justify-content-start align-items-center ms-1 col-10"
                             >
-                              <div class="m-2">
-                                {{ comment.snsReplyContent }}
+                              <img
+                                :src="`${comment.userProfileImage}`"
+                                alt=""
+                                class="user-comment-profile-image ms-2"
+                              />
+                              <div class="commentUserNickname fw-bold">
+                                {{ comment.userNickname }}
+                              </div>
+                              <div
+                                class="FeedListItems-commentContent col text-start ms-3"
+                                style="overflow: auto"
+                              >
+                                <div class="m-2">
+                                  {{ comment.snsReplyContent }}
+                                </div>
                               </div>
                             </div>
+                            <div class="replytime" style="overflow: auto">
+                              {{ ReplyTime[i] }}
+                            </div>
+                            <i
+                              class="bi bi-x"
+                              @click="deleteComment(comment)"
+                            ></i>
                           </div>
-                          <div class="replytime" style="overflow: auto">
-                            {{ ReplyTime[i] }}
-                          </div>
-                          <i
-                            class="bi bi-x"
-                            @click="deleteComment(comment)"
-                          ></i>
                         </div>
                       </div>
                     </div>
@@ -475,8 +477,9 @@ export default {
     /* width: 80%; */
     /* height: 80%; */
     margin-top: 2%;
+    /* align-items: center; */
     /* border-radius: 15px; */
-    height: calc(100% - 40px);
+    height: calc(80% - 40px);
   }
   .feedDetailContentsFrame {
     display: flex;
@@ -485,6 +488,7 @@ export default {
     min-height: 430px;
     width: calc(100% - 40px);
     margin: auto;
+    margin-top: 5%;
     height: calc(100% - 40px);
     max-height: 600px;
     max-width: 935px;
@@ -498,12 +502,15 @@ export default {
     /* border: 1px solid #eee; */
     /* min-height: 300px; */
     /* max-width: 450px; */
+    display: flex;
+    justify-content: center;
     align-items: center;
     flex: 1;
     min-width: 50%;
     max-width: 600px;
+
     flex-grow: 1;
-    align-self: center;
+    /* align-self: center; */
 
     /* align-self: stretch; */
 
@@ -554,7 +561,12 @@ export default {
   width: 100%;
   height: 100%;
 } */
-
+.FeedDetail-RightBox-CommentBox {
+  height: 150px;
+  /* flex-grow: 2; */
+  flex: 2;
+  overflow: auto;
+}
 .feedDetailContentsFrame {
   /* border-bottom: 1px solid #eee; */
   max-width: 960px;
@@ -564,8 +576,8 @@ export default {
   /* background-color: greenyellow; */
   /* border: 1px solid #eee; */
   /* min-height: 300px; */
-  height: 100%;
-  /* width: 100%; */
+  /* height: 100%; */
+  width: 100%;
 }
 .FeedDetail-Leftbox-Image {
   width: 100%;
@@ -578,7 +590,7 @@ export default {
   /* flex-grow: 1; */
 
   min-height: 300px;
-
+  background: #fff;
   border-left: 1px solid #eee;
   /* width: 100%; */
 }
@@ -596,14 +608,14 @@ export default {
   border-bottom: 1px solid #eee;
   /* flex: 1; */
 }
-.FeedDetail-RightBox-CommentBox {
+.FeedDetail-RightBox-CommentBoxDetail {
   /* border-bottom: 1px solid #eee; */
   font-size: 12px;
   flex: 1;
 }
 .FeedDetail-RightBox-ButtonBox {
   border-bottom: 1px solid #eee;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   /* flex-grow: 2; */
 }
 

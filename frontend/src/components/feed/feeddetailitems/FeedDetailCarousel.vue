@@ -1,169 +1,167 @@
 <template>
-  <div class="total-feed-box">
-    <!-- 피드 게시물 첨부 사진이 한 개일때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
-      <div class="feed-picture">
-        <img
-          :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-          class="FeedDetailCarousel-image"
-          alt="..."
-        />
-      </div>
+  <!-- 피드 게시물 첨부 사진이 한 개일때 -->
+  <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
+    <div class="feed-picture">
+      <img
+        :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+        class="FeedDetailCarousel-image"
+        alt="..."
+      />
     </div>
-    <!-- 두개이상일 때 -->
-    <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
-      <div class="feed-picture">
-        <div
-          :id="feedid"
-          class="carousel carousel-dark slide"
-          data-bs-ride="carousel"
-          data-bs-interval="false"
-        >
-          <div class="carousel-indicators">
-            <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
+  </div>
+  <!-- 두개이상일 때 -->
+  <!-- 피드 게시물 첨부 사진이 두장 이상 일때 -->
+  <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 2">
+    <div class="feed-picture">
+      <div
+        :id="feedid"
+        class="carousel carousel-dark slide"
+        data-bs-ride="carousel"
+        data-bs-interval="false"
+      >
+        <div class="carousel-indicators">
+          <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
             v-for="indicator in feed.imgurl.length"
             :key="indicator.key" -->
-            <button
-              type="button"
-              @click="carouselidadd"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="0"
-              class="active sm"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              @click="carouselidadd"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-                class="FeedDetailCarousel-image"
-                alt="..."
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
-                class="FeedDetailCarousel-image"
-                alt="..."
-              />
-            </div>
-          </div>
           <button
-            class="carousel-control-prev"
             type="button"
             @click="carouselidadd"
             :data-bs-target="feedlink"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
+            data-bs-slide-to="0"
+            class="active sm"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
           <button
-            class="carousel-control-next"
+            type="button"
             @click="carouselidadd"
             :data-bs-target="feedlink"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
         </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+              class="FeedDetailCarousel-image"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
+              class="FeedDetailCarousel-image"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          @click="carouselidadd"
+          :data-bs-target="feedlink"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          @click="carouselidadd"
+          :data-bs-target="feedlink"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
-    <!-- 세장일 때 -->
-    <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
-      <div class="feed-picture">
-        <div
-          :id="feedid"
-          class="carousel carousel-dark slide"
-          data-bs-ride="carousel"
-          data-bs-interval="false"
-        >
-          <div class="carousel-indicators">
-            <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
+  </div>
+  <!-- 세장일 때 -->
+  <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 3">
+    <div class="feed-picture">
+      <div
+        :id="feedid"
+        class="carousel carousel-dark slide"
+        data-bs-ride="carousel"
+        data-bs-interval="false"
+      >
+        <div class="carousel-indicators">
+          <!-- 밑 반복을 줄이기 위해서 썼으나 밑에 숫자를 문법으로 나타내는 법 모름
             v-for="indicator in feed.imgurl.length"
             :key="indicator.key" -->
-            <button
-              type="button"
-              @click="carouselidadd"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="0"
-              class="active"
-              aria-current="true"
-              aria-label="Slide 1"
-              style="z-index: 100"
-            ></button>
-            <button
-              type="button"
-              @click="carouselidadd"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-              style="z-index: 100"
-            ></button>
-            <button
-              type="button"
-              @click="carouselidadd"
-              :data-bs-target="feedlink"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-              style="z-index: 100"
-            ></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
-                class="FeedDetailCarousel-image"
-                alt="..."
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
-                class="FeedDetailCarousel-image"
-                alt="..."
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo.imageList[2].snsImageUrl}`"
-                class="FeedDetailCarousel-image"
-                alt="..."
-              />
-            </div>
-          </div>
           <button
-            class="carousel-control-prev"
             type="button"
-            @click="carouselidsubstract"
-            :data-bs-target="feedlink"
-            data-bs-slide="prev"
-            style="z-index: 100"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden"></span>
-          </button>
-          <button
-            class="carousel-control-next"
             @click="carouselidadd"
             :data-bs-target="feedlink"
-            data-bs-slide="next"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
             style="z-index: 100"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          ></button>
+          <button
+            type="button"
+            @click="carouselidadd"
+            :data-bs-target="feedlink"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+            style="z-index: 100"
+          ></button>
+          <button
+            type="button"
+            @click="carouselidadd"
+            :data-bs-target="feedlink"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+            style="z-index: 100"
+          ></button>
         </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              :src="`${this.imageinfo.imageList[0].snsImageUrl}`"
+              class="FeedDetailCarousel-image"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              :src="`${this.imageinfo.imageList[1].snsImageUrl}`"
+              class="FeedDetailCarousel-image"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              :src="`${this.imageinfo.imageList[2].snsImageUrl}`"
+              class="FeedDetailCarousel-image"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          @click="carouselidsubstract"
+          :data-bs-target="feedlink"
+          data-bs-slide="prev"
+          style="z-index: 100"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden"></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          @click="carouselidadd"
+          :data-bs-target="feedlink"
+          data-bs-slide="next"
+          style="z-index: 100"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   </div>
@@ -243,23 +241,34 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 768px) {
+  /* .total-feed-box {
+    align-self: center;
+  } */
+  .feed-picture-box {
+    align-self: center;
+    width: 100%;
+    /* height: 100%; */
+  }
+  .feed-picture {
+    /* display: flex; */
+    /* flex-direction: column; */
+    align-items: center;
+  }
+}
 .FeedDetailCarousel-image {
   width: 100%;
-}
-.total-feed-box {
-  width: 100%;
   height: 100%;
+  align-self: center;
 }
-.feed-picture-box {
-  /* padding: 10px; */
-  /* height: 100%; */
-  /* min-height: 400px; */
-  /* width: 100%; */
-  /* max-height: 600px; */
-  /* border: 1px solid #dbdbdb; */
-}
+/* .total-feed-box { */
+/* width: 100%; */
+/* height: 100%; */
+/* } */
 
 .feed-picture img {
+  align-items: center;
+  /* justify-content: center; */
   /* width: 100%; */
   /* height: 100%; */
   /* margin: auto; */
