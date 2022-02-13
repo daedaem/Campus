@@ -210,7 +210,6 @@ export default {
     FeedDetailCarousel,
     FeedDetailDropdown,
   },
-
   data() {
     return {
       my_comment: {

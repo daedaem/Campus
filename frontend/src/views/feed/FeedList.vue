@@ -144,7 +144,6 @@ export default {
           console.log(err);
         });
     };
-
     onMounted(() => {
       getDatas();
       window.addEventListener("scroll", () => {

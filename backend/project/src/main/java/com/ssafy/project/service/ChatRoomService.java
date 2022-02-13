@@ -33,7 +33,7 @@ public class ChatRoomService implements IChatRoomService {
 		int result = -1;
 		// receiver가 sender와 방이 있는지
 		int count1 = chatroomMapper.checkCountReceiver(sendId, receiveId);
-		// sender가 receiver와 방이 있는지
+		// sender가 receiver와 방이 있는지//
 		int count2 = chatroomMapper.checkCountSender(sendId, receiveId);
 		System.out.println(count1);
 		System.out.println(count2);
@@ -85,6 +85,18 @@ public class ChatRoomService implements IChatRoomService {
 	@Override
 	public String getRoomTitle(long mateNo) {
 		return chatroomMapper.getRoomTitle(mateNo);
+	}
+
+	@Override
+	public int deletePersonalRoom(int id) {
+		chatroomMapper.deletePersonalRoom(id);
+		return 1;
+	}
+
+	@Override
+	public int deleteMyMessage(int id, int sendId) {
+		chatroomMapper.deleteMyMessage(id, sendId);
+		return 1;
 	}
 
 

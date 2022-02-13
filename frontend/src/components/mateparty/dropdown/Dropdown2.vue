@@ -1,26 +1,14 @@
 <template>
-  <div>
-    <h4>연령 제한</h4>
-      <input list="age1" placeholder="캠핑장 " v-model="ageValue1">
-        <datalist id="age1">
-          <option v-for="option in 20" :key="option" :value="option"></option>
-          <!-- <option value="Internet Explorer"></option>
-          <option value="Firefox"></option>
-          <option value="Chrome"></option>
-          <option value="Opera"></option>
-          <option value="Safari"></option> -->
-        </datalist>  
-          ~ 
-      <input list="age2" placeholder="캠핑장 " v-model="ageValue2">
+      <input list="age2" placeholder="최고 나이" v-model="ageValue2" class="right">
         <datalist id="age2">
-          <option v-for="option in 20" :key="option" :value="option" ></option>
-          <!-- <option value="Internet Explorer"></option>
-          <option value="Firefox"></option>
-          <option value="Chrome"></option>
-          <option value="Opera"></option>
-          <option value="Safari"></option> -->
+          <option v-for="option in 80" :key="option" :value="option" ></option>
         </datalist>  
-  </div>
+      <input list="age1" placeholder="최소 나이 " v-model="ageValue1" class="left" >
+        <datalist id="age1">
+          <option v-for="option in 80" :key="option" :value="option"></option>
+        </datalist>  
+      
+
 </template>
 
 <script>
@@ -28,8 +16,8 @@ export default {
   name : 'Dropdown2',
   data() {
     return {
-    ageValue1 : 0,
-    ageValue2 : 0
+    ageValue1 : '',
+    ageValue2 : '',
     }
   },
   watch : {
@@ -46,4 +34,23 @@ export default {
 
 <style>
 
+.left {
+  /* border-top-left-radius: 20; */
+  border-radius : 20px;
+  width:7rem;
+  border: 1px solid #ced4da;
+  float:right;
+  text-align: center;
+  height : 38px;
+}
+
+.right {
+  border-radius: 20px;
+  width:7rem;
+  margin-left:5px;
+  border: 1px solid #ced4da;
+  float:right;
+  text-align: center;
+  height : 38px;
+}
 </style>

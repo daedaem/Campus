@@ -7,7 +7,6 @@ import com.ssafy.project.dto.MateListDto;
 import com.ssafy.project.dto.MateMatchResultDto;
 import com.ssafy.project.dto.MateParamDto;
 import com.ssafy.project.dto.MateResultDto;
-import com.ssafy.project.dto.UserDto;
 import com.ssafy.project.service.MateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,8 @@ public class MateController {
 
     private ResponseEntity<MateResultDto> mateInsert(@RequestBody MateDto mateDto, HttpSession session) {
 
-        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고 양희거 온다음
+        // UserDto userDto = (UserDto) session.getAttribute("userDto"); // 요거는 merge 시키고
+        // 양희거 온다음
         mateDto.setContentId(10);
         mateDto.setUserNo(mateDto.getUserNo());
 
@@ -107,11 +107,11 @@ public class MateController {
     @PutMapping(value = "/mate")
     private ResponseEntity<MateResultDto> mateUpdate(@RequestBody MateDto mateDto) {
 
-    //로그인 했을시 session 처리 작성해주기
-    //미작성
-    //call mateInsert from MateService
-    mateDto.setContentId(10);
-    // mateDto.setUserNo(25);
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
+        mateDto.setContentId(10);
+        // mateDto.setUserNo(25);
 
         MateResultDto mateResultDto = service.mateUpdate(mateDto);
 
@@ -178,11 +178,10 @@ public class MateController {
     @PostMapping(value = "/mate/apply")
     private ResponseEntity<MateResultDto> mateApplyInsert(@RequestBody MateListDto matelistDto) {
 
-    //로그인 했을시 session 처리 작성해주기
-    //미작성
-    //call mateInsert from MateService
-    // matelistDto.setMateNo(56);
-   
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
+        // matelistDto.setMateNo(56);
 
         MateResultDto mateResultDto = service.mateListInsert(matelistDto);
 
@@ -214,7 +213,6 @@ public class MateController {
 
         // call mateList from MateService
         mateMatchResultDto = service.mateMatch(userNo);
-        System.out.println(mateMatchResultDto.toString());
 
         if (mateMatchResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.OK);// 성공
@@ -227,7 +225,7 @@ public class MateController {
     // 메인 페이지에 메이트 5개 띄우기
     @GetMapping(value = "/mate/main")
     private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
-
+        
         MateResultDto mateResultDto;
 
         // call mateList from MateService
@@ -243,9 +241,9 @@ public class MateController {
 
     @PutMapping(value = "/mate/detail/status/{mateNo}")
     private ResponseEntity<MateResultDto> mateStatusUpdate(@PathVariable int mateNo) {
-        
-        MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
 
+        MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
+        
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
@@ -254,5 +252,21 @@ public class MateController {
         }
     }
 
+    // ----------------------------------------- 필터링 -----------------------------------------//
+    //캠핑장 유형 필터링
+    @PostMapping(value = "/mate/filter")
+    private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
+
+        System.out.println(mateDto);
+        MateResultDto mateResultDto = service.mateFilter(mateDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
 }
-//mateStatusUpdate
