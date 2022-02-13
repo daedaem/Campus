@@ -87,6 +87,7 @@
         <b-card 
           ><div style="float: center; ">
             <div v-if="check === 0">
+              <div><i class="bi bi-exclamation-lg" style="font-size:20px;"></i>동행인원 제한 : {{mate.friendlimit}}인</div>
               <input type="text" v-model="friendnum" style=" width:25%; text-align:center;" />
               <button @click="join" class="box">
                 확인
@@ -161,10 +162,13 @@ export default {
     const join = () => {
       if (
         props.mateDetail.memberlimit < Number(friendnum.value) + Number(memberSum.value) ) {
-        alert("인원초과 수고");
+        alert("인원 초과입니다.");
       } else if (Number(friendnum.value) > props.mateDetail.friendlimit) {
-        alert("인원초과 수고");
-      } else {
+        alert("동행인원 수를 확인해주세요.");
+      } else if (mate.value.lowestAge > me.value.userAge || me.value.userAge > mate.value.highestAge ) {
+        alert("연령대를 확인해주세요.")
+      }
+      else {
         if (check.value === 0) {
           visible.value = false;
           const meList = {
@@ -381,4 +385,8 @@ button{
   border: 0px solid white;
 }
 
+.bi-exclamation-lg {
+  color:red;
+
+}
 </style>

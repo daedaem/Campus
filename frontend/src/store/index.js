@@ -29,6 +29,7 @@ export default createStore({
     campCheck: null,
     styleCheck: null,
     dateCheck: null,
+    campInfo : null,
   },
 
   mutations: {
@@ -135,6 +136,9 @@ export default createStore({
     DATE_CHECK(state,data) {
       state.dateCheck = data
     },
+    CAMP_INFO(state,data) {
+      state.campInfo = data
+    }
     
     // SCROLLEDFEEDLIST: function (state, data) {
     //   state.scrolledFeedList
@@ -212,6 +216,9 @@ export default createStore({
     },
     dateCheck({ commit }, data) {
       commit("DATE_CHECK" , data)
+    },
+    campInfo({commit},data) {
+      commit("CAMP_INFO", data)
     },
     
   },

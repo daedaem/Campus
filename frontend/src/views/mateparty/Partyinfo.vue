@@ -87,7 +87,7 @@ export default {
     const userNm = store.state.myNum;
     // const myMate = (computed(() => store.state.mateList.filter(mate => mate.mateNo === Number(props.mateNo))))
     const mateDetail = ref([]);
-    const joinMembernum = ref(0);
+    const joinMembernum = ref(1);
     axios({
       method: "get",
       url: `${SERVER_URL}/mate/${props.mateNo}`,

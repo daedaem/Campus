@@ -2,75 +2,6 @@
   <div class="test row" >
     <body class="col-12">
       
-<!-- 
-      <div style="margin-left: 30px">
-        <Filtermake
-          @style-check="styleCheck"
-          @limit-check="limitCheck"
-          @camp-check="campCheck"
-        />
-
-        <div align="left" class="filterbox">
-          <div align="left" class="filterbox2">
-            <Dropdown1 @member-value="memberValue" />
-          </div>
-     
-            
-        
-        </div>
-        <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
-        <Campchoice
-          align="left"
-          style="margin-top: 50px; margin-bottom: 20px"
-          @camp-data="campValue"
-        />
-        <Datepicker @date-in="dateIn" />
-        <div class="camping">
-        <input class="input1" type="text" placeholder="캠핑장 선택">
-      </div>
-      </div>
-      <br />
-      <Items @img-status="imgStatus" />
-
-      <div class="container contact-form">
-        <div class="row">
-          <div>
-            <p align="left">제목</p>
-            <div class="form-group">
-              <input
-                v-model="partyData.mateTitle"
-                type="text"
-                name="txtName"
-                class="form-control"
-                placeholder="Your Name *"
-              />
-            </div>
-          </div>
-          <div>
-            <p align="left">메이트 소개</p>
-            <div class="form-group">
-              <textarea
-                v-model="partyData.mateContent"
-                name="txtMsg"
-                class="form-control"
-                placeholder="Your Message *"
-                style="width: 100%; height: 150px"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <input
-              type="submit"
-              name="btnSubmit"
-              class="btnContact"
-              value="Send Message"
-              @click="test"
-            />
-          </div>
-        </div>
-      </div> -->
-      <!-- <Fileupload @image="uploadedImage" /> -->
       <div class="registration-form">
         <form>
           
@@ -237,8 +168,10 @@ export default {
     imgStatus(text) {
       this.partyData.campEquipRequiredList = text;
     },
-    campValue(text) {
+    campValue(text,id) {
       console.log(text);
+      console.log(id)
+      this.$store.dispatch('campInfo',id)
       this.partyData.mateCampsite = text;
     },
     uploadedImage(file) {

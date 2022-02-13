@@ -22,7 +22,7 @@
                     <h4 class="title">호스트</h4>
                     <p class="description">@{{ cardData.userNickname}}</p>
                     <h4 class="title">캠핑장</h4>
-                    <p class="description">{{cardData.mateCampsite}}</p>
+                    <p class="description" @click="goCamp">{{cardData.mateCampsite}}</p>
                     
                 </div>
             </div> <!-- end card -->
@@ -52,46 +52,26 @@
 
 <script >
 import { ref} from 'vue'
-
+import {useRouter} from 'vue-router'
+import {useStore} from 'vuex'
 export default {
   name : 'Cards',
   props : ['mateDetail'],
   setup(props) {
-    // const cardData = ref({
-    //     campEquipRequiredList : null,
-    //     campStyleList : null,
-    //     contentId : null,
-    //     facltNm : null,
-    //     firstImageUrl: null,
-    //     highestAge: null,
-    //     imageList: null,
-    //     lowestAge: null,
-    //     mateAccompanyNum: null,
-    //     mateCampend: null,
-    //     mateCampsite: null,
-    //     mateCampstart: null,
-    //     mateCampstyle: null,
-    //     mateCamptype: null,
-    //     mateContent: null,
-    //     mateCreateTime: null,
-    //     mateImageUrl: null,
-    //     mateList: null,
-    //     mateNo: null,
-    //     mateStatus: null,
-    //     mateTitle: null,
-    //     mateUpdateTime: null,
-    //     userNickName: null,
-    //     userNo: null,
-    //     userProfileImage : null,
-    // })
+    const router = useRouter()
+    const store = useStore()
     const cardData = ref(props.mateDetail)
     console.log(cardData.value)
+    const goCamp = () => {
+        router.push({name :"Campsitedetail", params: { contentId : store.state.campInfo}})
+    }
 
 
 
     return {
         cardData,
-        // card,
+        router,
+        goCamp
     }
   }
 }
