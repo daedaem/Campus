@@ -1,6 +1,4 @@
 <template>
-<div>
- <h4>캠핑 스타일</h4>
 
     <div class="filterbox">
       <div class="form-check filterbox1">
@@ -65,29 +63,37 @@
       </div>
     </div>
    
-    <div align="center">
+    <!-- <div align="center">
         <div class="col-sm-3">
         <a data-bs-dismiss="modal" class="btn btn-lg" href="#" @click="$emit('style-check',styleCheck)">
             <span>button</span>
         </a>
     </div>
-</div>
-</div>
+</div> -->
+
 </template>
 
 <script >
-import {ref} from 'vue'
+import {ref,watch} from 'vue'
 
 export default {
   name : 'Modal3',
   emits : ['style-check'],
-  setup() {
-    
+  setup(props,{emit}) {
+
     const styleCheck = ref([])
     const submit = () => {
       // console.log(campCheck.value)
       // this.$emit('camp-check',campCheck)
     }
+    watch(
+    () => styleCheck,
+    (state) => {
+   
+      emit('style-check',state.value)
+      },
+    { deep: true }
+    )
     return {
       styleCheck,
       submit
@@ -121,7 +127,7 @@ export default {
     top: 1px;
 }
 .form-check label{
-    color:white;
+    color:rgba(20, 20, 20, 0.5);
     font-size: 20px;
     line-height: 26px;
     padding-left: 35px;
@@ -136,7 +142,7 @@ export default {
     content: "";
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
+    border: 3px solid #818181;
     border-radius: 4px;
     position: absolute;
     top: 3px;
@@ -147,7 +153,7 @@ export default {
     height: 10px;
     width: 16px;
     border-radius: 0 0 0 4px;
-    border: 5px solid #fff;
+    border: 5px solid #7ac4e1;
     border-top: none;
     border-right: none;
     opacity: 0;

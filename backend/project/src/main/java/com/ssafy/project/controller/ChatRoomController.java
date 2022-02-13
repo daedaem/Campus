@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io")
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
+	RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+	RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @Slf4j
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor

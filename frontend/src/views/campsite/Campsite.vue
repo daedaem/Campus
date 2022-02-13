@@ -107,11 +107,7 @@ export default {
 
           // console.log(articles.value);
         })
-        .then((res) => {
-          articles.value.push(...res.data.list);
-
-          // console.log(articles.value);
-        })
+        
 
         .catch((err) => {
           console.log(err);
@@ -160,7 +156,7 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    /* background: beige; */
   }
 }
 
