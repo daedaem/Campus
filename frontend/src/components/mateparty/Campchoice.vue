@@ -9,9 +9,9 @@
     <option value="Opera"></option>
     <option value="Safari"></option>
   </datalist>   -->
-  <h4>캠핑장 선택</h4>
+
   <div class="ui icon input" style="width: 100%">
-    <input type="text" placeholder="Search..." v-on:input="test" :value="searchQuery"/>
+    <input type="text" placeholder="캠핑장 선택.." v-on:input="test" :value="searchQuery"/>
     <i class="search icon"></i>
   </div>
     <div class="ui cards" style="margin: 10px" v-if="searchQuery">
@@ -21,7 +21,7 @@
       :key="idx"
       style="margin: 0"
     >
-      <div class="content" @click="doSelect(camp.facltNm)">
+      <div class="content" @click="doSelect(camp.facltNm, camp.contentId)">
         <div style="float:left;">
         <img class="right floated mini ui image" :src="camp.firstImageUrl" style="width:50px; height:50px;"/>
         </div>
@@ -41,7 +41,7 @@ import {ref, computed, reactive} from 'vue'
 export default {
   emits : ['camp-data'],
   name : 'Campchoice',
-  setup(orops,{emit}) {
+  setup(props,{emit}) {
     // console.log(2)
     const store = useStore()
     const campList = reactive(store.state.campList)
@@ -59,9 +59,9 @@ export default {
       });
     });
     
-    const doSelect = (name) => {
+    const doSelect = (name, id) => {
       searchQuery.value = name
-      emit('camp-data', name)
+      emit('camp-data', name, id)
     }
 
     return {
@@ -76,6 +76,13 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
+input {
+  width : 100%;
+  height : 2.5rem;
+  border-radius : 20px;
+  padding-left: 20px;
+}
 
 </style>

@@ -2,6 +2,10 @@ package com.ssafy.project.dao;
 
 import java.util.List;
 
+<<<<<<< HEAD
+import com.ssafy.project.dto.DemoDto;
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
@@ -70,4 +74,19 @@ public interface MateDao {
     public String getMateTitle(int mateNo);
     
     public void mateStatusUpdate(int mateNo);
+<<<<<<< HEAD
+
+    public List<Integer> mateFilterCampType(MateDto dto);
+    
+    public List<Integer> mateFilterCampDate(MateDto dto);
+
+    public List<Integer> mateFilterStyleNum3(MateCampStyleDto dto);
+
+    public List<Integer> mateFilterStyleNum2(MateCampStyleDto dto);
+
+    public List<Integer> mateFilterStyleNum1(MateCampStyleDto dto);
+
+    public List<MateDto> mateFilterResult(DemoDto demoList);
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 }

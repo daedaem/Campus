@@ -3,11 +3,7 @@
     <!-- 피드 게시물 첨부 사진이 한 개일때 -->
     <div class="feed-picture-box d-flex" v-if="this.imageinfo.length == 1">
       <div class="feed-picture">
-        <img
-          :src="`${this.imageinfo[0].snsImageUrl}`"
-          class="d-block w-100 h-100"
-          alt="..."
-        />
+        <img :src="`${imageinfo[0]}`" class="d-block w-100 h-100" alt="..." />
       </div>
     </div>
     <!-- 두개이상일 때 -->
@@ -43,18 +39,10 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img
-                :src="`${this.imageinfo[0].snsImageUrl}`"
-                class="d-block w-100"
-                alt="..."
-              />
+              <img :src="`${imageinfo[0]}`" class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo[1].snsImageUrl}`"
-                class="d-block w-100"
-                alt="..."
-              />
+              <img :src="`${imageinfo[1]}`" class="d-block w-100" alt="..." />
             </div>
           </div>
           <button
@@ -121,25 +109,13 @@
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img
-                :src="`${this.imageinfo[0].snsImageUrl}`"
-                class="d-block w-100"
-                alt="..."
-              />
+              <img :src="`${imageinfo[0]}`" class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo[1].snsImageUrl}`"
-                class="d-block w-100"
-                alt="..."
-              />
+              <img :src="`${imageinfo[0]}`" class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item">
-              <img
-                :src="`${this.imageinfo[2].snsImageUrl}`"
-                class="d-block w-100"
-                alt="..."
-              />
+              <img :src="`${imageinfo[0]}`" class="d-block w-100" alt="..." />
             </div>
           </div>
           <button
@@ -187,22 +163,22 @@ export default {
   },
   methods: {
     carouselidadd: function (nums) {
-      // for (let i; 0 < this.imageinfo.length; i++){
+      // for (let i; 0 < ImageList.length; i++){
       // console.log(nums);
       this.feedid = "feed" + nums;
       this.feedlink = "#" + this.feedid;
-      // console.logf(this.imageinfo);
+      // console.logf(ImageList);
       // console.log(;
     },
   },
 
   created: function () {
     this.imageinfo = this.ImageList;
-    console.log(this.imageinfo);
-    // console.log("캐럿[ㄹ", this.ImageList);
+
+    // console.log("캐럿", this.ImageList);
     // console.log("첫째",this.imageinfo[0]);
     // console.log(this.imageinfo.length);
-    // console.log(this.imageinfo);
+    console.log("답은", this.imageinfo);
   },
   // computed: {
   //   ...mapState(["feeds"]),
