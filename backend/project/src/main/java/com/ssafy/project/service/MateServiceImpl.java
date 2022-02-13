@@ -5,7 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +23,10 @@ import com.ssafy.project.dao.MateDao;
 import com.ssafy.project.dao.MessageMapper;
 import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.ChatRoom;
+<<<<<<< HEAD
 import com.ssafy.project.dto.DemoDto;
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
@@ -32,7 +38,10 @@ import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.dto.Message;
 import com.ssafy.project.dto.SnsImageDto;
 
+<<<<<<< HEAD
 import org.apache.ibatis.javassist.expr.NewArray;
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -144,10 +153,18 @@ public class MateServiceImpl implements MateService {
             File file = this.convertToFile(multipartFile, fileName);
             String TEMP_URL = this.uploadFile(file, fileName);
             file.delete();
+<<<<<<< HEAD
+=======
+            System.out.println(TEMP_URL);
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 
             MateDto dto = new MateDto();
             dto.setMateNo(mateNo);
             dto.setMateImageUrl(TEMP_URL);
+<<<<<<< HEAD
+=======
+            System.out.println(dto.getMateImageUrl());
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
             dao.mateImageInsert(dto);
             
 
@@ -207,6 +224,10 @@ public class MateServiceImpl implements MateService {
             File file = this.convertToFile(multipartFile, fileName);
             String TEMP_URL = this.uploadFile(file, fileName);
 
+<<<<<<< HEAD
+=======
+            System.out.println(TEMP_URL);
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 
             MateDto dto = new MateDto();
             dto.setMateNo(mateNo);
@@ -251,6 +272,10 @@ public class MateServiceImpl implements MateService {
                 mateDto.setCampStyleList(campStyleList);
 
                 List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+<<<<<<< HEAD
+=======
+                System.out.println(mateApplyList);
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
                 mateDto.setMateList(mateApplyList);
 
 
@@ -309,10 +334,13 @@ public class MateServiceImpl implements MateService {
 
            Message message = new Message();
            message.setSenderId(dto.getUserNo());
+<<<<<<< HEAD
            String test = dao.getMateTitle(dto.getMateNo());
            System.out.println(test);
            long test2 = chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo()));
            System.out.println(test2);
+=======
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
            message.setChatroomId(chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo())));
            message.setContent(dto.getUserNickname() + "님이 입장하셨습니다.");
            messageMapper.insertMessage(message);
@@ -395,6 +423,7 @@ public class MateServiceImpl implements MateService {
         return mateResultDto;
     }
 
+<<<<<<< HEAD
     @Override
     public MateResultDto mateFilter(MateDto dto) {
         MateResultDto mateResultDto = new MateResultDto();
@@ -508,6 +537,12 @@ public class MateServiceImpl implements MateService {
         }
         return mateResultDto;
     }
+=======
+
+
+
+
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
 
 
 

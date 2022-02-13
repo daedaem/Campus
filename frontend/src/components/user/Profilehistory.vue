@@ -1,11 +1,14 @@
 <template>
-	<div class="instagram-container">
+	<div v-if="historyList.length !== 0" class="instagram-container">
 		<div class="post" v-for="(value, idx) in historyList" :key="idx">
 			<img class="img-photo" :src="value.mateImageUrl">
 			<span class="hover-img" @click="movetohistory(value.mateNo)">
 				<p class="icon-heart">{{value.mateTitle}}</p>
 			</span>
 		</div>
+	</div>
+	<div v-else>
+		<h1>아직 함께하신 여정이 없습니다.</h1>
 	</div>
 </template>
 

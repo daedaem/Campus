@@ -245,6 +245,7 @@ public class MateController {
     private ResponseEntity<MateResultDto> mateStatusUpdate(@PathVariable int mateNo) {
         
         MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
+<<<<<<< HEAD
         
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
@@ -264,6 +265,10 @@ public class MateController {
 
         if (mateResultDto.getResult() == SUCCESS) {
 
+=======
+
+        if (mateResultDto.getResult() == SUCCESS) {
+>>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
             return new ResponseEntity<MateResultDto>(mateResultDto,

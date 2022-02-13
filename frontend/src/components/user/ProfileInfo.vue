@@ -1,5 +1,5 @@
 <template>
-	<h1 align="left">보유장비</h1>
+	<h1 align="left">나의 보유장비</h1>
 	<div class="info-container">
 		<div class="items">
       <div class="filterbox1"  >
@@ -54,7 +54,7 @@
       </div>
     </div>
 	</div>
-	<h1 align="left">캠핑장 정보</h1>
+	<h1 align="left" class="mt-3">캠핑장 정보</h1>
 </template>
 
 <script>

@@ -1,6 +1,5 @@
 <template>
 
-
     <div class="filterbox">
       <div class="form-check filterbox1">
         <input class="form-check-input" v-model="sortListCheck" type="checkbox" value="멤버" id="flexCheckDefault71">

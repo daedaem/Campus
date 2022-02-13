@@ -158,7 +158,6 @@ export default defineComponent({
 .carousel__slide--visible > .carousel__item {
   opacity: 1;
   transform: rotateY(0);
-
 }
 .carousel__slide--next > .carousel__item {
   transform: scale(0.9) translate(-10px);
