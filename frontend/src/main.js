@@ -6,14 +6,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import BootstrapVue3 from "bootstrap-vue-3";
 import "bootstrap/dist/css/bootstrap.css";
+
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "vue-universal-modal/dist/index.css";
 import VueUniversalModal from "vue-universal-modal";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faImages as fasImages } from "@fortawesome/free-solid-svg-icons";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";

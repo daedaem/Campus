@@ -211,7 +211,7 @@
 								:campEquipicebox="this.credentials.campEquipicebox"
 								:campEquipTableChair="this.credentials.campEquipTableChair"
 								:campEquipSleepingbag="this.credentials.campEquipSleepingbag"
-								:table="this.credentials.table"
+								:campEquipPot="this.credentials.campEquipPot"
 								:campEquipTent="this.credentials.campEquipTent"
 								:campEquipBrazier="this.credentials.campEquipBrazier"
 								:campEquipTarp="this.credentials.campEquipTarp"
@@ -294,7 +294,6 @@ export default {
 			step:1,
 			myId: this.$store.state.myNum, // 로그인한 유저넘버
 			myEmail: this.$store.state.userEmail, // 로그인한 유저이메일
-			exam_user : "dohun",
 			credentials: {
 				userEmail: "", // 이메일
 				userNickname: "", // 닉네임
@@ -312,7 +311,7 @@ export default {
 				campEquipTableChair : 0,
 				campEquipSleepingbag : 0,
 				campEquipTarp : 0,
-				table : 0,
+				campEquipPot : 0,
 				campEquipTent : 0,
 				campEquipBrazier : 0,
 				campStyle1 : 0,
@@ -331,7 +330,7 @@ export default {
 					campEquipTableChair : 0,
 					campEquipSleepingbag : 0,
 					campEquipTarp : 0,
-					table : 0,
+					campEquipPot : 0,
 					campEquipTent : 0,
 					campEquipBrazier : 0,
 				},
@@ -381,7 +380,7 @@ export default {
 			.then(res => {
 				console.log(res)
 				this.credentials.userEmail = res.data.email
-				this.credentials.userNickname = res.data.nickname
+				this.credentials.userNickname = res.data.userNickname
 				this.credentials.userPassword = res.data.userPassword
 				this.credentials.userName = res.data.userName
 				this.credentials.password_confirmation = res.data.userPassword
@@ -396,7 +395,7 @@ export default {
 				this.credentials.campEquipTableChair = res.data.campEquipTableChair
 				this.credentials.campEquipSleepingbag = res.data.campEquipSleepingbag
 				this.credentials.campEquipTarp = res.data.campEquipTarp
-				this.credentials.table = res.data.table
+				this.credentials.campEquipPot = res.data.campEquipPot
 				this.credentials.campEquipTent = res.data.campEquipTent
 				this.credentials.campEquipBrazier = res.data.campEquipBrazier
 				this.credentials.campStyle1 = res.data.campStyle1
@@ -546,12 +545,12 @@ export default {
 				this.credentials.imgStatus.campEquipTarp = 0
 				this.credentials.campEquipTarp = 0
 			}
-			if (text.table === 1) {
-				this.credentials.imgStatus.table = 1
-				this.credentials.table = 1
+			if (text.campEquipPot === 1) {
+				this.credentials.imgStatus.campEquipPot = 1
+				this.credentials.campEquipPot = 1
 			} else {
-				this.credentials.imgStatus.table = 0
-				this.credentials.table = 0
+				this.credentials.imgStatus.campEquipPot = 0
+				this.credentials.campEquipPot = 0
 			}
 			if (text.campEquipTent === 1) {
 				this.credentials.imgStatus.campEquipTent = 1

@@ -309,6 +309,10 @@ public class MateServiceImpl implements MateService {
 
            Message message = new Message();
            message.setSenderId(dto.getUserNo());
+           String test = dao.getMateTitle(dto.getMateNo());
+           System.out.println(test);
+           long test2 = chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo()));
+           System.out.println(test2);
            message.setChatroomId(chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo())));
            message.setContent(dto.getUserNickname() + "님이 입장하셨습니다.");
            messageMapper.insertMessage(message);

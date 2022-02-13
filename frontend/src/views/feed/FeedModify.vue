@@ -28,10 +28,12 @@
       <div class="FeedModify-contentbox d-flex">
         <!-- 이미지 업로드 -->
 
-        <div class="FeedModify-leftbox">
+        <div
+          class="FeedModify-leftbox d-flex justify-content-center align-items-center"
+        >
           <!-- carousel로 바꾸기 -->
           <div
-            v-if="this.ImageList.length > 0"
+            v-if="feedModifyImageList.ImageList.length > 0"
             class="d-flex justify-content-center align-items-center"
           >
             <div class="FeedModify-contentbox-UploadImgFrame">
@@ -39,8 +41,9 @@
                 <i class="bi bi-x-circle fs-4" @click="cancelUploadImage"></i>
               </div>
               <feed-modify-carousel
+                v-if="feedModifyImageList.ImageList.length > 0"
                 class="feed-create-carousel"
-                :ImageList="ImageList"
+                :ImageList="feedModifyImageList.ImageList"
               ></feed-modify-carousel>
               <!-- <img
                 v-for="(image, index) in feedModifyContent.imageList"
@@ -53,17 +56,44 @@
             </div>
           </div>
           <!-- 이미지 업로드 없다면 업로드 -->
-          <div v-else>
-            <form align="left" method="post" enctype="multipart/form-data">
-              <input
-                ref="image"
-                type="file"
-                multiple="multiple"
-                id="fileName"
-                accept="image/*"
-                @change="uploadImg"
-              />
-            </form>
+          <div v-if="feedModifyImageList.ImageList.length == 0">
+            <div>
+              <!-- <i @click="uploadImg" class="bi bi-images"></i> -->
+              <label for="fileName">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-images"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                  <path
+                    d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"
+                  />
+                </svg>
+              </label>
+              <form
+                align="left"
+                method="post"
+                enctype="multipart/form-data"
+                class="d-flex flex-column align-items-center"
+              >
+                <input
+                  ref="image"
+                  type="file"
+                  multiple="multiple"
+                  id="fileName"
+                  accept="image/*"
+                  @change="uploadImg"
+                  style="display: none"
+                />
+
+                <p>클릭하여 사진을 첨부해주세요.</p>
+                <!-- <i class="bi bi-images"></i> -->
+              </form>
+            </div>
           </div>
           <!-- <form v-else align="left" method="post" enctype="multipart/form-data">
             <input
@@ -162,8 +192,9 @@ export default {
       snsContent: "",
       userNo: this.$store.state.userList.userNo,
       frm: "",
-      ImageList: [],
-
+      feedModifyImageList: {
+        ImageList: [],
+      },
       nowfeed: "",
     };
   },
@@ -188,8 +219,10 @@ export default {
         // url 주소를 각 이미지별로 생성해서
         let url = URL.createObjectURL(this.$refs["image"].files[i]);
         //   // imageList 폴더에 넣어둠
-        this.ImageList.push(url);
+        this.feedModifyImageList.ImageList.push(url);
       }
+      // console.log(this.ImageList);
+      console.log("들어간건가", this.feedModifyImageList.ImageList);
     },
     cancelUploadImage() {
       // console.log('안녕');
@@ -199,7 +232,7 @@ export default {
 
       // this.clearImage();
 
-      this.ImageList = [];
+      this.feedModifyImageList.ImageList = [];
       // this.imageinfo.imageList.splice(this.feedid, 1); // this.image = null;
       // this.imageList = null;
     },
@@ -211,11 +244,11 @@ export default {
       if (!this.snsContent) {
         alert("작성된 글이 없습니다.");
       }
-      if (!this.ImageList && !this.frm) {
+      if (!this.feedmodifyImageList && !this.frm) {
         alert("첨부된 이미지가 없습니다.");
       }
       //
-      if (this.ImageList || this.snsContent) {
+      if (this.feedmodifyImageList || this.snsContent) {
         // {글이 있으면
         this.snsContent.trim();
         // console.log("넣는다이", this.snsContent);
@@ -278,10 +311,13 @@ export default {
         // console.log("들어옴여", res.data.dto.imageList);
         this.snsContent = res.data.dto.snsContent;
         this.userNo = res.data.dto.userNo;
-        this.ImageList = res.data.dto.imageList;
-
+        for (let i = 0; i < res.data.dto.imageList.length; i++) {
+          this.feedModifyImageList.ImageList.push(
+            res.data.dto.imageList[i].snsImageUrl
+          );
+        }
         this.$store.dispatch("toDetail", res.data.dto);
-
+        console.log("넣음여", this.feedModifyImageList.ImageList);
         // 댓글 창 보기
         if (res.data.dto.replyList.length > 0) {
           for (let i = 0; i < res.data.dto.replyList.length; i++) {
@@ -431,6 +467,10 @@ export default {
   z-index: 1000;
   top: 2%;
   right: 2%;
+}
+.bi-images {
+  height: 250px;
+  width: 250px;
 }
 /* .bi-x-lg {
   position: absolute;

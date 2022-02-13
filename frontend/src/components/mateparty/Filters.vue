@@ -1,51 +1,49 @@
 <template>
-<div class="filterbox">
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fa fa-info"></i> 날짜
-</button>
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal1 @date-check="dateCheck"/>
-            </div>
-        </div>
+  <body>
+    
+  
+    <div>
+      <div class="btn-group filterbox1">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="position:relative; color: #7ac4e1; z-index:10;">
+        날짜
+      </button>
+      <Modal1 @date-check="dateCheck" style=" opacity: 0.1; position:absolute; z-index:10;" />
+       </div>
+        
+
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        유형
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal2 @camp-check="campCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"> <i class="fa fa-info"></i> 유형
-</button>
-<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal2 @camp-check="campCheck"/>
-            </div>
-        </div>
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        스타일
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal3 @style-check="styleCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"> <i class="fa fa-info"></i> 스타일
-</button>
-<div class="modal fade" id="staticBackdrop3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal3 @style-check="styleCheck"/>
-            </div>
-        </div>
+    <div class="btn-group filterbox1">
+      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
+        정렬
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <Modal4 @sort-check="sortCheck"/>
+      </ul>
     </div>
-</div>
-  <button type="button" class="btn btn-secondary launch filterbox1 col-xs-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop4"> <i class="fa fa-info"></i> 정렬
-</button>
-<div class="modal fade" id="staticBackdrop4" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body ">
-              <Modal4 @sortListcheck="sortListCheck"/>
-            </div>
-        </div>
+    <div class="btn-group filterbox1">
+      <button class="btn" type="button" aria-expanded="false" style="color: #7ac4e1;" @click="apply">
+        적용
+      </button>
+      
     </div>
-</div>
-<button type="button" class="btn btn-danger filterbox1 col-xs-4" @click="cancleFilter">필터 취소</button>
-</div>
+    
+  </div>
+  </body>
 </template>
 
 <script>
@@ -53,8 +51,10 @@ import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
 import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
-import {ref,watch } from 'vue'
-import { useRouter } from "vue-router";
+import {ref,} from 'vue'
+
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   emits : ['filter-data'],
@@ -68,52 +68,101 @@ export default {
   },
   
   setup(props,{emit}) {
-    const router = useRouter()
+  
     const allData = ref({
-      date : ref(null),
-      camp : ref(null),
-      style : ref(null),
+      mateCampstart : null,
+      mateCampend : null,
+      mateCamptype : null,
+      campStyleList : {
+        style1 : null,
+        style2 : null,
+        style3 : null
+      },
       sortList : ref(null),
     })
-    // const endData = ref([])
+    
+    const apply = () =>{
 
-    const campCheck = (box) => {
-      allData.value.camp= box
+      console.log(allData.value)
+      axios({
+          method : 'post',
+          url : `${SERVER_URL}/mate/filter`,
+          data : allData.value
+        })
+        .then(res => {
+          console.log(res)
+          emit('filter-data',res)
+          
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+
+    const dateCheck = (val) => {
+      console.log(val)
+      // allData.value.mateCampstart = val[0]
+      // allData.value.mateCampend = val[1]
+      console.log(allData.value)
+       
+    }
+    const styleCheck = (val) => {
+      console.log(val)
+      if (val) {
+        if (val.length === 1) {
+          allData.value.campStyleList.style1 =val[0];
+    
+        } else if (val.length === 2) {
+          allData.value.campStyleList.style1 = val[0] 
+          allData.value.campStyleList.style2 = val[1] 
+           
+            
+   
+        } else if (val.length === 3) {
+         allData.value.campStyleList.style1 = val[0]
+         allData.value.campStyleList.style2 = val[1]
+         allData.value.campStyleList.style3 = val[2]
+          
+          }
+        }
+      console.log(allData.value)
+      }
+
+    
+
+    const campCheck = (val) => {
       
+      allData.value.mateCamptype = val
+      console.log(allData.value)
     }
-    const styleCheck = (box2) => {
-      allData.value.style= box2
-      
-    }
-    const dateCheck = (box3) => {
-      allData.value.date= box3
-     
-    }
-    const sortListCheck = (box4) => {
-      allData.value.sortList= box4
-     
-    }
-    const cancleFilter = () => {
-      
-      router.go();
-    }
-  watch(
-  () => allData,
-  (state) => {
-    // console.log('deep', state.value)
-    emit('filter-data',state.value)
-  },
-  { deep: true }
-  )
+    // const sortCheck = (val) => {
+    //   console.log(val.value)
+    // }
+
+   
+    // const endData = ref([])
+  
+    
+  // watch(
+  // () => allData,
+  // (state) => {
+  //   // console.log('deep', state.value)
+  //   emit('filter-data',state.value)
+  // },
+  // { deep: true }
+  // )
 
 
     return {
+      apply,
+      allData,
+      dateCheck,
       campCheck,
       styleCheck,
-      dateCheck,
-      sortListCheck,
-      allData,
-      cancleFilter
+      // sortCheck,
+      
+
     }
   }
 }
@@ -123,11 +172,15 @@ export default {
 @media (max-width: 599px) {
   .filterbox1 {
     float: left;
-    width: 100px;
-    height : 40px;
+  width: 80px;
+  height: 30px;
     margin-bottom: 10px;
+    background: #fff;
+    border:0.5px solid #ccc;
+    font:black;
   }
 }
+
 
 .filterbox {
   overflow: hidden;
@@ -135,18 +188,48 @@ export default {
 
 .filterbox1 {
   float: left;
-  width: 100px;
+  width: 90px;
   height: 40px;
   margin-left: 0px;
+  background-color: #fff;
+  color: #7ac4e1;
+  border: 3px solid #7ac4e1;
+  border-radius: 30px;
+  font-size : 14px;
+  position : relative;
+  
+  
 } 
 
 .modal-content{
    border-radius: 45px;
 }
-
+.buttonfont{
+    font-size:12px
+}
 .modal-body {
 
   border-radius: 45px;
   background: linear-gradient(#3a7bd5, #3a6073);
 }
+
+
+
+
+.dropdown-menu{
+      height:200px;
+      overflow-y:auto;
+  }
+
+
+
 </style>
+
+
+
+
+
+
+
+
+
