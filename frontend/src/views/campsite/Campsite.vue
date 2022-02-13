@@ -77,8 +77,6 @@ import { useRouter } from "vue-router";
 import Navbar from "@/components/common/Navbar.vue";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
-
-
 export default {
   name: "Campsite",
   components: {
@@ -155,12 +153,20 @@ export default {
     display: none;
   }
 } */
+@media(max-width: 768px){
+  body {
+    width:100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: #fafafa;
+  
+}}
 @media (min-width: 768px) {
   body {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    background: #fafafa;
   }
 }
 
