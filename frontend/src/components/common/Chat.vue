@@ -266,7 +266,36 @@ export default {
 
 <style scoped>
 
+@media (max-width: 700px) {
+  .card-body {
+    width: 80vw;
+    margin: 0 auto;
+    height : 350px;
+    margin-right : 200px;
+  }
 
+  .chat{
+    margin-right : 200px;
+  }
+
+  .chat-btn {
+    position: absolute;
+    right: 80px;
+    bottom: 30px;
+    cursor: pointer
+  }
+
+  .card{
+    position:right;
+    height: 500px;
+    border-radius: 15px !important;
+    background-color: #98cde2 !important;
+    right:65%;
+    width :70%;
+  
+  }
+  
+}
 
 .chat-btn {
     position: absolute;
@@ -420,10 +449,13 @@ body{
     width: 80vw;
     margin: 0 auto;
     height : 350px;
+    margin-right : 200px;
+  }
+
+  .chat{
+    margin-right : 200px;
   }
  
-   
-  
 }
   .card-body { 
     width:350px;
