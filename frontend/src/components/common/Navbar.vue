@@ -2,7 +2,14 @@
   <nav class="navbar d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
-        <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
+        <a class="brandname ms-3 navbar-brand" href="#">
+          <img
+            width="56"
+            height="44"
+            src="../../assets/images/logo1.png"
+            alt=""
+          />
+        </a>
         <div class="Navbar-buttons d-flex align-items-center">
           <div class="nav-item">
             <a class="nav-link" aria-current="page" href="/sns">
