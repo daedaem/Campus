@@ -1,5 +1,7 @@
 package com.ssafy.project.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,6 @@ public class SnsParamDto {
     private String searchWord;
     private int snsNo;
     private int userNo;
-    //test
+    private List<Integer> followingList;
+    
 }
-//SnsParamDto snsParamDto

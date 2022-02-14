@@ -25,13 +25,12 @@
         SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
-            WHERE s.userNo = u.userNo
+            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
+            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                    #{item}
+            </foreach>
             ORDER BY s.snsNo DESC
             LIMIT #{limit} OFFSET #{offset}
-<<<<<<< HEAD
-      
-=======
->>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
     </select>
 
     <select id="userSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
@@ -40,6 +39,18 @@
             FROM sns s, user u
             WHERE s.userNo = u.userNo AND s.userNo = #{userNo}
             ORDER BY s.snsNo DESC
+    </select>
+
+    <select id="FollowingSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
+            SELECT s.snsNo, s.userNo, 
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+                FROM sns s, user u
+                WHERE s.userNo = u.userNo and u.userNo = #{userNo} and s.snsCreateTime >= (CURDATE()-INTERVAL 5 DAY)
+                ORDER BY s.snsNo DESC
+    </select>
+
+    <select id="getFollowingUser" parameterType="int" resultType="int">
+            SELECT userNo FROM follow WHERE followUserNo = #{userNo}
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">
@@ -74,6 +85,15 @@
     <select id="snsListTotalCount" parameterType="int" resultType="int">
         SELECT COUNT(*)
         FROM sns
+    </select>
+
+    <select id="snsListTotalCountWithoutFolling" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="int">
+        SELECT COUNT(*)
+            FROM sns s, user u
+            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
+            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                    #{item}
+            </foreach>
     </select>
 
     <!-- search word-->

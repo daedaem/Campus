@@ -193,6 +193,24 @@ public class MateController {
         }
     }
 
+    @PostMapping(value = "/mate/apply/check/{mateListNo}")
+    private ResponseEntity<MateResultDto> mateApplyCheck(@PathVariable int mateListNo) {
+
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
+        // matelistDto.setMateNo(56);
+
+        MateResultDto mateResultDto = service.mateApplyCheck(mateListNo);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
     @DeleteMapping(value = "/mate/apply/{mateListNo}")
     private ResponseEntity<MateResultDto> mateApplyDelete(@PathVariable int mateListNo) {
 

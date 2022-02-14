@@ -347,14 +347,47 @@ public class MateServiceImpl implements MateService {
         MateMatchResultDto mateMatchResultDto = new MateMatchResultDto();
 
         try {
-            MateMatchDto matchDto = new MateMatchDto();
-            matchDto.setUserNo(userNo);
-            matchDto.setUserMBTI(dao.userMBTIselect(userNo));
+            MateMatchDto matchDto = dao.userMBTIselect(userNo);
             List<MateMatchDto> list = dao.mateMatchList(matchDto);
+
             // 매치된 인원이 4보다 작으면 모든 유저에서 매칭
             if(list.size() < 4){
-                mateMatchResultDto.setMatelist(dao.mateMatchListAll(matchDto));
+                list = dao.mateMatchListAll(matchDto);
+                for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
+                    int count = 0;
+                    if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
+                    if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
+                    if(matchDto.getCampStyle3() == 'Y' && list.get(i).getCampStyle3() == 'Y' ) count++;
+                    if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
+                    if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
+                    if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 1;
+                    else if( result == 5 || result == 6) result += 3;
+                    list.get(i).setCampStyleScore(result);
+                }
+                mateMatchResultDto.setMatelist(list);
             }else{
+                for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
+                    int count = 0;
+                    if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
+                    if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
+                    if(matchDto.getCampStyle3() == 'Y' && list.get(i).getCampStyle3() == 'Y' ) count++;
+                    if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
+                    if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
+                    if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 2;
+                    else if( result == 5 || result == 6) result += 3;
+                    else if( result == 3 || result == 4 ) result += 4;
+                    list.get(i).setCampStyleScore(result);
+                }
                 mateMatchResultDto.setMatelist(list);
             }
             
@@ -508,6 +541,20 @@ public class MateServiceImpl implements MateService {
             mateResultDto.setResult(SUCCESS);
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
+    @Override
+    public MateResultDto mateApplyCheck(int mateListNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateApplyCheck(mateListNo);
+
+            mateResultDto.setResult(SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             mateResultDto.setResult(FAIL);
