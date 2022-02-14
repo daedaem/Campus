@@ -36,9 +36,8 @@ public interface MateService {
 
     public MateResultDto mateStatusUpdate(int mateNo);
 
-<<<<<<< HEAD
     public MateResultDto mateFilter(MateDto dto);
 
-=======
->>>>>>> ad19d36f3c52c65186f7e92661d1337af76ffe98
+    public MateResultDto mateApplyCheck(int mateListNo);
+
 }

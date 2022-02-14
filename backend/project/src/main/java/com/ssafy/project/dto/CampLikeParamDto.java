@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRateDto {
+public class CampLikeParamDto {
     private int userNo;
-    private float userRatePoint;
+    private String contentId;
 }
