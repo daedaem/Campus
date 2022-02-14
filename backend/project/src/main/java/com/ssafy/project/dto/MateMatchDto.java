@@ -14,6 +14,7 @@ public class MateMatchDto {
     private String userProfileImage;
     private String userGender;
     private String userMBTI;
+    private int campStyleScore;
     
 
     private char campStyle1;

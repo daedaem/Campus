@@ -35,7 +35,10 @@
                 <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/matematch">메이트(매칭)</a>
+                <a class="dropdown-item" @click="goMatematch()">메이트(매칭)</a>
+              </li>
+              <li>
+                <a class="dropdown-item" @click="mySurvey()">설문조사</a>
               </li>
               <!-- <li><hr class="dropdown-divider"></li> -->
             </div>
@@ -100,7 +103,7 @@
                     this.$store.state.userList.userProfileImage == null &&
                     this.$store.state.userList.userGender == null
                   "
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                   alt=""
                   class="Navbar-User-profile-image ms-2"
                 />
@@ -160,16 +163,18 @@
 <script>
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapState } from "vuex";
+import Swal from 'sweetalert2'
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Searchbar from "./Searchbar.vue";
-
+import {useStore} from 'vuex'
 export default {
   components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
+    const store = useStore()
     const onoff = ref(0);
 
     const refresh = () => {
@@ -183,21 +188,30 @@ export default {
       }
     };
 
+    const goMatematch = () =>{
+      console.log(store.state.myNum)
+      router.push({name:'Matematch' , params : {userNo : store.state.myNum}})
+    }
+
     return {
       refresh,
       onoff,
+      goMatematch,
     };
   },
   methods: {
     logout: function () {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
+      this.$store.state.userGender = null;
+      this.$store.state.SearchWord = null;
       this.$store.dispatch("logout");
       sessionStorage.removeItem("userList");
       sessionStorage.removeItem("myNum");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userPassword");
-      alert("로그아웃");
+      localStorage.removeItem('vuex')
+      Swal.fire({ title: "로그아웃 되었습니다.", icon: 'success', timer:2000})
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
@@ -205,6 +219,10 @@ export default {
     },
     moveToLogin: function () {
       this.$router.push({ name: "Login" });
+    },
+    mySurvey: function () {
+      console.log("엠비티아이", this.$store.state.userList.userMBTI)
+      this.$router.push({ name: 'Survey' })
     },
     myProfile: function () {
       console.log(this.$store.getters.getUserId);
@@ -215,7 +233,11 @@ export default {
     },
   },
 
-  created: function () {},
+  created: function () {
+    if (sessionStorage.getItem('userEmail') === null) {
+      localStorage.removeItem('vuex');
+    }
+  },
 
   computed: {
     ...mapState(["userList"]),

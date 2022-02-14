@@ -86,6 +86,54 @@
                 </div>
                 <!-- {{item}} -->
               </div>
+              <!-- <div
+                class="align-items-center align-content-center col-md-3 border-left mt-1"
+              >
+                <div class="d-flex flex-row align-items-center">
+                  <h4 class="mr-1">후기</h4>
+                </div>
+
+                <span
+                  v-if="mylst.includes(item.contentId) === false"
+                  style="cursor: pointer"
+                  class="heart-box"
+                  @click="giveHeart(item.contentId)"
+                >
+                  <i class="bi bi-heart me-3"></i>
+                </span>
+                <span
+                  v-else
+                  style="cursor: pointer"
+                  class="heart-box"
+                  @click="cancelHeart(item.contentId)"
+                >
+                  <i class="bi bi-heart-fill me-3" style="color:red;"></i>
+                </span>
+                <div class="d-flex flex-column mt-4">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    style="font-size: 12px"
+                  >
+                    <i class="bi bi-telephone-fill"></i> {{ item.tel }}
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                    v-if="item.resveUrl != null"
+                  >
+                    예약사이트
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                    v-else
+                  >
+                    전화예약문의
+                  </button>
+                </div>
+              </div> -->
+              <!-- {{item}} -->
             </div>
           </div>
         </div>
@@ -98,7 +146,9 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import Navbar from "@/components/common/Navbar.vue";
+// import CampSearch from "@/components/campsite/campSearch.vue"
 import CampsiteFilter from "@/components/campsite/CampsiteFilter.vue";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -106,13 +156,18 @@ export default {
   name: "Campsite",
   components: {
     Navbar,
+    // CampSearch,
     CampsiteFilter,
   },
   setup() {
+    const store = useStore();
     const router = useRouter();
     const articles = ref([]);
     const limit = ref(10);
     const offset = ref(0);
+    const lst = ref(0);
+    const mylst = ref([])
+    // const mycamping = ref([]);
     // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
     const getDatas = () => {
       axios({
@@ -141,7 +196,54 @@ export default {
       router.push({ name: "Campsitedetail", params: { contentId: id } });
     };
 
+    const giveHeart = (boardid) => {
+      const userNm = store.state.myNum;
+      axios({
+        method: 'post',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log(res);
+        })
+    };
+    
+    const cancelHeart = (boardid) => {
+      const userNm = store.state.myNum;
+      axios({
+        method: 'delete',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log(res)
+        })
+    };
+
+    const camplikeuser = () => {
+      const userNm = store.state.myNum;
+      const mycamping = [];
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/camp/like/${userNm}`
+      })
+        .then((res) => {
+          lst.value = res.data.campLikeList
+          // console.log("크크", lst.value.length)
+          for (let i=0; i<lst.value.length; i++) {
+            mycamping.push(lst.value[i].contentId)
+          }
+          // console.log('본다', lst.value)
+          mylst.value = mycamping
+          console.log("확인하자", res)
+          console.log("캠핑", mycamping)
+        })
+        .catch((err) => {
+          console.log("여긴오나",err)
+          console.log(userNm)
+        })
+    }
+
     onMounted(() => {
+      camplikeuser();
       getDatas();
       window.addEventListener("scroll", () => {
         let scrollTop = document.documentElement.scrollTop;
@@ -162,6 +264,11 @@ export default {
       offset,
       getDatas,
       goDetail,
+      giveHeart,
+      cancelHeart,
+      camplikeuser,
+      lst,
+      mylst,
     };
   },
 };
