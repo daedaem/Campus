@@ -1,68 +1,91 @@
 <template>
   <Navbar id="navbar"></Navbar>
-  <div style="width:100%; height:200px; background:black;"></div>
+  <div class="CampSitebackground">
+    <div class="CampeSitebackground-imgcover">
+      <div class="CampeSitebackground-content">캠핑장</div>
+      <div></div>
+    </div>
+  </div>
   <body>
     <div>
+      <div></div>
       <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
-          <div class="col-md-10">
-            <div
-              class="row p-2 bg-white border rounded mt-2"
-              v-for="(item, idx) in articles"
-              :key="idx"
-            >
-              <!-- {{item}} -->
-              <div class="col-md-3 mt-1">
-                <img
-                  class="img-fluid img-responsive rounded product-image"
-                  :src="item.firstImageUrl"
-                  style="height: 80%"
-                />
-              </div>
-              <div class="col-md-6 mt-1">
-                <h5 @click="goDetail(item.contentId)">{{ item.facltNm }}</h5>
-                <div class="d-flex flex-row">
-                  <div class="ratings mr-2">
-                    <i class="fa fa-star"></i><i class="fa fa-star"></i
-                    ><i class="fa fa-star"></i><i class="fa fa-star"></i>
+          <div class="capmsiteContent d-flex flex-row mx-2 align-items-start">
+            <!-- <campsite-drop></campsite-drop> -->
+            <div class="CampSite-FilterBox">
+              <campsite-filter class="my-3 mx-2"></campsite-filter>
+            </div>
+            <div>
+              <div
+                class="row p-2 bg-white"
+                style="
+                  min-height: 200px;
+                  border-radius: 15px;
+                  border: 1px solid #dbdbdb;
+                "
+                v-for="(item, idx) in articles"
+                :key="idx"
+              >
+                <!-- {{item}} -->
+                <div class="my-2" style="width: 210px">
+                  <img
+                    class="img-fluid img-responsive rounded product-image"
+                    style="height: 100%"
+                    :src="item.firstImageUrl"
+                  />
+                </div>
+                <div class="d-flex flex-column col-md-5">
+                  <div class="mt-3">
+                    <h5 @click="goDetail(item.contentId)">
+                      {{ item.facltNm }}
+                    </h5>
+                    <div class="d-flex flex-row mb-3">
+                      <div class="ratings mr-2">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <div class="mb-1 spec-1">{{ item.addr1 }}</div>
+                    <div class="mt-1 mb-1 spec-1">{{ item.lineIntro }}</div>
+                  </div>
+                  <!-- <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p> -->
+                </div>
+                <div
+                  class="align-items-center align-content-center col-md-3 border-left mt-1"
+                >
+                  <div class="d-flex flex-row align-items-center">
+                    <h5 class="mt-3">후기</h5>
+                  </div>
+                  <h6 class="text-success">찜?</h6>
+                  <div class="d-flex flex-column pt-2 mt-4">
+                    <button
+                      class="btn btn-primary btn-sm"
+                      type="button"
+                      style="font-size: 12px"
+                    >
+                      <i class="bi bi-telephone-fill"></i> {{ item.tel }}
+                    </button>
+                    <button
+                      class="btn btn-outline-primary btn-sm mt-2"
+                      type="button"
+                      v-if="item.resveUrl != null"
+                    >
+                      예약사이트
+                    </button>
+                    <button
+                      class="btn btn-outline-primary btn-sm mt-2"
+                      type="button"
+                      v-else
+                    >
+                      전화예약문의
+                    </button>
                   </div>
                 </div>
-                <div class="mt-1 mb-1 spec-1">{{ item.addr1 }}</div>
-                <div class="mt-1 mb-1 spec-1">{{ item.lineIntro }}</div>
-                <!-- <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p> -->
+                <!-- {{item}} -->
               </div>
-              <div
-                class="align-items-center align-content-center col-md-3 border-left mt-1"
-              >
-                <div class="d-flex flex-row align-items-center">
-                  <h4 class="mr-1">후기</h4>
-                </div>
-                <h6 class="text-success">찜?</h6>
-                <div class="d-flex flex-column mt-4">
-                  <button
-                    class="btn btn-primary btn-sm"
-                    type="button"
-                    style="font-size: 12px"
-                  >
-                    <i class="bi bi-telephone-fill"></i> {{ item.tel }}
-                  </button>
-                  <button
-                    class="btn btn-outline-primary btn-sm mt-2"
-                    type="button"
-                    v-if="item.resveUrl != null"
-                  >
-                    예약사이트
-                  </button>
-                  <button
-                    class="btn btn-outline-primary btn-sm mt-2"
-                    type="button"
-                    v-else
-                  >
-                    전화예약문의
-                  </button>
-                </div>
-              </div>
-              <!-- {{item}} -->
             </div>
           </div>
         </div>
@@ -76,12 +99,14 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/common/Navbar.vue";
+import CampsiteFilter from "@/components/campsite/CampsiteFilter.vue";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Campsite",
   components: {
     Navbar,
+    CampsiteFilter,
   },
   setup() {
     const router = useRouter();
@@ -101,12 +126,11 @@ export default {
         },
       })
         .then((res) => {
-          console.log("뭔데", res);
+          // console.log("뭔데", res);
           articles.value.push(...res.data.list);
 
           // console.log(articles.value);
         })
-        
 
         .catch((err) => {
           console.log(err);
@@ -150,20 +174,59 @@ export default {
     display: none;
   }
 } */
-@media(max-width: 768px){
+.CampSitebackground {
+  width: 100%;
+  height: 200px;
+  background: black;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  /* background-position: 30%; */
+  /* background-repeat: no-repeat; */
+  background: url("https://cdn.discordapp.com/attachments/932494858533359646/942331192177492048/pexels-juan-pablo-guzman-fernandez-2166822.jpg")
+    50% 50% no-repeat;
+  /* background: 50% 70% no-repeat; */
+  background-size: 100% auto;
+}
+.CampeSitebackground-imgcover {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+.CampeSitebackground-content {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  /* transform: translate(-50%, -50%); */
+  font-size: 3rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
+@media (max-width: 768px) {
   body {
-    width:100%;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
     background: #fafafa;
-  
-}}
+  }
+}
 @media (min-width: 768px) {
   body {
+    /* width: 900px; */
+    margin: 0 auto;
+    padding: 0 20px;
+    background: #fafafa;
+  }
+  .container {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
     background: #fafafa;
+  }
+  .capmsiteContent {
+    width: 100%;
   }
 }
 
@@ -193,8 +256,12 @@ export default {
 }
 
 .spec-1 {
-  color: #938787;
-  font-size: 15px;
+  color: black;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: fw-bold;
+  line-height: 12px;
 }
 
 h5 {
@@ -203,5 +270,21 @@ h5 {
 
 .para {
   font-size: 16px;
+}
+.CampSite-FilterBox {
+  width: 200px;
+  height: 900px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-right: 3rem;
+  background: #fff;
+  /* display: flex; */
+  border-radius: 15px;
+  border: 1px solid #dbdbdb;
+}
+.campsite-filter {
+  /* width: 300px; */
+  /* height: 200px; */
+  /* background: #fff; */
 }
 </style>
