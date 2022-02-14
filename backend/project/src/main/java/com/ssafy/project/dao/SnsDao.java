@@ -45,4 +45,8 @@ public interface SnsDao {
     public int snsCheck(int snsNo);
 
     public List<SnsDto> userSnsList(int userNo);
+
+    public List<Integer> getFollowingUser(int userNo);
+
+    public List<SnsDto> FollowingSnsList(int userNo);
 }
