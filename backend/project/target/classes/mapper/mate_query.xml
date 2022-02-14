@@ -240,6 +240,8 @@
 
     <select id="mateFilterStyleNum1" parameterType="map" resultType="int">
         SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1})
+                                            OR (style2 = #{style1})
+                                            OR (style3 = #{style1})
                                         ORDER BY mateNo DESC
     </select>
 
