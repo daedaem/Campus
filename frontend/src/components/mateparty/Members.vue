@@ -1,10 +1,10 @@
 <template>
   <div v-if="mate.mateStatus === 'N'">
-      모집이 마갑되었습니다. 함께한 캠퍼들의 평가를 해주세요.
+      <div align="center">모집이 마갑되었습니다. 함께한 캠퍼들을 평가해주세요.</div>
       <div class="container mt-5 d-flex justify-content-center">
       <div class="row">
         <div class="card p-4 m-3 col-6" v-for="(item, idx) in member" :key="idx">
-          <div v-if="item.check === 0">
+          <div v-if="item.mateApplyCheck === 0">
             <div class="first" align="leftt" style="margin-left: 10px; margin-bottom:10px;">
               @{{item.userNickname}}
             </div>
@@ -145,12 +145,13 @@
 
               
             </div>
-          <div align="center"><button @click="rating(item.kindRate,item.accurancyRate,item.abilityRate,item.userNo,item.mateListNo)">평가하기</button></div>
-        </div>
-        <div v-else class="d-flex flex-row align-items-center" align="center" style="height:214px; margin:0 auto;">
-          <div >평가완료</div>
-        </div>
-        </div>
+            <div align="center"><button @click="rating(item.kindRate,item.accurancyRate,item.abilityRate,item.userNo,item.mateListNo)">평가하기</button></div>
+          </div>
+          <div v-else class="row-vh d-flex flex-column align-items-center" align="center" style="height:214px; margin:0 auto;">
+            <div style="margin-top:75px; "><i class="bi bi-balloon-heart-fill fa-3x" style="color:red;"></i></div>
+            <div >평가완료</div>
+          </div>
+          </div>
         
       </div>
     </div>

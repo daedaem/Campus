@@ -1,11 +1,11 @@
 <template>
-  <div class="test row" >
-    <body class="col-12">
+  <!-- <div class="test row" > -->
+    <body class="">
       
       <div class="registration-form">
         <form>
           
-            <div class="">
+            <div class="imgC">
               
               <Fileupload @image="uploadedImage" align="left"/>
            
@@ -42,6 +42,7 @@
                 <Datepicker @date-in="dateIn" class="date"/>
             </div>
             <div class="form-group" style="margin-top:50px;">
+              <h4 align="left">캠핑 유형</h4>
               <Filtermake
                 @style-check="styleCheck"
                 @limit-check="limitCheck"
@@ -49,16 +50,17 @@
               />
             </div>
             <div class="form-group">
+              <h4 style="margin-top:20px;">보유 장비</h4>
               <Items @img-status="imgStatus" id="test"/>
             </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-block create-account" @click="test">Create Account</button>
+            <div class="form-group" align="center">
+                <button type="button" class="btn btn-block create-account" @click="test" >Create Account</button>
             </div>
         </form>
         
     </div>
     </body>
-  </div>
+  <!-- </div> -->
   
 </template>
 
@@ -317,6 +319,21 @@ export default {
 </script>
 
 <style scoped>
+
+@media (min-width: 768px) {
+body {
+    width: 768px;
+
+    background: #fff;
+ 
+  }
+
+.imgC {
+  margin-left:125px;
+}
+}
+
+
 #test {
   padding : 0px;
   margin-left: 0px;
@@ -327,10 +344,11 @@ export default {
 
 body {
   /* width: 768px; */
-  width: 768px;
+  /* width: 768px; */
   margin: 0 auto;
   padding: 0 20px;
   background-color: #dee9ff;
+  border-radius: 30px;
 }
 
 .test {
@@ -543,5 +561,9 @@ body {
         font-size: 30px;
         line-height: 70px;
     }
+}
+
+h4 {
+  color : #5a83ab;
 }
 </style>
