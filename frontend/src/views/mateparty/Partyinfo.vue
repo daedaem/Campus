@@ -1,6 +1,9 @@
 <template>
-<button v-if="userNm === mateDetail.userNo" @click="delPost">x</button>
+
   <body>
+    <div class="myButton" align="right">
+    <button v-if="userNm === mateDetail.userNo" @click="delPost" style="width: 100px; height: 40px; margin-top:5px; margin-bottom: 5px; background-color:red; border-color:red; align:right; border-radius:20px; color:white;">삭제</button><button @click="goPartyrevise(mateDetail.mateNo)" v-if="userNm===mateDetail.userNo" style="width: 100px; height: 40px; margin-top:5px; margin-bottom: 5px; background-color:#7ac4e1; border-color:#7ac4e1; align:right; border-radius:20px; color:white;">수정</button>
+    </div>
     <div class="container">
       <div class="row">
         <div style="margin-top: 20px; height: 300px; ">
@@ -33,10 +36,10 @@
         v-if="mateDetail.length != 0"
         :mateDetail="mateDetail"
         :mateNm="mateNm"
-        @joinedmember="nowmember"
+        
       />
     </div>
-    <button @click="goPartyrevise(mateDetail.mateNo)" v-if="userNm===mateDetail.userNo">수정</button>
+    
     
     <!-- <div style="margin-top: 20px; margin-left: 40px; width: 140px; height:200px;  float: left; ">
       <img class="mainimage" src="https://cdn.pixabay.com/photo/2015/02/02/11/08/office-620817_960_720.jpg" alt="">
@@ -172,6 +175,8 @@ export default {
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  /* object-fit:cover; */
+  aspect-ratio: 16/9;
 }
 
 .smallimage {
@@ -184,12 +189,8 @@ export default {
   min-height : 450px;
 
 }
-/* 
-.filterbox1 {
-  float: left;
-}
 
-.filterbox2 {
-  float: right;
-} */
+.myButton { 
+  
+}
 </style>

@@ -22,6 +22,6 @@
         <mapper resource="mapper/sns_reply_query.xml" />
         <mapper resource="mapper/ChatRoomMapper.xml" />
         <mapper resource="mapper/MessageMapper.xml" />
-  
+        <mapper resource="mapper/camp_like_query.xml" />
 	</mappers>	
 </configuration>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Chat />
+    <Chat class="chat"/>
     <router-view :key="$route.fullPath"></router-view>
   </div>
   <!-- 삭제금지 -->
@@ -46,6 +46,18 @@ export default {
   //   font-weight: 400;
   //   // color: #2c3e50;
 }
+
+
+
+@media (max-width: 768px) {
+  .chat {
+    // background: whitesmoke;
+    position : absolute;
+    left : 10;
+    bottom : 0;
+  }
+}
+
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
