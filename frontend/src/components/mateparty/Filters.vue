@@ -1,9 +1,10 @@
 <template>
   <body>
     
-  
-    <div>
-      <div class="btn-group filterbox1">
+  <div class="container">
+    <div class="row">
+    
+      <div class="btn-group filterbox1 col-4" style="margin-left:0px;">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="position:relative; color: #7ac4e1; z-index:10;">
         날짜
       </button>
@@ -11,7 +12,7 @@
        </div>
         
 
-    <div class="btn-group filterbox1">
+    <div class="btn-group filterbox1 col-4" >
       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
         유형
       </button>
@@ -19,15 +20,15 @@
         <Modal2 @camp-check="campCheck"/>
       </ul>
     </div>
-    <div class="btn-group filterbox1">
+    <div class="btn-group filterbox1 col-4">
       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
-        스타일
+        테마
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
         <Modal3 @style-check="styleCheck"/>
       </ul>
     </div>
-    <div class="btn-group filterbox1">
+    <div class="btn-group filterbox1 col-4">
       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
         정렬
       </button>
@@ -35,13 +36,13 @@
         <Modal4 @sort-check="sortCheck"/>
       </ul>
     </div>
-    <div class="btn-group filterbox1">
+    <div class="btn-group filterbox1 col-4">
       <button class="btn" type="button" aria-expanded="false" style="color: #7ac4e1;" @click="apply">
         적용
       </button>
       
     </div>
-    
+    </div>
   </div>
   </body>
 </template>
@@ -169,15 +170,17 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 599px) {
+@media (min-width: 599px) {
   .filterbox1 {
     float: left;
   width: 80px;
   height: 30px;
-    margin-bottom: 10px;
-    background: #fff;
-    border:0.5px solid #ccc;
-    font:black;
+  margin-bottom: 10px;
+  background: #fff;
+  border:0.5px solid #ccc;
+  font:black;
+  margin-left: 20px;
+  font-size : 14px;
   }
 }
 
@@ -190,12 +193,13 @@ export default {
   float: left;
   width: 90px;
   height: 40px;
-  margin-left: 0px;
+ 
   background-color: #fff;
   color: #7ac4e1;
   border: 3px solid #7ac4e1;
   border-radius: 30px;
   font-size : 14px;
+  margin:5px;
   position : relative;
   
   

@@ -1,7 +1,5 @@
 <template>
   <div class="overflow-auto">
-
-    
     <b-row :per-page="perPage" :current-page="currentPage"> 
       <b-card-group class ="col-md-4 col-sm-6 col-xs-12 " v-for="(item,idx) in paginatedItems" :key="idx" >
         
@@ -143,18 +141,18 @@ img{
 .card-title{
   font-size: 18px;
   height:43.19px;
-        display: block;
-        color: black;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: normal;
-        line-height: 1.2;
+  display: block;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
 /*        height: 4.8em;*/
-        text-align: left;
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2 ;
-        -webkit-box-orient: vertical;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 ;
+  -webkit-box-orient: vertical;
 
 }
 
@@ -181,5 +179,39 @@ img{
 }
 .test{
   
+}
+
+@media (max-width: 576px) {
+  .card-group > .test{
+  border-radius: 20px;
+  font-size: 15px;
+  word-break:break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width:100%;
+  height :550px;
+  }
+  .card-img-top {
+  height: 350px;
+  /* border-color: red; */
+  }
+  .card-title{
+  font-size: 24px;
+  height:50px;
+  display: block;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+/*        height: 4.8em;*/
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2 ;
+  -webkit-box-orient: vertical;
+
+  }
 }
 </style>

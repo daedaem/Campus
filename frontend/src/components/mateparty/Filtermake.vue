@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h4 align="left">캠핑 유형</h4>
+  <div class="container" style="padding-left:0px;">
+    
     <div class="filterbox row">
       <div class="form-check filterbox1 col-3">
         <input :disabled="campCheck.length > 0 && !campCheck.includes('오토캠핑')" class="form-check-input" v-model="campCheck" type="checkbox" value="오토캠핑" id="flexCheckDefault100">
@@ -167,6 +167,10 @@ export default {
   margin : 0px;
   
 } 
+
+h4 {
+  color : #5a83ab;
+}
 
 
 
