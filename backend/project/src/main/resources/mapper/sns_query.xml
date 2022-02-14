@@ -44,7 +44,7 @@
                 FROM sns s, user u
                 WHERE s.userNo = u.userNo and u.userNo in (select userNo from follow where followUserNo = #{userNo}) 
                 ORDER BY s.snsNo DESC
-    <select>
+    </select>
 
     <select id="getFollowingUser" parameterType="int" resultType="int">
             SELECT userNo FROM follow WHERE followUserNo = #{userNo}
