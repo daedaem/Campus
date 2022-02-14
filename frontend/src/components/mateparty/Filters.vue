@@ -22,7 +22,7 @@
     </div>
     <div class="btn-group filterbox1 col-4">
       <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
-        스타일
+        테마
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
         <Modal3 @style-check="styleCheck"/>
