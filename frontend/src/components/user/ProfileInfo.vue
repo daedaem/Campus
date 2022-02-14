@@ -1,11 +1,12 @@
 <template>
-	<h1 align="left">나의 보유장비</h1>
-	<div class="info-container">
+  <h1 align="left">나의 보유장비</h1>
+	<div class="info-container ">
 		<div class="items">
       <div class="filterbox1"  >
         <img width="100" height="100" src="../../assets/images/랜던_검정버전.png" alt="" v-if="this.user_data.campEquipLantern === 0">
         <img width="100" height="100" src="../../assets/images/랜던_색상버전.png" alt="" v-else>
-        <div>랜턴</div>
+        <div v-if="this.user_data.campEquipLantern === 0" class="font-box">랜턴</div>
+        <div v-else class="font-box2">랜턴</div>
       </div>
       <div class="filterbox1" >
         <img width="100" height="100"  src="../../assets/images/린선_검정버전.png" alt="" v-if="this.user_data.campEquipReel === 0">
@@ -54,7 +55,18 @@
       </div>
     </div>
 	</div>
-	<h1 align="left" class="mt-3">캠핑장 정보</h1>
+	<h1 align="left" class="my-3">나만의 캠핑장</h1>
+  <div class="d-flex">
+
+    <div v-if="camp_List.length !== 0" class="instagram-container">
+      <div class="post" v-for="(value, idx) in camp_List" :key="idx">
+        <img class="img-photo" :src="value.firstImageUrl">
+        <span class="hover-img" @click="movetocamp(value.contentId)">
+          <p class="icon-heart">{{ value.facltNm }}</p>
+        </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -67,8 +79,19 @@ export default {
 	props: {
 		user_data: {
 			type: Object,
-		}
-	}
+		},
+    camp_List: {
+      type: Object,
+    }
+	},
+  methods: {
+    movetocamp: function (e) {
+      this.$router.push({
+        name: 'Campsitedetail',
+        params: { contentId: e}
+      })
+    }
+  }
 }
 </script>
 
@@ -96,6 +119,45 @@ export default {
 img:hover {
   background-color: #eee
 }
+.instagram-container {
+  display: grid;
+  grid-template-columns: minmax(150px, 465px) minmax(auto, 465px);
+  grid-template-rows: 300px auto auto 300px auto;
+  display: inline-grid;
+  /* grid-template-columns: 1fr 1fr; */
+  row-gap: 25px;
+  column-gap: 25px;
+}
 
+.instagram-container .post{
+    cursor: pointer;
+    position: relative; 
+    display: block;
+    width: 100%;
+}
+.img-photo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: top;
+}
+
+.instagram-container .hover-img{
+  background: rgba(0,0,0, .4);
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: white;
+  text-align: center;
+  font-size: 2.2rem;
+}
+.post:hover  .hover-img{
+    display: flex;
+}
 
 </style>

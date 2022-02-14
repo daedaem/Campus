@@ -46,7 +46,7 @@
 import Pagination from "../../components/mateparty/Pagination.vue";
 import Filters from "@/components/mateparty/Filters.vue";
 import router from "@/router";
-import { ref,} from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 import Navbar from "@/components/common/Navbar.vue";
@@ -102,8 +102,7 @@ export default {
 
       goMakeparty,
       filterData,
-      newFilter
-      
+      newFilter,
     };
   },
 };
