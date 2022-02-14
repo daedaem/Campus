@@ -139,7 +139,7 @@
             <div>
               <b-form-textarea
                 id="textarea-rows"
-                placeholder="당신의 캠프여정을 공유하세요."
+                placeholder="&#10;당신의 캠핑을 공유해주세요.&#10;&#10; #캠핑"
                 rows="8"
                 v-model="feedCreateContent.snsContent"
               ></b-form-textarea>
@@ -440,6 +440,13 @@ export default {
 .bi-images {
   height: 250px;
   width: 250px;
+}
+/* .b-form-textarea {
+  font: 14px;
+} */
+textarea::placeholder {
+  color: grey;
+  font-size: 14px;
 }
 /* .cropper {
   height: 600px;

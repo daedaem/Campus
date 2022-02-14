@@ -129,7 +129,6 @@
                       <div class="fw-bold">
                         {{ comment.userNickname }}
                       </div>
-
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
                         style="overflow: auto"
@@ -139,12 +138,19 @@
                     </div>
                     <div
                       class="d-flex align-items-center me-3"
-                      style="overflow: auto"
+                      style="overflow: auto; min-width: 55px"
                     >
                       <div class="ReplyTime me-1">
                         {{ ReplyTime[i] }}
                       </div>
-                      <i class="bi bi-x" @click="deleteComment(comment)"></i>
+                      <i
+                        i
+                        v-if="
+                          comment.userNo === this.$store.state.userList.userNo
+                        "
+                        class="bi bi-x"
+                        @click="deleteComment(comment)"
+                      ></i>
                     </div>
                   </div>
                 </div>

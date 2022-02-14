@@ -1,5 +1,26 @@
 package com.ssafy.project.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import com.ssafy.project.dto.CampLikeParamDto;
+import com.ssafy.project.dto.CampLikeResultDto;
+import com.ssafy.project.dto.CampRateDto;
+import com.ssafy.project.dto.CampRateReplyDto;
+import com.ssafy.project.dto.CampRateReplyResultDto;
+import com.ssafy.project.dto.CampRateResultDto;
+import com.ssafy.project.dto.CampSiteInfoDto;
+import com.ssafy.project.dto.CampSiteInfoDtoRepository;
+import com.ssafy.project.dto.CampSiteParamDto;
+import com.ssafy.project.dto.CampSiteResultDto;
+import com.ssafy.project.service.CampRateReplyService;
+import com.ssafy.project.service.CampRateService;
+import com.ssafy.project.service.CampSiteService;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,28 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import com.ssafy.project.dto.CampLikeParamDto;
-import com.ssafy.project.dto.CampLikeResultDto;
-import com.ssafy.project.dto.CampRateDto;
-import com.ssafy.project.dto.CampRateReplyDto;
-import com.ssafy.project.dto.CampRateReplyResultDto;
-import com.ssafy.project.dto.CampRateResultDto;
-import com.ssafy.project.dto.CampSiteInfoDto;
-import com.ssafy.project.dto.CampSiteInfoDtoRepository;
-import com.ssafy.project.dto.CampSiteParamDto;
-import com.ssafy.project.dto.CampSiteResultDto;
-import com.ssafy.project.service.CampLikeService;
-import com.ssafy.project.service.CampRateReplyService;
-import com.ssafy.project.service.CampRateService;
-import com.ssafy.project.service.CampSiteService;
-
 @CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
@@ -50,9 +49,6 @@ public class CampController {
     CampSiteService campSiteService;
 
     @Autowired
-    CampLikeService campLikeService;
-
-    @Autowired
     CampRateService campRateService;
 
     @Autowired
@@ -60,6 +56,10 @@ public class CampController {
 
     @Autowired
     CampSiteInfoDtoRepository campSiteInfoDtoRepository;
+
+    @Autowired
+    CampLikeService campLikeService;
+
 
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
@@ -71,7 +71,8 @@ public class CampController {
         CampSiteResultDto campSiteResultDto;
         System.out.println("안오나요");
         System.out.println(campSiteParamDto);
-        // System.out.println(campSiteParamDto);
+        
+
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             if (campSiteParamDto.getEqpmnLendCl().equals("Y")) {
                 campSiteResultDto = campSiteService.campSiteSearch(campSiteParamDto);
@@ -405,7 +406,7 @@ public class CampController {
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
         // campRateReplyDto.setUserNo(userDto.getUserNo());
-
+        
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
         System.out.println(campRateReplyDto);
         if (campRateReplyResultDto.getResult() == SUCCESS) {
