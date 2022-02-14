@@ -52,7 +52,7 @@ public interface MateDao {
 
     public int mateNoselect();
 
-    public String userMBTIselect(int userNo);
+    public MateMatchDto userMBTIselect(int userNo);
 
     public int mateCheck(int mateNo);
 
@@ -85,4 +85,8 @@ public interface MateDao {
     public List<Integer> mateFilterStyleNum1(MateCampStyleDto dto);
 
     public List<MateDto> mateFilterResult(DemoDto demoList);
+
+    public int userMatchValue(String userMBTI, String otherMBTI);
+
+    public void mateApplyCheck(int mateListNo);
 }
