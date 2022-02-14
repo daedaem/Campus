@@ -36,9 +36,10 @@
           <div class="campSiteDetailContent">
             <div v-if="splitedList">
               <span v-for="(item,idx) in splitedList" :key="idx">
-                <span class="tag tag-flutter tag-lg" v-if="idx%3 === 0">{{item}}</span>
-                <span class="tag tag-typescript tag-lg" v-else-if="idx%2 === 0">{{item}}</span>
-                <span class="tag tag-electron tag-lg" v-else>{{item}}</span>
+                <!-- <button type="button" class="btn btn-outline-primary">{{item}}</button> -->
+                <!-- <span class="tag tag-flutter tag-lg" v-if="idx%3 === 0">#{{item}}</span> -->
+                <!-- <span class="tag tag-typescript tag-lg" v-else-if="idx%2 === 0">#{{item}}</span> -->
+                <span class="tag tag-electron tag-lg" style="font-size:15px;" >#{{item}}</span>
               </span>
             </div>
           </div>
@@ -46,16 +47,16 @@
           <div class="campSiteDetailContent">
             <div v-if="splitedThemeList">
               <span v-for="(item,idx) in splitedThemeList" :key="idx">
-                <span class="tag tag-rxjs tag-lg" v-if="idx%3 === 0">{{item}}</span>
-                <span class="tag tag-graphql tag-lg" v-else-if="idx%2 === 0">{{item}}</span>
-                <span class="tag tag-machine-learning tag-lg" v-else>{{item}}</span>
+                <!-- <span class="tag tag-rxjs tag-lg" v-if="idx%3 === 0">{{item}}</span>
+                <span class="tag tag-graphql tag-lg" v-else-if="idx%2 === 0">{{item}}</span> -->
+                <span class="tag tag-electron tag-lg" style="font-size:15px;" >#{{item}}</span>
               </span>
             </div>
             <div v-if="addList">
               <span v-for="(item,idx) in addList" :key="idx">
-                <span class="tag tag-rxjs tag-lg" v-if="idx%3 === 0">{{item}}</span>
-                <span class="tag tag-graphql tag-lg" v-else-if="idx%2 === 0">{{item}}</span>
-                <span class="tag tag-machine-learning tag-lg" v-else>{{item}}</span>
+                <!-- <span class="tag tag-rxjs tag-lg" v-if="idx%3 === 0">{{item}}</span>
+                <span class="tag tag-graphql tag-lg" v-else-if="idx%2 === 0">{{item}}</span> -->
+                <span class="tag tag-electron tag-lg" style="font-size:15px;" >#{{item}}</span>
               </span>
             </div>
         
@@ -63,10 +64,7 @@
         
         
         </div> 
-         
 
-          
-          
           <hr>
           <h4>캠핑장 위치</h4>
 
