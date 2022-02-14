@@ -4,18 +4,10 @@
       <div class="filtertitle my-2">상세조건</div>
     </div>
     <div class="d-flex flex-around mx-1 my-1">
-      <button
-        class="buttonfilter-apply col mx-1"
-        type="submit"
-        @click="findCampsite"
-      >
+      <button class="buttonfilter-apply col mx-1" @click="findCampsite">
         적용
       </button>
-      <button
-        class="buttonfilter-cancel col mx-1"
-        type="submit"
-        @click="filterCancel"
-      >
+      <button class="buttonfilter-cancel col mx-1" @click="filterCancel">
         취소
       </button>
     </div>
@@ -209,7 +201,7 @@ export default {
       doNm: null,
       sigunguNm: "",
       toiletCo: 0,
-      swrmCo: 1,
+      swrmCo: 0,
       wtrplCo: 0,
       trlerAcmpnyAt: "",
       caravAcmpnyAt: "",
@@ -223,6 +215,7 @@ export default {
   methods: {
     findCampsite() {
       console.log(
+        "전",
         this.searchWord,
         this.doNm,
         this.sigunguNm,
@@ -238,6 +231,22 @@ export default {
         this.siteMgCo
       );
       this.changed();
+      console.log(
+        "후",
+        this.searchWord,
+        this.doNm,
+        this.sigunguNm,
+        this.toiletCo,
+        this.swrmCo,
+        this.wtrplCo,
+        this.trlerAcmpnyAt,
+        this.caravAcmpnyAt,
+        this.exprnProgrmAt,
+        this.exprnProgrmAt,
+        this.clturEventAt,
+        this.eqpmnLendCl,
+        this.siteMgCo
+      );
       // console.log(this.selected, "단어");
       // for (let i = 0; i <script this.doNm.length; i++) {
       // console.log(this.selected[i], "단어추출");
@@ -247,8 +256,6 @@ export default {
         params: {
           limit: 2906,
           offset: 0,
-        },
-        data: {
           searchWord: this.searchWord,
           doNm: this.doNm,
           sigunguNm: this.sigunguNm,
@@ -257,7 +264,7 @@ export default {
           wtrplCo: this.wtrplCo,
           trlerAcmpnyAt: this.trlerAcmpnyAt,
           caravAcmpnyAt: this.caravAcmpnyAt,
-          animalCmgCl: this.exprnProgrmAt,
+          animalCmgCl: this.animalCmgCl,
           exprnProgrmAt: this.exprnProgrmAt,
           clturEventAt: this.clturEventAt,
           eqpmnLendCl: this.eqpmnLendCl,
@@ -275,29 +282,25 @@ export default {
     },
     filterCancel() {
       (this.searchWord = null),
-        (this.doNm = ""),
+        (this.doNm = null),
         (this.sigunguNm = ""),
         (this.toiletCo = 0),
         (this.swrmCo = 0),
         (this.wtrplCo = 0),
-        (this.trlerAcmpnyAt = 0),
-        (this.caravAcmpnyAt = 0),
-        (this.animalCmgCl = 0),
-        (this.exprnProgrmAt = 0),
-        (this.clturEventAt = 0),
+        (this.trlerAcmpnyAt = ""),
+        (this.caravAcmpnyAt = ""),
+        (this.animalCmgCl = ""),
+        (this.exprnProgrmAt = ""),
+        (this.clturEventAt = ""),
         (this.eqpmnLendCl = 0),
         (this.siteMgCo = 0);
     },
-    async changed() {
-      if (this.doNm == "") {
-        this.doNm = 0;
-      } else {
-        this.doNm = 1;
+    changed() {
+      if (this.doNm === false) {
+        this.doNm = null;
       }
       if (this.sigunguNm === false) {
-        this.sigunguNm = 0;
-      } else {
-        this.sigunguNm = 1;
+        this.sigunguNm = "";
       }
       if (this.toiletCo === false) {
         this.toiletCo = 0;
