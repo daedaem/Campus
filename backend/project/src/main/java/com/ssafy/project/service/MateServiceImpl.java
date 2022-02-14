@@ -548,6 +548,20 @@ public class MateServiceImpl implements MateService {
         return mateResultDto;
     }
 
+    @Override
+    public MateResultDto mateApplyCheck(int mateListNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateApplyCheck(mateListNo);
+
+            mateResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
+
 
 
 

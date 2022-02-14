@@ -117,7 +117,7 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        select u.userNo, r.userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        select u.userNo, r.userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI, m.mateApplyCheck
         from user u, userRate r, campStyle c, mateList m
         where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
             and u.userNo = r.userNo
@@ -260,5 +260,9 @@
                                 </foreach>
             <!-- order by m.mateNo desc -->
     </select>
+
+    <update id="mateApplyCheck" parameterType="int">
+        update mateList set mateApplyCheck = 1 where mateListNo = #{mateListNo};
+    </update>
 
 </mapper>

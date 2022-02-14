@@ -38,4 +38,6 @@ public interface MateService {
 
     public MateResultDto mateFilter(MateDto dto);
 
+    public MateResultDto mateApplyCheck(int mateListNo);
+
 }
