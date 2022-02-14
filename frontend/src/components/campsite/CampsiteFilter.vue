@@ -16,6 +16,7 @@
       <div class="CampsiteFilterLocationTitle fw-bold">지역</div>
       <div class="form-check form-check-inline">
         <input
+          v-if="doNm.length == 0 || doNm.includes('경기도')"
           class="form-check-input"
           type="checkbox"
           id="inlineCheckbox1"
@@ -27,6 +28,7 @@
 
       <div class="form-check form-check-inline">
         <input
+          v-if="doNm.length == 0 || doNm.includes('강원도')"
           class="form-check-input"
           type="checkbox"
           id="inlineCheckbox2"
@@ -38,6 +40,7 @@
 
       <div class="form-check form-check-inline">
         <input
+          v-if="doNm.length == 0 || doNm.includes('경상남도')"
           class="form-check-input"
           type="checkbox"
           id="inlineCheckbox3"
@@ -48,6 +51,7 @@
       </div>
       <div class="form-check form-check-inline">
         <input
+          v-if="doNm.length == 0 || doNm.includes('경상북도')"
           class="form-check-input"
           type="checkbox"
           id="inlineCheckbox4"
@@ -196,10 +200,11 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
-      resultCampSite: [],
+      // resultCampSite: [],
       searchWord: null,
-      doNm: null,
-      sigunguNm: "",
+      // doNmtemp: [],
+      doNm: [],
+      sigunguNm: null,
       toiletCo: 0,
       swrmCo: 0,
       wtrplCo: 0,
@@ -208,7 +213,7 @@ export default {
       animalCmgCl: "",
       exprnProgrmAt: "",
       clturEventAt: "",
-      eqpmnLendCl: 0,
+      eqpmnLendCl: "",
       siteMgCo: 0,
     };
   },
@@ -254,10 +259,10 @@ export default {
         methods: "get",
         url: `${SERVER_URL}/camp`,
         params: {
-          limit: 2906,
+          limit: 2000,
           offset: 0,
           searchWord: this.searchWord,
-          doNm: this.doNm,
+          doNm: this.doNm[0],
           sigunguNm: this.sigunguNm,
           toiletCo: this.toiletCo,
           swrmCo: this.swrmCo,
@@ -274,6 +279,8 @@ export default {
         // articles.value.push(...res.data.list);
         // this.searchResults = res.data.list;
         console.log("있는데", res);
+        this.filterCancel;
+
         // this.$store.dispatch("searchData", "#" + this.inputData);
         // this.$store.dispatch("searchResult", res.data.list);
       });
@@ -296,63 +303,80 @@ export default {
         (this.siteMgCo = 0);
     },
     changed() {
-      if (this.doNm === false) {
+      if (this.doNm === []) {
         this.doNm = null;
       }
-      if (this.sigunguNm === false) {
-        this.sigunguNm = "";
+      // } else if (this.doNm.length == 1) {
+      //   this.doNm = this.doNm[0];
+      // }
+      if (this.sigunguNm == false) {
+        this.sigunguNm = null;
       }
-      if (this.toiletCo === false) {
+      if (this.toiletCo == false) {
         this.toiletCo = 0;
       } else {
         this.toiletCo = 1;
       }
-      if (this.swrmCo === false) {
+      if (this.swrmCo == false) {
         this.swrmCo = 0;
       } else {
         this.swrmCo = 1;
       }
-      if (this.wtrplCo === false) {
+      if (this.wtrplCo == false) {
         this.wtrplCo = 0;
       } else {
         this.wtrplCo = 1;
       }
-      if (this.trlerAcmpnyAt === false) {
+      if (this.trlerAcmpnyAt == false) {
         this.trlerAcmpnyAt = "";
       } else {
         this.trlerAcmpnyAt = "Y";
       }
-      if (this.caravAcmpnyAt === false) {
+      if (this.caravAcmpnyAt == false) {
         this.caravAcmpnyAt = "";
       } else {
         this.caravAcmpnyAt = "Y";
       }
-      if (this.animalCmgCl === false) {
+      if (this.animalCmgCl == false) {
         this.animalCmgCl = "";
       } else {
         this.animalCmgCl = "가능";
       }
-      if (this.exprnProgrmAt === false) {
+      if (this.exprnProgrmAt == false) {
         this.exprnProgrmAt = "";
       } else {
         this.exprnProgrmAt = "Y";
       }
-      if (this.clturEventAt === false) {
+      if (this.clturEventAt == false) {
         this.clturEventAt = "";
       } else {
         this.clturEventAt = "Y";
       }
-      if (this.eqpmnLendCl === false) {
+      if (this.eqpmnLendCl == false) {
         this.eqpmnLendCl = "";
       } else {
         this.eqpmnLendCl = "Y";
       }
-      if (this.siteMgCo === false) {
+      if (this.siteMgCo == false) {
         this.siteMgCo = 0;
       } else {
         this.siteMgCo = 1;
       }
     },
+  },
+  watch: {
+    // doNmtemp() {
+    //   if (this.doNmtemp.length == 1) {
+    //     this.doNm = this.doNmtemp;
+    //     this.doNmtemp = true;
+    //   }
+    //   if (this.doNmtemp == false) {
+    //     this.doNmtemp = [];
+    //   }
+    //   if (this.doNmtemp.length == 0) {
+    //     this.doNm = "";
+    //   }
+    // },
   },
 };
 </script>
