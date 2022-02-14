@@ -383,8 +383,8 @@ public class MateServiceImpl implements MateService {
                     if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
                     System.out.println(i + " 번째 : " +count + "    " + value);
                     result = count + value;
-                    if( result == 7 || result == 8) result += 1;
-                    else if( result == 5 || result == 6) result += 2;
+                    if( result == 7 || result == 8) result += 2;
+                    else if( result == 5 || result == 6) result += 3;
                     else if( result == 3 || result == 4 ) result += 4;
                     list.get(i).setCampStyleScore(result);
                 }
