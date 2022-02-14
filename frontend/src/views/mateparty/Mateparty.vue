@@ -9,6 +9,9 @@
 
     <!-- <h1>Mate party</h1> -->
     <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
+    <!-- <div class="container" style="width:100%;">
+      <div class="row">
+        <div class="col-12"> -->
     <h1 style="margin-top:50px;">메이트 모집</h1>
     <div style="margin-top:30px;">
       <Filters @filter-data="filterData" style="width:100%;"/>
@@ -33,6 +36,9 @@
       
     />
     <!-- {{matelists}} -->
+    <!-- </div>
+    </div>
+    </div> -->
   </body>
 </template>
 
@@ -110,9 +116,17 @@ background-color: #7ac4e1;
 border:1px solid #fff
 }
 
+@media (min-width: 768px) {
+  body {
+    width: 768px;
+    /* padding: 0 20px; */
+    background: #fff;
+    margin: 0 auto;
+  }
+}
 body {
-
-    /* margin: 0 20; */
+    /* width : 768px; */
+    /* margin: 0 auto; */
     padding: 0 20px;
 
 }
@@ -123,5 +137,13 @@ body {
 .dd {
   width :100%;
   height:100%;
+  height : auto;
+  aspect-ratio: 16/9;
+}
+
+img {
+  width :100%;
+  height : auto;
+  aspect-ratio: 16/9;
 }
 </style>

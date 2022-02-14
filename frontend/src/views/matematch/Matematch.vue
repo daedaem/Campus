@@ -15,7 +15,7 @@
                     <ul class="social-icons d-flex justify-content-center" style="margin-top:-20px;">
                         <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
                         <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting(item.userNo)"></i>  </li>
-                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="'I am popover content!'" title="Popover Title"></i> </li>
+                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="(item.campStyleScore/11*100).toFixed(2)+'%'" title="매치 적합도"></i> </li>
                     </ul>
                 </div>
             </div>
@@ -143,7 +143,8 @@ export default {
 .card .card-image img {
   width: 100%;
   height: 400px;
-  object-fit: cover;
+  aspect-ratio: 16/9;
+  /* object-fit: cover; */
 }
 
 .card .card-content {
