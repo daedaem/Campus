@@ -1,20 +1,21 @@
 <template>
   <body>
-    <div class="flex">
-  <p>CAMP<sub>with</sub>US</p>
-</div>
+    
 <div class="container">
+  <div class="flex">
+  <!-- <p>CAMP<sub>with</sub>US</p> -->
+</div>
     <div class="row">
-        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx"  >
-            <div class="card p-0" >
+        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx" style="margin-bottom:40px;" align="center" >
+            <div class="card p-0" style="margin:0px;" >
                 <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">{{item.userNickname}}</h4>
-                    <h5>{{item.userMBTI}}</h5>
-                    <ul class="social-icons d-flex justify-content-center">
+                    <div style="font-size:20px; margin-top:20px;">{{item.userMBTI}}</div>
+                    <ul class="social-icons d-flex justify-content-center" style="margin-top:-20px;">
                         <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
                         <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting(item.userNo)"></i>  </li>
-                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="'I am popover content!'" title="Popover Title"></i> </li>
+                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="(item.campStyleScore/11*100).toFixed(2)+'%'" title="매치 적합도"></i> </li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +30,7 @@
 // import {mapState} from 'vuex'
 import axios from "axios";
 import { ref } from "vue";
-// import {useRouter} from 'vue'
+import {useRouter} from 'vue-router'
 import {useStore} from 'vuex'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -37,13 +38,14 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: "Matematch",
   setup() {
-      const store = useStore()
-      const userNo = store.state.myNum
+    const router = useRouter()
+    const store = useStore()
+    const userNo = store.state.myNum
     const matchData = ref([])
     
     axios({
         method : 'get',
-        url : `${SERVER_URL}/mate/match/30`
+        url : `${SERVER_URL}/mate/match/${userNo}`
    
     })
       .then((res) => {
@@ -57,7 +59,7 @@ export default {
 
     const goProfile = (userEmail) => {
       console.log(userEmail);
-      // router.push({name : 'Profile' , params : { userEmail : userEmail} })
+      router.push({name : 'Profile' , params : { userEmail : userEmail} })
     }
     
 
@@ -141,15 +143,16 @@ export default {
 .card .card-image img {
   width: 100%;
   height: 400px;
-  object-fit: cover;
+  aspect-ratio: 16/9;
+  /* object-fit: cover; */
 }
 
 .card .card-content {
   position: absolute;
   bottom: -180px;
   color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
+  background: rgba(70, 62, 62, 0.2);
+  backdrop-filter: blur(30px);
   min-height: 130px;
   width: 100%;
   transition: bottom 0.4s ease-in;
@@ -238,7 +241,7 @@ export default {
   margin-right: 10px;
 }
 
-sub,
+/* sub,
 sup {
   font-size: 22px;
   opacity: 0.8;
@@ -247,7 +250,7 @@ sup {
 sub {
   font-size: 36px;
   animation: flash 2s infinite;
-}
+} */
 
 .flex {
   display: flex;
