@@ -42,7 +42,8 @@
                         캠프파이어
                     </button> 
                 </li>
-				
+            </ul>
+            <ul class="list-inline">
                 <li class="list-inline-item">
                     <button
                         :class="{
@@ -252,29 +253,26 @@ export default {
 
 <style scoped>
 .modifycampButtonOn {
-  
-  color:black;
-  /* font-size: 20px;
-  line-height: 26px;
-  padding-left: 35px; */
-  background-color: blue;
-  /* margin: 0;
-  display: block;
-  border: 5px solid #fff;
-  border-top: none;
-  border-right: none; */
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  width: 140px;
+  background-color: skyblue;
+  color: white;
+  transition-duration: 0.5s;
+  font-size: 20px;
   
 }
 .modifycampButtonOff {
-  color:black;
-  /* font-size: 20px;
-  line-height: 26px;
-  padding-left: 35px; */
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  width: 140px;
   background-color: white;
-  /* margin: 0;
-  display: block;
-  border: 5px solid #fff;
-  border-top: none;
-  border-right: none; */
+  border: none;
+  transition-duration: 0.5s;
+  font-size: 20px;
 }
 </style>
