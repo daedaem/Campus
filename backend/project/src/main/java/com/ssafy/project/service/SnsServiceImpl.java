@@ -201,7 +201,9 @@ public class SnsServiceImpl implements SnsService {
         try {
             // 현재 팔로잉 하는 유저의 피드를 저장.
             List<SnsDto> followList = new ArrayList<SnsDto>();
+            if(snsParamDto.getOffset() == 0){
             // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
+            snsParamDto.setUserNo(5);
             List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
             // 가져온 팔로잉 하는 사람을 순차적으로 호출
             if(followingList.size() != 0){
@@ -217,7 +219,10 @@ public class SnsServiceImpl implements SnsService {
                     }
                 }
             }
-            
+            }
+            snsParamDto.setUserNo(5);
+            snsParamDto.setFollowingList(dao.getFollowingUser(snsParamDto.getUserNo()));
+            System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset());
             List<SnsDto> list = dao.snsList(snsParamDto);
             int count = dao.snsListTotalCount();
             for (int i = 0; i < snsParamDto.getLimit(); i++) {
@@ -275,7 +280,6 @@ public class SnsServiceImpl implements SnsService {
 
         try {
             // 로컬에 저장된 이미지 삭제
-            System.out.println("delete serviceImpl");
             // snsImageDelete(snsNo);
             // 댓글 삭제;
             dao.snsDelete(snsNo); // 마지막으로 글 삭제

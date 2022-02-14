@@ -25,7 +25,10 @@
         SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
-            WHERE s.userNo = u.userNo
+            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
+            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                    #{item}
+            </foreach>
             ORDER BY s.snsNo DESC
             LIMIT #{limit} OFFSET #{offset}
     </select>
@@ -42,7 +45,7 @@
             SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
                 FROM sns s, user u
-                WHERE s.userNo = u.userNo and u.userNo in (select userNo from follow where followUserNo = #{userNo}) 
+                WHERE s.userNo = u.userNo and u.userNo = #{userNo} and s.snsCreateTime >= (CURDATE()-INTERVAL 5 DAY)
                 ORDER BY s.snsNo DESC
     </select>
 
