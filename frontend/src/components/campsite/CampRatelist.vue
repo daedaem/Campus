@@ -33,7 +33,7 @@
         <details>
         <summary>Show more<i class="bi bi-chevron-double-right " style="padding-top:5px;"></i> </summary>
           <hr>
-          <h5 style="margin-top:10px;">평점</h5>
+          <h5 style="margin-top:10px;">상세 평점</h5>
           <div style="margin-top:10px;">
             <div class="d-flex">
               <div style="margin-right:10px;">Facility</div>
@@ -244,11 +244,11 @@ details > summary::-webkit-details-marker {
 
 .nickname {
   margin-top : 10px;
-  color:rgb(117, 117, 117);
-
+  color:#7ac4e1;
+  /* rgb(117, 117, 117); */
 }
 .date {
-  color:rgb(117, 117, 117);
+  color:#7ac4e1;
   margin-top : 10px;
   font-size: 12px;
 }
@@ -273,6 +273,11 @@ summary{
   text-decoration: underline;
   text-underline-position: under;
   margin-top:7px;
+
+}
+
+hr {
+  border: solid 1px #7ac4e1;
 
 }
 </style>

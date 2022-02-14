@@ -30,7 +30,7 @@
                 <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
             </div>
             <div class="form-group" style="margin-top:20px;">
-              <h4>캠핑장 선택</h4>
+              <h4 style="clear:both; margin-top:70px;">캠핑장 선택</h4>
                 <Campchoice
           align="left"
           style=" margin-bottom: 20px"
