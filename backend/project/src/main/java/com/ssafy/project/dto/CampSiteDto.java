@@ -73,4 +73,9 @@ public class CampSiteDto {
     private int siteMg2Co; // 사이트 크기 2 수량
     private int siteMg3Co; // 사이트 크기 3 수량
     private int siteMgCo;
+
+    // 캠핑장 평점
+    private double campSiteScore;
+    // 캠핑장 평점 후기 개수
+    private int campRateNum;
 }

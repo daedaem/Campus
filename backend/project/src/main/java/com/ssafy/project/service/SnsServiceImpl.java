@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -198,14 +199,27 @@ public class SnsServiceImpl implements SnsService {
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
+            List<SnsDto> followList = new ArrayList<SnsDto>();
+            // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
+            List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
+            // 가져온 팔로잉 하는 사람을 순차적으로 호출
+            for(int i = 0; i < followingList.size(); i++){
+                // 팔로잉 하는 사람의 글을 temp에 순차적으로 저장
+                List<SnsDto> temp = dao.FollowingSnsList(followingList.get(i));
+                for(int j = 0; j < temp.size() ; j++ ){
+                    List<SnsImageDto> imageList = dao.snsImageList(temp.get(i).getSnsNo());
+                    temp.get(i).setImageList(imageList);
+                    List<SnsReplyDto> snsReplyList = dao.snsReplyList(temp.get(i).getSnsNo());
+                    temp.get(i).setReplyList(snsReplyList);
+                    followList.add(temp.get(j));
+                }
+            }
+            
             List<SnsDto> list = dao.snsList(snsParamDto);
-
             int count = dao.snsListTotalCount();
-            System.out.println(list);
             for (int i = 0; i < snsParamDto.getLimit(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
-                // System.out.println(snsResultDto);
                 List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
                 list.get(i).setReplyList(snsReplyList);
             }
@@ -285,6 +299,34 @@ public class SnsServiceImpl implements SnsService {
             // 이미지 리스트 불러와주기
 
             snsResultDto.setDto(snsDto);
+            snsResultDto.setResult(SUCCESS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            snsResultDto.setResult(FAIL);
+        }
+
+        return snsResultDto;
+    }
+
+    @Override
+    public SnsResultDto userSnsList(int userNo) {
+        SnsResultDto snsResultDto = new SnsResultDto();
+
+        try {
+            List<SnsDto> list = dao.userSnsList(userNo);
+
+            int count = dao.snsListTotalCount();
+
+            for (int i = 0; i < list.size() ; i++) {
+                List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
+                list.get(i).setImageList(imageList);
+                // System.out.println(snsResultDto);
+                List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
+                list.get(i).setReplyList(snsReplyList);
+            }
+            snsResultDto.setList(list);
+            snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {

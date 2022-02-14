@@ -1,16 +1,20 @@
 <template>
-  <div  >
-    <label for="fileName" class="join-profile-img-edit" >
-      <input ref="image" type="file" id="fileName" accept="image/*" @change="setProfileImg" style="opacity: 0">
-      <div style="width : 500px; overflow:hidden; ">
-        <div v-if="image" style="height:250px; width : 100%;">
-          <img :src="image" alt="" class="aa" >
-        </div>
-        <div v-else style="height:250px; width : 100%;">
-          <img src="https://cdn.pixabay.com/photo/2021/10/11/00/59/upload-6699084_960_720.png" alt="" style="margin-left:100px;">
-        </div>
-      </div>
-    </label>
+  <div class="container" >
+    <div class ="row">
+      <!-- <div class="col-12"> -->
+        <label for="fileName" class="join-profile-img-edit" >
+          <input ref="image" type="file" id="fileName" accept="image/*" @change="setProfileImg" style="opacity: 0">
+          <div class="im">
+            <div v-if="image" style="height:250px; width : 100%;">
+              <img :src="image" alt="" class="aa" >
+            </div>
+            <div v-else style="height:250px; width : 100%;">
+              <img src="https://cdn.pixabay.com/photo/2021/10/11/00/59/upload-6699084_960_720.png" alt="" style="">
+            </div>
+          </div>
+        </label>
+      <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -47,7 +51,7 @@ export default {
 </script>
 
 
-<style >
+<style scoped >
 #fileName {
 
 }
@@ -64,5 +68,10 @@ export default {
 img {
  max-width: 100%;
  max-height: 100%;
+}
+
+.im {
+  width : 100%;
+  overflow:hidden; 
 }
 </style>

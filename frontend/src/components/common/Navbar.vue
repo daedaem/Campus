@@ -28,7 +28,7 @@
                 <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/matematch">메이트(매칭)</a>
+                <a class="dropdown-item" @click="goMatematch()">메이트(매칭)</a>
               </li>
               <!-- <li><hr class="dropdown-divider"></li> -->
             </div>
@@ -157,12 +157,13 @@ import { mapState } from "vuex";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Searchbar from "./Searchbar.vue";
-
+import {useStore} from 'vuex'
 export default {
   components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
+    const store = useStore()
     const onoff = ref(0);
 
     const refresh = () => {
@@ -176,9 +177,15 @@ export default {
       }
     };
 
+    const goMatematch = () =>{
+      console.log(store.state.myNum)
+      router.push({name:'Matematch' , params : {userNo : store.state.myNum}})
+    }
+
     return {
       refresh,
       onoff,
+      goMatematch,
     };
   },
   methods: {

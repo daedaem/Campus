@@ -2,7 +2,7 @@
 <div class="container">
   
   <div class="items row">
-    <h4>보유 장비</h4>
+    
       <div class="filterbox1 col-md-3 col-sm-3 col-6 "  @click="imgControl('1')">
         <img width="100" height="100" src="../../assets/images/랜던_검정버전.png" alt="" v-if="this.imgStatus.lantern === 0">
         <img width="100" height="100" src="../../assets/images/랜던_색상버전.png" alt="" v-else>
