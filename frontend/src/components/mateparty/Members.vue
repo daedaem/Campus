@@ -3,153 +3,149 @@
       모집이 마갑되었습니다. 함께한 캠퍼들의 평가를 해주세요.
       <div class="container mt-5 d-flex justify-content-center">
       <div class="row">
-        <div
-          class="card p-4 m-3 col-6"
-          v-for="(item, idx) in member"
-          :key="idx"
-        >
+        <div class="card p-4 m-3 col-6" v-for="(item, idx) in member" :key="idx">
           <div v-if="item.check === 0">
-          <div class="first" align="leftt" style="margin-left: 10px; margin-bottom:10px;">
-            @{{item.userNickname}}
-          </div>
+            <div class="first" align="leftt" style="margin-left: 10px; margin-bottom:10px;">
+              @{{item.userNickname}}
+            </div>
           
-          <div class="second d-flex flex-row">
-           
-            <div class="page" >
-              <div class="page__demo">
-                <div class="page__group">
-                  <div class="rating">
-                    <span style="color:black; font-size:20px;">친절도</span><input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc16'+idx" value="1" v-model="item.kindRate">
-                    <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc17'+idx" value="2" v-model="item.kindRate">
-                    <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc18'+idx" value="3" v-model="item.kindRate">
-                    <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc19'+idx" value="4" v-model="item.kindRate">
-                    <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc20'+idx" value="5" v-model="item.kindRate">
-                    <label :for="'rc16'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">1</span>
-                    </label>
-                    <label :for="'rc17'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">2</span>
-                    </label>
-                    <label :for="'rc18'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">3</span>
-                    </label>
-                    <label :for="'rc19'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">4</span>
-                    </label>
-                    <label :for="'rc20'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">5</span>
-                    </label>	
+            <div class="second d-flex flex-row">
+            
+              <div class="page" >
+                <div class="page__demo">
+                  <div class="page__group">
+                    <div class="rating">
+                      <span style="color:black; font-size:20px;">친절도</span><input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc16'+idx" value="1" v-model="item.kindRate">
+                      <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc17'+idx" value="2" v-model="item.kindRate">
+                      <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc18'+idx" value="3" v-model="item.kindRate">
+                      <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc19'+idx" value="4" v-model="item.kindRate">
+                      <input type="radio" name="rating-star" class="rating__control screen-reader" :id="'rc20'+idx" value="5" v-model="item.kindRate">
+                      <label :for="'rc16'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">1</span>
+                      </label>
+                      <label :for="'rc17'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">2</span>
+                      </label>
+                      <label :for="'rc18'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">3</span>
+                      </label>
+                      <label :for="'rc19'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">4</span>
+                      </label>
+                      <label :for="'rc20'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">5</span>
+                      </label>	
+                    </div>
+
+                  </div>
+                  <div class="page__group">  
+                    <div class="rating">
+                      <span style="color:black; font-size:20px; ">정확도</span><input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc21'+idx" value="1" v-model="item.accurancyRate">
+                      <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc22'+idx" value="2" v-model="item.accurancyRate">
+                      <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc23'+idx" value="3" v-model="item.accurancyRate">
+                      <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc24'+idx" value="4" v-model="item.accurancyRate">
+                      <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc25'+idx" value="5" v-model="item.accurancyRate">
+                      <label :for="'rc21'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">1</span>
+                      </label>
+                      <label :for="'rc22'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">2</span>
+                      </label>
+                      <label :for="'rc23'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">3</span>
+                      </label>
+                      <label :for="'rc24'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">4</span>
+                      </label>
+                      <label :for="'rc25'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">5</span>
+                      </label>	
+                    </div>    
+
                   </div>
 
-                </div>
-                <div class="page__group">  
-                  <div class="rating">
-                    <span style="color:black; font-size:20px; ">정확도</span><input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc21'+idx" value="1" v-model="item.accurancyRate">
-                    <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc22'+idx" value="2" v-model="item.accurancyRate">
-                    <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc23'+idx" value="3" v-model="item.accurancyRate">
-                    <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc24'+idx" value="4" v-model="item.accurancyRate">
-                    <input type="radio" name="rating-star2" class="rating__control screen-reader" :id="'rc25'+idx" value="5" v-model="item.accurancyRate">
-                    <label :for="'rc21'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">1</span>
-                    </label>
-                    <label :for="'rc22'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">2</span>
-                    </label>
-                    <label :for="'rc23'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">3</span>
-                    </label>
-                    <label :for="'rc24'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">4</span>
-                    </label>
-                    <label :for="'rc25'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">5</span>
-                    </label>	
-                  </div>    
+                  <div class="page__group">  
+                    <div class="rating">
+                      <span style="color:black; font-size:20px;">숙련도</span><input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc26'+idx" value="1" v-model="item.abilityRate">
+                      <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc27'+idx" value="2" v-model="item.abilityRate">
+                      <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc28'+idx" value="3" v-model="item.abilityRate">
+                      <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc29'+idx" value="4" v-model="item.abilityRate">
+                      <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc30'+idx" value="5" v-model="item.abilityRate">
+                      <label :for="'rc26'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">1</span>
+                      </label>
+                      <label :for="'rc27'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">2</span>
+                      </label>
+                      <label :for="'rc28'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">3</span>
+                      </label>
+                      <label :for="'rc29'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">4</span>
+                      </label>
+                      <label :for="'rc30'+idx" class="rating__item">
+                        <svg class="rating__star">
+                          <use xlink:href="#star"></use>
+                        </svg>
+                        <span class="screen-reader">5</span>
+                      </label>	
+                    </div>    
 
+                  </div>
                 </div>
-
-                <div class="page__group">  
-                  <div class="rating">
-                    <span style="color:black; font-size:20px;">숙련도</span><input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc26'+idx" value="1" v-model="item.abilityRate">
-                    <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc27'+idx" value="2" v-model="item.abilityRate">
-                    <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc28'+idx" value="3" v-model="item.abilityRate">
-                    <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc29'+idx" value="4" v-model="item.abilityRate">
-                    <input type="radio" name="rating-star3" class="rating__control screen-reader" :id="'rc30'+idx" value="5" v-model="item.abilityRate">
-                    <label :for="'rc26'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">1</span>
-                    </label>
-                    <label :for="'rc27'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">2</span>
-                    </label>
-                    <label :for="'rc28'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">3</span>
-                    </label>
-                    <label :for="'rc29'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">4</span>
-                    </label>
-                    <label :for="'rc30'+idx" class="rating__item">
-                      <svg class="rating__star">
-                        <use xlink:href="#star"></use>
-                      </svg>
-                      <span class="screen-reader">5</span>
-                    </label>	
-                  </div>    
-
-                </div>
+    
               </div>
-   
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-            <symbol id="star" viewBox="0 0 26 28">
-              <path d="M26 10.109c0 .281-.203.547-.406.75l-5.672 5.531 1.344 7.812c.016.109.016.203.016.313 0 .406-.187.781-.641.781a1.27 1.27 0 0 1-.625-.187L13 21.422l-7.016 3.687c-.203.109-.406.187-.625.187-.453 0-.656-.375-.656-.781 0-.109.016-.203.031-.313l1.344-7.812L.39 10.859c-.187-.203-.391-.469-.391-.75 0-.469.484-.656.875-.719l7.844-1.141 3.516-7.109c.141-.297.406-.641.766-.641s.625.344.766.641l3.516 7.109 7.844 1.141c.375.063.875.25.875.719z"/>
-            </symbol>
-            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+              <symbol id="star" viewBox="0 0 26 28">
+                <path d="M26 10.109c0 .281-.203.547-.406.75l-5.672 5.531 1.344 7.812c.016.109.016.203.016.313 0 .406-.187.781-.641.781a1.27 1.27 0 0 1-.625-.187L13 21.422l-7.016 3.687c-.203.109-.406.187-.625.187-.453 0-.656-.375-.656-.781 0-.109.016-.203.031-.313l1.344-7.812L.39 10.859c-.187-.203-.391-.469-.391-.75 0-.469.484-.656.875-.719l7.844-1.141 3.516-7.109c.141-.297.406-.641.766-.641s.625.344.766.641l3.516 7.109 7.844 1.141c.375.063.875.25.875.719z"/>
+              </symbol>
+              </svg>
 
-            
-          </div>
-          <div align="center"><button @click="item.check = 1, test(item.kindRate,item.accurancyRate,item.abilityRate,item.userNo)">평가하기</button></div>
+              
+            </div>
+          <div align="center"><button @click="rating(item.kindRate,item.accurancyRate,item.abilityRate,item.userNo,item.mateListNo)">평가하기</button></div>
         </div>
         <div v-else class="d-flex flex-row align-items-center" align="center" style="height:214px; margin:0 auto;">
           <div >평가완료</div>
@@ -159,8 +155,8 @@
       </div>
     </div>
 
-  </div>
-    
+  
+  </div>  
   <div v-else>
     <div class="container mt-5 d-flex justify-content-center">
       <div class="row">
@@ -384,7 +380,7 @@ export default {
         meList.userRatePoint = me.value.userRatePoint
         meList.userAge = me.value.userAge
         // member.value.push(meList)
-        console.log(meList)
+        console.log('조인', meList)
         axios({
           method : 'post',
           url : `${SERVER_URL}/mate/apply`,
@@ -399,8 +395,7 @@ export default {
           .then((res) => {
             const temp = res.data.dto;
             member.value = temp.mateList
-            
-            
+
           })
           .catch((err) => {
             console.log(err);
@@ -473,7 +468,7 @@ export default {
       mate.value.mateStatus = 'N'
     }
 
-    const test = (kind,accurancy,ability,userNo) => {
+    const rating = (kind,accurancy,ability,userNo,listNo) => {
       const avg = (Number(kind) + Number(accurancy) + Number(ability))/3
       const sendData = {
         userRatePoint : avg,
@@ -491,7 +486,20 @@ export default {
       .catch( err => {
         console.log(err)
       })
+
+      axios({
+        method : 'post',
+        url : `${SERVER_URL}/mate/apply/check/${listNo}`,
+      })
+      .then( res=> {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
+
+      
 
     return {
       member,
@@ -508,7 +516,7 @@ export default {
       endCheck,
       mateDefine,
       today,
-      test,
+      rating,
     };
   },
 };
