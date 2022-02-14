@@ -1,5 +1,76 @@
 <template>
-  <div v-if="endCheck != 0">모집이 마감되었습니다.</div>
+  <div v-if="mate.mateStatus === 'N'">
+      모집이 마갑되었습니다. 함께한 캠퍼들의 평가를 해주세요.
+      <div class="container mt-5 d-flex justify-content-center">
+      <div class="row">
+        <div
+          class="card p-4 m-3 col-6"
+          v-for="(item, idx) in member"
+          :key="idx"
+        >
+          <div class="first" align="right" style="margin-right: 10px">
+            <span>Age : {{ item.userAge }}</span> <span v-if="mate.userNo === myNum">Gender : {{ item.userGender }}</span
+            ><button
+              v-if="item.userNo === myNum"
+              @click="delCard(item.mateListNo)"
+              style="background-color:white; color:red; border-color:red;"
+            >
+              x
+            </button>
+            <div
+              class="time d-flex flex-row align-items-center justify-content-between"
+            >
+              <div class="d-flex align-items-center">
+                <span>{{ "#" + item.userMBTI }}</span
+                ><i class="fa fa-clock-o clock"></i>
+              </div>
+              <!-- <div> <span class="font-weight-bold">동행</span> </div> -->
+            </div>
+          </div>
+          <div class="second d-flex flex-row">
+            <div class="image mr-3">
+              <i class="bi bi-person-circle fa-3x"></i>
+            </div>
+            <div>
+              <div
+                class="d-flex flex-row"
+                style="margin-left: 10px; margin-bottom: 7px"
+              >
+                <div class="star-ratings" style="margin-top: 0px">
+                  <div
+                    class="star-ratings-fill space-x-2 text-lg"
+                    :style="{ width: item.userRatePoint * 20 + 1.5 + '%' }"
+                  >
+                    <span>★</span><span>★</span><span>★</span><span>★</span
+                    ><span>★</span>
+                  </div>
+                  <div class="star-ratings-base space-x-2 text-lg">
+                    <span>★</span><span>★</span><span>★</span><span>★</span
+                    ><span>★</span>&nbsp;<span>{{ item.userRatePoint }}/5</span>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div style="margin-left: 10px">
+                <span v-if="item.campStyle1 != 'N'"># 요식</span
+                ><span v-if="item.campStyle2 != 'N'"># 불멍</span
+                ><span v-if="item.campStyle3 != 'N'"># 캠파</span
+                ><span v-if="item.campStyle4 != 'N'"># 등산</span
+                ><span v-if="item.campStyle5 != 'N'"># 사진</span
+                ><span v-if="item.campStyle6 != 'N'"># 음악</span>
+              </div>
+              <!-- <span v-for="(style,idx2) in stylelist2[idx]" :key="idx2">
+                    {{'#'+style}}
+                </span> -->
+            </div>
+          </div>
+          <!-- <hr class="line-color"> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+    
   <div v-else>
     <div class="container mt-5 d-flex justify-content-center">
       <div class="row">
@@ -9,7 +80,7 @@
           :key="idx"
         >
           <div class="first" align="right" style="margin-right: 10px">
-            <span>{{ item.userAge }}</span> <span>{{ item.userGender }}</span
+            <span>Age : {{ item.userAge }}</span> <span v-if="mate.userNo === myNum">Gender : {{ item.userGender }}</span
             ><button
               v-if="item.userNo === myNum"
               @click="delCard(item.mateListNo)"
@@ -265,7 +336,7 @@ export default {
     }
 
     const mateDefine = () => {
-      endCheck.value += 1
+      mate.value.mateStatus = 'N'
       axios({
         method : 'put',
         url : `${SERVER_URL}/mate/detail/status/${mate.value.mateNo}`,
@@ -286,7 +357,7 @@ export default {
     
     if (today === mate.value.mateCampstart) {
       console.log(1);
-      endCheck.value += 1;
+      mate.value.mateStatus = 'N'
     }
 
     return {
@@ -381,7 +452,7 @@ button{
 }
 
 .card {
-  background-color:white;
+  background-color:rgb(234, 247, 255);
   border: 0px solid white;
 }
 

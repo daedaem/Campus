@@ -198,7 +198,7 @@ img{
   }
   .card-title{
   font-size: 24px;
-  height:43.19px;
+  height:50px;
   display: block;
   color: black;
   overflow: hidden;
