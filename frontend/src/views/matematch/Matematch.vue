@@ -29,8 +29,9 @@
 <script>
 // import {mapState} from 'vuex'
 import axios from "axios";
-import { ref } from "vue";
 import {useRouter} from 'vue-router'
+import { ref, onMounted } from "vue";
+// import {useRouter} from 'vue'
 import {useStore} from 'vuex'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -77,10 +78,21 @@ export default {
       })
     }
 
+    const checkMbti = () => {
+      if (store.state.userList.userMBTI === null) {
+        alert("설문이 필요한 서비스입니다.")
+        this.$router.push({ name: 'Survey'})
+      }
+    }
+    onMounted(() => {
+      checkMbti();
+    })
+
       return {
         matchData,
         goProfile,
         goChatting,
+        checkMbti,
       }
   }
 
