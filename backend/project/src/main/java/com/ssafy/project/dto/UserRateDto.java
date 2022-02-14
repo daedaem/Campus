@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRateDto {
     private int userNo;
-    private int userRatePoint;
+    private float userRatePoint;
 }

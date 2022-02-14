@@ -3,7 +3,7 @@
 <mapper namespace="com.ssafy.project.dao.CampLikeDao">
 
     <select id="campLikeList" parameterType="int" resultType="com.ssafy.project.dto.CampSiteDto">
-        SELECT c.content_id, c.faclt_nm, c.first_image_url, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = camp_site.content_id GROUP BY contentId) as campSiteScore
+        SELECT c.content_id, c.faclt_nm, c.first_image_url, (SELECT ROUND(AVG((campRateCleanliness + campRatePrice + campRateFacility) / 3), 1) FROM campRate WHERE contentId = c.content_id GROUP BY contentId) as campSiteScore
         FROM campLike l, camp_site c
         WHERE l.contentId = c.content_id
         AND userNo = #{userNo};
