@@ -26,8 +26,8 @@
 				</div>
 				
 				<div class="userInfo-follow" v-if="this.UserNo !== this.myId">
-					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">언팔로우</button>
-					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >팔로우</button>
+					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">Unfollow</button>
+					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >Follow</button>
 					<!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
 					<button class="follow-btn " v-else @click="follow">팔로우</button> -->
 				</div>
@@ -103,6 +103,7 @@
 				<div v-show="currentTab==0">
 					<ProfileInfo
 						:user_data="this.user_data"
+						:camp_List="this.campList"
 					/>
 				</div>
 				<div v-show="currentTab==1">
@@ -160,6 +161,7 @@ export default {
 
 			historyList: [],
 			feedList: [],
+			campList: [],
 
 			campstylelist : [],
 
@@ -206,19 +208,20 @@ export default {
 					this.user_data = res.data
 					this.UserNo = res.data.userNo
 					console.log("일단가져와라", this.UserNo)
-					console.log(this.user_data)
 					this.getMate() // 메이트 가져오기
 					this.getSns()
 					this.followcnt()
 					this.followlist()
 					this.followinglist()
 					this.styleget()
+					this.campget()
 					
 				})
 				.catch(() => {
 					console.log("프로필을 가져올 수 없습니다.")
 				})
 		},
+		
 		// 음식/음주, 불명/수다, 캠프파이어, 등산, 사진찍기, 음악감상
 		styleget: function () {
 			if (this.user_data.campStyle1 === "Y") {
@@ -241,6 +244,15 @@ export default {
 			}
 			console.log(this.campstylelist)
 		},
+		campget: function () {
+			axios
+				.get(`${SERVER_URL}/camp/like/${this.UserNo}`)
+				.then(res => {
+					this.campList = res.data.campLikeList
+					console.log("가나다", res)
+					console.log("흐흐",this.campList)
+				})
+		},
 
 		getMate: function () {
 			axios
@@ -255,24 +267,14 @@ export default {
 				})
 		},
 		getSns: function () {
-			axios({
-        methods: "get",
-        url: `${SERVER_URL}/sns`,
-        params: {
-          limit: 57,
-          offset: 0,
-          // searchWord : '',
-          // doNm : '',
-				}
-        })
+			axios
+				.get(`${SERVER_URL}/sns/feed/${this.UserNo}`)
 				.then((res) => {
-					console.log("뭐야", res.data)
-					for (let i=0; i<res.data.count; i++) {
+					for (let i=0; i<res.data.list.length; i++) {
 						if (res.data.list[i].userNo === this.UserNo) {
 							this.feedList.push(res.data.list[i])
 						}
 					}
-					console.log("피드확인",this.feedList)
 				})
 		},
 		follow: function () {
@@ -355,7 +357,11 @@ export default {
 
 
 		
+	},
+	computed: {
+		
 	}
+
 
 }
 
@@ -499,7 +505,7 @@ export default {
 
 .follow-buttonOn {
 	border-radius: 10px;
-	background-color: black;
+	background-color: grey;
 	font-size: 18px;
 	color: white;
 }
@@ -508,6 +514,5 @@ export default {
 	background-color: blue;
 	font-size: 18px;
 	color: white;
-	border: none;
 }
 </style>

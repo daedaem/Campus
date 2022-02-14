@@ -69,8 +69,9 @@ public class CampController {
     public ResponseEntity<CampSiteResultDto> campList(CampSiteParamDto campSiteParamDto) {
 
         CampSiteResultDto campSiteResultDto;
+        System.out.println("안오나요");
+        System.out.println(campSiteParamDto);
         // System.out.println(campSiteParamDto);
-
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             if (campSiteParamDto.getEqpmnLendCl().equals("Y")) {
                 campSiteResultDto = campSiteService.campSiteSearch(campSiteParamDto);
@@ -275,7 +276,7 @@ public class CampController {
         CampLikeParamDto campLikeParamDto = new CampLikeParamDto();
         campLikeParamDto.setUserNo(userNo);
         campLikeParamDto.setContentId(contentId);
-        CampLikeResultDto campLikeResultDto = campLikeService.campLikeInsert(campLikeParamDto);
+        CampLikeResultDto campLikeResultDto = campLikeService.campLikeDelete(campLikeParamDto);
 
         if (campLikeResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<CampLikeResultDto>(campLikeResultDto, HttpStatus.OK);
