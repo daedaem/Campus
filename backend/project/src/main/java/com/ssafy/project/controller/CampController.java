@@ -64,7 +64,7 @@ public class CampController {
     public ResponseEntity<CampSiteResultDto> campList(CampSiteParamDto campSiteParamDto) {
 
         CampSiteResultDto campSiteResultDto;
-        // System.out.println(campSiteParamDto);
+        System.out.println(campSiteParamDto);
 
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             if (campSiteParamDto.getEqpmnLendCl().equals("Y")) {
