@@ -17,4 +17,4 @@ public class SnsParamDto {
     private int userNo;
     private List<Integer> followingList;
     
-}//
+}
