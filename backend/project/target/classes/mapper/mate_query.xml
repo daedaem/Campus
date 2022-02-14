@@ -235,11 +235,17 @@
     <select id="mateFilterStyleNum2" parameterType="map" resultType="int">
         SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1} AND style2 = #{style2})
                                             OR (style1 = #{style2} AND style2 = #{style1})
+                                            OR (style1 = #{style2} AND style3 = #{style1})
+                                            OR (style3 = #{style2} AND style1 = #{style1})
+                                            OR (style2 = #{style2} AND style3 = #{style1})
+                                            OR (style3 = #{style2} AND style2 = #{style1})
                                         ORDER BY mateNo DESC
     </select>
 
     <select id="mateFilterStyleNum1" parameterType="map" resultType="int">
         SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1})
+                                            OR (style2 = #{style1})
+                                            OR (style3 = #{style1})
                                         ORDER BY mateNo DESC
     </select>
 
