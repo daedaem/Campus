@@ -6,6 +6,13 @@
           <div class="d-flex justify-content-center align-items-center">
             <div>
               <img
+                v-if="feed.userProfileImage === null" 
+                style="cursor: pointer"
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                class="user-profile-image"
+                alt="...">
+              <img
+                v-else
                 style="cursor: pointer"
                 :src="`${feed.userProfileImage}`"
                 class="user-profile-image"
@@ -107,17 +114,20 @@
                     <div
                       class="d-flex justify-content-start align-items-center ps-3 col-9"
                     >
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <img
-                          :src="`${comment.userProfileImage}`"
-                          alt=""
-                          class="user-comment-profile-image"
-                        />
-                        <div class="fw-bold">
-                          {{ comment.userNickname }}
-                        </div>
+                      <img
+                        v-if="comment.userProfileImage === null"
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        alt=""
+                        class="user-comment-profile-image"
+                      />
+                      <img
+                        v-else
+                        :src="`${comment.userProfileImage}`"
+                        alt=""
+                        class="user-comment-profile-image"
+                      />
+                      <div class="fw-bold">
+                        {{ comment.userNickname }}
                       </div>
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
@@ -152,7 +162,13 @@
                 <div
                   class="d-flex justify-content-center align-items-center mx-2"
                 >
+                  <img 
+                    v-if="this.$store.state.userList.userProfileImage === null"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+                    alt=""
+                    class="user-comment-profile-image ms-2">
                   <img
+                    v-else
                     :src="`${this.$store.state.userList.userProfileImage}`"
                     alt=""
                     class="user-comment-profile-image ms-2"

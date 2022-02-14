@@ -117,13 +117,13 @@
     </select>
 
     <select id="mateApplyList" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
-        select u.userNo, r.userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI
+        select distinct u.userNo, (select ROUND(AVG(userRatePoint), 1) from userRate where userNo = u.userNo group by userNo) userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI, m.mateApplyCheck
         from user u, userRate r, campStyle c, mateList m
         where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
-            and u.userNo = r.userNo
-            and u.userNo = c.userNo
-            and u.userNo = m.userNo
-            and m.mateNo = #{mateNo};
+			 and u.userNo = c.userNo
+             and u.userNo = m.userNo
+             and u.userNo = r.userNo
+             and mateNo = #{mateNo};
     </select>
 
     <select id="userCampStyle" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
@@ -156,8 +156,14 @@
     </delete>
 
     <!-- mate match -->
-    <select id="userMBTIselect" parameterType="int" resultType="String">
-        SELECT userMBTI FROM user WHERE userNo = #{userNo}
+    <select id="userMBTIselect" parameterType="int" resultType="com.ssafy.project.dto.MateMatchDto">
+        SELECT u.userNo, u.userMBTI, c.campStyle1, c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6 
+        FROM user u, campStyle c 
+        WHERE u.userNo = c.userNo AND u.userNo = #{userNo}
+    </select>
+
+    <select id="userMatchValue" parameterType="map" resultType="int">
+        SELECT mbtiValue FROM mbti WHERE mbti1 = #{userMBTI} AND mbti2 = #{otherMBTI}
     </select>
 
     <select id="mateMatchList" parameterType="com.ssafy.project.dto.MateMatchDto" resultType="com.ssafy.project.dto.MateMatchDto">
@@ -229,11 +235,17 @@
     <select id="mateFilterStyleNum2" parameterType="map" resultType="int">
         SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1} AND style2 = #{style2})
                                             OR (style1 = #{style2} AND style2 = #{style1})
+                                            OR (style1 = #{style2} AND style3 = #{style1})
+                                            OR (style3 = #{style2} AND style1 = #{style1})
+                                            OR (style2 = #{style2} AND style3 = #{style1})
+                                            OR (style3 = #{style2} AND style2 = #{style1})
                                         ORDER BY mateNo DESC
     </select>
 
     <select id="mateFilterStyleNum1" parameterType="map" resultType="int">
         SELECT mateNo FROM mateCampStyle WHERE (style1 = #{style1})
+                                            OR (style2 = #{style1})
+                                            OR (style3 = #{style1})
                                         ORDER BY mateNo DESC
     </select>
 
@@ -248,5 +260,9 @@
                                 </foreach>
             <!-- order by m.mateNo desc -->
     </select>
+
+    <update id="mateApplyCheck" parameterType="int">
+        update mateList set mateApplyCheck = 1 where mateListNo = #{mateListNo};
+    </update>
 
 </mapper>
