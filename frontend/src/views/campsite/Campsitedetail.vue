@@ -1,5 +1,9 @@
 <template>
   <Navbar class="Navbar"></Navbar>
+
+  <body>
+    
+  
   <div class="container d-flex flex-row justify-content-center">
     <div class="CampSiteDetail-TotalFrame">
       <div class="m-4">
@@ -22,7 +26,7 @@
           <div
             class="CampSiteDetail-ImageFrame d-flex justify-content-center pt-3 pb-3"
           >
-            <img :src="detailData.firstImageUrl" alt="" />
+            <img :src="detailData.firstImageUrl" alt="" style="max-width:100%; height:auto;"/>
           </div>
           <hr>
           <h4>캠핑장 소개</h4>
@@ -56,7 +60,9 @@
               <span v-for="(item,idx) in addList" :key="idx">
                 <!-- <span class="tag tag-rxjs tag-lg" v-if="idx%3 === 0">{{item}}</span>
                 <span class="tag tag-graphql tag-lg" v-else-if="idx%2 === 0">{{item}}</span> -->
+                <span v-if="!splitedThemeList.includes(item)">
                 <span class="tag tag-electron tag-lg" style="font-size:15px;" >#{{item}}</span>
+                </span>
               </span>
             </div>
         
@@ -83,6 +89,7 @@
     </div>
   </div>
 </div>
+</body>
 </template>
 
 <script>
@@ -212,9 +219,23 @@ export default {
 .CampSiteDetail-ImageFrame img {
   border-radius: 3%;
 }
-@media (max-width: 420px) {
+
+@media (min-width: 768px) {
+body {
+    width: 768px;
+  }
+}
+
+body {
+
+  margin: 0 auto;
+
+
+  border-radius: 30px;
+}
+
+/* @media (max-width: 420px) {
   .CampSiteDetail-ImageFrame img {
-    /* width: 100%; */
     max-width: 100%;
     max-height: 400px;
   }
@@ -237,26 +258,24 @@ export default {
     width: 70%;
   }
   .CampSiteDetail-TotalFrame {
-    /* margin-top: 4%; */
+
     min-width: 768px;
     max-width: 768px;
     background: #fff;
     margin-top: 5%;
     margin-bottom: 5%;
     border-radius: 20px;
-    /* height:90vh */
 
-    /* width: 90%; */
   }
   .campsitedetailContent p {
     font-family: "Comfortaa";
   }
   .CampSiteDetail-ImageFrame img {
-    /* width: 100%; */
+
     max-width: 70%;
     max-height: 400px;
   }
-}
+} */
 .CampSiteDetail-TotalFrame {
   /* margin-top: 4%; */
 }
