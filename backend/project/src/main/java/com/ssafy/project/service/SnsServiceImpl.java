@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -198,10 +199,15 @@ public class SnsServiceImpl implements SnsService {
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
+            List<SnsDto> followList = new ArrayList<SnsDto>();
+            // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
+            List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
+            for(int i = 0; i < followingList.size(); i++){
+                //followList.add(dao.FollowingSnsList(followingList.get(i)));
+            }
+            
             List<SnsDto> list = dao.snsList(snsParamDto);
-
             int count = dao.snsListTotalCount();
-            System.out.println(list);
             for (int i = 0; i < snsParamDto.getLimit(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
