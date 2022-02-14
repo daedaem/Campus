@@ -616,7 +616,8 @@ export default {
 .FeedDetail-RightBox-ContentBox {
   /* flex-shrink: 1;
   flex-grow: 1; */
-  max-height: 200px;
+  min-height: 135px;
+  max-height: 135px;
   overflow: auto;
   flex-grow: 1;
 
@@ -630,7 +631,7 @@ export default {
   display: none;
 }
 .FeedDetail-RightBox-CommentBox {
-  height: 150px;
+  height: 120px;
   /* flex-grow: 2; */
   /* flex: 2; */
   overflow: auto;
