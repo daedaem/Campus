@@ -36,7 +36,7 @@
         v-if="mateDetail.length != 0"
         :mateDetail="mateDetail"
         :mateNm="mateNm"
-        @joinedmember="nowmember"
+        
       />
     </div>
     
