@@ -87,6 +87,15 @@
         FROM sns
     </select>
 
+    <select id="snsListTotalCountWithoutFolling" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="int">
+        SELECT COUNT(*)
+            FROM sns s, user u
+            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
+            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                    #{item}
+            </foreach>
+    </select>
+
     <!-- search word-->
     <select id="snsListSearchWord" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, u.userNickname,

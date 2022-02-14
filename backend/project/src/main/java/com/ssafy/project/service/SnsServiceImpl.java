@@ -221,10 +221,11 @@ public class SnsServiceImpl implements SnsService {
             }
             }
             snsParamDto.setUserNo(5);
+            
             snsParamDto.setFollowingList(dao.getFollowingUser(snsParamDto.getUserNo()));
             System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset());
             List<SnsDto> list = dao.snsList(snsParamDto);
-            int count = dao.snsListTotalCount();
+            int count = dao.snsListTotalCountWithoutFolling(snsParamDto);
             for (int i = 0; i < snsParamDto.getLimit(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
