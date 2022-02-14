@@ -6,6 +6,13 @@
           <div class="d-flex justify-content-center align-items-center">
             <div>
               <img
+                v-if="feed.userProfileImage === null" 
+                style="cursor: pointer"
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                class="user-profile-image"
+                alt="...">
+              <img
+                v-else
                 style="cursor: pointer"
                 :src="`${feed.userProfileImage}`"
                 class="user-profile-image"
@@ -108,6 +115,13 @@
                       class="d-flex justify-content-start align-items-center ps-3 col-9"
                     >
                       <img
+                        v-if="comment.userProfileImage === null"
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        alt=""
+                        class="user-comment-profile-image"
+                      />
+                      <img
+                        v-else
                         :src="`${comment.userProfileImage}`"
                         alt=""
                         class="user-comment-profile-image"
@@ -115,7 +129,6 @@
                       <div class="fw-bold">
                         {{ comment.userNickname }}
                       </div>
-
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
                         style="overflow: auto"
@@ -125,12 +138,19 @@
                     </div>
                     <div
                       class="d-flex align-items-center me-3"
-                      style="overflow: auto"
+                      style="overflow: auto; min-width: 55px"
                     >
                       <div class="ReplyTime me-1">
                         {{ ReplyTime[i] }}
                       </div>
-                      <i class="bi bi-x" @click="deleteComment(comment)"></i>
+                      <i
+                        i
+                        v-if="
+                          comment.userNo === this.$store.state.userList.userNo
+                        "
+                        class="bi bi-x"
+                        @click="deleteComment(comment)"
+                      ></i>
                     </div>
                   </div>
                 </div>
@@ -142,7 +162,13 @@
                 <div
                   class="d-flex justify-content-center align-items-center mx-2"
                 >
+                  <img 
+                    v-if="this.$store.state.userList.userProfileImage === null"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+                    alt=""
+                    class="user-comment-profile-image ms-2">
                   <img
+                    v-else
                     :src="`${this.$store.state.userList.userProfileImage}`"
                     alt=""
                     class="user-comment-profile-image ms-2"

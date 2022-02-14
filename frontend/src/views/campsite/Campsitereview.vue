@@ -170,7 +170,7 @@
 import axios from 'axios'
 import {ref} from 'vue'
 import {useStore} from 'vuex'
-import {useRouter} from 'vue-router'
+import {useRouter,useRoute} from 'vue-router'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 // import qs from 'query-string'
@@ -183,6 +183,7 @@ export default {
     const facilityRating = ref('')
     const priceRating = ref('')
     const router = useRouter()
+    const route = useRoute()
     const store = useStore()
     const campRateDto = ref({
       campRateCleanliness: null,
@@ -191,7 +192,7 @@ export default {
       userNo: store.state.myNum,
       campRateContent: null,
       campRateTitle: null,
-      contentId: "10",
+      contentId: route.params.content,
     });
 
     const send = () => {
