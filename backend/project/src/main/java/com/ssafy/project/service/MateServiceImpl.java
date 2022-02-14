@@ -354,6 +354,7 @@ public class MateServiceImpl implements MateService {
             if(list.size() < 4){
                 list = dao.mateMatchListAll(matchDto);
                 for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
                     int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
                     int count = 0;
                     if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
@@ -362,11 +363,16 @@ public class MateServiceImpl implements MateService {
                     if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
                     if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
                     if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
-                    list.get(i).setCampStyleScore(count + value);
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 1;
+                    else if( result == 5 || result == 6) result += 3;
+                    list.get(i).setCampStyleScore(result);
                 }
                 mateMatchResultDto.setMatelist(list);
             }else{
                 for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
                     int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
                     int count = 0;
                     if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
@@ -375,7 +381,12 @@ public class MateServiceImpl implements MateService {
                     if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
                     if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
                     if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
-                    list.get(i).setCampStyleScore(count + value);
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 1;
+                    else if( result == 5 || result == 6) result += 2;
+                    else if( result == 3 || result == 4 ) result += 4;
+                    list.get(i).setCampStyleScore(result);
                 }
                 mateMatchResultDto.setMatelist(list);
             }
