@@ -16,6 +16,5 @@ public class SnsParamDto {
     private int snsNo;
     private int userNo;
     private List<Integer> followingList;
-    //test
+    
 }
-//SnsParamDto snsParamDto
