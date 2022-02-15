@@ -13,7 +13,7 @@
 </div>
     <div class="row">
         <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx" style="margin-bottom:40px;" align="center" >
-            <div class="card p-0" style="margin:0px;" >
+            <div class="card p-0" style="margin:0px;" :class="'card'+[idx]">
                 <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">{{item.userNickname}}</h4>
@@ -162,8 +162,10 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    background: #fafafa;
   }
+  
+
 }
 
 .container {
@@ -186,6 +188,9 @@ export default {
   cursor: pointer;
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+ 
+
+
 }
 
 .card .card-image {
@@ -332,4 +337,6 @@ sub {
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-font-smoothing: antialiased;
 }
+
+
 </style>
