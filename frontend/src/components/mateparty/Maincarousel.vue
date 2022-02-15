@@ -40,7 +40,7 @@
                   <small>
                     <i class="far fa-user" ></i>
                     <span v-if="item.mateList" align="right"> {{ item.mateList.length }}</span>
-                    <span v-else> 0</span>
+                    <span v-else> 1</span>
                     <span> / {{ item.memberlimit}}</span>
                   </small>
                 </div>
