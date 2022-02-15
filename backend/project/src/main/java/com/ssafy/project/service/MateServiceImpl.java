@@ -274,9 +274,10 @@ public class MateServiceImpl implements MateService {
             dao.mateDetail(mateNo);
 
              MateDto mateDto = dao.mateDetail(mateNo);
-
+            
             // 지원한사람 리스트
             List<MateListDto> mateApplyList = dao.mateApplyList(mateNo);
+            System.out.println(mateApplyList);
             mateDto.setMateList(mateApplyList);
             // 캠프스타일 리스트
             MateCampStyleDto campStyleList = dao.mateCampStyleList(mateNo);
@@ -305,6 +306,7 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
         
         try {
+            System.out.println(dto);
            dao.mateApplyInsert(dto);
 
            Message message = new Message();
@@ -407,8 +409,12 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
 
         try {
-            
-            mateResultDto.setList(dao.mateListMain(mateParamDto));
+            List<MateDto> list = dao.mateListMain(mateParamDto);
+
+            for (MateDto mateDto : list) {
+                mateDto.setMateList(dao.mateApplyList(mateDto.getMateNo()));
+            }
+            mateResultDto.setList(list);
             mateResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {

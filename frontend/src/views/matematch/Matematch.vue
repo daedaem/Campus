@@ -1,6 +1,12 @@
 <template>
+    <Navbar id="navbar"></Navbar>
+  <div class="CampSitebackground">
+    <div class="CampeSitebackground-imgcover">
+      <div class="CampeSitebackground-content">메이트 매칭</div>
+      <div></div>
+    </div>
+  </div>
   <body>
-    
 <div class="container">
   <div class="flex">
   <!-- <p>CAMP<sub>with</sub>US</p> -->
@@ -33,11 +39,15 @@ import {useRouter} from 'vue-router'
 import { ref, onMounted } from "vue";
 // import {useRouter} from 'vue'
 import {useStore} from 'vuex'
+import Navbar from "@/components/common/Navbar.vue";
+
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
+    components: {
+    Navbar,},
   setup() {
     const router = useRouter()
     const store = useStore()
@@ -107,13 +117,44 @@ export default {
 </script>
 
 <style scoped>
+.CampSitebackground {
+  width: 100%;
+  height: 200px;
+  /* background: black; */
+  background-color: rgba(0, 0, 0, 0.4);
+
+  /* background-position: 30%; */
+  /* background-repeat: no-repeat; */
+  /* src: url("./../../assets/fonts/Frip/pexels-min-an-977460.jpg"); */
+ background: url("./../../assets/images/pexels-min-an-977460.jpg") 
+  50% 65% no-repeat; 
+  background-size: 100% auto;
+}
+.CampeSitebackground-imgcover {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+.CampeSitebackground-content {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  /* transform: translate(-50%, -50%); */
+  font-size: 3rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 @media (min-width: 768px) {
@@ -287,7 +328,7 @@ sub {
   margin: 0;
   font-size: 80px;
   color: #fff;
-  font-family: "Pacifico", sans-serif;
+  /* font-family: "Pacifico", sans-serif; */
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-font-smoothing: antialiased;
 }
