@@ -86,7 +86,7 @@
                 </div>
                 <!-- {{item}} -->
               </div>
-              <div
+              <!-- <div
                 class="align-items-center align-content-center col-md-3 border-left mt-1"
               >
                 <div class="d-flex flex-row align-items-center">
@@ -132,7 +132,7 @@
                     전화예약문의
                   </button>
                 </div>
-              </div>
+              </div> -->
               <!-- {{item}} -->
             </div>
           </div>
