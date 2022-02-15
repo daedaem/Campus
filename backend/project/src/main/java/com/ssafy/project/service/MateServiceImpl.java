@@ -274,7 +274,7 @@ public class MateServiceImpl implements MateService {
             dao.mateDetail(mateNo);
 
              MateDto mateDto = dao.mateDetail(mateNo);
-
+            
             // 지원한사람 리스트
             List<MateListDto> mateApplyList = dao.mateApplyList(mateNo);
             System.out.println(mateApplyList);
