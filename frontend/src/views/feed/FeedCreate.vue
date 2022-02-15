@@ -50,17 +50,45 @@
             </div>
           </div>
           <!-- 이미지 업로드 없다면 업로드 -->
+          <div v-if="feedCreateImageList.ImageList.length == 0">
+            <div>
+              <!-- <i @click="uploadImg" class="bi bi-images"></i> -->
+              <label for="fileName">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-images"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                  <path
+                    d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"
+                  />
+                </svg>
+              </label>
+              <form
+                align="left"
+                method="post"
+                enctype="multipart/form-data"
+                class="d-flex flex-column align-items-center"
+              >
+                <input
+                  ref="image"
+                  type="file"
+                  multiple="multiple"
+                  id="fileName"
+                  accept="image/*"
+                  @change="uploadImg"
+                  style="display: none"
+                />
 
-          <form v-else align="left" method="post" enctype="multipart/form-data">
-            <input
-              ref="image"
-              type="file"
-              multiple="multiple"
-              id="fileName"
-              accept="image/*"
-              @change="uploadImg"
-            />
-          </form>
+                <p>클릭하여 사진을 첨부해주세요.</p>
+                <!-- <i class="bi bi-images"></i> -->
+              </form>
+            </div>
+          </div>
           <!-- <cropper
             class="cropper"
             :src="this.image"
@@ -111,7 +139,7 @@
             <div>
               <b-form-textarea
                 id="textarea-rows"
-                placeholder="당신의 캠프여정을 공유하세요."
+                placeholder="&#10;당신의 캠핑을 공유해주세요.&#10;&#10; #캠핑"
                 rows="8"
                 v-model="feedCreateContent.snsContent"
               ></b-form-textarea>
@@ -133,7 +161,6 @@ import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
-
 
 // import { ValidationProvider } from "vee-validate"
 
@@ -409,6 +436,17 @@ export default {
   margin: 0px 20px 0px 0px;
   width: 42px;
   height: 42px;
+}
+.bi-images {
+  height: 250px;
+  width: 250px;
+}
+/* .b-form-textarea {
+  font: 14px;
+} */
+textarea::placeholder {
+  color: grey;
+  font-size: 14px;
 }
 /* .cropper {
   height: 600px;

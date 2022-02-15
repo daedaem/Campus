@@ -25,7 +25,7 @@ import com.ssafy.project.service.KaKaoLoginServiceImpl;
 import com.ssafy.project.service.LoginService;
 import com.ssafy.project.service.UserService;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @RestController // 값자체를 리턴
@@ -61,12 +61,13 @@ public class LoginController {
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "f7e4963d83bf571c5cdbf7870045979d");
-        url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
-        // url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
+        // url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
+        url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
         url.append("&response_type=code");
 
         System.out.println("kakao login");
-        return "redirect:" + url.toString();
+        return url.toString();
+        // return "redirect:" + url.toString();
     }
 
     // 카카오 로그인 callback -> 유저 정보를 불러온다

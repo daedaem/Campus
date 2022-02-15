@@ -1,42 +1,57 @@
 <template>
   <Navbar></Navbar>
+  <div class="CampSitebackground">
+    <div class="CampeSitebackground-imgcover">
+      <div class="CampeSitebackground-content">    <h1 style="">메이트 모집</h1>
+</div>
+      <div></div>
+    </div>
+  </div>
   <body>
-    <h1>Mate party</h1>
-    <Searchbar class="col" style="margin: 20px 0" />
-    <Filters @filter-data="filterData" />
-    <Newmodal />
+ 
+      
 
-    <div style="overflow: hidden">
-      <div style="float: left; margin-top: 20px">캠핑 검색 결과</div>
-      <div style="float: right; margin-top: 20px; margin-: 20px">
+    <!-- <h1>Mate party</h1> -->
+    <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
+    <!-- <div class="container" style="width:100%;">
+      <div class="row">
+        <div class="col-12"> -->
+    <h1 style="margin-top:50px;">메이트 모집</h1>
+    <div style="margin-top:30px;">
+      <Filters @filter-data="filterData" style="width:100%;"/>
+    </div>
+    <!-- <Newmodal /> -->
+    <br>
+    <!-- <div style="overflow:hidden z-index:30"> -->
+
+      <div align="right">
         <b-button
           pill
-          style="width: 100px; height: 40px; margin-bottom: 20px"
+          style="width: 100px; height: 40px; margin-top: 40px; margin-bottom: 20px; background-color:#7ac4e1; border-color:#7ac4e1; align:right;"
           @click="goMakeparty"
+          
           >글 작성</b-button
         >
       </div>
-    </div>
     <Pagination
-      v-if="testlist.length != 0"
-      :matelists="matelists"
-      :filterlist="filterlist"
-      :testlist="testlist"
+      v-if="newFilter.length != 0"
+      :newFilter="newFilter"
+ 
+      
     />
     <!-- {{matelists}} -->
+    <!-- </div>
+    </div>
+    </div> -->
   </body>
 </template>
 
 <script>
 import Pagination from "../../components/mateparty/Pagination.vue";
 import Filters from "@/components/mateparty/Filters.vue";
-import Newmodal from "@/components/mateparty/Newmodal.vue";
-import Searchbar from "../../components/mateparty/Searchbar.vue";
-// import {mapState} from 'vuex'
 import router from "@/router";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
-// import {mapState} from 'vuex'
 import axios from "axios";
 import Navbar from "@/components/common/Navbar.vue";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -48,21 +63,20 @@ export default {
   components: {
     Pagination,
     Filters,
-    Newmodal,
-    Searchbar,
     Navbar,
   },
 
   name: "Mateparty",
   setup() {
     const store = useStore();
+    
+
+    const newFilter = ref(store.state.mateList)
     const testlist = ref("");
     const viewFunc = (data) => {
       // console.log(data)
       store.dispatch("viewMate", data);
     };
-
-    const matelist = computed(() => store.state.mateList);
     axios({
       methods: "get",
       url: `${SERVER_URL}/mate`,
@@ -81,160 +95,86 @@ export default {
       router.push({ name: "Makeparty" });
     };
 
-    const matelists = ref(store.state.mateList);
-    const filterlist = ref("");
-    const test = ref([]);
-    console.log(matelists.value);
-
+ 
     const filterData = (val) => {
-      console.log(val);
-      filterlist.value = val;
-
-      if (filterlist.value.date) {
-        // const month = val.date[0].toString().substring(4,7)
-        if (val.date[0].toString().substring(4, 7) === "Jan") {
-          var startMonth = "01";
-        } else if (val.date[0].toString().substring(4, 7) === "Feb") {
-          startMonth = "02";
-        } else if (val.date[0].toString().substring(4, 7) === "Mar") {
-          startMonth = "03";
-        } else if (val.date[0].toString().substring(4, 7) === "Apr") {
-          startMonth = "04";
-        } else if (val.date[0].toString().substring(4, 7) === "May") {
-          startMonth = "05";
-        } else if (val.date[0].toString().substring(4, 7) === "Jun") {
-          startMonth = "06";
-        } else if (val.date[0].toString().substring(4, 7) === "Jul") {
-          startMonth = "07";
-        } else if (val.date[0].toString().substring(4, 7) === "Aug") {
-          startMonth = "08";
-        } else if (val.date[0].toString().substring(4, 7) === "Sep") {
-          startMonth = "09";
-        } else if (val.date[0].toString().substring(4, 7) === "Oct") {
-          startMonth = "10";
-        } else if (val.date[0].toString().substring(4, 7) === "Nov") {
-          startMonth = "11";
-        } else if (val.date[0].toString().substring(4, 7) === "Dec") {
-          startMonth = "12";
-        }
-
-        if (val.date[1].toString().substring(4, 7) === "Jan") {
-          var endMonth = "01";
-        }
-        if (val.date[1].toString().substring(4, 7) === "Feb") {
-          endMonth = "02";
-        } else if (val.date[1].toString().substring(4, 7) === "Mar") {
-          endMonth = "03";
-        } else if (val.date[1].toString().substring(4, 7) === "Apr") {
-          endMonth = "04";
-        } else if (val.date[1].toString().substring(4, 7) === "May") {
-          endMonth = "05";
-        } else if (val.date[1].toString().substring(4, 7) === "Jun") {
-          endMonth = "06";
-        } else if (val.date[1].toString().substring(4, 7) === "Jul") {
-          endMonth = "07";
-        } else if (val.date[1].toString().substring(4, 7) === "Aug") {
-          endMonth = "08";
-        } else if (val.date[1].toString().substring(4, 7) === "Sep") {
-          endMonth = "09";
-        } else if (val.date[1].toString().substring(4, 7) === "Oct") {
-          endMonth = "10";
-        } else if (val.date[1].toString().substring(4, 7) === "Nov") {
-          endMonth = "11";
-        } else if (val.date[1].toString().substring(4, 7) === "Dec") {
-          endMonth = "12";
-        }
-
-        const startYear = val.date[0].toString().substring(11, 15);
-        const startDay = val.date[0].toString().substring(8, 10);
-        const startDate = startYear + "-" + startMonth + "-" + startDay;
-
-        const endYear = val.date[1].toString().substring(11, 15);
-        const endDay = val.date[1].toString().substring(8, 10);
-        const endDate = endYear + "-" + endMonth + "-" + endDay;
-
-        matelists.value = matelists.value.filter(function (item) {
-          return (
-            item.mateCampstart >= startDate && item.mateCampstart <= endDate
-          );
-        });
-      }
-
-      if (filterlist.value.camp) {
-        matelists.value = matelists.value.filter(function (item) {
-          return item.mateCamptype === filterlist.value.camp[0];
-        });
-      }
-
-      if (filterlist.value.style) {
-        if (filterlist.value.style.length === 1) {
-          matelists.value = matelists.value.filter(function (item) {
-            return item.mateCampstyle === filterlist.value.style[0];
-          });
-        } else if (filterlist.value.style.length === 2) {
-          matelists.value = matelists.value.filter(function (item) {
-            return (
-              item.mateCampstyle === filterlist.value.style[0] ||
-              item.mateCampstyle === filterlist.value.style[1]
-            );
-          });
-        } else if (filterlist.value.style.length === 3) {
-          matelists.value = matelists.value.filter(function (item) {
-            return (
-              item.mateCampstyle === filterlist.value.style[0] ||
-              item.mateCampstyle === filterlist.value.style[1] ||
-              item.mateCampstyle === filterlist.value.style[2]
-            );
-          });
-        }
-      }
-
-      if (filterlist.value.sortList) {
-        if (filterlist.value.sortList[0] === "빠른") {
-          matelists.value.sort(function (a, b) {
-            return a.mateCampstart < b.mateCampstart
-              ? -1
-              : a.mateCampstart > b.mateCampstart
-              ? 1
-              : 0;
-          });
-        } else if (filterlist.value.sortList[0] === "최신") {
-          matelists.value.sort(function (a, b) {
-            return a.mateCreateTime < b.mateCreateTime
-              ? -1
-              : a.mateCreateTime > b.mateCreateTime
-              ? 1
-              : 0;
-          });
-        }
-      }
-
-      console.log(matelists.value);
+      console.log(val)
+      newFilter.value = val.data.list
+      
     };
 
     return {
-      matelists,
+
       goMakeparty,
       filterData,
-      test,
-      matelist,
-      testlist,
+      newFilter,
     };
   },
 };
 </script>
 
 <style scoped>
+.CampSitebackground {
+  width: 100%;
+  height: 200px;
+  background: black;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  /* background-position: 30%; */
+  /* background-repeat: no-repeat; */
+  background: url("./../../assets/images/pexels-vlad-bagacian-1061640.jpg") 
+  50% 65% no-repeat;
+  background-size: 100% auto;
+}
+.CampeSitebackground-imgcover {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.CampeSitebackground-content {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  /* transform: translate(-50%, -50%); */
+  font-size: 3rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
+.writebutton{
+background-color: #7ac4e1;
+border:1px solid #fff
+}
+
 @media (min-width: 768px) {
   body {
     width: 768px;
+    /* padding: 0 20px; */
+    background: #fff;
     margin: 0 auto;
-    padding: 0 20px;
-    background: beige;
   }
 }
+body {
+    /* width : 768px; */
+    /* margin: 0 auto; */
+    padding: 0 20px;
 
+}
 .test {
   width: 100%;
+}
+
+.dd {
+  width :100%;
+  height:100%;
+  height : auto;
+  aspect-ratio: 16/9;
+}
+
+img {
+  width :100%;
+  height : auto;
+  aspect-ratio: 16/9;
 }
 </style>

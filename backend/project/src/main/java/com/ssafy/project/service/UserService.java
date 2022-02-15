@@ -25,6 +25,7 @@ public interface UserService {
     public UserResultDto userUpdateProfileImageKakao(UserDto userDto);
 
     // public String userUpdateProfileImage(MultipartFile multipartFile);
+    public UserResultDto userUpdateProfileImageKakao(UserDto userDto);
 
     // 회원 정보 중 프로필 이미지 수정
     public UserResultDto userUpdateProfileImage(String userEmail, MultipartFile multipartFile);

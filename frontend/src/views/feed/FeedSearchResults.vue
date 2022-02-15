@@ -2,23 +2,23 @@
   <div>
     <Navbar></Navbar>
     <div class="FeedSearchResults-TotalFrame">
-      <div class="upBox mx-5 my-4">
-        <div class="row g-0 d-flex justify-content-around align-items-center">
-          <div class="col-md-4">
+      <div class="upBox">
+        <div class="searchKeyword d-flex align-items-center">
+          <div>
             <img
               :src="`${searchResult[0].imageList[0].snsImageUrl}`"
-              class="FeedSearchWordImage ms-3 my-3"
+              class="FeedSearchWordImage my-3"
               alt=""
             />
           </div>
-          <div class="col-md-8">
+          <div>
             <div class="card-body">
-              <div class="searchResultText fs-1">{{ searchWord }}</div>
+              <div class="searchResultText ms-3 fs-1">{{ searchWord }}</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bottomBox">
+      <div class="bottomBox mt-5">
         <div class="fs-5 p-3 text-start">인기 게시물</div>
         <!-- {{ searchResult[0].imageList[0].snsImageUrl }} -->
         <div class="FeedSearchResultItems-ImageBox">
@@ -84,29 +84,58 @@ export default {
 </script>
 
 <style>
-@media (min-width: 740px) {
+@media (min-width: 360px) {
+  .FeedSearchWordImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 2rem;
+  }
+  .upBox {
+    /* height: 400px; */
+    /* width: 80%; */
+    margin: auto;
+
+    margin-top: 5%;
+  }
+}
+@media (min-width: 768px) {
+  .FeedSearchResults-TotalFrame {
+    max-width: 768px;
+    margin: auto;
+  }
   .searchResultText {
     text-align: start;
     margin: 0 0 0 0;
   }
   .feed-search-results-items-group {
   }
+  .FeedSearchWordImage {
+    width: 170px;
+    height: 170px;
+    margin-left: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+.searchKeyword {
+  /* background: #fff; */
+  /* border-radius: 10px; */
+  /* border: 1px solid #ccc; */
 }
 .upBox {
   /* height: 400px; */
-  width: 80%;
+  /* width: 80%; */
+  margin: auto;
+  margin-top: 5%;
 }
-.FeedSearchWordImage {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+
 .bottomBox {
-  padding: 3rem;
+  /* padding: 3rem; */
 }
 .FeedSearchResultItems-ImageBox {
-  border: 1px solid #fff;
+  /* border: 1px solid #fff; */
   border-radius: 10%;
   width: 100;
 }

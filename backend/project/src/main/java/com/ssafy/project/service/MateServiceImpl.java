@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import com.ssafy.project.dao.MateDao;
 import com.ssafy.project.dao.MessageMapper;
 import com.ssafy.project.dao.SnsDao;
 import com.ssafy.project.dto.ChatRoom;
+import com.ssafy.project.dto.DemoDto;
 import com.ssafy.project.dto.MateCampEquipRequiredDto;
 import com.ssafy.project.dto.MateCampStyleDto;
 import com.ssafy.project.dto.MateDto;
@@ -30,6 +32,7 @@ import com.ssafy.project.dto.MateResultDto;
 import com.ssafy.project.dto.Message;
 import com.ssafy.project.dto.SnsImageDto;
 
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -141,12 +144,10 @@ public class MateServiceImpl implements MateService {
             File file = this.convertToFile(multipartFile, fileName);
             String TEMP_URL = this.uploadFile(file, fileName);
             file.delete();
-            System.out.println(TEMP_URL);
 
             MateDto dto = new MateDto();
             dto.setMateNo(mateNo);
             dto.setMateImageUrl(TEMP_URL);
-            System.out.println(dto.getMateImageUrl());
             dao.mateImageInsert(dto);
             
 
@@ -206,7 +207,6 @@ public class MateServiceImpl implements MateService {
             File file = this.convertToFile(multipartFile, fileName);
             String TEMP_URL = this.uploadFile(file, fileName);
 
-            System.out.println(TEMP_URL);
 
             MateDto dto = new MateDto();
             dto.setMateNo(mateNo);
@@ -251,7 +251,6 @@ public class MateServiceImpl implements MateService {
                 mateDto.setCampStyleList(campStyleList);
 
                 List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
-                System.out.println(mateApplyList);
                 mateDto.setMateList(mateApplyList);
 
 
@@ -275,9 +274,10 @@ public class MateServiceImpl implements MateService {
             dao.mateDetail(mateNo);
 
              MateDto mateDto = dao.mateDetail(mateNo);
-
+            
             // 지원한사람 리스트
             List<MateListDto> mateApplyList = dao.mateApplyList(mateNo);
+            System.out.println(mateApplyList);
             mateDto.setMateList(mateApplyList);
             // 캠프스타일 리스트
             MateCampStyleDto campStyleList = dao.mateCampStyleList(mateNo);
@@ -306,10 +306,15 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
         
         try {
+            System.out.println(dto);
            dao.mateApplyInsert(dto);
 
            Message message = new Message();
            message.setSenderId(dto.getUserNo());
+           String test = dao.getMateTitle(dto.getMateNo());
+           System.out.println(test);
+           long test2 = chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo()));
+           System.out.println(test2);
            message.setChatroomId(chatMapper.getRoomId(dao.getMateTitle(dto.getMateNo())));
            message.setContent(dto.getUserNickname() + "님이 입장하셨습니다.");
            messageMapper.insertMessage(message);
@@ -344,11 +349,50 @@ public class MateServiceImpl implements MateService {
         MateMatchResultDto mateMatchResultDto = new MateMatchResultDto();
 
         try {
-            MateMatchDto matchDto = new MateMatchDto();
-            matchDto.setUserNo(userNo);
-            matchDto.setUserMBTI(dao.userMBTIselect(userNo));
+            MateMatchDto matchDto = dao.userMBTIselect(userNo);
+            List<MateMatchDto> list = dao.mateMatchList(matchDto);
 
-            mateMatchResultDto.setMatelist(dao.mateMatchList(matchDto));
+            // 매치된 인원이 4보다 작으면 모든 유저에서 매칭
+            if(list.size() < 4){
+                list = dao.mateMatchListAll(matchDto);
+                for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
+                    int count = 0;
+                    if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
+                    if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
+                    if(matchDto.getCampStyle3() == 'Y' && list.get(i).getCampStyle3() == 'Y' ) count++;
+                    if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
+                    if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
+                    if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 1;
+                    else if( result == 5 || result == 6) result += 3;
+                    list.get(i).setCampStyleScore(result);
+                }
+                mateMatchResultDto.setMatelist(list);
+            }else{
+                for(int i = 0 ; i < list.size() ; i++){
+                    int result = 0;
+                    int value = dao.userMatchValue(matchDto.getUserMBTI(), list.get(i).getUserMBTI());
+                    int count = 0;
+                    if(matchDto.getCampStyle1() == 'Y' && list.get(i).getCampStyle1() == 'Y' ) count++;
+                    if(matchDto.getCampStyle2() == 'Y' && list.get(i).getCampStyle2() == 'Y' ) count++;
+                    if(matchDto.getCampStyle3() == 'Y' && list.get(i).getCampStyle3() == 'Y' ) count++;
+                    if(matchDto.getCampStyle4() == 'Y' && list.get(i).getCampStyle4() == 'Y' ) count++;
+                    if(matchDto.getCampStyle5() == 'Y' && list.get(i).getCampStyle5() == 'Y' ) count++;
+                    if(matchDto.getCampStyle6() == 'Y' && list.get(i).getCampStyle6() == 'Y' ) count++;
+                    System.out.println(i + " 번째 : " +count + "    " + value);
+                    result = count + value;
+                    if( result == 7 || result == 8) result += 2;
+                    else if( result == 5 || result == 6) result += 3;
+                    else if( result == 3 || result == 4 ) result += 4;
+                    list.get(i).setCampStyleScore(result);
+                }
+                mateMatchResultDto.setMatelist(list);
+            }
+            
             
             mateMatchResultDto.setResult(SUCCESS);
         } catch (Exception e) {
@@ -365,8 +409,12 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
 
         try {
-            
-            mateResultDto.setList(dao.mateListMain(mateParamDto));
+            List<MateDto> list = dao.mateListMain(mateParamDto);
+
+            for (MateDto mateDto : list) {
+                mateDto.setMateList(dao.mateApplyList(mateDto.getMateNo()));
+            }
+            mateResultDto.setList(list);
             mateResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {
@@ -392,10 +440,133 @@ public class MateServiceImpl implements MateService {
         return mateResultDto;
     }
 
+    @Override
+    public MateResultDto mateFilter(MateDto dto) {
+        MateResultDto mateResultDto = new MateResultDto();
+
+        try {
+            // 캠프 타입 일치하는 mateNo list 반환
+            List<Integer> list1 = dao.mateFilterCampType(dto);
+            System.out.println("list1 : " + list1.size());
+            // 캠프 날짜에 포함되는 mateNo list 반환
+            List<Integer> list2 = dao.mateFilterCampDate(dto);
+            System.out.println("list2 : " + list2.size());
+            //들어가있는 스타일 개수에 따라 matNo list 반환
+            List<Integer> list3 = new ArrayList<Integer>();
+            if(dto.getCampStyleList() != null){
+                if(dto.getCampStyleList().getStyle3() != null){
+                    list3 = dao.mateFilterStyleNum3(dto.getCampStyleList());
+                }else if(dto.getCampStyleList().getStyle2() != null){
+                    list3 = dao.mateFilterStyleNum2(dto.getCampStyleList());
+                }else if(dto.getCampStyleList().getStyle1() != null){
+                    list3 = dao.mateFilterStyleNum1(dto.getCampStyleList());
+                }
+                System.out.println("list3 : " + list3.size());
+            }else{
+                list3 = new ArrayList<Integer>();
+                list3.clear();
+                System.out.println("list3 : " + list3.size());
+            }
+
+            List<Integer> listResult = new ArrayList<Integer>();
+            if(list1.size() == 0){
+                if(list2.size() == 0){
+                    if(list3.size() == 0){
+                    }else{
+                        listResult = list3;
+                    }
+                }else{
+                    if(list3.size() == 0){
+                        listResult = list2;
+                    }else{
+                        for (int i = 0; i < list2.size(); i++) {
+                            for (int j = i; j < list3.size(); j++) {
+                                if(list2.get(i).equals(list3.get(j)))
+                                    listResult.add(list2.get(i));
+                            }
+                        }
+                    }
+                }
+            }else{
+                if(list2.size() == 0){
+                    if(list3.size() == 0){
+                        listResult = list1;
+                    }else{
+                        for (int i = 0; i < list1.size(); i++) {
+                            for (int j = i; j < list3.size(); j++) {
+                                if(list1.get(i).equals(list3.get(j)))
+                                    listResult.add(list1.get(i));
+                            }
+                        }
+                    }
+                }else{
+                    if(list3.size() == 0){
+                        for (int i = 0; i < list1.size(); i++) {
+                            for (int j = i; j < list2.size(); j++) {
+                                if(list1.get(i).equals(list2.get(j))){
+                                    listResult.add(list1.get(i));
+                                }
+                            }
+                        }
+                    }else{
+                        for (int i = 0; i < list1.size(); i++) {
+                            for (int j = 0; j < list2.size(); j++) {
+                                for (int k = 0; k < list3.size(); k++) {
+                                    if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
+                                        listResult.add(list1.get(i));
+                                    }
+                                        
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+
+            if(listResult.size() == 0){
+                dto.setMatefilter(-1);
+                mateResultDto.setDto(dto);
+            }else{
+                DemoDto demoList = new DemoDto();
+                demoList.setDemoList(listResult);
+                System.out.println(demoList);
+                List<MateDto> list = dao.mateFilterResult(demoList);
+                mateResultDto.setList(list);
+                for (MateDto mateDto : list) {
+                    MateCampStyleDto campStyleList = dao.mateCampStyleList(mateDto.getMateNo());
+                    mateDto.setCampStyleList(campStyleList);
+    
+                    List<MateListDto> mateApplyList = dao.mateApplyList(mateDto.getMateNo());
+                    mateDto.setMateList(mateApplyList);
+    
+    
+                }
+            }
+
+            mateResultDto.setResult(SUCCESS);
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
 
+    @Override
+    public MateResultDto mateApplyCheck(int mateListNo) {
+        MateResultDto mateResultDto = new MateResultDto();
+        try {
+            dao.mateApplyCheck(mateListNo);
 
+            mateResultDto.setResult(SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mateResultDto.setResult(FAIL);
+        }
+        return mateResultDto;
+    }
 
 
 

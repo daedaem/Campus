@@ -1,269 +1,249 @@
 <template>
 	<Navbar></Navbar>
 	<div>
-		<form>
 			<div v-if="step === 1">
-				
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">기본 정보</h1>
-
-						<div class="email-container">
-							<h6 align="left">
-								이메일
-							</h6>
-						
+				<div class="registration-form">
+					<form>
+						<h1>기본 정보</h1>
+						<div class="row">
+							<label>이메일</label>
 							<div class="form-group">
-								<b-form-input
+								<input
+									class="form-control item"
 									type="email"
-									style="width:50%; float: left"
+									style="width:70%; float: left"
 									placeholder="이메일을 입력하세요"
 									v-model="credentials.userEmail"
 									autofocus
 									@blur="emailValid">
-								</b-form-input>
 
-								<b-button
+								<button
+									class="check-button"
 									@click="duplEmail()"
-									>중복확인</b-button>
-							</div>
-							<div align="left" v-if="!emailValidFlag && this.credentials.userEmail.length > 0" class="check-form">
-								유효하지 않은 이메일 입니다.
-							</div>
-						</div>
-
-						<!-- 이름 입력 -->
-						<div class="emailcode-container mt-2">
-							<h6 align="left">
-								이름
-							</h6>
-							<div class="form-group">
-								<b-form-input
-									type="text"
-									style="width:50%; float: left"
-									placeholder="이름을 입력하세요."
-									autofocus>
-								</b-form-input>
-							</div>
-							<div align="left">
+									type="button"
+									>중복확인</button>
 							</div>
 						</div>
 
 						<!-- 닉네임 입력 -->
-						<div class="nickname-container mt-2">
-							<h6 align="left">
-								닉네임
-							</h6>
+						<div class="row">
+							<label>닉네임</label>
 							<div class="form-group">
-								<b-form-input
+								<input
+									class="form-control item"
 									type="text"
-									style="width:50%; float: left"
+									style="width:70%; float: left"
 									placeholder="닉네임을 입력하세요"
 									v-model="credentials.userNickname"
 									autofocus
 									@blur="nicknameValid">
-								</b-form-input>
-								<b-button
-								@click="duplNickname()"
-								>중복확인</b-button>
-							</div>
-							<div align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form">
-								특수문자를 사용할 수 없습니다.
+
+								<button
+									class="check-button"
+									@click="duplNickname()"
+									type="button"
+									>중복확인</button>
 							</div>
 						</div>
 
-						<!-- 비밀번호 -->
-						<div class="password-container mt-2">
-							<h6 align="left">
-								비밀번호
-							</h6>
+						<!-- 이름 입력 -->
+						<div class="row">
+							<label>이름</label>
 							<div class="form-group">
-								<b-form-input
+								<input
+									class="form-control item"
+									type="text"
+									style="width:70%; float: left"
+									placeholder="이름을 입력하세요."
+									v-model="credentials.userName"
+									autofocus>
+							</div>
+						</div>
+							
+						<!-- 비밀번호 -->
+						<div class="row">
+							<label>비밀번호</label>
+							<div class="form-group">
+								<input 
+									class="form-control item"
 									type="password"
-									style="width:50%; float: left"
+									style="width:70%; float: left"
 									placeholder='비밀번호를 입력하세요'
 									v-model="credentials.userPassword"
 									autofocus
 									@blur="passwordValid"
 									>
-								</b-form-input>
 							</div>
 							<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
-							<div align="left" v-if="!passwordValidFlag && this.credentials.userPassword.length > 0" class="check-form">
+							<small align="left" v-if="!passwordValidFlag && this.credentials.userPassword.length > 0" class="check-form">
 								유효하지 않은 비밀번호 입니다.
-							</div>
+							</small>
 						</div>
 
-
-						<!-- 비밀번호 확인 -->
-						<div class="passwordconfirm-container mt-3">
-							<h6 align="left">
-								비밀번호확인
-							</h6>
+						<!-- 비밀번호확인 -->
+						<div class="row">
+							<label>비밀번호 확인</label>
 							<div class="form-group">
-								<b-form-input
+								<input
+									class="form-control item"
 									type="password"
-									style="width:50%; float: left"
+									style="width:70%; float: left"
 									placeholder="비밀번호를 한번 더 입력하세요"
 									v-model="credentials.password_confirmation"
 									autofocus
 									@blur="passwordCheckValid"
 									>
-								</b-form-input>
 							</div>
-							<!-- 비밀번호 확인 -->
-							<div align="left" v-if="!passwordCheckFlag && this.credentials.password_confirmation.length > 0" class="check-form">
+							<small align="left" v-if="!passwordCheckFlag && this.credentials.password_confirmation.length > 0" class="check-form">
 								비밀번호가 다릅니다.
-							</div>
+							</small>
 						</div>
 
 						<!--  약관동의 -->
-						<div class="form-group mt-3" align="left">
-							<input type="checkbox" id="term" v-model="checkValue"/>
-							<span>약관을 동의합니다.</span>
-							<!-- <span>약관보기</span> -->
+						<div class="row">
+							<div class="form-group" align="left">
+								<input type="checkbox" id="term" v-model="checkValue"/>
+								<span>약관을 동의합니다.</span>
+							</div>
 						</div>
 
 
 						<!-- 다음 버튼 -->
-						<button
-							class="mt-5" 
-							@click.prevent="next()">Next</button>
-
-					</div>
+						<div class="row">
+							<button
+								class="check-button mt-2"
+								@click.prevent="next()">Next</button>
+						</div>
+					</form>
 				</div>		
 			</div>
 
 			<!-- 2페이지 -->
 			<div v-if="step === 2">
-				
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">추가 정보</h1>
+				<div class="registration-form">		
+					<form>	
+						<h1 class="mb-3">추가 정보 입력</h1>
+						<!-- 나이 선택 -->
+						<div class="form-group row mb-3">
+							<h4>나이</h4>
+							<!-- <label>나이</label> -->
+							<select @change="age_select" v-model="credentials.userAge" class="form-select">
+								<option disabled value="">나이 선택</option>
+								<option v-for="option in 80" :key="option" :value="option">{{ option }}</option>
+								<!-- <option value="10">10대</option>
+								<option value="20">20대</option>
+								<option value="30">30대</option>
+								<option value="40">40대</option>
+								<option value="50">50대</option>
+								<option value="60">60대</option>
+								<option value="70">70대</option>
+								<option value="80">80대</option>
+								<option value="90">90대</option> -->
+							</select>
+						</div>
 
-						<div class="item-box">
-							<div class="d-flex">
-								<!-- 나이 입력 -->
-								<div align="left" class="p-3">
-									<h4>나이</h4>
-									<select @change="age_select" v-model="credentials.userAge" class="form-select">
-										<option disabled value="">나이 선택</option>
-										<option value="10">10대</option>
-										<option value="20">20대</option>
-										<option value="30">30대</option>
-										<option value="40">40대</option>
-										<option value="50">50대</option>
-										<option value="60">60대</option>
-										<option value="70">70대</option>
-										<option value="80">80대</option>
-										<option value="90">90대</option>
-									</select>
-								</div>
+						<!-- 지역선택 -->
+						<div class="form-group row mb-3">
+							<h4>지역</h4>
+							<!-- <label>거주 지역</label> -->
+							<select
+								@change="area_select"
+								v-model="credentials.userLocation"
+								class="form-select"
+								>
+								<option disabled value="">지역선택</option>
+								<option value="서울">서울</option>
+								<option value="부산">부산</option>
+								<option value="대구">대구</option>
+								<option value="인천">인천</option>
+								<option value="광주">광주</option>
+								<option value="대전">대전</option>
+								<option value="울산">울산</option>
+								<option value="세종">세종</option>
+								<option value="경기">경기</option>
+								<option value="강원">강원</option>
+								<option value="충북">충북</option>
+								<option value="충남">충남</option>
+								<option value="전북">전북</option>
+								<option value="전남">전남</option>
+								<option value="경북">경북</option>
+								<option value="경남">경남</option>
+								<option value="제주">제주</option>
+							</select>
+						</div>
 
-								<!-- 지역 입력 -->
-								<div align="left" class="p-3">
-									<h4>거주 지역</h4>
-									<select
-										@change="area_select"
-										v-model="credentials.userLocation"
-										class="form-select"
-									>
-										<option disabled value="">지역선택</option>
-										<option value="서울">서울</option>
-										<option value="부산">부산</option>
-										<option value="대구">대구</option>
-										<option value="인천">인천</option>
-										<option value="광주">광주</option>
-										<option value="대전">대전</option>
-										<option value="울산">울산</option>
-										<option value="세종">세종</option>
-										<option value="경기">경기</option>
-										<option value="강원">강원</option>
-										<option value="충북">충북</option>
-										<option value="충남">충남</option>
-										<option value="전북">전북</option>
-										<option value="전남">전남</option>
-										<option value="경북">경북</option>
-										<option value="경남">경남</option>
-										<option value="제주">제주</option>
-									</select>
-								</div>
-							</div>
-
-							<!-- 성별 입력 -->
-							<div>
-								<div align="left"><h4>성별</h4></div>
-								<div align="left">
+						<!-- 성별 선택 -->
+						<div class="form-group row mb-3">
+							<h4 class="row mx-1">성별</h4>
+							<!-- <label class="row">성별</label> -->
+							<div class="row">
+								<div class="col">
 									<button
 										type="button"
 										:class="{
 											modifygenderButtonOn: maleButton,
-											modifygenderButtonOff: !maleButton,
-										}"
-										@click="clickMale"
-									>
-										남자
-									</button>
+											modifygenderButtonOff: !maleButton,}"
+										@click="clickMale">
+										남자</button>
+								</div>
+								<div class="col">
 									<button
 										type="button"
 										:class="{
 											modifygenderButtonOn: femaleButton,
-											modifygenderButtonOff: !femaleButton,
-										}"
-										@click="clickFemale"
-									>
-										여자
-									</button>
+											modifygenderButtonOff: !femaleButton,}"
+										@click="clickFemale">
+										여자</button>
 								</div>
 							</div>
 						</div>
 
-						<!-- 이미지 -->
-						<Fileupload @image="uploadedImage"/>
-					
-					<div class="d-flex justify-content-between mt-5">
-						<button @click.prevent="prev()">Previous</button>
-						<button @click.prevent="next()">Next</button>
-					</div>
 
+						<!-- 이미지 삽입 -->
+						<div class="form-group row mb-3 row">
+							<h4>나의 프로필</h4>
+							<Fileupload @image="uploadedImage"/>
+						</div>
 
-					</div>
-				</div>
-				
+						<!-- 버튼 -->
+						<div class="d-flex justify-content-between">
+							<button @click.prevent="prev()" class="check-button" type="button">Previous</button>
+							<button @click.prevent="next()" class="check-button" type="button">Next</button>
+						</div>
+										
+					</form>
+				</div>		
 			</div>
 
+			<!-- 3페이지 -->
 			<div v-if="step === 3">
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">Camp Style</h1>
-						
+				<div class="registration-form">
+					<form>
+						<!-- 스타일 -->
 						<div class="item-box2 mt-3">
 							<style_Dropdown @style-status="styleStatus" />	
 						</div>
+
+						<!-- 보유장비 -->
 						<div class="mt-3">
 							<Items @img-status="imgStatus"/>
 						</div>
-						<div class="item-box mt-3">
+
+						<div class="d-flex justify-content-between mt-5">
+							<button type="button" class="check-button" @click.prevent="prev()">Previous</button>
+							<button v-if="submitCheck" type="button" class="check-button" @click.prevent="onSubmit()">가입</button>
+							<button v-else type="button" class="check-button">불가</button>
+						</div>
+					</form>
+						<!-- <div class="item-box mt-3">
 							<div align="left">
 								<h4>기타 장비</h4>
 							</div>
 							<EquipInput />
 							<EquipList />
-						</div>
-
-						<div class="d-flex justify-content-between mt-5">
-							<button @click.prevent="prev()">Previous</button>
-							<button v-if="submitCheck" @click.prevent="onSubmit()">가입</button>
-							<button v-else type="button">불가</button>
-						</div>
-
-
-					</div>
+						</div> -->
 				</div>
-			
-	
 			</div>
-		</form>
 
 	</div>
 </template>
@@ -271,8 +251,8 @@
 <script>
 import axios from "axios";
 import Items from '@/components/user/Items.vue'
-import EquipInput from '@/components/user/equip_input.vue'
-import EquipList from '@/components/user/equip_list.vue'
+// import EquipInput from '@/components/user/equip_input.vue'
+// import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from '../../components/user/campstyle.vue'
 import Fileupload from '@/components/user/Fileupload.vue'
 import Navbar from "@/components/common/Navbar.vue";
@@ -284,8 +264,8 @@ export default {
 	name: "Signup",
 	components: {
 		Items,
-		EquipInput,
-		EquipList,
+		// EquipInput,
+		// EquipList,
 		style_Dropdown,
 		Fileupload,
 		Navbar,
@@ -310,7 +290,7 @@ export default {
 				campEquipTableChair : 0,
 				campEquipSleepingbag : 0,
 				campEquipTarp : 0,
-				table : 0,
+				campEquipPot : 0,
 				campEquipTent : 0,
 				campEquipBrazier : 0,
 				campStyle1 : 0,
@@ -328,7 +308,7 @@ export default {
 					campEquipTableChair : 0,
 					campEquipSleepingbag : 0,
 					campEquipTarp : 0,
-					table : 0,
+					campEquipPot : 0,
 					campEquipTent : 0,
 					campEquipBrazier : 0,
 				},
@@ -362,14 +342,14 @@ export default {
     prev() {
       this.step--;
 			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true
-				&& this.emailcheck === true && this.namecheck === true) {
+				&& this.emailcheck === true && this.namecheck === true && this.credentials.userName.length > 0) {
 				this.submitCheck = true
 			}
     },
     next() {
       this.step++;
 			if (this.emailValidFlag === true && this.nicknameValidFlag === true && this.passwordValidFlag === true && this.passwordCheckFlag === true
-				&& this.emailcheck === true && this.namecheck === true) {
+				&& this.emailcheck === true && this.namecheck === true && this.credentials.userName.length > 0) {
 				this.submitCheck = true
 			}
     },
@@ -385,12 +365,12 @@ export default {
 			})
 				.then((res) => {
 					console.log(res)
-					alert("회원가입 성공")
+					Swal.fire({ title: "회원가입에 성공하였습니다!", icon: 'success', timer:2000})
 					this.$router.push({name: 'Mainpage'})
 				})
 				.catch(() => {
 					console.log(this.credentials)
-					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+					Swal.fire({ title: "서버에 오류가 생겼습니다. 다시 시도해 주세요.", icon: 'warning', timer:2000})
 				})
 			
 			this.imageSend()
@@ -463,9 +443,9 @@ export default {
 					console.log("한번보자",res.data.result)
 					if (res.data.result === -1) {
 						this.emailcheck = false
-						Swal.fire({ title: "이미 존재하는 이메일입니다.", icons: 'warning', timer:2000})
+						Swal.fire({ title: "이미 존재하는 이메일입니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.emailValidFlag === false) {
-						Swal.fire({ title: "이메일 형식에 맞지 않습니다.", icons: 'warning', timer:2000})
+						Swal.fire({ title: "이메일 형식에 맞지 않습니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.emailValidFlag === true){
 						this.emailcheck = true
 						Swal.fire({title:'사용가능한 이메일 입니다.', icon: 'success', timer: 2000})
@@ -485,12 +465,12 @@ export default {
 				.then((res) => {
 					if (res.data.result === -1) {
 						this.namecheck = false
-						alert("이미 존재하는 닉네임입니다.")
+						Swal.fire({ title: "이미 존재하는 닉네임입니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
-						alert("닉네임 형식에 맞지 않습니다.")
+						Swal.fire({ title: "닉네임 형식에 맞지 않습니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
 						this.namecheck = true
-						alert("사용 가능한 닉네임 입니다.")
+						Swal.fire({ title: "사용 가능한 닉네임 입니다.", icon: 'success', timer:2000})
 					}
 				})
 
@@ -568,12 +548,12 @@ export default {
 				this.credentials.imgStatus.campEquipTarp = 0
 				this.credentials.campEquipTarp = 0
 			}
-			if (text.table === 1) {
-				this.credentials.imgStatus.table = 1
-				this.credentials.table = 1
+			if (text.campEquipPot === 1) {
+				this.credentials.imgStatus.campEquipPot = 1
+				this.credentials.campEquipPot = 1
 			} else {
-				this.credentials.imgStatus.table = 0
-				this.credentials.table = 0
+				this.credentials.imgStatus.campEquipPot = 0
+				this.credentials.campEquipPot = 0
 			}
 			if (text.campEquipTent === 1) {
 				this.credentials.imgStatus.campEquipTent = 1
@@ -657,38 +637,35 @@ export default {
 }
 </script>
 
-<style>
-.wrapC {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  background-color: white;
-  align-items: center;
-  justify-content: top;
-  padding: 0 4vw;
-  min-height: 100vh;
+<style scoped>
+.registration-form{
+	padding: 50px 0;
+}
+.registration-form form{
+	background-color: #dee9ff;
+	max-width: 600px;
+	margin: auto;
+	padding: 50px 70px;
+	border-radius: 30px;
+	/* border-top-left-radius: 30px;
+	border-top-right-radius: 30px; */
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
 
-.wrap-contact3 {
-  width: 500px;
-  background: #80c64a;
-  background: -webkit-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: -o-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: -moz-linear-gradient(45deg, #56ab2f, #a8e063);
-  background: linear-gradient(45deg, #56ab2f, #a8e063);
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 72px 55px 65px 55px;
+.registration-form .item{
+	border-radius: 20px;
+	margin-bottom: 25px;
+	padding: 10px 20px;
+	margin-right: 20px;
 }
-
-.contact3-form-title {
-  display: block;
-  font-family: Poppins-Bold;
-  font-size: 39px;
-  color: #fff;
-  line-height: 1.2;
-  text-align: center;
-  padding-bottom: 30px;
+.registration-form .check-button{
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	background-color: #5791ff;
+	border: none;
+	color: white;
 }
 
 .filterbox1 {
@@ -719,31 +696,23 @@ export default {
 }
 
 .modifygenderButtonOn {
-  width: 40%;
-  margin: 0 1vw;
-  margin-top: 2vh;
-  background-color: skyblue;
-  color: white;
-  border: 0.3vw solid;
-  border-color: skyblue;
-  font-weight: bold;
-  font-size: 2vw;
-  padding: 0.5vw;
-  border-radius: 1vw;
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: skyblue;
+	color: white;
   transition-duration: 0.5s;
 }
 .modifygenderButtonOff {
-  width: 40%;
-  margin: 0 1vw;
-  margin-top: 2vh;
-  background-color: white;
-  color: mediumslateblue;
-  border: 0.3vw solid;
-  border-color: mediumslateblue;
-  font-weight: bold;
-  font-size: 2vw;
-  padding: 0.5vw;
-  border-radius: 1vw;
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: white;
+	border: none;
   transition-duration: 0.5s;
 }
 .swal-button 
@@ -751,5 +720,8 @@ export default {
 	background-color: #FFB2D9;
 	font-size: 12px;
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+input[type=password] {
+  font-family: 'NanumSquare'
 }
 </style>

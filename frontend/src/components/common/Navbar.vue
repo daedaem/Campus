@@ -2,8 +2,17 @@
   <nav class="navbar d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
-        <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
-        <div class="Navbar-buttons d-flex align-items-center">
+        <a class="brandname ms-3 navbar-brand" href="#">
+          <img
+            width="56"
+            height="44"
+            src="../../assets/images/logo1.png"
+            alt=""
+          />
+        </a>
+        <div
+          class="Navbar-buttons d-flex justify-content-around align-items-center"
+        >
           <div class="nav-item">
             <a class="nav-link" aria-current="page" href="/sns">
               SNS
@@ -28,7 +37,10 @@
                 <a class="dropdown-item" href="/mateparty">메이트(모집)</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/matematch">메이트(매칭)</a>
+                <a class="dropdown-item" @click="goMatematch()">메이트(매칭)</a>
+              </li>
+              <li>
+                <a class="dropdown-item" @click="mySurvey()">설문조사</a>
               </li>
               <!-- <li><hr class="dropdown-divider"></li> -->
             </div>
@@ -68,10 +80,6 @@
           </router-link>
         </div> -->
       <div class="d-flex">
-        <a class="nav-link mt-2 me-5" aria-current="page" href="/sns/create">
-          <i class="bi bi-plus-square fs-3"></i>
-          <!-- <i class="bi bi-journal-richtext"></i> -->
-        </a>
         <div class="d-flex justify-content-center align-items-center">
           <b-dropdown
             size="sm"
@@ -97,7 +105,7 @@
                     this.$store.state.userList.userProfileImage == null &&
                     this.$store.state.userList.userGender == null
                   "
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png  "
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                   alt=""
                   class="Navbar-User-profile-image ms-2"
                 />
@@ -150,29 +158,25 @@
           <!-- </div> -->
         </div>
       </div>
-      <div class="col-11 hidden-Navbar-Searchbar">
-        <div class="d-flex">
-          <searchbar></searchbar>
-        </div>
-      </div>
     </div>
   </nav>
 </template>
 
 <script>
-
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapState } from "vuex";
+import Swal from "sweetalert2";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Searchbar from "./Searchbar.vue";
-
+import { useStore } from "vuex";
 export default {
   components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
+    const store = useStore();
     const onoff = ref(0);
 
     const refresh = () => {
@@ -186,21 +190,34 @@ export default {
       }
     };
 
+    const goMatematch = () => {
+      console.log(store.state.myNum);
+      router.push({ name: "Matematch", params: { userNo: store.state.myNum } });
+    };
+
     return {
       refresh,
       onoff,
+      goMatematch,
     };
   },
   methods: {
     logout: function () {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
+      this.$store.state.userGender = null;
+      this.$store.state.SearchWord = null;
       this.$store.dispatch("logout");
       sessionStorage.removeItem("userList");
       sessionStorage.removeItem("myNum");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userPassword");
-      alert("로그아웃");
+      localStorage.removeItem("vuex");
+      Swal.fire({
+        title: "로그아웃 되었습니다.",
+        icon: "success",
+        timer: 2000,
+      });
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
@@ -208,6 +225,10 @@ export default {
     },
     moveToLogin: function () {
       this.$router.push({ name: "Login" });
+    },
+    mySurvey: function () {
+      console.log("엠비티아이", this.$store.state.userList.userMBTI);
+      this.$router.push({ name: "Survey" });
     },
     myProfile: function () {
       console.log(this.$store.getters.getUserId);
@@ -218,7 +239,11 @@ export default {
     },
   },
 
-  created: function () {},
+  created: function () {
+    if (sessionStorage.getItem("userEmail") === null) {
+      localStorage.removeItem("vuex");
+    }
+  },
 
   computed: {
     ...mapState(["userList"]),
@@ -252,17 +277,11 @@ a .Navbar-User-profile-nickname {
     padding-right: 1rem;
   }
 
-  .hidden-Navbar-Searchbar {
-    margin: auto;
-  }
   .btn-group {
     padding-right: 2rem;
   }
 }
 @media (min-width: 800px) {
-  .hidden-Navbar-Searchbar {
-    display: none;
-  }
   .btn-group {
     margin-right: 3rem;
     padding-right: 3rem;
