@@ -23,9 +23,6 @@
 									type="button"
 									>중복확인</button>
 							</div>
-							<small class="check-form" align="left" v-if="!emailValidFlag && this.credentials.userEmail.length > 0" >
-								유효하지 않은 이메일 입니다.
-							</small>	
 						</div>
 
 						<!-- 닉네임 입력 -->
@@ -47,9 +44,6 @@
 									type="button"
 									>중복확인</button>
 							</div>
-							<small align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form">
-								특수문자를 사용할 수 없습니다.
-							</small>
 						</div>
 
 						<!-- 이름 입력 -->
@@ -135,7 +129,8 @@
 							<!-- <label>나이</label> -->
 							<select @change="age_select" v-model="credentials.userAge" class="form-select">
 								<option disabled value="">나이 선택</option>
-								<option value="10">10대</option>
+								<option v-for="option in 80" :key="option" :value="option">{{ option }}</option>
+								<!-- <option value="10">10대</option>
 								<option value="20">20대</option>
 								<option value="30">30대</option>
 								<option value="40">40대</option>
@@ -143,7 +138,7 @@
 								<option value="60">60대</option>
 								<option value="70">70대</option>
 								<option value="80">80대</option>
-								<option value="90">90대</option>
+								<option value="90">90대</option> -->
 							</select>
 						</div>
 
@@ -370,12 +365,12 @@ export default {
 			})
 				.then((res) => {
 					console.log(res)
-					alert("회원가입 성공")
+					Swal.fire({ title: "회원가입에 성공하였습니다!", icon: 'success', timer:2000})
 					this.$router.push({name: 'Mainpage'})
 				})
 				.catch(() => {
 					console.log(this.credentials)
-					alert("서버에 오류가 생겼습니다. 다시 시도해주세요")
+					Swal.fire({ title: "서버에 오류가 생겼습니다. 다시 시도해 주세요.", icon: 'warning', timer:2000})
 				})
 			
 			this.imageSend()
@@ -470,12 +465,12 @@ export default {
 				.then((res) => {
 					if (res.data.result === -1) {
 						this.namecheck = false
-						alert("이미 존재하는 닉네임입니다.")
+						Swal.fire({ title: "이미 존재하는 닉네임입니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
-						alert("닉네임 형식에 맞지 않습니다.")
+						Swal.fire({ title: "닉네임 형식에 맞지 않습니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
 						this.namecheck = true
-						alert("사용 가능한 닉네임 입니다.")
+						Swal.fire({ title: "사용 가능한 닉네임 입니다.", icon: 'success', timer:2000})
 					}
 				})
 
@@ -656,6 +651,7 @@ export default {
 	border-top-right-radius: 30px; */
 	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
+
 .registration-form .item{
 	border-radius: 20px;
 	margin-bottom: 25px;
@@ -724,5 +720,8 @@ export default {
 	background-color: #FFB2D9;
 	font-size: 12px;
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+input[type=password] {
+  font-family: 'NanumSquare'
 }
 </style>

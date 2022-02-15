@@ -1,7 +1,7 @@
 <template>
   <Navbar class="Navbar"></Navbar>
   <body>
-    <div class="box" style="width: 100%; height: 100vh">
+    <div class="box" style="width: 100vw; height: 100vh">
       <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
       <div class="overlay d-flex flex-column">
         <div class="overlay-title">
@@ -9,7 +9,7 @@
           <div
             class="d-flex flex-column justify-content-center align-items-center"
           >
-            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
+            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" style="max-width:100%; height:auto;"/>
             <div class="text-center">
 
               <a class="btn btn-sm" href="#">
@@ -22,22 +22,8 @@
     </div>
     <div class="b-example-divider"></div>
 
-    <div class="filterbox">
-      <div
-        style="
-          float: left;
-          margin-left: 20px;
-          margin-top: 50px;
-          margin-bottom: 30px;
-        "
-      >
-        지금 뜨는 메이트 모집
-      </div>
-      <div style="float: right; margin-right: 20px; margin-top: 50px">
-        전체보기
-      </div>
-    </div>
-    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" />
+    
+    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" style="margin-top:50px;"/>
   </body>
 </template>
 
@@ -129,6 +115,8 @@ export default {
 /* padding: 0 20px; */
 /* background: beige; */
 /* } */
+
+
 
 .brandSlogan {
   max-width: 600px;

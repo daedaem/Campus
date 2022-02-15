@@ -31,6 +31,7 @@
             </foreach>
             ORDER BY s.snsNo DESC
             LIMIT #{limit} OFFSET #{offset}
+      
     </select>
 
     <select id="userSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
