@@ -61,7 +61,6 @@ public class CampController {
     @Autowired
     CampLikeService campLikeService;
 
-
     private static final int SUCCESS = 1;
     private static final int FAIL = -1;
 
@@ -72,7 +71,6 @@ public class CampController {
         CampSiteResultDto campSiteResultDto;
         System.out.println("안오나요");
         System.out.println(campSiteParamDto);
-        
 
         if (campSiteParamDto.getSearchWord() != null || campSiteParamDto.getDoNm() != null) {
             if (campSiteParamDto.getEqpmnLendCl().equals("Y")) {
@@ -407,7 +405,7 @@ public class CampController {
         // UserDto userDto = (UserDto) session.getAttribute("userDto");
 
         // campRateReplyDto.setUserNo(userDto.getUserNo());
-        
+
         CampRateReplyResultDto campRateReplyResultDto = campRateReplyService.campRateReplyUpdate(campRateReplyDto);
         System.out.println(campRateReplyDto);
         if (campRateReplyResultDto.getResult() == SUCCESS) {
