@@ -120,9 +120,8 @@
         select distinct u.userNo, (select ROUND(AVG(userRatePoint), 1) from userRate where userNo = u.userNo group by userNo) userRatePoint, u.userNickname, c.campStyle1,c.campStyle2, c.campStyle3, c.campStyle4, c.campStyle5, c.campStyle6, m.mateListNo, m.userNo, m.mateListNum, m.userAge, m.userGender, u.userMBTI, m.mateApplyCheck
         from user u, userRate r, campStyle c, mateList m
         where u.userNo in (select userNo from mateList where mateNo = #{mateNo})
-			 and u.userNo = c.userNo
-             and u.userNo = m.userNo
-             and u.userNo = r.userNo
+			 and c.userNo = u.userNo
+             and m.userNo = u.userNo
              and mateNo = #{mateNo};
     </select>
 

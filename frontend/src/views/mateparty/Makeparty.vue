@@ -133,21 +133,21 @@ export default {
       }
     },
 
-    styleCheck() {
+    styleCheck(text) {
       const temp = {
         style1: null,
         style2: null,
         style3: null,
       };
 
-      if (this.$store.state.styleCheck.length === 1) {
-        temp.style1 = this.$store.state.styleCheck[0];
-      } else if (this.$store.state.styleCheck.length === 2) {
-        (temp.style1 = this.$store.state.styleCheck[0]), (temp.style2 = this.$store.state.styleCheck[1]);
-      } else if (this.$store.state.styleCheck.length === 3) {
-        (temp.style1 = this.$store.state.styleCheck[0]),
-          (temp.style2 = this.$store.state.styleCheck[1]),
-          (temp.style3 = this.$store.state.styleCheck[2]);
+      if (text.length === 1) {
+        temp.style1 = text[0];
+      } else if (text.length === 2) {
+        (temp.style1 = text[0]), (temp.style2 = text[1]);
+      } else if (text.length === 3) {
+        (temp.style1 = text[0]),
+          (temp.style2 = text[1]),
+          (temp.style3 = text[2]);
       }
       this.partyData.campStyleList = temp;
     },
@@ -155,8 +155,8 @@ export default {
     limitCheck(text) {
       this.partyData.friendlimit = Number(text);
     },
-    campCheck() {
-      this.partyData.mateCamptype = this.$store.state.campCheck[0];
+    campCheck(text) {
+      this.partyData.mateCamptype = text[0];
     },
     memberValue(text) {
       this.partyData.memberlimit = Number(text);

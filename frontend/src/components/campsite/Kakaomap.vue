@@ -349,7 +349,7 @@ export default {
   list-style: none;
   width: 13%;
   border-right: 1px solid #acacac;
-  padding: 6px 0;
+  padding: 4px 0;
   text-align: center;
   cursor: pointer;
 }
@@ -358,7 +358,7 @@ export default {
 }
 #category li:hover {
   background: #ffe6e6;
-  border-left: 1px solid #acacac;
+  border-left: 10px solid #acacac;
   margin-left: -1px;
 }
 #category li:last-child {
@@ -376,7 +376,7 @@ export default {
     no-repeat;
 }
 #category li .bank {
-  background-position: -10px 0;
+  background-position: -10px 0px;
 }
 #category li .mart {
   background-position: -10px -36px;

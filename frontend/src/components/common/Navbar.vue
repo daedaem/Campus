@@ -2,8 +2,17 @@
   <nav class="navbar d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
-        <a class="brandname ms-3 navbar-brand" href="#">Navbar</a>
-        <div class="Navbar-buttons d-flex align-items-center">
+        <a class="brandname ms-3 navbar-brand" href="#">
+          <img
+            width="56"
+            height="44"
+            src="../../assets/images/logo1.png"
+            alt=""
+          />
+        </a>
+        <div
+          class="Navbar-buttons d-flex justify-content-around align-items-center"
+        >
           <div class="nav-item">
             <a class="nav-link" aria-current="page" href="/sns">
               SNS
@@ -156,18 +165,18 @@
 <script>
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapState } from "vuex";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Searchbar from "./Searchbar.vue";
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 export default {
   components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
-    const store = useStore()
+    const store = useStore();
     const onoff = ref(0);
 
     const refresh = () => {
@@ -181,10 +190,10 @@ export default {
       }
     };
 
-    const goMatematch = () =>{
-      console.log(store.state.myNum)
-      router.push({name:'Matematch' , params : {userNo : store.state.myNum}})
-    }
+    const goMatematch = () => {
+      console.log(store.state.myNum);
+      router.push({ name: "Matematch", params: { userNo: store.state.myNum } });
+    };
 
     return {
       refresh,
@@ -203,8 +212,12 @@ export default {
       sessionStorage.removeItem("myNum");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userPassword");
-      localStorage.removeItem('vuex')
-      Swal.fire({ title: "로그아웃 되었습니다.", icon: 'success', timer:2000})
+      localStorage.removeItem("vuex");
+      Swal.fire({
+        title: "로그아웃 되었습니다.",
+        icon: "success",
+        timer: 2000,
+      });
       this.$router.push({ name: "Login" });
     },
     moveToSignUp: function () {
@@ -214,8 +227,8 @@ export default {
       this.$router.push({ name: "Login" });
     },
     mySurvey: function () {
-      console.log("엠비티아이", this.$store.state.userList.userMBTI)
-      this.$router.push({ name: 'Survey' })
+      console.log("엠비티아이", this.$store.state.userList.userMBTI);
+      this.$router.push({ name: "Survey" });
     },
     myProfile: function () {
       console.log(this.$store.getters.getUserId);
@@ -227,8 +240,8 @@ export default {
   },
 
   created: function () {
-    if (sessionStorage.getItem('userEmail') === null) {
-      localStorage.removeItem('vuex');
+    if (sessionStorage.getItem("userEmail") === null) {
+      localStorage.removeItem("vuex");
     }
   },
 

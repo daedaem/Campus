@@ -1,7 +1,11 @@
 <template>
   <Navbar></Navbar>
-  <div style="height:400px; overflow:hidden;">
-  <img style="object-fit:cover;" class="dd" src="https://images.pexels.com/photos/7148973/pexels-photo-7148973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+  <div class="CampSitebackground">
+    <div class="CampeSitebackground-imgcover">
+      <div class="CampeSitebackground-content">    <h1 style="">메이트 모집</h1>
+</div>
+      <div></div>
+    </div>
   </div>
   <body>
  
@@ -109,7 +113,35 @@ export default {
 </script>
 
 <style scoped>
+.CampSitebackground {
+  width: 100%;
+  height: 200px;
+  background: black;
+  background-color: rgba(0, 0, 0, 0.4);
 
+  /* background-position: 30%; */
+  /* background-repeat: no-repeat; */
+  background: url("./../../assets/images/pexels-vlad-bagacian-1061640.jpg") 
+  50% 65% no-repeat;
+  background-size: 100% auto;
+}
+.CampeSitebackground-imgcover {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.CampeSitebackground-content {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  /* transform: translate(-50%, -50%); */
+  font-size: 3rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
 .writebutton{
 background-color: #7ac4e1;
 border:1px solid #fff
