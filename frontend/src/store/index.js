@@ -26,6 +26,11 @@ export default createStore({
     userList: {},
     campList: [],
     userGender: "",
+    campCheck: null,
+    styleCheck: null,
+    dateCheck: null,
+    campInfo: null,
+    resultOfCampsite: [],
   },
 
   mutations: {
@@ -42,6 +47,9 @@ export default createStore({
     FEEDLIST: function (state, feedList) {
       state.feedList = feedList;
     },
+    RESULTOFCMAPSITE: function (state, resultOfCampsite) {
+      state.resultOfCampsite = resultOfCampsite;
+    },
 
     //mate
     VIEW_MATE(state, data) {
@@ -54,9 +62,9 @@ export default createStore({
     },
 
     USER_LIST(state, data) {
-      console.log(2);
+      // console.log(2);
       state.userList = data;
-      console.log(state.userList);
+      // console.log(state.userList);
     },
     MY_NUM(state, data) {
       // console.log(3)
@@ -123,6 +131,19 @@ export default createStore({
     SEARCHRESULT: function (state, data) {
       state.searchResult = data;
     },
+    CAMP_CHECK(state, data) {
+      state.campCheck = data;
+    },
+    STYLE_CHECK(state, data) {
+      state.styleCheck = data;
+    },
+    DATE_CHECK(state, data) {
+      state.dateCheck = data;
+    },
+    CAMP_INFO(state, data) {
+      state.campInfo = data;
+    },
+
     // SCROLLEDFEEDLIST: function (state, data) {
     //   state.scrolledFeedList
     // }
@@ -191,6 +212,21 @@ export default createStore({
     //   context.commit("SCROLLEDFEEDLIST",data)
 
     // }_
+    campCheck({ commit }, data) {
+      commit("CAMP_CHECK", data);
+    },
+    styleCheck({ commit }, data) {
+      commit("STYLE_CHECK", data);
+    },
+    dateCheck({ commit }, data) {
+      commit("DATE_CHECK", data);
+    },
+    campInfo({ commit }, data) {
+      commit("CAMP_INFO", data);
+    },
+    resultOfCampsite({ commit }, data) {
+      commit("RESULTOFCMAPSITE", data);
+    },
   },
   getters: {
     config: function (state) {

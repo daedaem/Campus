@@ -1,8 +1,8 @@
 <template>
-<body>
-  <div class="container-fluid h-100">
-    <div class="row justify-content-center h-100">
-      <input type="checkbox" id="check" @click="showRooms()" > <label class="chat-btn" for="check" > <i class="fa fa-commenting-o comment" ></i> <i class="fa fa-close close" ></i> </label>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center ">
+      <input type="checkbox" id="check" @click="showRooms()" > <label class="chat-btn" for="check" > <i class="bi bi-chat-dots"></i></label>
         <div class="wrapper">
           <div class="header">
             
@@ -15,10 +15,12 @@
              
                   <div v-for="(item,idx) in chatList" :key="idx" >
 
-                    <div class="d-flex bd-highlight">
+                    <div class="bd-highlight ">
                       <div class="user_info">
                         <div @click="visibleCheck(),sendlist(item.id),temp(item.id,item.title),socketConnect(item.id)">
-                          <span>{{item.title}}</span>
+
+                          <div> {{idx+1}} 번 채팅방 </div>
+                          <div style="font-size: 20px; color: white;">{{item.title}}</div>
                         </div>
                       </div>
                     </div>
@@ -36,8 +38,13 @@
             </div>
           <div v-else >
             <div class="col-md-12 col-xl-12 chat">
-              <div class="card"> 
-                <div class="card-body msg_card_body">
+              
+              <div class="card" style="position:relative;"> 
+                <div style="background-color:#98cde2; overflow:hidden; z-index:100002; display:inline-block; height:50px; border-radius:20px; " >
+                  <i class="bi bi-chevron-left fa-2x"  @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px; left:20px;"></i>
+                </div>
+                
+                <div class="card-body msg_card_body MessageList" ref="MessageList" style="padding-bottom:65px; ">
                   <div v-for="(item2,idx) in MessageList" :key="idx">
                     <div v-bind:class="item2.style">
                         <div class="msg_cotainer">
@@ -48,16 +55,17 @@
                   </div>
 
  
-                  <button @click="visibleCheck(),delTrash(temps.id)" >뒤로가기</button>  
-                  <div class="card-footer">
-                    <div class="input-group">
-                      <textarea name="" class="form-control type_msg" placeholder="Type your message..." v-model="content"></textarea>
+                  
+                           
+                </div>
+                <div class="card-footer" style="bottom:0px; left:45px;">
+                    <div class="input-group" >
+                      <textarea name="" class="form-control type_msg" placeholder="Type your message..." v-model="content" @keyup.enter ="sendMessage()"></textarea>
                       <div class="input-group-append">
-                        <span class="input-group-text send_btn" @click="sendMessage()"><i class="fas fa-location-arrow"></i></span>
+                        <span class="input-group-text send_btn"  @click="sendMessage()"><i class="fas fa-location-arrow"></i></span>
                       </div>
                     </div>
-                  </div>         
-                </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -65,7 +73,7 @@
       </div>
     </div>
   </div>
-</body>
+
 </template>                            
 
 <script>
@@ -117,7 +125,7 @@ export default {
       console.log(this.socketStop.includes(roomid))
       if (this.socketStop.includes(roomid) === false) {
           console.log('check')
-        let socket = new SockJS('http://i6e102.p.ssafy.io:8080/ws')
+        let socket = new SockJS(`${SERVER_URL}/ws`)
         this.stompClient = Stomp.over(socket)
         this.stompClient.connect({}, frame=>{
           console.log("success", frame)
@@ -230,8 +238,19 @@ export default {
           console.log(chatMessage)
           this.stompClient.send("/pub/message", JSON.stringify(chatMessage),{})
           this.content = ''
+      }
+      let MessageList = this.$refs.MessageList
+      MessageList.scrollTo({ top: MessageList.scrollHeight, behavior: 'smooth' });
+    },
+   
+    watch : {
+      MessageList: function () {
+        let MessageList = this.$refs.MessageList
+      MessageList.scrollTo({ top: MessageList.scrollHeight, behavior: 'smooth' });
+      }
     }
-    }
+
+    
 
 
 
@@ -247,7 +266,36 @@ export default {
 
 <style scoped>
 
+@media (max-width: 700px) {
+  .card-body {
+    width: 80vw;
+    margin: 0 auto;
+    height : 350px;
+    margin-right : 200px;
+  }
 
+  .chat{
+    margin-right : 200px;
+  }
+
+  .chat-btn {
+    position: absolute;
+    right: 80px;
+    bottom: 30px;
+    cursor: pointer
+  }
+
+  .card{
+    position:right;
+    height: 500px;
+    border-radius: 15px !important;
+    background-color: #98cde2 !important;
+    right:65%;
+    width :70%;
+  
+  }
+  
+}
 
 .chat-btn {
     position: absolute;
@@ -286,10 +334,12 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: blue;
+    background-color: brown;
     color: #fff;
     font-size: 22px;
-    border: none
+    border: none;
+    position: fixed;
+    z-index: 10001;
 }
 
 .wrapper {
@@ -308,11 +358,15 @@ export default {
 }
 
 .header {
+    position: fixed;
+    z-index: 10001;
     padding: 13px;
     /* background-color: blue; */
     border-radius: 5px 5px 0px 0px;
     margin-bottom: 10px;
-    color: #fff
+    color: #fff;
+    bottom : 80px;
+    right : 20px;
 }
 
 .chat-form {
@@ -356,11 +410,13 @@ text-align: right;
 
 
 body{
+    
     height: 100%;
     margin: 0;
     background: #7F7FD5;
         background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
         background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+    
   }
 
   .chat{
@@ -370,7 +426,8 @@ body{
   .card{
     height: 500px;
     border-radius: 15px !important;
-    background-color: rgba(7, 147, 165, 0.4) !important;
+    background-color: #98cde2 !important;
+  
   }
   .contacts_body{
     padding:  0.75rem 0 !important;
@@ -379,10 +436,32 @@ body{
   }
   .msg_card_body{
     overflow-y: auto;
+    margin-bottom : 20px;
+    
   }
   .card-header{
     border-radius: 15px 15px 0 0 !important;
     border-bottom: 0 !important;
+  }
+
+@media (max-width: 700px) {
+  .card-body {
+    width: 80vw;
+    margin: 0 auto;
+    height : 350px;
+    margin-right : 200px;
+  }
+
+  .chat{
+    margin-right : 200px;
+  }
+ 
+}
+  .card-body { 
+    width:350px;
+    height : 350px;
+    margin-bottom :0px;
+    
   }
   .card-footer{
   border-radius: 0 0 15px 15px !important;
@@ -484,6 +563,15 @@ background-color: rgba(0,0,0,0.3) !important;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 15px;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  /*        height: 4.8em;*/
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 ;
+    -webkit-box-orient: vertical;
 }
 .user_info span{
   font-size: 20px;

@@ -1,13 +1,24 @@
 <template>
   <body>
     <div class="container">
+      <div class="row" >
+      
+        <div class="col-6"     
+        >
+          지금 뜨는 메이트 모집
+        </div>
+        <div class="col-6" align="right" @click="goCampsite()">
+          전체보기
+        </div>
+      
+      </div>
       <div class="row">
-        <div class="card col" v-for="(item, idx) in recentlist" :key="idx">
+        <div class="card col-md-2 col-" v-for="(item, idx) in recentlist" :key="idx" style="margin-top:50px;" @click="goRecentDetail(item.mateNo)">
           <img
             class="card-img-top"
             :src="item.mateImageUrl"
             alt=""
-            style="height: 150px"
+        
             v-if="item.mateImageUrl"
           />
           <img
@@ -17,20 +28,23 @@
             style="height: 150px"
             v-else
           />
-          <div class="card-body">
+          <div class="card-body" >
             <h5 class="card-title" align="left" style="height: 75px">
               {{ item.mateTitle }}
             </h5>
-            <p class="card-text" align="right">
+            <div class="card-text" align="right">
               <small class="text-muted">
-                <div align="right">@{{ item.userNickName }}</div>
-                <i class="far fa-user"></i
-                ><span v-if="item.mateList">{{ item.mateList.length }}</span
-                ><span v-else>0</span>/{{ item.memberlimit
-                }}<i class="fas fa-calendar-alt"></i
-                >{{ item.mateCampstart }}</small
-              >
-            </p>
+                <div align="right">@{{ item.userNickname }}</div>
+              </small>
+                <div align="right">
+                  <small>
+                    <i class="far fa-user" ></i>
+                    <span v-if="item.mateList" align="right"> {{ item.mateList.length }}</span>
+                    <span v-else> 1</span>
+                    <span> / {{ item.memberlimit}}</span>
+                  </small>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -116,21 +130,31 @@
 
 <script>
 import { ref } from "vue";
-
+import {useRouter} from 'vue-router'
 export default {
   name: "Maincarousel",
   props: {
     mainlist: Array,
   },
   setup(props) {
+    const router = useRouter()
     const recentlist = ref(props.mainlist);
     console.log(recentlist.value);
     // console.log(props.mainlist[1])
     // const recentlist = ref(props.mainlist)
     // console.log(recentlist.value)
 
+    const goCampsite = () => {
+      router.push({name:'Mateparty'})
+    }
+
+    const goRecentDetail = (No) => {
+      router.push({name : 'Partyinfo',params: { mateNo : No}})
+    }
     return {
       recentlist,
+      goCampsite,
+      goRecentDetail,
     };
   },
 };
@@ -140,20 +164,33 @@ export default {
 .merong {
 }
 
-body {
-  font-family: Varela Round;
-  overflow: hidden;
-  width: 100%;
-  height: auto;
-  margin: 0 auto;
+@media (min-width: 768px) {
+.row > .card {
+    margin-left : 18px;
+    margin-right : 18px;
 
-  /* background: beige; */
+    background: #fff;
+ 
+  }
 }
-
 a {
   text-decoration: none;
 }
 
+.card > .card-img-top {
+  height: 200px;
+   object-fit:cover;
+}
+
+@media (max-width : 768px) {
+ .card > .card-img-top {
+  height: 240px;
+  object-fit:cover;
+  // .card > .card-body {
+    // height: 100px;
+  // }
+} 
+}
 /* Card Styles */
 
 h1 {
@@ -163,6 +200,7 @@ h1 {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
+  height:380px;
   border: none;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);

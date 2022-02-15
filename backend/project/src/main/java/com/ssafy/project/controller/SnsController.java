@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -50,10 +50,8 @@ public class SnsController {
     private static final int FAIL = -1;
 
     // 리스트 생성
-    @GetMapping(value="/sns")
-    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto){
-        
-
+    @GetMapping(value = "/sns")
+    private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto) {
         SnsResultDto snsResultDto;
 
         if (snsParamDto.getSearchWord() == null) { // 검색어가 없을시
@@ -61,6 +59,19 @@ public class SnsController {
         } else {
             snsResultDto = snsService.snsListSearchWord(snsParamDto);// 검색어가 있을시에
         }
+
+        if (snsResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    // 유저번호로 피드 가져오기
+    @GetMapping(value = "/sns/feed/{userNo}")
+    private ResponseEntity<SnsResultDto> userSnsList(@PathVariable int userNo) {
+
+        SnsResultDto snsResultDto = snsService.userSnsList(userNo);
 
         if (snsResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<SnsResultDto>(snsResultDto, HttpStatus.OK);// 성공

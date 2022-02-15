@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -193,6 +193,24 @@ public class MateController {
         }
     }
 
+    @PostMapping(value = "/mate/apply/check/{mateListNo}")
+    private ResponseEntity<MateResultDto> mateApplyCheck(@PathVariable int mateListNo) {
+
+        // 로그인 했을시 session 처리 작성해주기
+        // 미작성
+        // call mateInsert from MateService
+        // matelistDto.setMateNo(56);
+
+        MateResultDto mateResultDto = service.mateApplyCheck(mateListNo);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
     @DeleteMapping(value = "/mate/apply/{mateListNo}")
     private ResponseEntity<MateResultDto> mateApplyDelete(@PathVariable int mateListNo) {
 
@@ -213,7 +231,6 @@ public class MateController {
 
         // call mateList from MateService
         mateMatchResultDto = service.mateMatch(userNo);
-        System.out.println(mateMatchResultDto.toString());
 
         if (mateMatchResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateMatchResultDto>(mateMatchResultDto, HttpStatus.OK);// 성공
@@ -246,6 +263,24 @@ public class MateController {
         MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
 
         if (mateResultDto.getResult() == SUCCESS) {
+            return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
+        } else {
+            return new ResponseEntity<MateResultDto>(mateResultDto,
+                    HttpStatus.INTERNAL_SERVER_ERROR); // 에러
+        }
+    }
+
+    // ----------------------------------------- 필터링
+    // -----------------------------------------//
+    // 캠핑장 유형 필터링
+    @PostMapping(value = "/mate/filter")
+    private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
+
+        System.out.println(mateDto);
+        MateResultDto mateResultDto = service.mateFilter(mateDto);
+
+        if (mateResultDto.getResult() == SUCCESS) {
+
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
             return new ResponseEntity<MateResultDto>(mateResultDto,

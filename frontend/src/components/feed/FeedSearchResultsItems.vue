@@ -7,6 +7,7 @@
   <b-card
     no-body
     class="FeedSearchResultsItems-cards my-3"
+    style="border-radius: 10px"
     :img-src="`${searchedFeed.imageList[0].snsImageUrl}`"
     @click="moveToDetail"
   >
@@ -56,7 +57,6 @@ export default {
 <style>
 .FeedSearchResultsItems-cards {
   border: 1px solid #eee;
-  border-radius: 5%;
   cursor: pointer;
   transform: scale(1);
   -webkit-transform: scale(1);
@@ -64,6 +64,10 @@ export default {
   -ms-transform: scale(1);
   -o-transform: scale(1);
   transition: all 0.3s ease-in-out;
+}
+.FeedSearchResultsItems-cards img {
+  border-radius: 10px;
+  min-height: 200px;
 }
 .FeedSearchResultsItems-cards:hover {
   transform: scale(1.1);

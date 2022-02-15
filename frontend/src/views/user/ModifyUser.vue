@@ -1,264 +1,247 @@
 <template>
 	<Navbar></Navbar>	
 	<div>
-		<form>
-			<div v-if="step === 1">
-				
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">정보 수정</h1>
+		<div v-if="step === 1">
+			<div class="registration-form">
+				<form>
+					<h1>정보 수정</h1>
+					<div class="row">
+						<label>이메일</label>
+						<div class="form-group">
+							<input
+								class="form-control item"
+								type="email"
+								style="width:70%; float: left"
+								placeholder="이메일을 입력하세요"
+								v-model="credentials.userEmail"
+								autofocus
+								:disabled="this.validatedcheck === true">
+						</div>
+					</div>
 
-						<!-- 닉네임 입력 -->
-						<div class="nickname-container mt-2">
-							<h6 align="left">
-								닉네임
-							</h6>
-							<div class="form-group">
-								<b-form-input
-									type="text"
-									style="width:50%; float: left"
-									placeholder="닉네임을 입력하세요"
-									v-model="credentials.userNickname"
-									@blur="nicknameValid"
-									autofocus
-									>
-								</b-form-input>
-								<b-button
+					<div class="row">
+						<label>이름</label>
+						<div class="form-group">
+							<input
+								class="form-control item"
+								type="text"
+								style="width:70%; float: left"
+								v-model="credentials.userName"
+								autofocus
+								:disabled="this.validatedcheck === true">
+						</div>
+					</div>
+
+					<div class="row">
+						<label>닉네임</label>
+						<div class="form-group">
+							<input
+								class="form-control item"
+								type="text"
+								style="width:70%; float: left"
+								placeholder="닉네임을 입력하세요"
+								v-model="credentials.userNickname"
+								autofocus
+								@blur="nicknameValid">
+
+							<button
+								class="check-button"
 								@click="duplNickname()"
-								>중복확인</b-button>
-							</div>
-							<div align="left" v-if="!nicknameValidFlag" class="check-form">
-								특수문자를 사용할 수 없습니다.
-							</div>
+								type="button"
+								>중복확인</button>
 						</div>
+						<small align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form" style="color:red">
+							특수문자를 사용할 수 없습니다.
+						</small>
+					</div>
 
-						<!-- 비밀번호 -->
-						<div class="password-container mt-2">
-							<h6 align="left">
-								비밀번호
-							</h6>
-							<div class="form-group">
-								<b-form-input
-									type="password"
-									style="width:50%; float: left"
-									placeholder='비밀번호를 입력하세요'
-									v-model="credentials.userPassword"
-									autofocus
-									>
-								</b-form-input>
-							</div>
+					<div class="row mt-2">
+						<label>비밀번호</label>
+						<div class="form-group">
+							<input 
+								class="form-control item"
+								type="password"
+								style="width:70%; float: left"
+								placeholder='비밀번호를 입력하세요'
+								v-model="credentials.userPassword"
+								autofocus
+								@blur="passwordValid"
+								>
 						</div>
+						<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
+						<small align="left" v-if="!passwordValidFlag && this.credentials.userPassword.length > 0" class="check-form" style="color:red">
+							유효하지 않은 비밀번호 입니다.
+						</small>
+					</div>
 
-
-						<!-- 비밀번호 확인 -->
-						<div class="passwordconfirm-container mt-3">
-							<h6 align="left">
-								비밀번호확인
-							</h6>
-							<div class="form-group">
-								<b-form-input
-									type="password"
-									style="width:50%; float: left"
-									placeholder="비밀번호를 한번 더 입력하세요"
-									v-model="credentials.password_confirmation"
-									autofocus
-									>
-								</b-form-input>
-							</div>
+					<div class="row mt-2">
+						<label>비밀번호 확인</label>
+						<div class="form-group">
+							<input
+								class="form-control item"
+								type="password"
+								style="width:70%; float: left"
+								placeholder="비밀번호를 한번 더 입력하세요"
+								v-model="credentials.password_confirmation"
+								autofocus
+								@blur="passwordCheckValid"
+								>
 						</div>
+						<small align="left" v-if="!passwordCheckFlag && this.credentials.password_confirmation.length > 0" class="check-form" style="color:red">
+							비밀번호가 다릅니다.
+						</small>
+					</div>
 
-						<!--  약관동의 -->
-						<div class="form-group mt-3" align="left">
-							<input type="checkbox" id="term" />
-							<span>약관을 동의합니다.</span>
-							<!-- <span>약관보기</span> -->
-						</div>
-
-
-						<!-- 다음 버튼 -->
+					<!-- 다음 버튼 -->
+					<div class="row">
 						<button
-							class="mt-5" 
+							class="check-button mt-2"
 							@click.prevent="next()">Next</button>
-
-						<br>
-						<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
-
 					</div>
-				</div>		
-			</div>
 
-			<!-- 2페이지 -->
-			<div v-if="step === 2">
-				
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">추가 정보</h1>
+					<div class="row">
+						<button class="delete-button mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
+					</div>
 
-						<div class="item-box">
-							<div class="d-flex">
-								<!-- 나이 입력 -->
-								<div align="left" class="p-3">
-									<h4>나이</h4>
-									<select @change="age_select" v-model="credentials.userAge" class="form-select">
-										<option disabled value="">나이 선택</option>
-										<option value="10">10대</option>
-										<option value="20">20대</option>
-										<option value="30">30대</option>
-										<option value="40">40대</option>
-										<option value="50">50대</option>
-										<option value="60">60대</option>
-										<option value="70">70대</option>
-										<option value="80">80대</option>
-										<option value="90">90대</option>
-									</select>
-								</div>
+				</form>
+			</div>				
+		</div>
 
-								<!-- 지역 입력 -->
-								<div align="left" class="p-3">
-									<h4>거주 지역</h4>
-									<select
-										@change="area_select"
-										v-model="credentials.userLocation"
-										class="form-select"
-									>
-										<option disabled value="">지역선택</option>
-										<option value="서울">서울</option>
-										<option value="부산">부산</option>
-										<option value="대구">대구</option>
-										<option value="인천">인천</option>
-										<option value="광주">광주</option>
-										<option value="대전">대전</option>
-										<option value="울산">울산</option>
-										<option value="세종">세종</option>
-										<option value="경기">경기</option>
-										<option value="강원">강원</option>
-										<option value="충북">충북</option>
-										<option value="충남">충남</option>
-										<option value="전북">전북</option>
-										<option value="전남">전남</option>
-										<option value="경북">경북</option>
-										<option value="경남">경남</option>
-										<option value="제주">제주</option>
-									</select>
-								</div>
+		<!-- 2페이지 -->
+		<div v-if="step === 2">
+			<div class="registration-form">
+				<form>
+					<h1>추가 정보 수정</h1>
+					<div class="form-group row mb-3">
+						<h4>나이</h4>
+						<select @change="age_select" v-model="credentials.userAge" class="form-select">
+							<option disabled value="">나이 선택</option>
+							<option v-for="option in 80" :key="option" :value="option">{{ option }}</option>
+							<!-- <option value="10">10대</option>
+							<option value="20">20대</option>
+							<option value="30">30대</option>
+							<option value="40">40대</option>
+							<option value="50">50대</option>
+							<option value="60">60대</option>
+							<option value="70">70대</option>
+							<option value="80">80대</option>
+							<option value="90">90대</option> -->
+						</select>
+					</div>
+
+					<div class="form-group row mb-3">
+						<h4>거주 지역</h4>
+						<select
+							@change="area_select"
+							v-model="credentials.userLocation"
+							class="form-select">
+							<option disabled value="">지역선택</option>
+							<option value="서울">서울</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="인천">인천</option>
+							<option value="광주">광주</option>
+							<option value="대전">대전</option>
+							<option value="울산">울산</option>
+							<option value="세종">세종</option>
+							<option value="경기">경기</option>
+							<option value="강원">강원</option>
+							<option value="충북">충북</option>
+							<option value="충남">충남</option>
+							<option value="전북">전북</option>
+							<option value="전남">전남</option>
+							<option value="경북">경북</option>
+							<option value="경남">경남</option>
+							<option value="제주">제주</option>
+						</select>
+					</div>
+
+					<div class="form-group row mb-3">
+						<h1 class="row mx-1">성별</h1>
+						<div class="row">
+							<div class="col">
+								<button
+									type="button"
+									:class="{
+										modifygenderButtonOn: maleButton,
+										modifygenderButtonOff: !maleButton}"
+									@click="clickMale">
+									남자</button>
 							</div>
-
-							<!-- 성별 입력 -->
-							<div>
-								<div align="left"><h4>성별</h4></div>
-								<div align="left">
-									<button
-										type="button"
-										:class="{
-											modifygenderButtonOn: maleButton,
-											modifygenderButtonOff: !maleButton,
-										}"
-										@click="clickMale"
-									>
-										남자
-									</button>
-									<button
-										type="button"
-										:class="{
-											modifygenderButtonOn: femaleButton,
-											modifygenderButtonOff: !femaleButton,
-										}"
-										@click="clickFemale"
-									>
-										여자
-									</button>
-								</div>
+							<div class="col">
+								<button
+									type="button"
+									:class="{
+										modifygenderButtonOn: femaleButton,
+										modifygenderButtonOff: !femaleButton}"
+									@click="clickFemale">
+									여자</button>
 							</div>
 						</div>
+					</div>
 
-						<!-- 이미지 -->
+					<div class="form-group row mb-3">
+						<h4>나의 프로필</h4>
 						<Fileupload @image="uploadedImage"/>
-					
+					</div>
+
+					<div class="d-flex justify-content-between">
+						<button @click.prevent="prev()" class="check-button" type="button">Previous</button>
+							<button @click.prevent="next()" class="check-button" type="button">Next</button>
+					</div>
+
+					<div class="row">
+						<button class="delete-button mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+
+		<div v-if="step === 3">
+			<div class="registration-form">
+				<form>
+					<!-- 스타일 -->
+					<div class="item-box2 mt-3">
+						<CampStyle2 @style-status="styleStatus"
+							:campStyle1="this.credentials.campStyle1"
+							:campStyle2="this.credentials.campStyle2"
+							:campStyle3="this.credentials.campStyle3"
+							:campStyle4="this.credentials.campStyle4"
+							:campStyle5="this.credentials.campStyle5"
+							:campStyle6="this.credentials.campStyle6"
+						/>
+					</div>
+
+					<!-- 보유장비 -->
+					<div class="mt-3">
+						<Items2
+							:campEquipLantern="this.credentials.campEquipLantern"
+							:campEquipReel="this.credentials.campEquipReel"
+							:campEquipBurner="this.credentials.campEquipBurner"
+							:campEquipicebox="this.credentials.campEquipicebox"
+							:campEquipTableChair="this.credentials.campEquipTableChair"
+							:campEquipSleepingbag="this.credentials.campEquipSleepingbag"
+							:campEquipPot="this.credentials.campEquipPot"
+							:campEquipTent="this.credentials.campEquipTent"
+							:campEquipBrazier="this.credentials.campEquipBrazier"
+							:campEquipTarp="this.credentials.campEquipTarp"
+							@img-status="imgStatus"
+						/>
+					</div>
+
 					<div class="d-flex justify-content-between mt-5">
-						<button @click.prevent="prev()">Previous</button>
-						<button @click.prevent="next()">Next</button>	
+						<button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+						<button class="check-button" type="button" @click.prevent="onSubmit()">Save</button>
 					</div>
 
-					<br>
-					<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
-
-
+					<div class="row">
+						<button class="delete-button mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
 					</div>
-				</div>
-				
+				</form>
 			</div>
-
-			<div v-if="step === 3">
-				<div class="wrapC">
-					<div class="wrap-contact3">
-						<h1 class="contact3-form-title">Camp Style</h1>
 						
-						<div class="item-box2 mt-3">
-							<CampStyle2 @style-status="styleStatus"
-								:campStyle1="this.credentials.campStyle1"
-								:campStyle2="this.credentials.campStyle2"
-								:campStyle3="this.credentials.campStyle3"
-								:campStyle4="this.credentials.campStyle4"
-								:campStyle5="this.credentials.campStyle5"
-								:campStyle6="this.credentials.campStyle6"
-							/>
-						</div>
-						<div class="mt-3">
-							<Items2
-								:campEquipLantern="this.credentials.campEquipLantern"
-								:campEquipReel="this.credentials.campEquipReel"
-								:campEquipBurner="this.credentials.campEquipBurner"
-								:campEquipicebox="this.credentials.campEquipicebox"
-								:campEquipTableChair="this.credentials.campEquipTableChair"
-								:campEquipSleepingbag="this.credentials.campEquipSleepingbag"
-								:table="this.credentials.table"
-								:campEquipTent="this.credentials.campEquipTent"
-								:campEquipBrazier="this.credentials.campEquipBrazier"
-								:campEquipTarp="this.credentials.campEquipTarp"
-								@img-status="imgStatus"
-							/>
-						</div>
-						<div class="item-box mt-3">
-							<div align="left">
-								<h4>기타 장비</h4>
-							</div>
-							<EquipInput />
-							<EquipList />
-						</div>
-
-						<div class="d-flex justify-content-between mt-5">
-							<button @click.prevent="prev()">Previous</button>
-							<button @click.prevent="onSubmit()">Save</button>
-
-						</div>
-						<br>
-						<button class="btn-danger mt-3" @click="deleteAccount" type="button">회원탈퇴</button>
-					
-
-					
-					</div>
-				</div>
-			</div>
-			
-				
-				<!-- <div class="filterbox">
-					<button type="button" class="btn btn-secondary launch filterbox1 col-xs-4"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 회원탈퇴
-					</button>
-					<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-							<div class="modal-dialog">
-									<div class="modal-content">
-											<div class="modal-body ">
-												<Modal
-													:myEmail="this.myEmail"
-												/>
-											</div>
-									</div>
-							</div>
-					</div>
-				</div> -->
-			
-		</form>
-		
+		</div>	
 	</div>
 </template>
 
@@ -266,11 +249,8 @@
 import axios from "axios";
 import Items2 from '@/components/user/Items2.vue'
 import CampStyle2 from '@/components/user/campstyle2.vue'
-import EquipInput from '@/components/user/equip_input.vue'
-import EquipList from '@/components/user/equip_list.vue'
-import Fileupload from '@/components/mateparty/Fileupload.vue'
+import Fileupload from '@/components/user/Fileupload.vue'
 import Navbar from "@/components/common/Navbar.vue";
-// import Modal from '@/components/user/Modal.vue'
 import Swal from 'sweetalert2'
 
 
@@ -282,10 +262,7 @@ export default {
 	components: {
 		Items2,
 		CampStyle2,
-		EquipInput,
-		EquipList,
 		Fileupload,
-		// Modal,
 		Navbar,
 	},
 	
@@ -294,7 +271,6 @@ export default {
 			step:1,
 			myId: this.$store.state.myNum, // 로그인한 유저넘버
 			myEmail: this.$store.state.userEmail, // 로그인한 유저이메일
-			exam_user : "dohun",
 			credentials: {
 				userEmail: "", // 이메일
 				userNickname: "", // 닉네임
@@ -312,7 +288,7 @@ export default {
 				campEquipTableChair : 0,
 				campEquipSleepingbag : 0,
 				campEquipTarp : 0,
-				table : 0,
+				campEquipPot : 0,
 				campEquipTent : 0,
 				campEquipBrazier : 0,
 				campStyle1 : 0,
@@ -331,7 +307,7 @@ export default {
 					campEquipTableChair : 0,
 					campEquipSleepingbag : 0,
 					campEquipTarp : 0,
-					table : 0,
+					campEquipPot : 0,
 					campEquipTent : 0,
 					campEquipBrazier : 0,
 				},
@@ -347,6 +323,10 @@ export default {
 			maleButton: false,
 			femaleButton: false,
 			nicknameValidFlag: false,
+			passwordValidFlag: false, // 비밀번호 유효성검사
+			passwordCheckFlag: false, // 비밀번호 동일 검사
+			validatedcheck: true,
+
 		}
 	},
 
@@ -380,8 +360,8 @@ export default {
 			axios.get(`${SERVER_URL}/user/${this.myEmail}`)
 			.then(res => {
 				console.log(res)
-				this.credentials.userEmail = res.data.email
-				this.credentials.userNickname = res.data.nickname
+				this.credentials.userEmail = res.data.userEmail
+				this.credentials.userNickname = res.data.userNickname
 				this.credentials.userPassword = res.data.userPassword
 				this.credentials.userName = res.data.userName
 				this.credentials.password_confirmation = res.data.userPassword
@@ -396,7 +376,7 @@ export default {
 				this.credentials.campEquipTableChair = res.data.campEquipTableChair
 				this.credentials.campEquipSleepingbag = res.data.campEquipSleepingbag
 				this.credentials.campEquipTarp = res.data.campEquipTarp
-				this.credentials.table = res.data.table
+				this.credentials.campEquipPot = res.data.campEquipPot
 				this.credentials.campEquipTent = res.data.campEquipTent
 				this.credentials.campEquipBrazier = res.data.campEquipBrazier
 				this.credentials.campStyle1 = res.data.campStyle1
@@ -428,12 +408,12 @@ export default {
 				.then((res) => {
 					if (res.data.result === -1) {
 						this.namecheck = false
-						alert("이미 존재하는 닉네임입니다.")
+						Swal.fire({ title: "이미 존재하는 닉네임입니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
-						alert("닉네임 형식에 맞지 않습니다.")
+						Swal.fire({ title: "닉네임 형식에 맞지 않습니다.", icon: 'warning', timer:2000})
 					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
 						this.namecheck = true
-						alert("사용 가능한 닉네임 입니다.")
+						Swal.fire({ title: "사용 가능한 닉네임 입니다.", icon: 'success', timer:2000})
 					}
 				})
 		},
@@ -546,12 +526,12 @@ export default {
 				this.credentials.imgStatus.campEquipTarp = 0
 				this.credentials.campEquipTarp = 0
 			}
-			if (text.table === 1) {
-				this.credentials.imgStatus.table = 1
-				this.credentials.table = 1
+			if (text.campEquipPot === 1) {
+				this.credentials.imgStatus.campEquipPot = 1
+				this.credentials.campEquipPot = 1
 			} else {
-				this.credentials.imgStatus.table = 0
-				this.credentials.table = 0
+				this.credentials.imgStatus.campEquipPot = 0
+				this.credentials.campEquipPot = 0
 			}
 			if (text.campEquipTent === 1) {
 				this.credentials.imgStatus.campEquipTent = 1
@@ -624,11 +604,82 @@ export default {
 				this.nicknameValidFlag = false
 			}
 		},
+		passwordValid() {
+			if (/^(?=.*[a-z])(?=.*[0-9]).{8,16}$/.test(this.credentials.userPassword)) { 
+				this.passwordValidFlag = true 
+			} else { 
+				this.passwordValidFlag = false
+			}
+		},
+		passwordCheckValid() {
+			if (this.credentials.userPassword === this.credentials.password_confirmation) {
+				this.passwordCheckFlag = true
+			} else {
+				this.passwordCheckFlag = false
+			}
+		},
 		
 	}
 }
 </script>
 
-<style>
+<style scoped>
+.registration-form{
+	padding: 50px 0;
+}
+.registration-form form{
+	background-color: #dee9ff;
+	max-width: 600px;
+	margin: auto;
+	padding: 50px 70px;
+	border-radius: 30px;
+	/* border-top-left-radius: 30px;
+	border-top-right-radius: 30px; */
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+.registration-form .item{
+	border-radius: 20px;
+	margin-bottom: 25px;
+	padding: 10px 20px;
+	margin-right: 20px;
+}
+.registration-form .check-button{
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	background-color: #5791ff;
+	border: none;
+	color: white;
+}
+.modifygenderButtonOn {
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: skyblue;
+	color: white;
+  transition-duration: 0.5s;
+}
+.modifygenderButtonOff {
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: white;
+	border: none;
+  transition-duration: 0.5s;
+}
 
+.delete-button{
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	background-color: #fb0102;
+	border: none;
+	color: white;
+}
 </style>

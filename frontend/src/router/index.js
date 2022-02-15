@@ -148,7 +148,8 @@ const routes = [
   {
     path: "/Campsite/review/:rateNo",
     name: "Campratedetail",
-    component : Campratedetail
+    component : Campratedetail,
+    props : true,
   },
   {
     path : "/Campsite/review/revise",
