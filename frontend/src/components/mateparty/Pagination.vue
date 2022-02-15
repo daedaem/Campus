@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     
+    
     paginate (page_size, page_number) {
         
         let itemsToParse = this.newFilter

@@ -93,15 +93,18 @@ export default {
       })
       .then(res => {
         console.log(res)
-        emit('filter-data',res)
-        allData.value.mateCampstart = null
-        allData.value.mateCampend = null
-        if (store.state.initData === 0) {
-          store.dispatch('initData',1)
+        if (res.data.dto.matefilter === -1) {
+          alert('검색 결과가 없습니다.')
         } else {
-          store.dispatch('initData',0)
+          emit('filter-data',res)
+          allData.value.mateCampstart = null
+          allData.value.mateCampend = null
+          if (store.state.initData === 0) {
+            store.dispatch('initData',1)
+          } else {
+            store.dispatch('initData',0)
+          }
         }
-        
         
       })
       .catch(err => {
