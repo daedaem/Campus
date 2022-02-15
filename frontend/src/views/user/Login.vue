@@ -49,7 +49,8 @@
       <div class="social-media">
         <h5>Social Login</h5>
         <div class="social-icons">
-            <a href="#"><i class="icon-social-google" title="Google"></i></a>
+            <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
+            <a @click="kakaoLogout">로그아웃</a>
         </div>
       </div>
 
@@ -62,27 +63,8 @@
               로그아웃
             </button>
           </div> -->
+ 
 
-          <!-- 카카오 -->
-          <!-- <div class="d-flex justify-content-between mx-3 mt-3">
-            <img class="kakao_btn" src="@/assets/login/kakao_login_medium_wide.png"
-              @click="kakaoLogin"
-              alt="">
-          </div> -->
-          <!-- <button @click="logout">
-            로그아웃
-          </button> -->
-
-          <!-- <div class="col">
-            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/oauth}"
-              >카카오로 로그인하기</a
-            >
-          </div>
-          <div class="col">
-            <a class="btn btn-lg btn-secondary" th:href="@{/kakao/logout}"
-              >로그아웃</a
-            >
-          </div> -->
   </div>
 </template>
 
@@ -194,48 +176,44 @@ export default {
     //     onfailure: this.onFailure,
     //   });
     // },
-    kakaoLogin() {
-      // console.log(window.Kakao);
-      window.Kakao.Auth.login({
-        scope: "account_email, gender",
-        success: this.GetMe,
-      });
-    },
-    // GetMe(authObj){
-    //     console.log(authObj);
-    //     window.Kakao.API.request({
-    //         url:'/v2/user/me',
-    //         success : res => {
-    //             const kakao_account = res.kakao_account;
-    //             const userInfo = {
-    //                 nickname : kakao_account.profile.nickname,
-    //                 email : kakao_account.email,
-    //                 password : '',
-    //                 account_type : 2,
-    //             }
 
-    //               axios.post(`http://localhost:8080/account/kakao`,{
-    //                   email : userInfo.email,
-    //                   nickname : userInfo.nickname
-    //               })
-    //               .then(res => {
-    //                 console.log(res);
-    //                 console.log("데이터베이스에 회원 정보가 있음!");
-    //               })
-    //               .catch(err => {
-    //                   console.log(err);
-    //                 console.log("데이터베이스에 회원 정보가 없음!");
-    //               })
-    //             console.log(userInfo);
-    //             alert("로그인 성공!");
-    //             this.$bvModal.hide("bv-modal-example");
-    //         },
-    //         fail : error => {
-    //             this.$router.push("/errorPage");
-    //             console.log(error);
-    //         }
-    //     })
+    kakaoLogin() {
+      axios
+        .get(`${SERVER_URL}/login/kakao/oauth`)
+        .then((res) => {
+          console.log(res.data)
+          window.location.href = res.data
+          // window.open(res.data)
+        })
+
+    },
+    kakaoLogout() {
+      axios
+        .get(`${SERVER_URL}/logout`)
+        .then((res) => {
+          console.log(res)
+          alert("로그아웃")
+        })
+    },
+    // kakaoLogin() {
+    //   window.Kakao.Auth.login({
+    //     scope: 'profile_nickname, account_email, gender',
+    //     success: this.getProfile
+    //   });
     // },
+    // getProfile(authObj) {
+    //   console.log(1)
+    //   console.log(authObj)
+    //   window.Kakao.API.request({
+    //     url: '/v2/user/me',
+    //     success: res => {
+    //       const kakao_account = res.kakao_account;
+    //       console.log(kakao_account);
+
+    //       alert("로그인 성공")
+    //     }
+    //   })
+    // }
 
     // onSuccess(googleUser) {
     //   console.log(googleUser);

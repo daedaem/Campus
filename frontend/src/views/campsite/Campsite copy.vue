@@ -14,12 +14,9 @@
           <div class="capmsiteContent d-flex flex-row mx-2 align-items-start">
             <!-- <campsite-drop></campsite-drop> -->
             <div class="CampSite-FilterBox">
-              <campsite-filter
-                class="my-3 mx-2"
-                @newarticles="getNewdata"
-              ></campsite-filter>
+              <campsite-filter class="my-3 mx-2"></campsite-filter>
             </div>
-            <div v-if="newarticles.length != 0" style="max-width: 768px">
+            <div style="max-width: 768px">
               <div
                 class="row p-2 bg-white mb-3"
                 style="
@@ -27,7 +24,8 @@
                   border-radius: 15px;
                   border: 1px solid #dbdbdb;
                 "
-                v-for="(item, idx) in newarticles"
+                v-for="(item, idx) in articles"
+                :articles="articles"
                 :key="idx"
               >
                 <!-- {{item}} -->
@@ -138,92 +136,6 @@
               </div> -->
               <!-- {{item}} -->
             </div>
-            <div v-else style="max-width: 768px">
-              <div
-                class="row p-2 bg-white mb-3"
-                style="
-                  min-height: 200px;
-                  border-radius: 15px;
-                  border: 1px solid #dbdbdb;
-                "
-                v-for="(item, idx) in articles"
-                :key="idx"
-              >
-                <!-- {{item}} -->
-                <div class="CampSiteImageFrame my-2" style="width: 210px">
-                  <img
-                    class="img-fluid img-responsive rounded product-image"
-                    style="height: 100%"
-                    :src="item.firstImageUrl"
-                  />
-                </div>
-                <div class="d-flex flex-column col-md-5">
-                  <div class="mt-3">
-                    <h5 @click="goDetail(item.contentId)">
-                      {{ item.facltNm }}
-                    </h5>
-                    <div class="d-flex flex-row mb-3">
-                      <div class="ratings mr-2">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i
-                        ><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-3">
-                    <div class="mb-1 spec-1">{{ item.addr1 }}</div>
-                    <div class="mt-1 mb-1 spec-1">{{ item.lineIntro }}</div>
-                  </div>
-                  <!-- <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p> -->
-                </div>
-                <div
-                  class="align-items-center align-content-center col-md-3 border-left mt-1"
-                >
-                  <div class="d-flex flex-row align-items-center">
-                    <h5 class="mt-3">후기</h5>
-                  </div>
-                  <span
-                    v-if="mylst.includes(item.contentId) === false"
-                    style="cursor: pointer"
-                    class="heart-box"
-                    @click="giveHeart(item.contentId)"
-                  >
-                    <i class="bi bi-heart me-3"></i>
-                  </span>
-                  <span
-                    v-else
-                    style="cursor: pointer"
-                    class="heart-box"
-                    @click="cancelHeart(item.contentId)"
-                  >
-                    <i class="bi bi-heart-fill me-3" style="color:red;"></i>
-                  </span>
-                  <div class="d-flex flex-column pt-2 mt-4">
-                    <button
-                      class="btn btn-primary btn-sm"
-                      type="button"
-                      style="font-size: 12px"
-                    >
-                      <i class="bi bi-telephone-fill"></i> {{ item.tel }}
-                    </button>
-                    <button
-                      class="btn btn-outline-primary btn-sm mt-2"
-                      type="button"
-                      v-if="item.resveUrl != null"
-                    >
-                      예약사이트
-                    </button>
-                    <button
-                      class="btn btn-outline-primary btn-sm mt-2"
-                      type="button"
-                      v-else
-                    >
-                      전화예약문의
-                    </button>
-                  </div>
-                </div>
-                
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -248,51 +160,17 @@ export default {
     // CampSearch,
     CampsiteFilter,
   },
+  // watch() {
+  // resultOfCampsite;
+  // },
   setup() {
     const store = useStore();
     const router = useRouter();
     const articles = ref([]);
-    const newarticles = ref([]);
     const limit = ref(10);
     const offset = ref(0);
     const lst = ref(0);
     const mylst = ref([]);
-    const temp = ref([])
-    const start = ref(0)
-
-    const infinityData = () => {
-
-      // const datas = temp.value.splice(start.value,start.value+9)
-      // console.log('datas',datas)
-      newarticles.value.push(...temp.value.splice(start.value,start.value+9))
-      console.log(start.value, start.value+9)
-      console.log('articles',newarticles)
-
-      
-
-
-    }
-
-    const getNewdata = (val) => {
-      temp.value = val;
-      console.log(temp.value);
-
-
-      infinityData()
-      window.addEventListener("scroll", () => {
-        let scrollTop = document.documentElement.scrollTop;
-        let scrollHeight = document.documentElement.scrollHeight;
-        let clientHeight = document.documentElement.clientHeight;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10) {
-          start.value += 10;
-          // this.limit += 10
-          infinityData();
-        }
-      });
-
-
-    };
     // const mycamping = ref([]);
     // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
     const getDatas = () => {
@@ -307,10 +185,12 @@ export default {
         },
       })
         .then((res) => {
-          console.log("뭔데", res);
-          articles.value.push(...res.data.list);
-
-          // console.log(articles.value);
+          // console.log("뭔데", res);
+          // articles.value.push(...res.data.list);
+          store.dispatch("resultOfCampsite", ...res.data.list);
+          console.log("캠프사이트꺼", store.state.resultOfCampsite);
+          articles.value.push(store.state.resultOfCampsite);
+          // console.log("나옴?", articles.value);
         })
 
         .catch((err) => {
@@ -351,20 +231,21 @@ export default {
       })
         .then((res) => {
           lst.value = res.data.campLikeList;
-          console.log("크크", lst.value.length);
+          // console.log("크크", lst.value.length);
           for (let i = 0; i < lst.value.length; i++) {
             mycamping.push(lst.value[i].contentId);
           }
           // console.log('본다', lst.value)
           mylst.value = mycamping;
-          console.log("확인하자", res);
-          console.log("캠핑", mycamping);
+          // console.log("확인하자", res);
+          // console.log("캠핑", mycamping);
         })
         .catch((err) => {
           console.log("여긴오나", err);
           // console.log(userNm);
         });
     };
+
     onMounted(() => {
       camplikeuser();
       getDatas();
@@ -390,13 +271,8 @@ export default {
       giveHeart,
       cancelHeart,
       camplikeuser,
-      getNewdata,
       lst,
       mylst,
-      newarticles,
-      infinityData,
-      temp,
-      start
     };
   },
 };
@@ -406,8 +282,8 @@ export default {
 .navbar {
   /* width: 968px; */
   /* align-self: stretch; */
-  /* padding-left: calc(100% - 90%);
-  padding-right: calc(100vw - 90%); */
+  padding-left: calc(100% - 90%);
+  padding-right: calc(100vw - 90%);
 
   /* padding-left: calc(100% - 80%); */
   /* padding-right: calc(100vw - 10%); */
