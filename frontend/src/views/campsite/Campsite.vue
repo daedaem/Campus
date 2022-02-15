@@ -307,6 +307,7 @@ export default {
     }
 
     const getNewdata = (val) => {
+      newarticles.value = []
       temp.value = val;
       console.log(temp.value);
 
