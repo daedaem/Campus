@@ -2,9 +2,11 @@
   <div>
     <input
       class="Searchbar-inputBox"
+      type="text"
+      placeholder="&#xf52a; Search"
+      style="font-family: 'bootstrap-icons'"
       @input="async"
       @keyup.enter="SearchData()"
-      placeholder=""
     />
 
     <!-- <div class="ui cards" style="margin: 10px" v-if="inputData">
@@ -123,5 +125,9 @@ export default {
   background: transparent;
   border: transparent;
   border-bottom: 1px solid white;
+}
+input::placeholder {
+  color: #fafafa;
+  /* font-style: italic; */
 }
 </style>

@@ -1,384 +1,421 @@
 <template>
+  <Navbar/>
   <div>
-    <div class="card my-auto mx-auto" style="width: 25rem; height: 400px">
-      <div class="card-body">
-        <h2 class="card-title my-3">캠핑 유형 조사</h2>
 
         <div class="container p-3" align="left">
           <!-- 1 페이지 -->
           <div v-if="page === 1">
-            <h1>Q1</h1>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: oneButton,
-                mbtiButtonOff: !oneButton,
-              }"
-              @click="mbtione"
-            >
-              옆 텐트의 모르는 사람에게 말을 걸지 않는다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notoneButton,
-                mbtiButtonOff: !notoneButton,
-              }"
-              @click="mbtinotone"
-            >
-              나는 캠핑장 옆 텐트에서 망치 빌리는 것이 어렵지 않다
-            </button>
-            <button class="mt-3" @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h1>Q1</h1>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: oneButton,
+                      mbtiButtonOff: !oneButton,}"
+                    @click="mbtione">
+                    옆 텐트의 모르는 사람에게 말을 걸지 않는다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notoneButton,
+                      mbtiButtonOff: !notoneButton,}"
+                    @click="mbtinotone">
+                    나는 캠핑장 옆 텐트에서 망치 빌리는 것이 어렵지 않다
+                  </button>
+                </div>
+                <div class="row">
+                  <button class="check-button mt-3" @click.prevent="next()">Next</button>
+                </div>
+              </form>
+            </div>
           </div>
 
           <!-- 2 페이지 -->
           <div v-if="page === 2">
-            <h2>Q2</h2>
-
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: twoButton,
-                mbtiButtonOff: !twoButton,
-              }"
-              @click="mbtitwo"
-            >
-              나는 할 거리가 많은 캠핑장을 찾는다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: nottwoButton,
-                mbtiButtonOff: !nottwoButton,
-              }"
-              @click="mbtinottwo"
-            >
-              나는 조용한 캠핑장을 찾는다
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q2</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: twoButton,
+                      mbtiButtonOff: !twoButton,}"
+                    @click="mbtitwo">
+                    나는 할 거리가 많은 캠핑장을 찾는다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: nottwoButton,
+                      mbtiButtonOff: !nottwoButton,}"
+                    @click="mbtinottwo">
+                    나는 조용한 캠핑장을 찾는다
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <!-- 3 페이지 -->
           <div v-if="page === 3">
-            <h2>Q3</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: threeButton,
-                mbtiButtonOff: !threeButton,
-              }"
-              @click="mbtithree"
-            >
-              나는 혼자 캠핑 가면 지루해서 기피한다.
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notthreeButton,
-                mbtiButtonOff: !notthreeButton,
-              }"
-              @click="mbtinotthree"
-            >
-              나는 여럿이 같이 캠핑가면 피곤하다.
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q3</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: threeButton,
+                      mbtiButtonOff: !threeButton,}"
+                    @click="mbtithree">
+                    나는 혼자 캠핑 가면 지루해서 기피한다.
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notthreeButton,
+                      mbtiButtonOff: !notthreeButton,}"
+                    @click="mbtinotthree">
+                    나는 여럿이 같이 캠핑가면 피곤하다.
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <!-- 4 페이지 -->
           <div v-if="page === 4">
-            <h2>Q4</h2>
-
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: fourButton,
-                mbtiButtonOff: !fourButton,
-              }"
-              @click="mbtifour"
-            >
-              나는 익숙한 캠핑장에 가는 것을 선호한다.
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notfourButton,
-                mbtiButtonOff: !notfourButton,
-              }"
-              @click="mbtinotfour"
-            >
-              나는 가능하면 새로운 캠핑장을 경험해보는 것을 좋아한다.
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q4</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: fourButton,
+                      mbtiButtonOff: !fourButton,}"
+                    @click="mbtifour">
+                    나는 익숙한 캠핑장에 가는 것을 선호한다.
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notfourButton,
+                      mbtiButtonOff: !notfourButton,}"
+                    @click="mbtinotfour">
+                    나는 가능하면 새로운 캠핑장을 경험해보는 것을 좋아한다.
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 5">
-            <h2>Q5</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: fiveButton,
-                mbtiButtonOff: !fiveButton,
-              }"
-              @click="mbtifive"
-            >
-              나는 필요한 것만 챙겨서 다니는 미니멀 캠핑이 좋다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notfiveButton,
-                mbtiButtonOff: !notfiveButton,
-              }"
-              @click="mbtinotfive"
-            >
-              나는 분위기에 죽고 사는 감성 캠핑이 좋다
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q5</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: fiveButton,
+                      mbtiButtonOff: !fiveButton,}"
+                    @click="mbtifive">
+                    나는 필요한 것만 챙겨서 다니는 미니멀 캠핑이 좋다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notfiveButton,
+                      mbtiButtonOff: !notfiveButton,}"
+                    @click="mbtinotfive">
+                    나는 분위기에 죽고 사는 감성 캠핑이 좋다
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 6">
-            <h2>Q6</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: sixButton,
-                mbtiButtonOff: !sixButton,
-              }"
-              @click="mbtisix"
-            >
-              나는 캠핑장 가는 방법을 구체적으로 공부해서, 인근에 액티비티
-              정보를 사전에 찾아본다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notsixButton,
-                mbtiButtonOff: !notsixButton,
-              }"
-              @click="mbtinotsix"
-            >
-              나는 캠핑장 가는 방법을 당일 아침 네비게이션으로 확인한다.
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q6</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: sixButton,
+                      mbtiButtonOff: !sixButton,}"
+                    @click="mbtisix">
+                    나는 캠핑장 가는 방법을 구체적으로 공부해서, 인근에 액티비티
+                    정보를 사전에 찾아본다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notsixButton,
+                      mbtiButtonOff: !notsixButton,}"
+                    @click="mbtinotsix">
+                    나는 캠핑장 가는 방법을 당일 아침 네비게이션으로 확인한다.
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 7">
-            <h2>Q7</h2>
-
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: sevenButton,
-                mbtiButtonOff: !sevenButton,
-              }"
-              @click="mbtiseven"
-            >
-              지인이 캠핑하는데 눈이 왔다고 하면, 내 반응은 ‘분위기 좋았어?’
-              라고 물어본다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notsevenButton,
-                mbtiButtonOff: !notsevenButton,
-              }"
-              @click="mbtinotseven"
-            >
-              지인이 캠핑하는데 눈이 왔다고 하면, 내 반응은 ‘텐트는 잘 말렸어?’
-              라고 물어본다
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q7</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: sevenButton,
+                      mbtiButtonOff: !sevenButton,}"
+                    @click="mbtiseven">
+                    지인이 캠핑하는데 눈이 왔다고 하면, 내 반응은 ‘분위기 좋았어?’
+                    라고 물어본다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notsevenButton,
+                      mbtiButtonOff: !notsevenButton,}"
+                    @click="mbtinotseven">
+                    지인이 캠핑하는데 눈이 왔다고 하면, 내 반응은 ‘텐트는 잘 말렸어?’
+                    라고 물어본다
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 8">
-            <h2>Q8</h2>
-
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: eightButton,
-                mbtiButtonOff: !eightButton,
-              }"
-              @click="mbtieight"
-            >
-              나는 내가 해야 할 일을 먼저 하고, 옆 사람이 어려워하는 것을
-              도와준다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: noteightButton,
-                mbtiButtonOff: !noteightButton,
-              }"
-              @click="mbtinoteight"
-            >
-              나는 내가 해야 할 일이 있어도, 옆사람이 텐트치는 것이 어려우면, 그
-              것을 먼저 도와준다
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q8</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: eightButton,
+                      mbtiButtonOff: !eightButton,}"
+                    @click="mbtieight">
+                    나는 내가 해야 할 일을 먼저 하고, 옆 사람이 어려워하는 것을
+                    도와준다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: noteightButton,
+                      mbtiButtonOff: !noteightButton,}"
+                    @click="mbtinoteight">
+                    나는 내가 해야 할 일이 있어도, 옆사람이 텐트치는 것이 어려우면, 그
+                    것을 먼저 도와준다
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 9">
-            <h2>Q9</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: nineButton,
-                mbtiButtonOff: !nineButton,
-              }"
-              @click="mbtinine"
-            >
-              주변 사람들에게 같이가면 좋은 캠퍼로 인식되고 싶다.
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: notnineButton,
-                mbtiButtonOff: !notnineButton,
-              }"
-              @click="mbtinotnine"
-            >
-              주변 사람들에게 텐트 칼각 능력이 있는 캠퍼로 인식되고 싶다.
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q9</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: nineButton,
+                      mbtiButtonOff: !nineButton,}"
+                    @click="mbtinine">
+                    주변 사람들에게 같이가면 좋은 캠퍼로 인식되고 싶다.
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: notnineButton,
+                      mbtiButtonOff: !notnineButton,}"
+                    @click="mbtinotnine">
+                    주변 사람들에게 텐트 칼각 능력이 있는 캠퍼로 인식되고 싶다.
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 10">
-            <h2>Q10</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: tenButton,
-                mbtiButtonOff: !tenButton,
-              }"
-              @click="mbtiten"
-            >
-              세워둔 캠핑 계획을 못하면 매우 스트레스 받는다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: nottenButton,
-                mbtiButtonOff: !nottenButton,
-              }"
-              @click="mbtinotten"
-            >
-              세워둔 캠핑 계획을 못하면 ‘그럴수도 있지 뭐, 다른거 하자’
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q10</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: tenButton,
+                      mbtiButtonOff: !tenButton,}"
+                    @click="mbtiten">
+                    세워둔 캠핑 계획을 못하면 매우 스트레스 받는다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: nottenButton,
+                      mbtiButtonOff: !nottenButton,}"
+                    @click="mbtinotten">
+                    세워둔 캠핑 계획을 못하면 ‘그럴수도 있지 뭐, 다른거 하자’
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 11">
-            <h2>Q11</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: eleButton,
-                mbtiButtonOff: !eleButton,
-              }"
-              @click="mbtiele"
-            >
-              나는 텐트 피칭(설치)시 팩을 1~2개 덜 박아서, 텐트가 살짝 울어도
-              괜찮다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: noteleButton,
-                mbtiButtonOff: !noteleButton,
-              }"
-              @click="mbtinotele"
-            >
-              나는 텐트 피칭(설치)시 모든 팩을 다 박아서, 칼같이 팽팽한 텐트를
-              보면서 성취감을 느낀다
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="next()">Next</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q11</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: eleButton,
+                      mbtiButtonOff: !eleButton,}"
+                    @click="mbtiele">
+                    나는 텐트 피칭(설치)시 팩을 1~2개 덜 박아서, 텐트가 살짝 울어도
+                    괜찮다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: noteleButton,
+                      mbtiButtonOff: !noteleButton,}"
+                    @click="mbtinotele">
+                    나는 텐트 피칭(설치)시 모든 팩을 다 박아서, 칼같이 팽팽한 텐트를
+                    보면서 성취감을 느낀다
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="next()">Next</button>
+                </div>
+              </form>
             </div>
           </div>
 
           <div v-if="page === 12">
-            <h2>Q12</h2>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: tweButton,
-                mbtiButtonOff: !tweButton,
-              }"
-              @click="mbtitwe"
-            >
-              캠핑장 퇴실 시간에 맞춰서 나가려고 할 때, 늦을까봐 불안해서 조금
-              일찍 나간다
-            </button>
-            <button
-              type="button"
-              :class="{
-                mbtiButtonOn: nottweButton,
-                mbtiButtonOff: !nottweButton,
-              }"
-              @click="mbtinottwe"
-            >
-              캠핑장 퇴실 시간에 맞춰서 나가려고 한다.
-            </button>
-
-            <div class="mt-3">
-              <button @click.prevent="prev()">Previous</button>
-              <button @click.prevent="checkmbti()">finish</button>
+            <div class="registration-form">
+              <form>
+                <h2>Q12</h2>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: tweButton,
+                      mbtiButtonOff: !tweButton,}"
+                    @click="mbtitwe">
+                    캠핑장 퇴실 시간에 맞춰서 나가려고 할 때, 늦을까봐 불안해서 조금
+                    일찍 나간다
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    type="button"
+                    :class="{
+                      mbtiButtonOn: nottweButton,
+                      mbtiButtonOff: !nottweButton,}"
+                    @click="mbtinottwe">
+                    캠핑장 퇴실 시간에 맞춰서 나가려고 한다.
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+                  <button class="check-button" type="button" @click.prevent="checkmbti()">finish</button>
+                </div>
+                <div class="row">
+                  <button class="out-button" @click="mbtiskip">나가기</button>
+                </div>
+              </form>
             </div>
           </div>
+          
         </div>
       </div>
-    </div>
-    <button @click="mbtiskip">스킵버튼</button>
-    Debug: {{ credentials }}
-  </div>
 </template>
 
 <script>
 import axios from "axios";
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Survey",
+  components: {
+    Navbar
+  },
   data() {
     return {
       page: 1,
@@ -667,5 +704,59 @@ export default {
 }
 .mbtiButtonOff {
   background-color: white;
+}
+
+.registration-form{
+	padding: 50px 0;
+}
+.registration-form form{
+	background-color: #dee9ff;
+	max-width: 600px;
+	margin: auto;
+	padding: 50px 70px;
+	border-radius: 30px;
+	/* border-top-left-radius: 30px;
+	border-top-right-radius: 30px; */
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+.check-button{
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	background-color: #5791ff;
+	border: none;
+	color: white;
+}
+
+.out-button{
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	background-color: #c81414;
+	border: none;
+	color: white;
+}
+
+.mbtiButtonOn {
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: skyblue;
+	color: white;
+  transition-duration: 0.5s;
+}
+.mbtiButtonOff {
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+	font-weight: bold;
+  width: 80%;
+	background-color: white;
+	border: none;
+  transition-duration: 0.5s;
 }
 </style>

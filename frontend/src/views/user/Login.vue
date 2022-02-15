@@ -1,7 +1,7 @@
 <template>
   <Navbar></Navbar>
   <div class="registration-form">
-      <form>
+      <form style="border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 0px;border-bottom-right-radius:0px">
         <div class="form-icon">
           <h1>Camp-Us</h1>
           <span><i class="icon icon-user"></i></span>
@@ -20,7 +20,7 @@
           <input 
             type="password" 
             class="form-control item" 
-            id="password" 
+            id="password"
             placeholder="Password"
             v-model="credentials.userPassword">
         </div>
@@ -129,7 +129,7 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          Swal.fire({title:'로그인!', timer:2000})
+          Swal.fire({title:'로그인에 성공하였습니다.', timer:2000})
           console.log("이건가",res)
           this.$store.dispatch("login");
           this.$store.dispatch("userList", res.data);
@@ -326,6 +326,10 @@ export default {
     opacity: 0.6;
 }
 
+input[type=password] {
+  font-family: 'NanumSquare'
+}
+
 @media (max-width: 576px) {
   .registration-form form{
       padding: 50px 20px;
@@ -338,6 +342,7 @@ export default {
       line-height: 70px;
   }
 }
+
 
 /* .test {
   display: flex;

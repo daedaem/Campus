@@ -10,44 +10,147 @@
               :ImageList="feedDetailContents"
             ></feed-detail-carousel>
           </div>
-          <div class="FeedDetail-RightBox">
-            <div class="FeedDetail-RightBox-ProfileBox">
-              <div
-                class="d-flex FeedDetail-RightBox-ProfileBox-UserInfo ps-3 justify-content-between align-items-center"
-              >
+          <div
+            class="FeedDetail-RightBox d-flex flex-column justify-content-between"
+          >
+            <div>
+              <div class="FeedDetail-RightBox-ProfileBox">
                 <div
-                  class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
+                  class="d-flex FeedDetail-RightBox-ProfileBox-UserInfo ps-3 justify-content-between align-items-center"
                 >
-                  <!-- 프로필이미지넣어지면 -->
-                  <img
-                    style="cursor: pointer"
-                    :src="`${this.feedDetailContents.userProfileImage}`"
-                    class="FeedDetail-user-profile-image"
-                    alt="..."
-                  />
                   <div
-                    class="FeedDetail-ProfileBox-Username py-4 fw-bold"
-                    style="cursor: pointer"
+                    class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
                   >
-                    {{ this.feedDetailContents.userNickname }}
+                    <!-- 프로필이미지넣어지면 -->
+                    <img
+                      style="cursor: pointer"
+                      :src="`${this.feedDetailContents.userProfileImage}`"
+                      class="FeedDetail-user-profile-image"
+                      alt="..."
+                    />
+                    <div
+                      class="FeedDetail-ProfileBox-Username py-4 fw-bold"
+                      style="cursor: pointer"
+                    >
+                      {{ this.feedDetailContents.userNickname }}
+                    </div>
+                  </div>
+                  <div
+                    class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
+                  >
+                    <feed-detail-dropdown
+                      v-bind:feedDetailContents="feedDetailContents"
+                    ></feed-detail-dropdown>
                   </div>
                 </div>
-                <div
-                  class="FeedDetail-ProfileBox-Dropdown d-flex flex-column justify-self-end align-self-start pe-2"
-                >
-                  <feed-detail-dropdown
-                    v-bind:feedDetailContents="feedDetailContents"
-                  ></feed-detail-dropdown>
+              </div>
+              <div class="FeedDetail-RightBox-ContentBox text-start p-3">
+                <div class="FeedDetailContent">
+                  {{ this.feedDetailContents.snsContent }}
+                  <p class="calculatedTime text-end">{{ ContentTime }}</p>
                 </div>
               </div>
             </div>
-            <div class="FeedDetail-RightBox-ContentBox text-start p-3">
-              <div class="FeedDetailContent" style="overflow: auto">
-                {{ this.feedDetailContents.snsContent }}
-              </div>
-              <p class="calculatedTime text-end">{{ ContentTime }}</p>
-            </div>
+            <b-collapse id="comment" v-model="visible">
+              <div
+                class="collapsed-comment d-flex justify-content-around align-items-center"
+              >
+                <div class="my-auto col-12">
+                  <div class="form-floating">
+                    <div class="FeedDetail-RightBox-CommentBox">
+                      <div
+                        v-for="(comment, i) in this.comments"
+                        :key="i"
+                        :comment="comment"
+                      >
+                        <div v-if="this.comments">
+                          <div
+                            class="FeedDetail-RightBox-CommentBoxDetail d-flex px-2 pt-1 justify-content-between align-items-center"
+                          >
+                            <div
+                              class="d-flex justify-content-start align-items-center ms-1 col-10 py-1"
+                            >
+                              <div
+                                class="d-flex align-items-center justify-content-center"
+                                style="min-width: 95px"
+                              >
+                                <img
+                                  :src="`${comment.userProfileImage}`"
+                                  alt=""
+                                  class="user-comment-profile-image ms-2"
+                                />
+                                <div class="commentUserNickname fw-bold">
+                                  {{ comment.userNickname }}
+                                </div>
+                              </div>
+                              <div
+                                class="FeedListItems-commentContent col text-start ms-3"
+                                style="overflow: auto"
+                              >
+                                <div class="m-2">
+                                  {{ comment.snsReplyContent }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="d-flex" style="min-width: 40px">
+                              <div class="replytime" style="font-szie: 8px">
+                                {{ ReplyTime[i] }}
+                              </div>
+                              <i
+                                v-if="
+                                  comment.userNo ===
+                                  this.$store.state.userList.userNo
+                                "
+                                class="bi bi-x"
+                                @click="deleteComment(comment)"
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      v-if="this.$store.state.userEmail == null"
+                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
+                    >
+                      <p>좋아요 또는 댓글을 남기려면 로그인을 해주세요.</p>
+                    </div>
+                    <div
+                      v-else
+                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
+                    >
+                      <img
+                        :src="`${this.$store.state.userList.userProfileImage}`"
+                        alt=""
+                        class="user-comment-profile-image m-3"
+                      />
 
+                      <div class="FeedDetailUserCommentName fw-bold me-2">
+                        {{ this.$store.state.userList.userNickname }}
+                      </div>
+                      <textarea
+                        v-model="my_comment.snsReplyContent"
+                        id="commentcontent"
+                        ref="textarea"
+                        rows="1"
+                        class="FeedDetail-WriteComment d-flex m-2 col"
+                        placeholder="댓글을 입력하세요"
+                        style="overflow: auto"
+                      >
+                      </textarea>
+                      <div
+                        @click="leaveComment"
+                        class="leaveCommentButton btn-sm btn-outline-transparent text-primary m-2"
+                        type="button"
+                        id="commentcontent"
+                      >
+                        게시
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-collapse>
             <div
               class="FeedDetail-RightBox-ButtonBox d-flex justify-content-around fs-5 py-2"
             >
@@ -96,96 +199,6 @@
                 <i class="bi bi-envelope-plus"></i>
               </span>
             </div>
-            <b-collapse id="comment" v-model="visible">
-              <div
-                class="collapsed-comment d-flex justify-content-around align-items-center"
-              >
-                <div class="my-auto col-12">
-                  <div class="form-floating">
-                    <div class="FeedDetail-RightBox-CommentBox">
-                      <div
-                        v-for="(comment, i) in this.comments"
-                        :key="i"
-                        :comment="comment"
-                      >
-                        <div v-if="this.comments">
-                          <div
-                            class="FeedDetail-RightBox-CommentBoxDetail d-flex px-2 justify-content-between align-items-center"
-                          >
-                            <div
-                              class="d-flex justify-content-start align-items-center ms-1 col-10"
-                            >
-                              <img
-                                :src="`${comment.userProfileImage}`"
-                                alt=""
-                                class="user-comment-profile-image ms-2"
-                              />
-                              <div class="commentUserNickname fw-bold">
-                                {{ comment.userNickname }}
-                              </div>
-                              <div
-                                class="FeedListItems-commentContent col text-start ms-3"
-                                style="overflow: auto"
-                              >
-                                <div class="m-2">
-                                  {{ comment.snsReplyContent }}
-                                </div>
-                              </div>
-                            </div>
-                            <div class="replytime" style="overflow: auto">
-                              {{ ReplyTime[i] }}
-                            </div>
-                            <i
-                              class="bi bi-x"
-                              @click="deleteComment(comment)"
-                            ></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      v-if="this.$store.state.userEmail == null"
-                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
-                    >
-                      <p>좋아요 또는 댓글을 남기려면 로그인을 해주세요.</p>
-                    </div>
-                    <div
-                      v-else
-                      class="FeedDetail-Rightbox-Commentinputbox d-flex justify-content-center align-items-center col-12"
-                    >
-                      <img
-                        :src="`${this.$store.state.userList.userProfileImage}`"
-                        alt=""
-                        class="user-comment-profile-image m-3"
-                      />
-
-                      <div class="FeedDetailUserCommentName fw-bold me-2">
-                        {{ this.$store.state.userList.userNickname }}
-                      </div>
-                      <textarea
-                        v-model="my_comment.snsReplyContent"
-                        id="commentcontent"
-                        ref="textarea"
-                        rows="1"
-                        class="FeedDetail-WriteComment d-flex m-2 col"
-                        placeholder="댓글을 입력하세요"
-                        style="overflow: auto"
-                      >
-                      </textarea>
-                      <div
-                        @click="leaveComment"
-                        class="leaveCommentButton btn-sm btn-outline-transparent text-primary m-2"
-                        type="button"
-                        style="font-size: 12px"
-                        id="commentcontent"
-                      >
-                        게시
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </b-collapse>
           </div>
         </div>
       </div>
@@ -217,7 +230,7 @@ export default {
         userNo: this.$store.state.userList.userNo,
         snsNo: this.detailFeedsnsNo,
       },
-      visible: true,
+      visible: false,
       amiliked: 0,
       likedpeople: [],
       likeCount: 0,
@@ -311,7 +324,7 @@ export default {
       }
     },
     deleteComment(comment) {
-      // console.log(comment);
+      console.log("요거", comment);
       axios({
         method: "delete",
         // 맨 뒤에 2를 현재 내 usernumber로 바꿔줄 예정
@@ -454,7 +467,8 @@ export default {
 
 <style>
 /* 574픽셀부터는 사진 외 내용이 밑으로 가므로 top공백을 없애주기 위해서 feeddetailtotal 프레임에 css걸어줌 */
-
+@media (max-width: 768px) {
+}
 @media (min-width: 768px) {
   .FeedDetailTotal {
     width: calc(100% - 40px);
@@ -489,11 +503,11 @@ export default {
     margin: auto;
     margin-top: 5%;
     height: calc(100% - 40px);
-    max-height: 600px;
+    /* max-height: 00px; */
     max-width: 935px;
     /* max-width: */
     background-color: #ffff;
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid #eee;
   }
   .FeedDetail-Leftbox {
@@ -523,14 +537,15 @@ export default {
     flex-grow: 1;
     flex-shrink: 1;
     max-width: 360px;
+    /* max-height: 500px; */
     background-color: #ffff;
 
     /* border: 1px solid #eee; */
     /* width: 100%; */
   }
   .FeedDetail-RightBox-ContentBox {
-    flex-grow: 1;
-    flex-shrink: 1;
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
     /* flex: 1; */
   }
   .FeedDetail-WriteComment {
@@ -560,15 +575,12 @@ export default {
   width: 100%;
   height: 100%;
 } */
-.FeedDetail-RightBox-CommentBox {
-  height: 150px;
-  /* flex-grow: 2; */
-  flex: 2;
-  overflow: auto;
-}
+
 .feedDetailContentsFrame {
   /* border-bottom: 1px solid #eee; */
   max-width: 960px;
+  border-radius: 20px;
+
   /* background-color: bisque; */
 }
 .FeedDetail-Leftbox {
@@ -587,7 +599,7 @@ export default {
 }
 .FeedDetail-RightBox {
   /* flex-grow: 1; */
-
+  /* max-height: 500px; */
   min-height: 300px;
   background: #fff;
   border-left: 1px solid #eee;
@@ -604,16 +616,40 @@ export default {
 .FeedDetail-RightBox-ContentBox {
   /* flex-shrink: 1;
   flex-grow: 1; */
+  min-height: 135px;
+  max-height: 135px;
+  overflow: auto;
+  flex-grow: 1;
+
   border-bottom: 1px solid #eee;
+  /* 스크롤바 감추기 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   /* flex: 1; */
+}
+.FeedDetail-RightBox-ContentBox::-webkit-scrollbar {
+  display: none;
+}
+.FeedDetail-RightBox-CommentBox {
+  height: 120px;
+  /* flex-grow: 2; */
+  /* flex: 2; */
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* flex: 1; */
+}
+.FeedDetail-RightBox-CommentBox ::-webkit-scrollbar {
+  display: none;
 }
 .FeedDetail-RightBox-CommentBoxDetail {
   /* border-bottom: 1px solid #eee; */
   font-size: 12px;
-  flex: 1;
+  /* flex: 1; */
 }
+
 .FeedDetail-RightBox-ButtonBox {
-  border-bottom: 1px solid #eee;
   /* border-radius: 15px; */
   /* flex-grow: 2; */
 }
@@ -636,13 +672,15 @@ export default {
 .user-comment-profile-image {
   /* display: inline-block; */
   border-radius: 50%;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 10px 0px 0px;
   width: 25px;
   height: 25px;
   cursor: pointer;
 }
 .FeedDetail-Rightbox-Commentinputbox {
   /* border-top: 1px solid#eee; */
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   font-size: 12px;
 }
 .FeedDetail-WriteComment {
@@ -654,17 +692,26 @@ export default {
   max-height: 200px;
 }
 .replytime {
-  font-size: 10px;
+  font-size: 6px;
   color: grey;
+  overflow: auto;
 }
 .calculatedTime {
   font-size: 10px;
   color: grey;
 }
 .commentUserNickname {
-  font-size: 12x;
+  font-size: 11px;
 }
 .FeedDetail-ProfileBox-Username {
   font-size: 12px;
+}
+.bi-x {
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+.bi-x :hover {
+  /* display: */
+  opacity: 0;
 }
 </style>
