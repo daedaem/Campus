@@ -124,11 +124,11 @@ export default {
 }
 
 .card-group .test .card-body {
-  background-color: #fff6ec;
+  /* background-color: #fff6ec; */
   
 }
 .card-group .test .card-footer {
-  background-color: #fffcf8;;
+  /* background-color: #fffcf8;; */
 }
 
 h4 {

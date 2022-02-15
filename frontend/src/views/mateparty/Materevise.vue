@@ -3,7 +3,7 @@
     <body>
       <Fileupload @image="uploadedImage" />
 
-      <div style="margin-left: 30px">
+      <div class="registration-form" style="margin-left: 30px">
         <Filtermake
           @style-check="styleCheck"
           @limit-check="limitCheck"

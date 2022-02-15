@@ -54,7 +54,7 @@
           </div>
 
           <div class="Navbar-Searchbar ms-5">
-            <!-- <searchbar></searchbar> -->
+            <searchbar></searchbar>
             <!-- <form class="d-flex">
           <input
             class="form-control me-2"
@@ -169,10 +169,10 @@ import Swal from "sweetalert2";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-// import Searchbar from "./Searchbar.vue";
+import Searchbar from "./Searchbar.vue";
 import { useStore } from "vuex";
 export default {
-  // components: { Searchbar },
+  components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
