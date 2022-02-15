@@ -1,76 +1,67 @@
 <template>
-
-    <body>
-      <Fileupload @image="uploadedImage" />
-
-      <div style="margin-left: 30px">
-        <Filtermake
-          @style-check="styleCheck"
-          @limit-check="limitCheck"
-          @camp-check="campCheck"
-        />
-
-        <div align="left" class="filterbox">
-          <div align="left" class="filterbox2">
-            <Dropdown1 @member-value="memberValue" />
-          </div>
-          <div align="left" class="filterbox1">
-            <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" />
-          </div>
-        </div>
-
-        <Campchoice
-          align="left"
-          style="margin-top: 50px; margin-bottom: 20px"
-        />
-        <Datepicker @date-in="dateIn" />
-        <!-- <div class="camping">
-        <input class="input1" type="text" placeholder="캠핑장 선택">
-      </div> -->
-      </div>
-      <br />
-      <Items @img-status="imgStatus" />
-
-      <div class="container contact-form">
-        <div class="row">
-          <div>
-            <p align="left">제목</p>
-            <div class="form-group">
-              <input
-                v-model="partyData.mateTitle"
-                type="text"
-                name="txtName"
-                class="form-control"
-                placeholder="Your Name *"
-              />
+  <!-- <div class="test row" > -->
+    <body class="">
+      
+      <div class="registration-form">
+        <form>
+          
+            <div class="imgC">
+              
+              <Fileupload @image="uploadedImage" align="left"/>
+           
             </div>
-          </div>
-          <div>
-            <p align="left">메이트 소개</p>
+            <div class="form-group" style="margin-top:100px;">
+              <h4>메이트 제목</h4>
+                <input type="text" class="form-control item" id="username" placeholder="제목을 입력하세요.." v-model="partyData.mateTitle">
+            </div>
             <div class="form-group">
-              <textarea
+              <h4>내용</h4>
+                <textarea
                 v-model="partyData.mateContent"
                 name="txtMsg"
-                class="form-control"
+                class="form-control item"
                 placeholder="Your Message *"
                 style="width: 100%; height: 150px"
               ></textarea>
             </div>
-          </div>
-
-          <div class="form-group">
-            <input
-              type="submit"
-              name="btnSubmit"
-              class="btnContact"
-              value="Send Message"
-              @click="test"
-            />
-          </div>
-        </div>
-      </div>
+            <div class="form-group"  >
+              <h4>나이&인원 제한</h4>
+                <Dropdown1 @member-value="memberValue" class="members"/>
+                <Dropdown2 @age-value1="ageValue1" @age-value2="ageValue2" class="ages" style="display:inline;"/>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+              <h4 style="clear:both; margin-top:70px;">캠핑장 선택</h4>
+                <Campchoice
+          align="left"
+          style=" margin-bottom: 20px"
+          @camp-data="campValue"
+        />
+            </div>
+            <div class="form-group">
+              <h4>날짜 선택</h4>
+                <Datepicker @date-in="dateIn" class="date"/>
+            </div>
+            <div class="form-group" style="margin-top:50px;">
+              <h4 align="left">캠핑 유형</h4>
+              <Filtermake
+                @style-check="styleCheck"
+                @limit-check="limitCheck"
+                @camp-check="campCheck"
+              />
+            </div>
+            <div class="form-group">
+              <h4 style="margin-top:20px;">보유 장비</h4>
+              <Items @img-status="imgStatus" id="test"/>
+            </div>
+            <div class="form-group" align="center">
+                <button type="button" class="btn btn-block create-account" @click="test" >Create Account</button>
+            </div>
+        </form>
+        
+    </div>
     </body>
- 
+  <!-- </div> -->
+  
 </template>
 
 <script>
@@ -267,10 +258,16 @@ export default {
       this.partyData.mateCampstart = mateCampstart;
       this.partyData.mateCampend = mateCampend;
     },
+    campValue(text,id) {
+      console.log(text);
+      console.log(id)
+      this.$store.dispatch('campInfo',id)
+      this.partyData.mateCampsite = text;
+    },
 
     test() {
       // console.log(this.partyData)
-      console.log(2);
+      console.log(this.partyData);
       axios({
         method: "put",
 

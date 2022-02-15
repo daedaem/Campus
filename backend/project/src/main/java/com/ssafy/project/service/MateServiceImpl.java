@@ -453,6 +453,7 @@ public class MateServiceImpl implements MateService {
             System.out.println("list2 : " + list2.size());
             //들어가있는 스타일 개수에 따라 matNo list 반환
             List<Integer> list3 = new ArrayList<Integer>();
+            System.out.println(dto.getCampStyleList());
             if(dto.getCampStyleList() != null){
                 if(dto.getCampStyleList().getStyle3() != null){
                     list3 = dao.mateFilterStyleNum3(dto.getCampStyleList());
