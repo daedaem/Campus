@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
-	RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-	RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
+		RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -26,7 +26,7 @@ public class MessageController {
 	@MessageMapping("/message")
 	public void sendMessage(@Payload Message chatMessage) {
 		log.info("전달 메세지 : " + chatMessage);
-		
+
 		messageService.insertMessage(chatMessage);
 		template.convertAndSend("/sub/" + chatMessage.getChatroomId(), chatMessage);
 	}

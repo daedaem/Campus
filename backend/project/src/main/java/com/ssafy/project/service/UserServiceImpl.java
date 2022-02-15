@@ -89,6 +89,17 @@ public class UserServiceImpl implements UserService {
         return userResultDto;
     }
 
+    @Override
+    public UserResultDto userUpdateProfileImageKakao(UserDto userDto) {
+        UserResultDto userResultDto = new UserResultDto();
+        if (userDao.userUpdateProfileImage(userDto) == SUCCESS) { // 수정 성공
+            userResultDto.setResult(SUCCESS);
+        } else { // 수정 실패
+            userResultDto.setResult(FAIL);
+        }
+        return userResultDto;
+    }
+
     private String uploadFile(File file, String fileName) throws IOException { // 파일 업로드를 위해 사용
         BlobId blobId = BlobId.of("camp-us-9dace.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();

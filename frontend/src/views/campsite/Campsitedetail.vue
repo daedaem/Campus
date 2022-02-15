@@ -388,8 +388,6 @@ h1.tag {
     color: #c5c6c7
 }
 
-
-
 .tag-electron {
     color: #313244;
     background: #adecf3

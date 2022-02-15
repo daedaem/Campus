@@ -61,12 +61,13 @@ public class LoginController {
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "f7e4963d83bf571c5cdbf7870045979d");
-        url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
-        // url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
+        // url.append("&redirect_uri=http://i6e102.p.ssafy.io/login/kakao/callback");
+        url.append("&redirect_uri=http://localhost:8080/login/kakao/callback");
         url.append("&response_type=code");
 
         System.out.println("kakao login");
-        return "redirect:" + url.toString();
+        return url.toString();
+        // return "redirect:" + url.toString();
     }
 
     // 카카오 로그인 callback -> 유저 정보를 불러온다
@@ -81,6 +82,7 @@ public class LoginController {
         // System.out.println("access_token:" + access_token.get("access_token"));
 
         JsonNode userInfo = KaKaoLoginServiceImpl.getKakaoUserInfo(access_token.get("access_token"));
+        System.out.println(userInfo);
 
         // Get id
         int userNo = userInfo.get("id").asInt();
@@ -90,27 +92,33 @@ public class LoginController {
         JsonNode kakao_account = userInfo.path("kakao_account");
         String userNickname = properties.path("nickname").asText(); // 이름 정보 가져오는 것
         String userEmail = kakao_account.path("email").asText();
-        String userName = kakao_account.path("name").asText();
-        String userGender = properties.path("custom_field2").asText();
+        String userName = properties.path("nickname").asText();
+        String gender = kakao_account.path("gender").asText();
         String userProfileImage = properties.path("profile_image").asText();
-        int age = properties.path("custom_field1").asInt();
+        String age = kakao_account.path("age_range").asText();
         String userAge = null;
-        if (age >= 10 && age <= 19)
-            userAge = "10대";
-        else if (age >= 20 && age <= 29)
-            userAge = "20대";
-        else if (age >= 30 && age <= 39)
-            userAge = "30대";
-        else if (age >= 40 && age <= 49)
-            userAge = "40대";
-        else if (age >= 50 && age <= 59)
-            userAge = "50대";
-        else if (age >= 60 && age <= 69)
-            userAge = "60대";
-        else if (age >= 70 && age <= 79)
-            userAge = "70대";
-        else if (age >= 80 && age <= 89)
-            userAge = "80대";
+        String userGender = null;
+        if ("male".equals(gender))
+            userGender = "M";
+        else if ("female".equals(gender))
+            userGender = "W";
+
+        if ("10~19".equals(age))
+            userAge = "10";
+        else if ("20~29".equals(age))
+            userAge = "20";
+        else if ("30~39".equals(age))
+            userAge = "30";
+        else if ("40~49".equals(age))
+            userAge = "40";
+        else if ("50~59".equals(age))
+            userAge = "50";
+        else if ("60~69".equals(age))
+            userAge = "60";
+        else if ("70~79".equals(age))
+            userAge = "70";
+        else if ("80~89".equals(age))
+            userAge = "80";
 
         // if (member_name != null) {
         // session.setAttribute("isLogOn", true);
@@ -120,6 +128,10 @@ public class LoginController {
         System.out.println("id : " + userNo); // 여기에서 값이 잘 나오는 것 확인 가능함.
         System.out.println("name : " + userName);
         System.out.println("email : " + userEmail);
+        System.out.println("nickname : " + userNickname);
+        System.out.println("gender : " + userGender);
+        System.out.println("image : " + userProfileImage);
+        System.out.println("age : " + userAge);
 
         UserResultDto userResultDto = userService.userDuplEmail(userEmail);
         UserDto dto = new UserDto();
@@ -127,12 +139,19 @@ public class LoginController {
         dto.setUserEmail(userEmail);
         dto.setUserGender(userGender);
         dto.setUserName(userName);
-        dto.setUserNo(userNo);
         dto.setUserProfileImage(userProfileImage);
         dto.setUserNickname(userNickname);
+        dto.setUserLocation("서울");
+        dto.setCampStyle1('N');
+        dto.setCampStyle2('N');
+        dto.setCampStyle3('N');
+        dto.setCampStyle4('N');
+        dto.setCampStyle5('N');
+        dto.setCampStyle6('N');
 
         if (userResultDto.getResult() == 1) { // 회원가입
             userResultDto = userService.userRegister(dto);
+            userService.userUpdateProfileImageKakao(dto);
         }
 
         UserDto userDto = new UserDto();
