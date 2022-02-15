@@ -396,6 +396,7 @@ export default {
           .then((res) => {
             const temp = res.data.dto;
             member.value = temp.mateList
+            console.log('불러오기',res)
 
           })
           .catch((err) => {
