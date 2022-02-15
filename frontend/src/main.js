@@ -42,3 +42,5 @@ createApp(App)
     InfiniteLoading
   )
   .mount("#app");
+
+  window.Kakao.init('d143a1a0aa2684d509747f52dc9d3cfc');

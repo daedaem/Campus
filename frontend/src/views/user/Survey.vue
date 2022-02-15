@@ -1,6 +1,10 @@
 <template>
   <Navbar/>
   <div>
+    <!-- <b-progress :page="page" :max="max" show-progress animated></b-progress> -->
+    <b-progress class="mt-2" :max="max" show-value>
+      <b-progress-bar :page="page * (1 / 12)" variant="success"></b-progress-bar>
+    </b-progress>
 
         <div class="container p-3" align="left">
           <!-- 1 페이지 -->
@@ -419,6 +423,7 @@ export default {
   data() {
     return {
       page: 1,
+      max: 12,
       credentials: {
         survey: {
           EI: "",
@@ -467,6 +472,7 @@ export default {
   },
 
   methods: {
+
     prev() {
       this.page--;
     },
