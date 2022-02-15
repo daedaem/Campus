@@ -200,7 +200,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
-      // resultCampSite: [],
+      articles: "",
       searchWord: null,
       // doNmtemp: [],
       doNm: [],
@@ -219,39 +219,39 @@ export default {
   },
   methods: {
     findCampsite() {
-      console.log(
-        "전",
-        this.searchWord,
-        this.doNm,
-        this.sigunguNm,
-        this.toiletCo,
-        this.swrmCo,
-        this.wtrplCo,
-        this.trlerAcmpnyAt,
-        this.caravAcmpnyAt,
-        this.exprnProgrmAt,
-        this.exprnProgrmAt,
-        this.clturEventAt,
-        this.eqpmnLendCl,
-        this.siteMgCo
-      );
+      // console.log(
+      //   "전",
+      //   this.searchWord,
+      //   this.doNm,
+      //   this.sigunguNm,
+      //   this.toiletCo,
+      //   this.swrmCo,
+      //   this.wtrplCo,
+      //   this.trlerAcmpnyAt,
+      //   this.caravAcmpnyAt,
+      //   this.exprnProgrmAt,
+      //   this.exprnProgrmAt,
+      //   this.clturEventAt,
+      //   this.eqpmnLendCl,
+      //   this.siteMgCo
+      // );
       this.changed();
-      console.log(
-        "후",
-        this.searchWord,
-        this.doNm,
-        this.sigunguNm,
-        this.toiletCo,
-        this.swrmCo,
-        this.wtrplCo,
-        this.trlerAcmpnyAt,
-        this.caravAcmpnyAt,
-        this.exprnProgrmAt,
-        this.exprnProgrmAt,
-        this.clturEventAt,
-        this.eqpmnLendCl,
-        this.siteMgCo
-      );
+      // console.log(
+      //   "후",
+      //   this.searchWord,
+      //   this.doNm,
+      //   this.sigunguNm,
+      //   this.toiletCo,
+      //   this.swrmCo,
+      //   this.wtrplCo,
+      //   this.trlerAcmpnyAt,
+      //   this.caravAcmpnyAt,
+      //   this.exprnProgrmAt,
+      //   this.exprnProgrmAt,
+      //   this.clturEventAt,
+      //   this.eqpmnLendCl,
+      //   this.siteMgCo
+      // );
       // console.log(this.selected, "단어");
       // for (let i = 0; i <script this.doNm.length; i++) {
       // console.log(this.selected[i], "단어추출");
@@ -262,7 +262,7 @@ export default {
           limit: 2000,
           offset: 0,
           searchWord: this.searchWord,
-          doNm: this.doNm[0],
+          doNm: this.doNm,
           sigunguNm: this.sigunguNm,
           toiletCo: this.toiletCo,
           swrmCo: this.swrmCo,
@@ -278,8 +278,22 @@ export default {
       }).then((res) => {
         // articles.value.push(...res.data.list);
         // this.searchResults = res.data.list;
-        console.log("있는데", res);
-        this.filterCancel;
+        console.log("필터 데이터 전송", res.data.list);
+        // this.resultCampSite = res.data;
+        // if (res.data.list.length > 0) {
+        // for (let i = 0; i < res.data.list.length; i++) {
+        // this.$store.state.resultOfCampsite = res.data.list;
+        // console.log(this.$store.state.resultOfCampsite);
+        // }
+        // } else {
+        // this.$store.state.resultOfCampsite = res.data.list;
+        // }
+        this.$emit("newarticles", res.data.list);
+        // this.$store.dispatch("resultOfCampsite", res.data.list);
+
+        // console.log(this.$store.state.resultCampSite);
+        // articles.value.push(...res.data.list);
+        this.filterCancel();
 
         // this.$store.dispatch("searchData", "#" + this.inputData);
         // this.$store.dispatch("searchResult", res.data.list);
@@ -289,8 +303,8 @@ export default {
     },
     filterCancel() {
       (this.searchWord = null),
-        (this.doNm = null),
-        (this.sigunguNm = ""),
+        (this.doNm = []),
+        (this.sigunguNm = null),
         (this.toiletCo = 0),
         (this.swrmCo = 0),
         (this.wtrplCo = 0),
@@ -303,15 +317,20 @@ export default {
         (this.siteMgCo = 0);
     },
     changed() {
-      if (this.doNm === []) {
+      if (this.doNm.length > 0) {
+        this.doNm = this.doNm[0];
+        this.sigunguNm = "";
+        this.searchWord = "";
+      }
+      if (this.doNm.length == 0) {
         this.doNm = null;
       }
       // } else if (this.doNm.length == 1) {
       //   this.doNm = this.doNm[0];
       // }
-      if (this.sigunguNm == false) {
-        this.sigunguNm = null;
-      }
+      // if (this.sigunguNm == false) {
+      //   this.sigunguNm = null;
+      // }
       if (this.toiletCo == false) {
         this.toiletCo = 0;
       } else {
@@ -365,17 +384,18 @@ export default {
     },
   },
   watch: {
-    // doNmtemp() {
-    //   if (this.doNmtemp.length == 1) {
+    // doNm() {
+    // if (this.doNmtemp.length == 1) {
     //     this.doNm = this.doNmtemp;
     //     this.doNmtemp = true;
     //   }
-    //   if (this.doNmtemp == false) {
-    //     this.doNmtemp = [];
-    //   }
+    // if (this.doNm == false) {
+    //   this.doNm = [];
+    // }
     //   if (this.doNmtemp.length == 0) {
     //     this.doNm = "";
     //   }
+    // },
     // },
   },
 };
