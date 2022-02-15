@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
         RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE,
         RequestMethod.HEAD, RequestMethod.OPTIONS })
 
@@ -243,7 +243,7 @@ public class MateController {
     // 메인 페이지에 메이트 5개 띄우기
     @GetMapping(value = "/mate/main")
     private ResponseEntity<MateResultDto> mateListMain(MateParamDto mateParamDto) {
-        
+
         MateResultDto mateResultDto;
 
         // call mateList from MateService
@@ -261,7 +261,7 @@ public class MateController {
     private ResponseEntity<MateResultDto> mateStatusUpdate(@PathVariable int mateNo) {
 
         MateResultDto mateResultDto = service.mateStatusUpdate(mateNo);
-        
+
         if (mateResultDto.getResult() == SUCCESS) {
             return new ResponseEntity<MateResultDto>(mateResultDto, HttpStatus.OK);// 성공
         } else {
@@ -270,8 +270,9 @@ public class MateController {
         }
     }
 
-    // ----------------------------------------- 필터링 -----------------------------------------//
-    //캠핑장 유형 필터링
+    // ----------------------------------------- 필터링
+    // -----------------------------------------//
+    // 캠핑장 유형 필터링
     @PostMapping(value = "/mate/filter")
     private ResponseEntity<MateResultDto> mateFilter(@RequestBody MateDto mateDto) {
 
