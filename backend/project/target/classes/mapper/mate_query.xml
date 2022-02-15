@@ -47,7 +47,8 @@
                         mateContent = #{mateContent},
                         friendlimit = #{friendlimit},
                         memberlimit = #{memberlimit},
-                        contentId = #{contentId}
+                        contentId = #{contentId},
+                        mateCamptype = #{mateCampType}
                     WHERE mateNo = #{mateNo}
     </update>
 
