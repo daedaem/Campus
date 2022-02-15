@@ -7,7 +7,7 @@
                 <div class="content">
         
                     <h4 class="title">유형</h4>
-                    <p class="description">!고쳐야함! </p>
+                    <p class="description">{{cardData.mateCamptype}} </p>
                     <h4 class="title">스타일</h4>
                     <p class="description" >{{`# `+cardData.campStyleList.style1}}<br>{{`# `+cardData.campStyleList.style2}}<br>{{`# `+cardData.campStyleList.style3}}<br></p>
                 </div>

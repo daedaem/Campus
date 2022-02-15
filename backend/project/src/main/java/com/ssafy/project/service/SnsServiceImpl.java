@@ -199,31 +199,41 @@ public class SnsServiceImpl implements SnsService {
         SnsResultDto snsResultDto = new SnsResultDto();
 
         try {
+            // 현재 팔로잉 하는 유저의 피드를 저장.
             List<SnsDto> followList = new ArrayList<SnsDto>();
+            if(snsParamDto.getOffset() == 0){
             // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
+            snsParamDto.setUserNo(5);
             List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
             // 가져온 팔로잉 하는 사람을 순차적으로 호출
-            for(int i = 0; i < followingList.size(); i++){
-                // 팔로잉 하는 사람의 글을 temp에 순차적으로 저장
-                List<SnsDto> temp = dao.FollowingSnsList(followingList.get(i));
-                for(int j = 0; j < temp.size() ; j++ ){
-                    List<SnsImageDto> imageList = dao.snsImageList(temp.get(i).getSnsNo());
-                    temp.get(i).setImageList(imageList);
-                    List<SnsReplyDto> snsReplyList = dao.snsReplyList(temp.get(i).getSnsNo());
-                    temp.get(i).setReplyList(snsReplyList);
-                    followList.add(temp.get(j));
+            if(followingList.size() != 0){
+                for(int i = 0; i < followingList.size(); i++){
+                    // 팔로잉 하는 사람의 글을 temp에 순차적으로 저장
+                    List<SnsDto> temp = dao.FollowingSnsList(followingList.get(i));
+                    for(int j = 0; j < temp.size() ; j++ ){
+                        List<SnsImageDto> imageList = dao.snsImageList(temp.get(j).getSnsNo());
+                        temp.get(j).setImageList(imageList);
+                        List<SnsReplyDto> snsReplyList = dao.snsReplyList(temp.get(j).getSnsNo());
+                        temp.get(j).setReplyList(snsReplyList);
+                        followList.add(temp.get(j));
+                    }
                 }
             }
+            }
+            snsParamDto.setUserNo(5);
             
+            snsParamDto.setFollowingList(dao.getFollowingUser(snsParamDto.getUserNo()));
+            System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset());
             List<SnsDto> list = dao.snsList(snsParamDto);
-            int count = dao.snsListTotalCount();
+            int count = dao.snsListTotalCountWithoutFolling(snsParamDto);
             for (int i = 0; i < snsParamDto.getLimit(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
                 list.get(i).setReplyList(snsReplyList);
+                followList.add(list.get(i));
             }
-            snsResultDto.setList(list);
+            snsResultDto.setList(followList);
             snsResultDto.setCount(count);
             snsResultDto.setResult(SUCCESS);
 
@@ -271,7 +281,6 @@ public class SnsServiceImpl implements SnsService {
 
         try {
             // 로컬에 저장된 이미지 삭제
-            System.out.println("delete serviceImpl");
             // snsImageDelete(snsNo);
             // 댓글 삭제;
             dao.snsDelete(snsNo); // 마지막으로 글 삭제
