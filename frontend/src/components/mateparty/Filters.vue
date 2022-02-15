@@ -36,8 +36,8 @@
         <Modal4 @sort-check="sortCheck"/>
       </ul>
     </div>
-    <div class="btn-group filterbox1 col-4">
-      <button class="btn" type="button" aria-expanded="false" style="color: #7ac4e1;" @click="apply">
+    <div class="btn-group filterbox1-apply col-4">
+      <button class="btn" type="button" aria-expanded="false" style="color: #fff;" @click="apply">
         적용
       </button>
       
@@ -204,7 +204,19 @@ export default {
   
   
 } 
-
+.filterbox1-apply{
+    float: left;
+  width: 90px;
+  height: 40px;
+ 
+  background-color: #7ac4e1;
+  color: #fff;
+  border: 3px solid #7ac4e1;
+  border-radius: 30px;
+  font-size : 14px;
+  margin:5px;
+  position : relative;
+}
 .modal-content{
    border-radius: 45px;
 }

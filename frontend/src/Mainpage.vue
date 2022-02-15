@@ -13,7 +13,7 @@
             <div class="text-center">
 
               <a class="btn btn-sm" href="#">
-                <div class="CreateAccountButton">계정 만들기</div>
+                <div class="CreateAccountButton" style="max-width:100%; height:auto;">계정 만들기</div>
               </a>
             </div>
           </div>
