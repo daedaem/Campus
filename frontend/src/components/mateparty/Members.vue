@@ -1,6 +1,6 @@
 <template>
   <div v-if="mate.mateStatus === 'N'">
-      <div align="center">모집이 마갑되었습니다. 함께한 캠퍼들을 평가해주세요.</div>
+      <div align="center" style="margin-top: 50px; margin-bottom : 50px; color:#7ac4e1;">모집이 마갑되었습니다. 함께한 캠퍼들을 평가해주세요.</div>
       <div class="container mt-5 d-flex justify-content-center">
       <div class="row">
         <div class="card p-4 m-3 col-6" v-for="(item, idx) in member" :key="idx">
