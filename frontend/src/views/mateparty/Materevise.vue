@@ -1,5 +1,5 @@
 <template>
-  <div class="test">
+
     <body>
       <Fileupload @image="uploadedImage" />
 
@@ -70,7 +70,7 @@
         </div>
       </div>
     </body>
-  </div>
+ 
 </template>
 
 <script>
@@ -321,12 +321,36 @@ export default {
 </script>
 
 <style scoped>
+
+@media (min-width: 768px) {
+body {
+    width: 768px;
+
+    background: #fff;
+ 
+  }
+
+.imgC {
+  margin-left:125px;
+}
+}
+
+
+#test {
+  padding : 0px;
+  margin-left: 0px;
+  margin-right : 0px;
+  border-color: white;
+  border-style:solid;
+}
+
 body {
   /* width: 768px; */
-  width: 768px;
+  /* width: 768px; */
   margin: 0 auto;
   padding: 0 20px;
-  background: beige;
+  background-color: #dee9ff;
+  border-radius: 30px;
 }
 
 .test {
@@ -350,8 +374,8 @@ body {
 
 .filterbox1 {
   float: left;
-  margin-left: 50px;
-  margin-right: 20px;
+  /* margin-left: 50px; */
+  /* margin-right: 20px; */
 }
 .filterbox2 {
   float: left;
@@ -379,6 +403,27 @@ body {
 .contact-form .form-control {
   border-radius: 1rem;
 }
+
+.form-control{
+  border-radius: 20px;
+}
+
+.members{
+  width:7.5rem;
+  border-radius : 20px;
+  float: left;
+}
+
+.ages{
+  width:100px;
+  height:100px;
+  float: right;
+}
+
+.date{
+  border-radius: 20px;
+}
+
 .contact-image {
   text-align: center;
 }
@@ -424,5 +469,103 @@ body {
   overflow: hidden;
   margin-top: 100px;
   margin-bottom: 40px;
+}
+
+.registration-form{
+	padding: 50px 0;
+}
+
+.registration-form form{
+    background-color: #fff;
+    max-width: 7500px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color: #5891ff;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+  
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.registration-form .social-media{
+    max-width: 600px;
+    background-color: #fff;
+    margin: auto;
+    padding: 35px 0;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #9fadca;
+    border-top: 1px solid #dee9ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
+}
+
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+}
+
+h4 {
+  color : #5a83ab;
 }
 </style>

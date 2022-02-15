@@ -140,15 +140,19 @@ export default {
 
   watch : {
     drinkCheck(text) {
+      console.log(text)
       this.$emit('drink-check',text)
     },
     styleCheck(text) {
+      console.log(text)
       this.$emit('style-check',text)
     },
     limitCheck(text) {
+      console.log(text)
       this.$emit('limit-check',text)
     },
     campCheck(text) {
+      console.log(text)
       this.$emit('camp-check',text)
     }
   }
