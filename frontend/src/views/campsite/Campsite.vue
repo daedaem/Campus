@@ -59,7 +59,22 @@
                   <div class="d-flex flex-row align-items-center">
                     <h5 class="mt-3">후기</h5>
                   </div>
-                  <h6 class="text-success">찜?</h6>
+                  <span
+                    v-if="mylst.includes(item.contentId) === false"
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="giveHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart me-3"></i>
+                  </span>
+                  <span
+                    v-else
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="cancelHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart-fill me-3" style="color:red;"></i>
+                  </span>
                   <div class="d-flex flex-column pt-2 mt-4">
                     <button
                       class="btn btn-primary btn-sm"
@@ -84,56 +99,8 @@
                     </button>
                   </div>
                 </div>
-                <!-- {{item}} -->
+                
               </div>
-              <!-- <div
-                class="align-items-center align-content-center col-md-3 border-left mt-1"
-              >
-                <div class="d-flex flex-row align-items-center">
-                  <h4 class="mr-1">후기</h4>
-                </div>
-
-                <span
-                  v-if="mylst.includes(item.contentId) === false"
-                  style="cursor: pointer"
-                  class="heart-box"
-                  @click="giveHeart(item.contentId)"
-                >
-                  <i class="bi bi-heart me-3"></i>
-                </span>
-                <span
-                  v-else
-                  style="cursor: pointer"
-                  class="heart-box"
-                  @click="cancelHeart(item.contentId)"
-                >
-                  <i class="bi bi-heart-fill me-3" style="color:red;"></i>
-                </span>
-                <div class="d-flex flex-column mt-4">
-                  <button
-                    class="btn btn-primary btn-sm"
-                    type="button"
-                    style="font-size: 12px"
-                  >
-                    <i class="bi bi-telephone-fill"></i> {{ item.tel }}
-                  </button>
-                  <button
-                    class="btn btn-outline-primary btn-sm mt-2"
-                    type="button"
-                    v-if="item.resveUrl != null"
-                  >
-                    예약사이트
-                  </button>
-                  <button
-                    class="btn btn-outline-primary btn-sm mt-2"
-                    type="button"
-                    v-else
-                  >
-                    전화예약문의
-                  </button>
-                </div>
-              </div> -->
-              <!-- {{item}} -->
             </div>
           </div>
         </div>
