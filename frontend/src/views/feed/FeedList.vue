@@ -187,7 +187,28 @@ export default {
 .feedListItems {
   border-radius: 30px;
 }
+@media(max-width:758px){
+  .FeedCreateFrame {
+  width: 100%;
+  background: #fff;
+  /* border-radius: 20px; */
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+  min-height: 70px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+}
 @media (min-width: 768px) {
+  .FeedCreateFrame {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #dbdbdb;
+  min-height: 70px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
   .FeedListBackground {
     /* width:768px; */
     /* margin:auto; */
@@ -245,15 +266,7 @@ export default {
     } */
   }
 }
-.FeedCreateFrame {
-  width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  border: 1px solid #dbdbdb;
-  min-height: 70px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+
 .FeedList-ProfileImage {
   width: 40px;
   height: 40px;

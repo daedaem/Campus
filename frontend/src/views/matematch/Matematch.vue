@@ -1,8 +1,8 @@
 <template>
     <Navbar id="navbar"></Navbar>
-  <div class="CampSitebackground">
-    <div class="CampeSitebackground-imgcover">
-      <div class="CampeSitebackground-content">메이트 매칭</div>
+  <div class="MateMatch">
+    <div class="MateMatch-imgcover">
+      <div class="MateMatch-content"><h1> 메이트 매칭</h1></div>
       <div></div>
     </div>
   </div>
@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style scoped>
-.CampSitebackground {
+.MateMatch {
   width: 100%;
   height: 200px;
   /* background: black; */
@@ -130,14 +130,14 @@ export default {
   50% 65% no-repeat; 
   background-size: 100% auto;
 }
-.CampeSitebackground-imgcover {
+.MateMatch-imgcover {
   position: absolute;
   width: 100%;
   height: 200px;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
-.CampeSitebackground-content {
+.MateMatch-content {
   position: absolute;
   top: 30%;
   left: 20%;

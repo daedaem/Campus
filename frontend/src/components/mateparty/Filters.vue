@@ -196,7 +196,7 @@ export default {
  
   background-color: #fff;
   color: #7ac4e1;
-  border: 3px solid #7ac4e1;
+  border: 2px solid #7ac4e1;
   border-radius: 30px;
   font-size : 14px;
   margin:5px;

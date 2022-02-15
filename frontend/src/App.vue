@@ -47,17 +47,14 @@ export default {
   //   // color: #2c3e50;
 }
 
-
-
 @media (max-width: 768px) {
   .chat {
     // background: whitesmoke;
-    position : absolute;
-    left : 10;
-    bottom : 0;
+    position: absolute;
+    left: 10;
+    bottom: 0;
   }
 }
-
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
