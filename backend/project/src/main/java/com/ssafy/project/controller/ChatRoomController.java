@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "http://localhost:5500", allowCredentials = "true", allowedHeaders = "*", methods = {
-	RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-	RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "http://i6e102.p.ssafy.io", allowCredentials = "true", allowedHeaders = "*", methods = {
+		RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS })
 @Slf4j
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
@@ -35,7 +35,6 @@ public class ChatRoomController {
 	private final IChatRoomService chatroomService;
 	private final IMessageService messageService;
 	final int PAGE = 10;
-
 
 	// 특정 채팅방 타이틀 가져오기
 	@GetMapping("/room/{id}")
@@ -76,12 +75,12 @@ public class ChatRoomController {
 		// 요기 만들어야한디~
 		int check = chatroomService.checkReceiverRoom(sendId, receiveId);
 		System.out.println("컨트롤러에서 체크한 값 : " + check);
-		if(check == 0){ // 만약 sendId와의 개인 채팅방이 없다면....
+		if (check == 0) { // 만약 sendId와의 개인 채팅방이 없다면....
 			resultOfCreation = chatroomService.createPersonalRoom(sendId, receiveId);
-		}else{ //방이 있다면..
+		} else { // 방이 있다면..
 			resultOfCreation = check;
 		}
-		
+
 		if (resultOfCreation >= 0)
 			return ResponseEntity.status(HttpStatus.OK).body(resultOfCreation);
 		else
@@ -100,7 +99,7 @@ public class ChatRoomController {
 	// 개인채팅 삭제 (전체 삭제)
 	@DeleteMapping("/room/delete/{id}")
 	public ResponseEntity<Long> deletePersonalRoom(@PathVariable int id) {
-		
+
 		long resultOfCreation = chatroomService.deletePersonalRoom(id);
 
 		if (resultOfCreation >= 0)
@@ -112,7 +111,7 @@ public class ChatRoomController {
 	// 단체 채팅에서 나만 나가기
 	@DeleteMapping("/room/delete/mymessage/{id}/{sendId}")
 	public ResponseEntity<Long> deleteMyMessage(@PathVariable int id, @PathVariable int sendId) {
-		
+
 		long resultOfCreation = chatroomService.deleteMyMessage(id, sendId);
 
 		if (resultOfCreation >= 0)
