@@ -407,8 +407,12 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
 
         try {
-            
-            mateResultDto.setList(dao.mateListMain(mateParamDto));
+            List<MateDto> list = dao.mateListMain(mateParamDto);
+
+            for (MateDto mateDto : list) {
+                mateDto.setMateList(dao.mateApplyList(mateDto.getMateNo()));
+            }
+            mateResultDto.setList(list);
             mateResultDto.setResult(SUCCESS);
 
         } catch (Exception e) {
