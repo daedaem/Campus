@@ -3,14 +3,17 @@
 <div class="wrapper">
   <div class="navbar">
     <i class="fas fa-home icon-home"></i>
+    <i class="fas fa-cog icon-settings" style="margin-right:70px"></i>
     <i class="fas fa-cog icon-settings"></i>
+    <i class="fas fa-cog icon-settings"></i>
+
 
     <div class="circle">
       <i class="fas fa-plus plus-icon"></i>
       <i class="fab fa-youtube social"></i>
       <i class="fab fa-twitter social"></i>
       <i class="fab fa-github  social"></i>
-      <i class="fab fa-github  social"></i>
+    
     </div>
     <div class="circleBackground"></div>
   </div>
@@ -45,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 
-$navbar-height: 100px;
+$navbar-height: 80px;
 $circle-radius: 80px;
 $backgroundColor: rgb(253, 192, 223);
 
@@ -105,9 +108,9 @@ body {
   left: 50%;
   transform: translateX(-50%);
   bottom: calc(100px - #{$circle-radius / 2});
-  margin-bottom: 0;
-  height: $circle-radius;
-  width: 75px;
+  margin-bottom: -50px;
+  height: 55px;
+  width: 55px;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
@@ -121,7 +124,7 @@ body {
 }
 
 .circle:hover {
-  height: 250px;
+  height: 200px;
   border-radius: 50px;
 }
 
@@ -189,8 +192,8 @@ body {
   transform: translateX(-50%);
   bottom: calc(100px - #{$circle-radius + 20} / 2);
   margin-bottom: 0;
-  height: calc(#{$circle-radius} + 20px);
-  width: calc(#{$circle-radius} + 20px);
+  // height: calc(#{$circle-radius} + 20px);
+  // width: calc(#{$circle-radius} + 20px);
   border-radius: calc(#{$circle-radius + 20} / 2);
   background-color: $backgroundColor;
 }

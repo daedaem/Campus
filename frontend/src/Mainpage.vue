@@ -25,6 +25,7 @@
     
     <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" style="margin-top:50px;"/>
   </body>
+  <Newmodal/>
 </template>
 
 <script>
@@ -33,6 +34,7 @@ import axios from "axios";
 // import { useStore } from "vuex";
 import { ref } from "vue";
 import { useStore } from "vuex";
+import Newmodal from '@/components/mateparty/Newmodal.vue'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -43,6 +45,7 @@ export default {
   components: {
     Maincarousel,
     Navbar,
+    Newmodal,
   },
 
   setup() {

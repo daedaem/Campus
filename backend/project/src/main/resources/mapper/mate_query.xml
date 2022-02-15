@@ -49,7 +49,6 @@
                         memberlimit = #{memberlimit},
                         contentId = #{contentId},
                         mateCamptype = #{mateCamptype}
-
                     WHERE mateNo = #{mateNo}
     </update>
 
