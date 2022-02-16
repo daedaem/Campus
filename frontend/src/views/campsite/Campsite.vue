@@ -382,21 +382,27 @@ export default {
     const giveHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "post",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'post',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("들어오나",res);
+          mylst.value.push(boardid)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const cancelHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "delete",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'delete',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("빼나",res)
+          mylst.value.splice(mylst.value.indexOf(boardid), 1)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const camplikeuser = () => {
