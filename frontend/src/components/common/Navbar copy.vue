@@ -1,5 +1,5 @@
 <template>
-  <nav class="CampusNavbar navbar navbar-expand-md d-flex align-items-center">
+  <nav class="navbar navbar-expand-md d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
       <div class="d-flex align-items-center">
         <a class="brandname ms-3 navbar-brand" href="#">
@@ -53,18 +53,18 @@
             </a>
           </div>
 
-          <!-- <div class="Navbar-Searchbar ms-5"> -->
-          <!-- <searchbar></searchbar> -->
-          <!-- <form class="d-flex">
+          <div class="Navbar-Searchbar ms-5">
+            <searchbar></searchbar>
+            <!-- <form class="d-flex">
           <input
             class="form-control me-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
           /> -->
-          <!-- <button class="btn btn-outline-light" type="submit">Search</button> -->
-          <!-- </form> -->
-          <!-- </div> -->
+            <!-- <button class="btn btn-outline-light" type="submit">Search</button> -->
+            <!-- </form> -->
+          </div>
         </div>
       </div>
 
@@ -79,7 +79,7 @@
             </button>
           </router-link>
         </div> -->
-      <div class="NavbarProfile d-flex">
+      <div class="d-flex">
         <div class="d-flex justify-content-center align-items-center">
           <b-dropdown
             size="sm"
@@ -169,10 +169,10 @@ import Swal from "sweetalert2";
 
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-// import Searchbar from "./Searchbar.vue";
+import Searchbar from "./Searchbar.vue";
 import { useStore } from "vuex";
 export default {
-  // components: { Searchbar },
+  components: { Searchbar },
   name: "Navbar",
   setup() {
     const router = useRouter();
@@ -254,6 +254,12 @@ export default {
 </script>
 
 <style scoped>
+/* 760보다 작으면 서치바 숨기고 */
+/* 숨겨져있던 서치바 길게 */
+/* .navbar {
+  /* height: 60px; */
+
+/* } */
 * {
   font-family: "myFont";
 }
@@ -266,7 +272,10 @@ a .Navbar-User-profile-nickname {
   font-family: "navfont";
 }
 
-/* @media (max-width: 800px) {
+@media (max-width: 800px) {
+  .Navbar-Searchbar {
+    display: none;
+  }
   .btn-group {
     margin-right: 1rem;
     padding-right: 1rem;
@@ -281,8 +290,8 @@ a .Navbar-User-profile-nickname {
     margin-right: 3rem;
     padding-right: 3rem;
   }
-} */
-/* @media (max-width: 580px) {
+}
+@media (max-width: 580px) {
   .Navbar-buttons {
     margin: auto;
     font-size: 10%;
@@ -297,24 +306,18 @@ a .Navbar-User-profile-nickname {
     border-radius: 20px;
   }
   .Navbar-User-profile-nickname {
-    color: blacolor: #fff;ck;
+    /* color: blacolor: #fff;ck; */
     font-size: 12px;
   }
-/* } */
-.Navbar-User-profile-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
 }
-@media (min-width: 768px) {
-  .NavbarProfile {
-    padding-right: 50px;
+@media (min-width: 581px) {
+  .Navbar-User-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
   }
 }
-@media (max-width: 767px) {
-  .NavbarProfile {
-    padding-right: 0px;
-  }
+@media (max-width: 478px) {
   .brandname {
     size: 5px;
     /* color: blaccolor: #fff;k; */
@@ -327,15 +330,6 @@ a .Navbar-User-profile-nickname {
   }
   .btn-group {
     margin-right: 5rem;
-  }
-  .CampusNavbar {
-    /* width: 0px; */
-    /* height: 0px; */
-    /* display: none; */
-    /* visibility: hidden; */
-  }
-  .tabbarFrame {
-    display: inline;
   }
 }
 

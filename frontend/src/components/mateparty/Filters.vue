@@ -53,7 +53,7 @@ import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
 import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
 import {ref,} from 'vue'
-
+import {useStore} from 'vuex'
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -69,7 +69,7 @@ export default {
   },
   
   setup(props,{emit}) {
-  
+    const store = useStore()
     const allData = ref({
       mateCampstart : null,
       mateCampend : null,
@@ -81,6 +81,7 @@ export default {
       },
       sortList : ref(null),
     })
+    const filterInit = ref(0)
     
     const apply = () =>{
 
@@ -89,22 +90,33 @@ export default {
           method : 'post',
           url : `${SERVER_URL}/mate/filter`,
           data : allData.value
-        })
-        .then(res => {
-          console.log(res)
+      })
+      .then(res => {
+        console.log(res)
+        if (res.data.dto.matefilter === -1) {
+          alert('검색 결과가 없습니다.')
+        } else {
           emit('filter-data',res)
-          
-        })
-        .catch(err => {
-          console.log(err)
-        })
+          allData.value.mateCampstart = null
+          allData.value.mateCampend = null
+          if (store.state.initData === 0) {
+            store.dispatch('initData',1)
+          } else {
+            store.dispatch('initData',0)
+          }
+        }
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
 
 
     const dateCheck = (val) => {
       console.log(val)
-      // allData.value.mateCampstart = val[0]
-      // allData.value.mateCampend = val[1]
+      allData.value.mateCampstart = val[0]
+      allData.value.mateCampend = val[1]
       console.log(allData.value)
        
     }
@@ -162,6 +174,7 @@ export default {
       campCheck,
       styleCheck,
       // sortCheck,
+      filterInit,
       
 
     }
@@ -196,7 +209,7 @@ export default {
  
   background-color: #fff;
   color: #7ac4e1;
-  border: 3px solid #7ac4e1;
+  border: 2px solid #7ac4e1;
   border-radius: 30px;
   font-size : 14px;
   margin:5px;

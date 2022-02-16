@@ -25,7 +25,7 @@ import Campraterevise from '../views/campsite/Campraterevise.vue'
 
 import FeedModify from "../views/feed/FeedModify.vue";
 import FeedSearchResults from "../views/feed/FeedSearchResults.vue";
-
+import Newmodal from '../components/mateparty/Newmodal.vue'
 const routes = [
   {
     path: "/",
@@ -156,6 +156,11 @@ const routes = [
     name : "Campraterevise",
     component : Campraterevise
   },
+  {
+    path : '/test',
+    name : "Newmodal",
+    component : Newmodal
+  }
   
 
 ];
