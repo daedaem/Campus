@@ -366,7 +366,7 @@ export default {
 				.then((res) => {
 					console.log(res)
 					Swal.fire({ title: "회원가입에 성공하였습니다!", icon: 'success', timer:2000})
-					this.$router.push({name: 'Mainpage'})
+					this.$router.push({name: 'Login'})
 				})
 				.catch(() => {
 					console.log(this.credentials)

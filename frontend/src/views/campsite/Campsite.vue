@@ -170,7 +170,9 @@ export default {
         url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
       })
         .then((res) => {
-          console.log(res);
+          console.log("들어오나",res);
+          mylst.value.push(boardid)
+          // console.log("이건", mylst.value)
         })
     };
     
@@ -181,7 +183,9 @@ export default {
         url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
       })
         .then((res) => {
-          console.log(res)
+          console.log("빼나",res)
+          mylst.value.splice(mylst.value.indexOf(boardid), 1)
+          // console.log("이건", mylst.value)
         })
     };
 

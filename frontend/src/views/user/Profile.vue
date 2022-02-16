@@ -11,6 +11,9 @@
 				</div>
 				<div class="name-buttons d-flex justify-content-between">
 					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
+					<div style="width: 100px;">
+						<button v-if="this.$route.params.userEmail === this.myEmail" @click="logout" style="width: 100px">로그아웃</button>
+					</div>
 					<div class="">
 						<button v-if="this.$route.params.userEmail === this.myEmail" @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 					</div>
@@ -133,6 +136,7 @@ import ProfileInfo from '@/components/user/ProfileInfo.vue'
 import followerModal from '@/components/user/followerModal.vue'
 import followingModal from '@/components/user/followingModal.vue'
 import Navbar from "@/components/common/Navbar.vue";
+import Swal from 'sweetalert2'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -287,7 +291,8 @@ export default {
 				})
 				.then((res => {
 					this.isFollow = true
-					this.$router.go()
+					this.followers += 1
+					// this.$router.go()
 					console.log("팔로우", res)
 				}))
 				.catch(err => {
@@ -303,7 +308,8 @@ export default {
 				})
 				.then((res => {
 					this.isFollow = false
-					this.$router.go()
+					this.followers -= 1
+					// this.$router.go()
 					console.log("언팔로우", res)
 				}))
 				.catch(err => {
@@ -349,6 +355,21 @@ export default {
 				})
 		},
 
+		logout: function () {
+      this.$store.state.user = null;
+      this.$store.state.userEmail = null;
+      this.$store.state.userGender = null;
+      this.$store.state.SearchWord = null;
+      this.$store.dispatch("logout");
+      sessionStorage.removeItem("userList");
+      sessionStorage.removeItem("myNum");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userPassword");
+      localStorage.removeItem('vuex')
+      Swal.fire({ title: "로그아웃 되었습니다.", icon: 'success', timer:2000})
+      this.$router.push({ name: "Login" });
+    },
+
 
 
 		moveToModify: function () {
@@ -368,6 +389,7 @@ export default {
 </script>
 
 <style scoped>
+
 .profile-container {
   display: flex;
   justify-content: center;

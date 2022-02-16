@@ -1,4 +1,5 @@
 <template>
+  <Navbar/>
   <body>
     
 <div class="container">
@@ -33,11 +34,15 @@ import {useRouter} from 'vue-router'
 import { ref, onMounted } from "vue";
 // import {useRouter} from 'vue'
 import {useStore} from 'vuex'
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
+  components: {
+    Navbar
+  },
   setup() {
     const router = useRouter()
     const store = useStore()
@@ -94,8 +99,7 @@ export default {
         goChatting,
         checkMbti,
       }
-  }
-
+  },
   
 
 

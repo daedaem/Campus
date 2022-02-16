@@ -183,7 +183,13 @@ export default {
 
     const goMatematch = () =>{
       console.log(store.state.myNum)
-      router.push({name:'Matematch' , params : {userNo : store.state.myNum}})
+      console.log(store.state.userList.userMBTI)
+      if (store.state.userList.userMBTI === "") {
+        Swal.fire({ title: '설문이 필요합니다.', icon: 'warning', timer:2000})
+        router.push({ name: 'Survey'})
+      } else {
+        router.push({name:'Matematch' , params : {userNo : store.state.myNum}})
+      }
     }
 
     return {
