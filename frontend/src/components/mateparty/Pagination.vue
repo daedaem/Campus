@@ -6,7 +6,7 @@
         <b-card title-variant="card_title" class="mb-5 test" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})" >
           <b-card-text >
             <div align="left" v-if="item.campStyleList" >
-              <span>{{'#'+item.campStyleList.style1}}</span><span>{{'#'+item.campStyleList.style2}}</span><span>{{'#'+item.campStyleList.style3}}</span>
+              <span v-if="item.campStyleList.style1">{{'#'+item.campStyleList.style1}}</span><span v-if="item.campStyleList.style2">{{' #'+item.campStyleList.style2}}</span><span v-if="item.campStyleList.style3">{{' #'+item.campStyleList.style3}}</span>
             </div>
             <div align="left">
               {{item.mateCampsite}}
@@ -61,7 +61,9 @@ export default {
   },
   methods: {
     
+    
     paginate (page_size, page_number) {
+        console.log(this.newFilter)
         
         let itemsToParse = this.newFilter
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
@@ -78,6 +80,7 @@ export default {
   created(){
     if (this.newFilter) {
       this.paginate(this.perPage, 0)
+  
     }
   },
 
@@ -124,11 +127,11 @@ export default {
 }
 
 .card-group .test .card-body {
-  background-color: #fff6ec;
+  /* background-color: #fff6ec; */
   
 }
 .card-group .test .card-footer {
-  background-color: #fffcf8;;
+  /* background-color: #fffcf8;; */
 }
 
 h4 {

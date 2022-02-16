@@ -204,7 +204,7 @@
                   </div>
                   <div class="star-ratings-base space-x-2 text-lg">
                     <span>★</span><span>★</span><span>★</span><span>★</span
-                    ><span>★</span>&nbsp;<span>{{ item.userRatePoint }}/5</span>
+                    ><span>★</span>&nbsp;<span style="font-family:Arial; font-size:16px;">{{ item.userRatePoint }}/5</span>
                   </div>
                   <div></div>
                 </div>
@@ -217,7 +217,7 @@
                 ><span v-if="item.campStyle5 != 'N'"># 사진</span
                 ><span v-if="item.campStyle6 != 'N'"># 음악</span>
               </div>
-              <!-- <span v-for="(style,idx2) in stylelist2[idx]" :key="idx2">
+              <!-- <span v-for="(style,idx2) in styl  elist2[idx]" :key="idx2">
                     {{'#'+style}}
                 </span> -->
             </div>

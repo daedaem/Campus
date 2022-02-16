@@ -466,6 +466,12 @@ export default {
 </script>
 
 <style>
+.bi-heart-fill {
+  color: rgb(237, 73, 86);
+  fill: rgb(237, 73, 86);
+  height: 24;
+  width: 24;
+}
 /* 574픽셀부터는 사진 외 내용이 밑으로 가므로 top공백을 없애주기 위해서 feeddetailtotal 프레임에 css걸어줌 */
 @media (max-width: 768px) {
 }
@@ -558,7 +564,10 @@ export default {
     font-size: 10px;
   }
   .FeedDetailUserCommentName {
+    max-width: 60px;
     font-size: 12px;
+    /* text-overflow: ellipsis; */
+    overflow: hidden;
   }
   .leaveCommentButton {
     font-size: 6px;
