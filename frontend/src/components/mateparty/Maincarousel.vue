@@ -213,7 +213,8 @@ export default {
   // font-weight: 400;
 }
 @media (min-width: 768px) {
-  .row > .card {
+
+.row > .card {
     // margin-left : 18px;
     // margin-right : 18px;
 
