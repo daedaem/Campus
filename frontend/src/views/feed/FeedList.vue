@@ -79,10 +79,10 @@ export default {
   },
   methods: {},
   created: function () {
-    if (this.$store.state.userEmail == null) {
-      alert("로그인이 필요한 서비스입니다.");
-      this.$router.push({ name: "Login" });
-    }
+    // if (this.$store.state.userEmail == null) {
+    //   alert("로그인이 필요한 서비스입니다.");
+    //   this.$router.push({ name: "Login" });
+    // }
     // console.log(this.$store.state.user);
     axios({
       methods: "get",
