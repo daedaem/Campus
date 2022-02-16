@@ -39,26 +39,39 @@
 </template>
 
 <script >
-import {ref,watch} from 'vue'
-// import {useStore} from 'vuex'
+import {ref,watch,} from 'vue'
+import {useStore} from 'vuex'
 export default {
   name : 'Modal2',
   emits : ['camp-check'],
+  props : ['filterInit'],
   setup(props,{emit}) {
-    // const store = useStore()
+    const store = useStore()
     const campCheck = ref([])
+    const mycheck = store.state.initData
 
+    
     watch(
     () => campCheck,
     (state) => {
       emit('camp-check',state.value[0])
-      
     },
     { deep: true }
     )
 
+    watch(
+      () => store.state.initData,
+      () => {
+        campCheck.value = []
+        
+      }
+    )
+
+  
     return {
       campCheck,
+      mycheck,
+ 
      
     
     }

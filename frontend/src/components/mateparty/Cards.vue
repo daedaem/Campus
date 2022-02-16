@@ -9,7 +9,7 @@
                     <h4 class="title">유형</h4>
                     <p class="description">{{cardData.mateCamptype}} </p>
                     <h4 class="title">스타일</h4>
-                    <p class="description" >{{`# `+cardData.campStyleList.style1}}<br>{{`# `+cardData.campStyleList.style2}}<br>{{`# `+cardData.campStyleList.style3}}<br></p>
+                    <p class="description" ><span v-if="cardData.campStyleList.style1">{{`# `+cardData.campStyleList.style1}}</span><br><span v-if="cardData.campStyleList.style2">{{`# `+cardData.campStyleList.style2}}</span><br><span v-if="cardData.campStyleList.style3">{{`# `+cardData.campStyleList.style3}}</span><br></p>
                 </div>
             </div> <!-- end card -->
         </div>
