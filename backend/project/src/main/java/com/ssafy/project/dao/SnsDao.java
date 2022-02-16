@@ -18,6 +18,7 @@ public interface SnsDao {
     public int snsUpdate(SnsDto dto);
 
     public List<SnsDto> snsList(SnsParamDto dto);
+    public List<SnsDto> snsListFollowingNull(SnsParamDto dto);
     public int snsListTotalCount();
 
     public List<SnsDto> snsListSearchWord(String str);
@@ -50,5 +51,5 @@ public interface SnsDao {
 
     public List<SnsDto> FollowingSnsList(int userNo);
 
-    public int snsListTotalCountWithoutFolling(SnsParamDto snsParamDto);
+    public int snsListTotalCountWithoutFollowing(SnsParamDto snsParamDto);
 }
