@@ -46,14 +46,19 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
-    components: {
-    Navbar,},
+  components: {
+    Navbar
+  },
   setup() {
+    
     const router = useRouter()
     const store = useStore()
     const userNo = store.state.myNum
     const matchData = ref([])
-    
+    if (store.state.userEmail == null) {
+      alert("로그인이 필요한 서비스입니다.");
+      router.push({ name: "Login" });
+    }
     axios({
         method : 'get',
         url : `${SERVER_URL}/mate/match/${userNo}`
@@ -104,8 +109,7 @@ export default {
         goChatting,
         checkMbti,
       }
-  }
-
+  },
   
 
 

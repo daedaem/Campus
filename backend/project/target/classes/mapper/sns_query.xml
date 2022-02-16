@@ -25,13 +25,24 @@
         SELECT s.snsNo, s.userNo, 
                 s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
             FROM sns s, user u
-            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
-            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
-                    #{item}
-            </foreach>
+            WHERE s.userNo = u.userNo
+            <if test='followingList.size != 0'>
+                AND NOT s.userNo IN
+                <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                        #{item}
+                </foreach>
+            </if>
             ORDER BY s.snsNo DESC
             LIMIT #{limit} OFFSET #{offset}
-      
+    </select>
+
+    <select id="snsListFollowingNull" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="com.ssafy.project.dto.SnsDto">
+        SELECT s.snsNo, s.userNo, 
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+            FROM sns s, user u
+            WHERE s.userNo = u.userNo
+            ORDER BY s.snsNo DESC
+            LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="userSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
@@ -88,13 +99,16 @@
         FROM sns
     </select>
 
-    <select id="snsListTotalCountWithoutFolling" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="int">
+    <select id="snsListTotalCountWithoutFollowing" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="int">
         SELECT COUNT(*)
             FROM sns s, user u
-            WHERE s.userNo = u.userNo AND NOT s.userNo IN 
-            <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
-                    #{item}
-            </foreach>
+            WHERE s.userNo = u.userNo 
+            <if test='followingList.size != 0'>
+                AND NOT s.userNo IN
+                <foreach collection="followingList" item="item" index="index" open="(" close=")" separator=",">                                            
+                        #{item}
+                </foreach>
+            </if>
     </select>
 
     <!-- search word-->

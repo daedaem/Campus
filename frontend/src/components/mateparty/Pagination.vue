@@ -63,6 +63,7 @@ export default {
     
     
     paginate (page_size, page_number) {
+        console.log(this.newFilter)
         
         let itemsToParse = this.newFilter
         this.paginatedItems = itemsToParse.slice(page_number * page_size, (page_number + 1) * page_size);
@@ -79,6 +80,7 @@ export default {
   created(){
     if (this.newFilter) {
       this.paginate(this.perPage, 0)
+  
     }
   },
 

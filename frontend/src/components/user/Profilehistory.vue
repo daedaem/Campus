@@ -8,7 +8,9 @@
 		</div>
 	</div>
 	<div v-else>
-		<h1>아직 함께하신 여정이 없습니다.</h1>
+		<div>
+			<h1>아직 함께하신 여정이 없습니다.</h1>
+		</div>
 	</div>
 </template>
 

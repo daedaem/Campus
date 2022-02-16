@@ -22,8 +22,9 @@ public interface UserService {
     // 회원 정보 중 MBTI 수정
     public UserResultDto userUpdateMBTI(UserDto userDto);
 
-    // public String userUpdateProfileImage(MultipartFile multipartFile);
     public UserResultDto userUpdateProfileImageKakao(UserDto userDto);
+
+    // public String userUpdateProfileImage(MultipartFile multipartFile);
 
     // 회원 정보 중 프로필 이미지 수정
     public UserResultDto userUpdateProfileImage(String userEmail, MultipartFile multipartFile);
