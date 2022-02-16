@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="test row" > -->
-    <body class="">
+    <body>
       
       <div class="registration-form">
         <form>
