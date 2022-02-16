@@ -31,6 +31,7 @@ export default createStore({
     dateCheck: null,
     campInfo: null,
     resultOfCampsite: [],
+    initData : 0
   },
 
   mutations: {
@@ -143,7 +144,9 @@ export default createStore({
     CAMP_INFO(state, data) {
       state.campInfo = data;
     },
-
+    INIT_DATA(state,data) {
+      state.initData = data
+    },
     // SCROLLEDFEEDLIST: function (state, data) {
     //   state.scrolledFeedList
     // }
@@ -227,6 +230,9 @@ export default createStore({
     resultOfCampsite({ commit }, data) {
       commit("RESULTOFCMAPSITE", data);
     },
+    initData({commit},data) {
+      commit("INIT_DATA",data)
+    }
   },
   getters: {
     config: function (state) {

@@ -1,6 +1,9 @@
 <template>
-  <Navbar class="Navbar"></Navbar>
+  <Navbar class="CampusNavbar"></Navbar>
   <body>
+    <div>
+      <img class="brandlogo" src="@/assets/images/logo1.png" alt="" />
+    </div>
     <div class="box" style="width: 100vw; height: 100vh">
       <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
       <div class="overlay d-flex flex-column">
@@ -9,11 +12,15 @@
           <div
             class="d-flex flex-column justify-content-center align-items-center"
           >
-            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" style="max-width:100%; height:auto;"/>
+            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
             <div class="text-center">
-
               <a class="btn btn-sm" href="#">
-                <div class="CreateAccountButton" style="max-width:100%; height:auto;">계정 만들기</div>
+                <div
+                  class="CreateAccountButton"
+                  style="max-width: 100%; height: auto"
+                >
+                  계정 만들기
+                </div>
               </a>
             </div>
           </div>
@@ -22,9 +29,13 @@
     </div>
     <div class="b-example-divider"></div>
 
-    
-    <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" style="margin-top:50px;"/>
+    <Maincarousel
+      v-if="mainlist.length != 0"
+      :mainlist="mainlist"
+      style="margin-top: 50px"
+    />
   </body>
+  <Newmodal class="Newmodal" />
 </template>
 
 <script>
@@ -33,6 +44,7 @@ import axios from "axios";
 // import { useStore } from "vuex";
 import { ref } from "vue";
 import { useStore } from "vuex";
+import Newmodal from "@/components/mateparty/Newmodal.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -43,6 +55,7 @@ export default {
   components: {
     Maincarousel,
     Navbar,
+    Newmodal,
   },
 
   setup() {
@@ -59,8 +72,7 @@ export default {
       })
       .catch((err) => {
         console.log(err);
-      })
-      
+      });
 
     // 캠핑장 데이터
     axios({
@@ -102,7 +114,7 @@ export default {
 </script>
 
 <style scoped>
-.Navbar {
+.CampusNavbar {
   background: transparent;
   position: absolute;
   z-index: 10000;
@@ -116,11 +128,12 @@ export default {
 /* background: beige; */
 /* } */
 
-
-
 .brandSlogan {
-  max-width: 600px;
-  max-height: 500px;
+  max-width: 100%;
+  height: "auto";
+
+  /* max-width: 600px; */
+  /* max-height: 500px; */
 }
 p {
   line-height: 6px;
@@ -212,13 +225,64 @@ p {
     transform: rotate(0deg);
   }
 }
-@media only screen and (max-width: 767px) {
+/* .Navbar { */
+/* background: transparent;
+    position: absolute;
+    z-index: 10000;
+    width: 100%; */
+/* display: hidden; */
+/* } */
+@media (min-width: 768px) {
+  .Navbar {
+    background: transparent;
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+  }
+  .Newmodal {
+    display: none;
+  }
   .btn {
     margin-bottom: 20px;
   }
+  .brandlogo {
+    display: none;
+    /* position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 54px;
+    height: 45px;
+    z-index: 20; */
+  }
 }
-.CreateAccountButton {
+@media (max-width: 767px) {
+  .CampusNavbar {
+    /* display: none; */
+    visibility: hidden;
+    /* background: transparent;
+    position: absolute;
+    z-index: 10000;
+    width: 100%; */
+  }
+  .brandlogo {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 54px;
+    height: 45px;
+    z-index: 20;
+  }
+  .brandSlogan {
+    position: absolute;
+    bottom: 90%;
+    min-width: 300px;
+    /* width: 100%; */
+  }
+  .Navlogos {
+    display: block;
+  }
 }
+
 .filterbox {
   overflow: hidden;
 }

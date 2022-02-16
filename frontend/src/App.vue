@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <Chat class="chat"/> -->
+    <Chat class="chat" />
     <router-view :key="$route.fullPath"></router-view>
   </div>
   <!-- 삭제금지 -->
@@ -9,14 +9,14 @@
 <script>
 // import Navbar from "@/components/Navbar.vue";
 // import Navbar from "@/components/Navbar.vue";
-// import Chat from "@/components/common/Chat.vue";
+import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
     // Navbar,
     // Navbar,
-    // Chat,
+    Chat,
   },
 };
 </script>
@@ -84,14 +84,5 @@ export default {
 #nav {
   padding: 30px;
   text-align: center;
-}
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-#nav a.router-link-exact-active {
-  color: whitesmoke;
-  background: crimson;
-  border-radius: 0.5rem;
 }
 </style>

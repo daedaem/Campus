@@ -447,12 +447,13 @@ public class MateServiceImpl implements MateService {
         try {
             // 캠프 타입 일치하는 mateNo list 반환
             List<Integer> list1 = dao.mateFilterCampType(dto);
-            System.out.println("list1 : " + list1.size());
+            System.out.println("list1 : " + list1);
             // 캠프 날짜에 포함되는 mateNo list 반환
             List<Integer> list2 = dao.mateFilterCampDate(dto);
-            System.out.println("list2 : " + list2.size());
+            System.out.println("list2 : " + list2);
             //들어가있는 스타일 개수에 따라 matNo list 반환
             List<Integer> list3 = new ArrayList<Integer>();
+            System.out.println(dto.getCampStyleList());
             if(dto.getCampStyleList() != null){
                 if(dto.getCampStyleList().getStyle3() != null){
                     list3 = dao.mateFilterStyleNum3(dto.getCampStyleList());
@@ -461,67 +462,131 @@ public class MateServiceImpl implements MateService {
                 }else if(dto.getCampStyleList().getStyle1() != null){
                     list3 = dao.mateFilterStyleNum1(dto.getCampStyleList());
                 }
-                System.out.println("list3 : " + list3.size());
+                System.out.println("list3 : " + list3);
             }else{
                 list3 = new ArrayList<Integer>();
                 list3.clear();
-                System.out.println("list3 : " + list3.size());
+                System.out.println("list3 : " + list3);
             }
 
             List<Integer> listResult = new ArrayList<Integer>();
-            if(list1.size() == 0){
-                if(list2.size() == 0){
-                    if(list3.size() == 0){
-                    }else{
-                        listResult = list3;
-                    }
+            System.out.println(dto.getCampStyleList());
+            if(dto.getCampStyleList().getStyle1() != null){ // 스타일 리스트가 있지만 결과 값이 0일때
+                if(list3.size() == 0){
+                    System.out.println("제발");
+                    listResult = list3;
                 }else{
-                    if(list3.size() == 0){
-                        listResult = list2;
-                    }else{
-                        for (int i = 0; i < list2.size(); i++) {
-                            for (int j = i; j < list3.size(); j++) {
-                                if(list2.get(i).equals(list3.get(j)))
-                                    listResult.add(list2.get(i));
+                    if(list1.size() == 0){
+                        if(list2.size() == 0){
+                            listResult = list3;
+                        }else{
+                            for (int i = 0; i < list2.size(); i++) {
+                                for (int j = 0; j < list3.size(); j++) {
+                                    if(list2.get(i).equals(list3.get(j)))
+                                        listResult.add(list2.get(i));
+                                }
                             }
+                        }
+                    }else{
+                        if(list2.size() == 0){
+                            for (int i = 0; i < list1.size(); i++) {
+                                for (int j = 0; j < list3.size(); j++) {
+                                    if(list1.get(i).equals(list3.get(j)))
+                                        listResult.add(list1.get(i));
+                                }
+                            }
+                        }else{
+                            for (int i = 0; i < list1.size(); i++) {
+                                for (int j = 0; j < list2.size(); j++) {
+                                    for (int k = 0; k < list3.size(); k++) {
+                                        if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
+                                            listResult.add(list1.get(i));
+                                        }
+                                    }
+                                }
+                            }
+                            
                         }
                     }
                 }
-            }else{
-                if(list2.size() == 0){
-                    if(list3.size() == 0){
+            }else{ // 스타일 리스트가 완전히 없을때
+                if(list1.size() == 0){
+                    if(list2.size() == 0){
+                        listResult = list2;
+                    }else{
+                        listResult = list2;
+                    }
+                }else{
+                    if(list2.size() == 0){
                         listResult = list1;
                     }else{
                         for (int i = 0; i < list1.size(); i++) {
-                            for (int j = i; j < list3.size(); j++) {
-                                if(list1.get(i).equals(list3.get(j)))
-                                    listResult.add(list1.get(i));
-                            }
-                        }
-                    }
-                }else{
-                    if(list3.size() == 0){
-                        for (int i = 0; i < list1.size(); i++) {
-                            for (int j = i; j < list2.size(); j++) {
+                            for (int j = 0; j < list2.size(); j++) {
                                 if(list1.get(i).equals(list2.get(j))){
                                     listResult.add(list1.get(i));
                                 }
                             }
                         }
-                    }else{
-                        for (int i = 0; i < list1.size(); i++) {
-                            for (int j = 0; j < list2.size(); j++) {
-                                for (int k = 0; k < list3.size(); k++) {
-                                    if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
-                                        listResult.add(list1.get(i));
-                                    }
-                                        
-                                }
-                            }
-                        }
                     }
                 }
             }
+            
+            // if(list1.size() == 0){
+            //     if(list2.size() == 0){
+            //         if(list3.size() == 0){
+            //         }else{
+            //             listResult = list3;
+            //         }
+            //     }else{
+            //         if(list3.size() == 0){
+            //             listResult = list2;
+            //         }else{
+            //             for (int i = 0; i < list2.size(); i++) {
+            //                 for (int j = 0; j < list3.size(); j++) {
+            //                     if(list2.get(i).equals(list3.get(j)))
+            //                         listResult.add(list2.get(i));
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }else{
+            //     if(list2.size() == 0){
+            //         if(list3.size() == 0){
+            //             listResult = list1;
+            //         }else{
+            //             for (int i = 0; i < list1.size(); i++) {
+            //                 for (int j = 0; j < list3.size(); j++) {
+            //                     if(list1.get(i).equals(list3.get(j)))
+            //                         listResult.add(list1.get(i));
+            //                 }
+            //             }
+            //         }
+            //     }else{
+            //         System.out.println("check");
+            //         System.out.println(list1);
+            //         System.out.println(list2);
+            //         if(list3.size() == 0){
+            //             for (int i = 0; i < list1.size(); i++) {
+            //                 for (int j = 0; j < list2.size(); j++) {
+            //                     if(list1.get(i).equals(list2.get(j))){
+            //                         listResult.add(list1.get(i));
+            //                     }
+            //                 }
+            //             }
+            //         }else{
+            //             for (int i = 0; i < list1.size(); i++) {
+            //                 for (int j = 0; j < list2.size(); j++) {
+            //                     for (int k = 0; k < list3.size(); k++) {
+            //                         if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
+            //                             listResult.add(list1.get(i));
+            //                         }
+                                        
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
             
 
             if(listResult.size() == 0){

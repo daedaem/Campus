@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Datepicker @date-in="dateIn" />
+  <Datepicker @date-in="dateIn"  />
 </div>
 
 </template>
@@ -10,8 +10,8 @@
 import Datepicker from '@/components/mateparty/Datepicker.vue'
 import 'vue3-date-time-picker/dist/main.css'
 // import Datepicker from '../Datepicker.vue'
-// import {ref} from 'vue'
-
+import {ref} from 'vue'
+// import {watch} from 'vue'
 // import {useStore} from 'vuex'
 export default {
   emits : ['dateCheck'],
@@ -21,6 +21,7 @@ export default {
 
   },
   setup(props,{emit}) {
+    // const store = useStore()
     const dateFormat = (date) => {
         let month = date.getMonth() + 1;
         let day = date.getDate();
@@ -35,12 +36,20 @@ export default {
     // const store = useStore()    
     const dateIn = (val) => {
       if (val) {
-        const start = dateFormat(val[0])
-        const end = dateFormat(val[1])
-        const data = [start,end]
+        const start = ref(dateFormat(val[0]))
+        const end = ref(dateFormat(val[1]))
+        const data = [start.value,end.value]
         emit('date-check',data)
+        
       }
       }
+    // watch(
+    //   () => store.state.initData,
+    //   () => {
+    //     campCheck.value = []
+        
+    //   }
+    // )
     
 
   
@@ -49,7 +58,8 @@ export default {
     
   return {
     dateIn,
-    dateFormat
+    dateFormat,
+
 
   
  
