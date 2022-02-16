@@ -1,5 +1,4 @@
 <template>
-  <Navbar></Navbar>
   <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
     <div class="FeedListTotalframe d-flex" v-if="this.$store.state.isLogin">
       <div class="FeedListFrame">
@@ -58,7 +57,7 @@
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
-import Navbar from "@/components/common/Navbar.vue";
+// import Navbar from "@/components/common/Navbar.vue";
 
 import { mapState } from "vuex";
 import axios from "axios";
@@ -73,10 +72,13 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
-    Navbar,
+    // Navbar,
 
     // FeedDetail
   },
+  // data() {
+  //   return { feedcount: "" };
+  // },
   methods: {},
   created: function () {
     // if (this.$store.state.userEmail == null) {
@@ -90,6 +92,8 @@ export default {
       params: {
         limit: 10,
         offset: 0,
+        userNo: this.$store.state.myNum,
+
         // searchWord : '',
         // doNm : '',
       },
@@ -99,6 +103,7 @@ export default {
         // console.log(res.data.list);
         const data = res.data.list;
         this.$store.dispatch("feedList", data);
+        // this.feedcount = res.data.count;
       })
 
       .catch((err) => {
@@ -116,7 +121,7 @@ export default {
     const feedLists = ref([]);
     const limit = ref(10);
     const offset = ref(0);
-
+    const feedcount = ref(0);
     const getDatas = () => {
       axios({
         methods: "get",
@@ -131,6 +136,8 @@ export default {
         .then((res) => {
           console.log("뭔데", res);
           feedLists.value.push(...res.data.list);
+          feedcount.value = res.data.count;
+          console.log(feedcount);
           // console.log(feedLists.value);
           // this.$store.dispatch("feedList", data);
           // console.log("넣습니다", feedLists);
@@ -151,10 +158,13 @@ export default {
         let scrollTop = document.documentElement.scrollTop;
         let scrollHeight = document.documentElement.scrollHeight;
         let clientHeight = document.documentElement.clientHeight;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10) {
+        // console.log("값뭔데", feedcount.value);
+        // console.log("값뭔데", offset.value);
+        if (
+          scrollTop + clientHeight >= scrollHeight - 10 &&
+          feedcount.value > offset.value + 10
+        ) {
           offset.value += 10;
-          // this.limit += 10
           getDatas();
         }
       });
@@ -165,6 +175,7 @@ export default {
       limit,
       offset,
       getDatas,
+      feedcount,
     };
   },
   // created: function() {
