@@ -46,8 +46,9 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
-    components: {
-    Navbar,},
+  components: {
+    Navbar
+  },
   setup() {
     
     const router = useRouter()
@@ -108,8 +109,7 @@ export default {
         goChatting,
         checkMbti,
       }
-  }
-
+  },
   
 
 
