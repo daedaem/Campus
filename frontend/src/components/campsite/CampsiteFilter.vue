@@ -60,6 +60,149 @@
         />
         <label class="form-check-label" for="inlineCheckbox4">경상북도</label>
       </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('전라남도')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox5"
+          value="전라남도"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox5">전라남도</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('전라북도')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox6"
+          value="전라북도"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox6">전라북도</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('충청남도')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox7"
+          value="충청남도"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox7">충청남도</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('충청북도')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox8"
+          value="충청북도"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox8">충청북도</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('제주도')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox9"
+          value="제주도"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox9">제주도</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('서울시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox10"
+          value="서울시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox10">서울시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('세종시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox11"
+          value="세종시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox11">세종시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('인천시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox12"
+          value="인천시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox12">인천시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('대구시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox13"
+          value="대구시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox13">대구시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('대전시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox14"
+          value="대전시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox14">대전시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('부산시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox15"
+          value="부산시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox15">부산시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('울산시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox16"
+          value="울산시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox16">울산시</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          v-if="doNm.length == 0 || doNm.includes('광주시')"
+          class="form-check-input"
+          type="checkbox"
+          id="inlineCheckbox17"
+          value="광주시"
+          v-model="doNm"
+        />
+        <label class="form-check-label" for="inlineCheckbox17">광주시</label>
+      </div>
     </div>
     <hr />
     <!-- 부대시설 -->
@@ -219,39 +362,8 @@ export default {
   },
   methods: {
     findCampsite() {
-      // console.log(
-      //   "전",
-      //   this.searchWord,
-      //   this.doNm,
-      //   this.sigunguNm,
-      //   this.toiletCo,
-      //   this.swrmCo,
-      //   this.wtrplCo,
-      //   this.trlerAcmpnyAt,
-      //   this.caravAcmpnyAt,
-      //   this.exprnProgrmAt,
-      //   this.exprnProgrmAt,
-      //   this.clturEventAt,
-      //   this.eqpmnLendCl,
-      //   this.siteMgCo
-      // );
+
       this.changed();
-      // console.log(
-      //   "후",
-      //   this.searchWord,
-      //   this.doNm,
-      //   this.sigunguNm,
-      //   this.toiletCo,
-      //   this.swrmCo,
-      //   this.wtrplCo,
-      //   this.trlerAcmpnyAt,
-      //   this.caravAcmpnyAt,
-      //   this.exprnProgrmAt,
-      //   this.exprnProgrmAt,
-      //   this.clturEventAt,
-      //   this.eqpmnLendCl,
-      //   this.siteMgCo
-      // );
       // console.log(this.selected, "단어");
       // for (let i = 0; i <script this.doNm.length; i++) {
       // console.log(this.selected[i], "단어추출");
@@ -279,6 +391,8 @@ export default {
         // articles.value.push(...res.data.list);
         // this.searchResults = res.data.list;
         console.log("필터 데이터 전송", res.data.list);
+        // this.$router.reload()
+
         // this.resultCampSite = res.data;
         // if (res.data.list.length > 0) {
         // for (let i = 0; i < res.data.list.length; i++) {
@@ -288,7 +402,11 @@ export default {
         // } else {
         // this.$store.state.resultOfCampsite = res.data.list;
         // }
+        // this.router.go(0)
         this.$emit("newarticles", res.data.list);
+      //         if (this.doNm == null) {
+      //   this.doNm = null;
+      // }
         // this.$store.dispatch("resultOfCampsite", res.data.list);
 
         // console.log(this.$store.state.resultCampSite);
@@ -313,7 +431,7 @@ export default {
         (this.animalCmgCl = ""),
         (this.exprnProgrmAt = ""),
         (this.clturEventAt = ""),
-        (this.eqpmnLendCl = 0),
+        (this.eqpmnLendCl = ""),
         (this.siteMgCo = 0);
     },
     changed() {
@@ -383,7 +501,7 @@ export default {
       }
     },
   },
-  watch: {
+  // watch: {
     // doNm() {
     // if (this.doNmtemp.length == 1) {
     //     this.doNm = this.doNmtemp;
@@ -397,7 +515,7 @@ export default {
     //   }
     // },
     // },
-  },
+  // },
 };
 </script>
 
