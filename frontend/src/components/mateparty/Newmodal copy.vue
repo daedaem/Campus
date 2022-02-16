@@ -1,56 +1,46 @@
 <template>
   <div clas="tabbarFrame d-flex">
     <div class="wrapper">
-      <div
-        class="tabbar d-flex justify-content-between align-items-center pt-1"
-      >
+      <div class="tabbar pt-4">
         <!-- <div><img class="logos" src="@/assets/images/logo3.png" alt="" /></div> -->
-
-        <router-link
-          :to="{ name: 'Mainpage' }"
-          class="d-flex flex-column justify-content-center align-items-center"
-          ><i class="bi bi-house-door fs-5"></i>
-          <div class="NewModalDiscription">Home</div></router-link
-        >
-
-        <router-link
-          :to="{ name: 'FeedList' }"
-          class="d-flex flex-column justify-content-center align-items-center me-5"
-          ><i class="bi bi bi-journal-richtext fs-5"></i>
-          <div class="NewModalDiscription">SNS</div></router-link
-        >
-        <router-link
-          :to="{ name: 'Campsite' }"
-          class="d-flex flex-column justify-content-center align-items-center ms-5"
-          ><i class="bi bi bi-binoculars fs-5"></i>
-          <div class="NewModalDiscription">캠핑장</div>
-        </router-link>
-
+        <router-link :to="{ name: 'Mainpage' }"
+          ><i class="bi bi-house-door fs-2"></i
+        ></router-link>
+        <!-- <a class="nav-link" aria-current="page" href="#"
+          ><i class="bi bi-house-door fs-2"></i
+        ></a> -->
+        <router-link :to="{ name: 'Mainpage' }"
+          ><i class="bi bi-house-door fs-2"></i
+        ></router-link>
+        <a class="nav-link" aria-current="page" href="/sns">
+          <i class="bi bi-journal-richtext fs-2"> </i>
+        </a>
+        <a class="nav-link" aria-current="page" href="/campsite">
+          <i class="bi bi-binoculars fs-2 ms-4"> </i
+        ></a>
+        <!-- <img class="logos" src="@/assets/images/텐트_검정버전.png" alt="" /> -->
         <div v-if="this.$store.state.userEmail">
-          <a
-            class="nav-link d-flex flex-column justify-content-center align-items-center"
-            aria-current="page"
-            :href="`
-              /profile/${this.$store.state.userEmail}`"
-          >
-            <i class="bi bi-person fs-5"> </i>
-            <div class="NewModalDiscription">프로필</div>
+          <a class="nav-link" aria-current="page" href="/login"
+            ><i class="bi bi-person fs-2"> </i>
           </a>
+          <!-- <i class="fas fa-cog icon-settings" style="margin-right: 70px"></i> -->
         </div>
         <div v-else>
           <a
-            class="nav-link d-flex flex-column justify-content-center align-items-center"
+            class="nav-link"
             aria-current="page"
-            href="/login"
-            ><i class="bi bi-person fs-3"> </i>
-            <div class="NewModalDiscription">로그인</div>
+            href="
+              profile/:userEmail"
+          >
+            <i class="bi bi-person fs-2"> </i>
           </a>
+          <!-- <i class="fas fa-cog icon-settings" style="margin-right: 70px"></i> -->
         </div>
 
         <div class="circle">
           <i class="fas fa-plus plus-icon"></i>
-          <i class="bi bi-person-plus social" @click="goMatematch"> </i>
-          <i class="bi bi-people social" @click="gotoParty"> </i>
+          <i style="color: white" class="bi bi-person-plus social"> </i>
+          <i class="bi bi-people social" @click="goMatematch()"> </i>
         </div>
         <div class="circleBackground"></div>
       </div>
@@ -76,16 +66,12 @@ export default {
   components: {
     // Modal2,
   },
-  methods: {
+  mathods: {
     goMatematch() {
-      this.$router.push({
-        name: "Mateparty",
-      });
-    },
-    gotoParty() {
-      this.$router.push({
+      console.log(this.$store.state.myNum);
+      this.router.push({
         name: "Matematch",
-        params: { userNo: `${this.$store.state.myNum}` },
+        params: { userNo: this.$store.state.myNum },
       });
     },
   },
@@ -116,12 +102,7 @@ body {
 * {
   box-sizing: border-box;
 }
-.bi {
-  color: black;
-}
-.nav-link {
-  padding: 0;
-}
+
 .wrapper {
   height: 100%;
   display: flex;
@@ -223,7 +204,7 @@ body {
   transition: opacity 0.3s, top 0.5s 0.1s ease;
 }
 
-.circle .social:nth-child(1) {
+.circle .social:nth-child(4) {
   opacity: 0;
   transition: opacity 0.3s, top 0.5s 0.22s ease;
   margin-bottom: 0px;
@@ -264,9 +245,5 @@ body {
 .bi-journal-richtext {
   font-size: 23px;
   color: $backgroundColor;
-}
-.NewModalDiscription {
-  font-size: 12px;
-  color: black;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <Navbar></Navbar>
-  <div class="CampSitebackground">
-    <div class="CampeSitebackground-imgcover">
-      <div class="CampeSitebackground-content">    <h1 style="">메이트 모집</h1>
+  <Navbar id="navbar"></Navbar>
+  <div class="MateParty">
+    <div class="MateParty-imgcover">
+      <div class="MateParty-content">    <h1 style="">메이트 모집</h1>
 </div>
       <div></div>
     </div>
@@ -16,7 +16,6 @@
     <!-- <div class="container" style="width:100%;">
       <div class="row">
         <div class="col-12"> -->
-    <h1 style="margin-top:50px;">메이트 모집</h1>
     <div style="margin-top:30px;">
       <Filters @filter-data="filterData" style="width:100%;"/>
     </div>
@@ -113,7 +112,7 @@ export default {
 </script>
 
 <style scoped>
-.CampSitebackground {
+.MateParty {
   width: 100%;
   height: 200px;
   background: black;
@@ -125,14 +124,14 @@ export default {
   50% 65% no-repeat;
   background-size: 100% auto;
 }
-.CampeSitebackground-imgcover {
+.MateParty-imgcover {
   position: absolute;
   width: 100%;
   height: 200px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
-.CampeSitebackground-content {
+.MateParty-content {
   position: absolute;
   top: 30%;
   left: 20%;
@@ -151,7 +150,7 @@ border:1px solid #fff
   body {
     width: 768px;
     /* padding: 0 20px; */
-    background: #fff;
+    background: #fafafa;
     margin: 0 auto;
   }
 }

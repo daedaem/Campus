@@ -32,11 +32,12 @@
 
 <script>
 import {ref} from 'vue'
-
+// import {useStore} from 'vuex'
 export default {
   name : 'Modal4',
   emits : ['sortListcheck'],
   setup() {
+    // const store = useStore()
     const sortListCheck = ref([])
     
     return {
