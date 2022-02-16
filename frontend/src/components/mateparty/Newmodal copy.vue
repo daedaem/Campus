@@ -6,16 +6,20 @@
         <router-link :to="{ name: 'Mainpage' }"
           ><i class="bi bi-house-door fs-2"></i
         ></router-link>
-
-        <router-link :to="{ name: 'FeedList' }"
-          ><i class="bi bi bi-journal-richtext fs-2"></i
+        <!-- <a class="nav-link" aria-current="page" href="#"
+          ><i class="bi bi-house-door fs-2"></i
+        ></a> -->
+        <router-link :to="{ name: 'Mainpage' }"
+          ><i class="bi bi-house-door fs-2"></i
         ></router-link>
-
-        <router-link :to="{ name: 'Campsite' }"
-          ><i class="bi bi bi-binoculars fs-2"></i
-        ></router-link>
-
-        <div v-if="this.$store.state.userName">
+        <a class="nav-link" aria-current="page" href="/sns">
+          <i class="bi bi-journal-richtext fs-2"> </i>
+        </a>
+        <a class="nav-link" aria-current="page" href="/campsite">
+          <i class="bi bi-binoculars fs-2 ms-4"> </i
+        ></a>
+        <!-- <img class="logos" src="@/assets/images/텐트_검정버전.png" alt="" /> -->
+        <div v-if="this.$store.state.userEmail">
           <a class="nav-link" aria-current="page" href="/login"
             ><i class="bi bi-person fs-2"> </i>
           </a>
@@ -25,8 +29,8 @@
           <a
             class="nav-link"
             aria-current="page"
-            :href="`
-              /profile/${this.$store.state.userEmail}`"
+            href="
+              profile/:userEmail"
           >
             <i class="bi bi-person fs-2"> </i>
           </a>
@@ -36,7 +40,7 @@
         <div class="circle">
           <i class="fas fa-plus plus-icon"></i>
           <i style="color: white" class="bi bi-person-plus social"> </i>
-          <i class="bi bi-people social"><a href="/mateparty"></a> </i>
+          <i class="bi bi-people social" @click="goMatematch()"> </i>
         </div>
         <div class="circleBackground"></div>
       </div>

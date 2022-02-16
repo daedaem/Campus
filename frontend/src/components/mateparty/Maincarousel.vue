@@ -12,17 +12,13 @@
         </div>
       </div>
       <div class="row">
-<<<<<<< HEAD
         <div
-          class="card col-md-2 col-"
+          class="card col-sm-6 col-md"
           v-for="(item, idx) in recentlist"
           :key="idx"
-          style="margin-top: 50px"
+          style="margin-left: 5px; margin-right: 5px; margin-top: 50px"
           @click="goRecentDetail(item.mateNo)"
         >
-=======
-        <div class="card col-sm-6 col-md" v-for="(item, idx) in recentlist" :key="idx" style="margin-left:5px; margin-right:5px; margin-top:50px;" @click="goRecentDetail(item.mateNo)">
->>>>>>> f05d107e125843f4e97f7af4692273edb1696717
           <img
             class="card-img-top"
             :src="item.mateImageUrl"
@@ -182,28 +178,24 @@ export default {
 .row {
 }
 .maincarouseltitle {
-  font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+  // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
   font-size: 18px;
-  font-weight: 900;
-  font-style: normal;
+  // font-weight: 900;
+  // font-style: normal;
+  cursor: pointer;
   line-height: 18px;
 }
 .maincarouseltitle-sub {
-  font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+  // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  cursor: pointer;
   font-style: normal;
-  font-weight: 400;
+  // font-weight: 400;
 }
 @media (min-width: 768px) {
-<<<<<<< HEAD
   .row > .card {
-    margin-left: 18px;
-    margin-right: 18px;
-=======
-.row > .card {
     // margin-left : 18px;
     // margin-right : 18px;
->>>>>>> f05d107e125843f4e97f7af4692273edb1696717
 
     background: #fff;
   }

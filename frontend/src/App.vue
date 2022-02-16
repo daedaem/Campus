@@ -1,7 +1,11 @@
 <template>
   <div id="app">
+    <Navbar class="CampusNavbar"></Navbar>
+
     <Chat class="chat" />
+
     <router-view :key="$route.fullPath"></router-view>
+    <Newmodal class="Newmodal" />
   </div>
   <!-- 삭제금지 -->
 </template>

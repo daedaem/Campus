@@ -1,19 +1,13 @@
 <template>
   <Navbar></Navbar>
   <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
-    <div
-      class="FeedListTotalframe d-flex"
-      v-if="this.$store.state.isLogin"
-    >
+    <div class="FeedListTotalframe d-flex" v-if="this.$store.state.isLogin">
       <div class="FeedListFrame">
         <div
           class="body d-flex flex-column justify-content-center align-items-center"
         >
           <div class="total-frame col-12">
-            <div
-              v-if="this.$store.state.isLogin"
-              class="FeedCreateFrame"
-            >
+            <div v-if="this.$store.state.isLogin" class="FeedCreateFrame">
               <div class="d-flex justify-content-center align-items-center">
                 <div v-if="this.$store.state.userProfileImage == null">
                   <img
@@ -90,9 +84,16 @@ export default {
       this.$router.push({ name: "Login" });
     }
     // console.log(this.$store.state.user);
-    axios
-      .get(`${SERVER_URL}/sns`)
-      // .get("http://i6e102.p.ssafy.io:8080/sns")
+    axios({
+      methods: "get",
+      url: `${SERVER_URL}/sns`,
+      params: {
+        limit: 10,
+        offset: 0,
+        // searchWord : '',
+        // doNm : '',
+      },
+    })
       .then((res) => {
         console.log("나옵니까", res);
         // console.log(res.data.list);
@@ -187,28 +188,28 @@ export default {
 .feedListItems {
   border-radius: 30px;
 }
-@media(max-width:758px){
+@media (max-width: 758px) {
   .FeedCreateFrame {
-  width: 100%;
-  background: #fff;
-  /* border-radius: 20px; */
-  border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
-  min-height: 70px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+    width: 100%;
+    background: #fff;
+    /* border-radius: 20px; */
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    min-height: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 @media (min-width: 768px) {
   .FeedCreateFrame {
-  width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  border: 1px solid #dbdbdb;
-  min-height: 70px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #dbdbdb;
+    min-height: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   .FeedListBackground {
     /* width:768px; */
     /* margin:auto; */
