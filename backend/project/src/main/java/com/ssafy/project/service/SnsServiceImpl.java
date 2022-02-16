@@ -205,7 +205,7 @@ public class SnsServiceImpl implements SnsService {
             List<SnsDto> followList = new ArrayList<SnsDto>();
             if(snsParamDto.getOffset() == 0){
             // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
-            snsParamDto.setUserNo(75);
+            snsParamDto.setUserNo(95);
             List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
             System.out.println(followingList.size());
             // 가져온 팔로잉 하는 사람을 순차적으로 호출
@@ -223,7 +223,7 @@ public class SnsServiceImpl implements SnsService {
                 }
             }
             }
-            snsParamDto.setUserNo(75);
+            snsParamDto.setUserNo(95);
             
             snsParamDto.setFollowingList(dao.getFollowingUser(snsParamDto.getUserNo()));
             System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset() + "     folowwinglist : " + snsParamDto.getFollowingList() );
