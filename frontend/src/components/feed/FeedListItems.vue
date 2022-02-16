@@ -131,7 +131,6 @@
                       </div>
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
-                        style="overflow: auto"
                       >
                         {{ comment.snsReplyContent }}
                       </div>
@@ -466,6 +465,18 @@ export default {
 </script>
 
 <style scoped>
+*{  font-family:Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;}
+.feedlistitems-commentcontent{
+  font-weight: 400;
+  overflow: "auto";
+  
+}
+.bi-heart-fill{
+    color: rgb(237, 73, 86);
+    fill: rgb(237, 73, 86);
+    height: 24;
+    width: 24;}
+    
 @media (min-width: 420px) {
   .user-feed-cards {
     border-radius: 20px;
@@ -520,10 +531,7 @@ export default {
   font-size: 16px;
   padding: 20px 20px;
 }
-/* .FeedListItems-commentContent { */
-/* border: 0.5px solid; */
-/* padding: 5px; */
-/* } */
+
 .user-feed-buttons {
   /* margin: 10px 0px; */
   padding: 10px 0px;
