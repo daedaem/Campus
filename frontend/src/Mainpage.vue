@@ -2,7 +2,9 @@
   <Navbar class="CampusNavbar"></Navbar>
   <body>
     <div>
-      <img class="brandlogo" src="@/assets/images/logo1.png" alt="" />
+      <img class="brandlogo" src="@/assets/images/logo1.png" alt="" /><a
+        href="#"
+      ></a>
     </div>
     <div class="box" style="width: 100vw; height: 100vh">
       <img class="box-image" src="@/assets/images/campinmountain.jpg" alt="" />
@@ -10,19 +12,17 @@
         <div class="overlay-title">
           <!-- 타이틀은 이미지로 만들어서 붙여야 할 듯 배민보고 -->
           <div
-            class="d-flex flex-column justify-content-center align-items-center"
+            class="MainTitle d-flex flex-column justify-content-center align-items-center"
           >
             <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
-            <div class="text-center">
-              <a class="btn btn-sm" href="#">
-                <div
-                  class="CreateAccountButton"
-                  style="max-width: 100%; height: auto"
-                >
-                  계정 만들기
-                </div>
-              </a>
-            </div>
+            <a class="btn btn-sm" href="#">
+              <div
+                class="CreateAccountButton"
+                style="max-width: 100%; height: auto"
+              >
+                계정 만들기
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -129,8 +129,9 @@ export default {
 /* } */
 
 .brandSlogan {
-  max-width: 100%;
+  max-width: 80%;
   height: "auto";
+  margin-bottom: 30px;
 
   /* max-width: 600px; */
   /* max-height: 500px; */
@@ -233,6 +234,11 @@ p {
 /* display: hidden; */
 /* } */
 @media (min-width: 768px) {
+  .MainTitle {
+    /* position: absolute; */
+
+    margin-bottom: 100px;
+  }
   .Navbar {
     background: transparent;
     position: absolute;
@@ -271,6 +277,7 @@ p {
     width: 54px;
     height: 45px;
     z-index: 20;
+    cursor: pointer;
   }
   .brandSlogan {
     position: absolute;
@@ -280,6 +287,9 @@ p {
   }
   .Navlogos {
     display: block;
+  }
+  .CreateAccountButton {
+    font-size: 14px;
   }
 }
 
