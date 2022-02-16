@@ -1,5 +1,4 @@
 <template>
-  <Navbar></Navbar>
   <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
     <div class="FeedListTotalframe d-flex" v-if="this.$store.state.isLogin">
       <div class="FeedListFrame">
@@ -58,7 +57,7 @@
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
-import Navbar from "@/components/common/Navbar.vue";
+// import Navbar from "@/components/common/Navbar.vue";
 
 import { mapState } from "vuex";
 import axios from "axios";
@@ -73,7 +72,7 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
-    Navbar,
+    // Navbar,
 
     // FeedDetail
   },
@@ -90,6 +89,8 @@ export default {
       params: {
         limit: 10,
         offset: 0,
+        userNo: this.$store.state.myNum,
+
         // searchWord : '',
         // doNm : '',
       },
