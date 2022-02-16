@@ -1,24 +1,22 @@
 <template>
   <body>
     <div class="container">
-      <div class="row" >
-      
-        <div class="col-6"     
+      <div class="row">
+        <div class="maincarouseltitle col-6">지금 뜨는 메이트 모집</div>
+        <div
+          class="maincarouseltitle-sub col-6"
+          align="right"
+          @click="goCampsite()"
         >
-          지금 뜨는 메이트 모집
-        </div>
-        <div class="col-6" align="right" @click="goCampsite()">
           전체보기
         </div>
-      
       </div>
       <div class="row">
-        <div class="card col-md-2 col-" v-for="(item, idx) in recentlist" :key="idx" style="margin-top:50px;" @click="goRecentDetail(item.mateNo)">
+        <div class="card col-sm-6 col-md" v-for="(item, idx) in recentlist" :key="idx" style="margin-left:5px; margin-right:5px; margin-top:50px;" @click="goRecentDetail(item.mateNo)">
           <img
             class="card-img-top"
             :src="item.mateImageUrl"
             alt=""
-        
             v-if="item.mateImageUrl"
           />
           <img
@@ -28,7 +26,7 @@
             style="height: 150px"
             v-else
           />
-          <div class="card-body" >
+          <div class="card-body">
             <h5 class="card-title" align="left" style="height: 75px">
               {{ item.mateTitle }}
             </h5>
@@ -36,14 +34,16 @@
               <small class="text-muted">
                 <div align="right">@{{ item.userNickname }}</div>
               </small>
-                <div align="right">
-                  <small>
-                    <i class="far fa-user" ></i>
-                    <span v-if="item.mateList" align="right"> {{ item.mateList.length }}</span>
-                    <span v-else> 1</span>
-                    <span> / {{ item.memberlimit}}</span>
-                  </small>
-                </div>
+              <div align="right">
+                <small>
+                  <i class="far fa-user"></i>
+                  <span v-if="item.mateList" align="right">
+                    {{ item.mateList.length }}</span
+                  >
+                  <span v-else> 1</span>
+                  <span> / {{ item.memberlimit }}</span>
+                </small>
+              </div>
             </div>
           </div>
         </div>
@@ -130,14 +130,14 @@
 
 <script>
 import { ref } from "vue";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 export default {
   name: "Maincarousel",
   props: {
     mainlist: Array,
   },
   setup(props) {
-    const router = useRouter()
+    const router = useRouter();
     const recentlist = ref(props.mainlist);
     console.log(recentlist.value);
     // console.log(props.mainlist[1])
@@ -145,12 +145,12 @@ export default {
     // console.log(recentlist.value)
 
     const goCampsite = () => {
-      router.push({name:'Mateparty'})
-    }
+      router.push({ name: "Mateparty" });
+    };
 
     const goRecentDetail = (No) => {
-      router.push({name : 'Partyinfo',params: { mateNo : No}})
-    }
+      router.push({ name: "Partyinfo", params: { mateNo: No } });
+    };
     return {
       recentlist,
       goCampsite,
@@ -163,14 +163,33 @@ export default {
 <style lang="scss" scoped>
 .merong {
 }
-
+.card-title {
+  font-size: 15px;
+}
+.card-text {
+  // font-size: 12px;
+}
+.row {
+}
+.maincarouseltitle {
+  font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 18px;
+}
+.maincarouseltitle-sub {
+  font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
 @media (min-width: 768px) {
 .row > .card {
-    margin-left : 18px;
-    margin-right : 18px;
+    // margin-left : 18px;
+    // margin-right : 18px;
 
     background: #fff;
- 
   }
 }
 a {
@@ -179,17 +198,17 @@ a {
 
 .card > .card-img-top {
   height: 200px;
-   object-fit:cover;
+  object-fit: cover;
 }
 
-@media (max-width : 768px) {
- .card > .card-img-top {
-  height: 240px;
-  object-fit:cover;
-  // .card > .card-body {
+@media (max-width: 768px) {
+  .card > .card-img-top {
+    height: 240px;
+    object-fit: cover;
+    // .card > .card-body {
     // height: 100px;
-  // }
-} 
+    // }
+  }
 }
 /* Card Styles */
 
@@ -200,7 +219,7 @@ h1 {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  height:380px;
+  height: 380px;
   border: none;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);

@@ -53,6 +53,7 @@ public class SnsController {
     @GetMapping(value = "/sns")
     private ResponseEntity<SnsResultDto> snsList(SnsParamDto snsParamDto) {
         SnsResultDto snsResultDto;
+        System.out.println(snsParamDto);
 
         if (snsParamDto.getSearchWord() == null) { // 검색어가 없을시
             snsResultDto = snsService.snsList(snsParamDto);
