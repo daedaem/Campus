@@ -219,39 +219,8 @@ export default {
   },
   methods: {
     findCampsite() {
-      // console.log(
-      //   "전",
-      //   this.searchWord,
-      //   this.doNm,
-      //   this.sigunguNm,
-      //   this.toiletCo,
-      //   this.swrmCo,
-      //   this.wtrplCo,
-      //   this.trlerAcmpnyAt,
-      //   this.caravAcmpnyAt,
-      //   this.exprnProgrmAt,
-      //   this.exprnProgrmAt,
-      //   this.clturEventAt,
-      //   this.eqpmnLendCl,
-      //   this.siteMgCo
-      // );
+
       this.changed();
-      // console.log(
-      //   "후",
-      //   this.searchWord,
-      //   this.doNm,
-      //   this.sigunguNm,
-      //   this.toiletCo,
-      //   this.swrmCo,
-      //   this.wtrplCo,
-      //   this.trlerAcmpnyAt,
-      //   this.caravAcmpnyAt,
-      //   this.exprnProgrmAt,
-      //   this.exprnProgrmAt,
-      //   this.clturEventAt,
-      //   this.eqpmnLendCl,
-      //   this.siteMgCo
-      // );
       // console.log(this.selected, "단어");
       // for (let i = 0; i <script this.doNm.length; i++) {
       // console.log(this.selected[i], "단어추출");
@@ -279,6 +248,8 @@ export default {
         // articles.value.push(...res.data.list);
         // this.searchResults = res.data.list;
         console.log("필터 데이터 전송", res.data.list);
+        // this.$router.reload()
+
         // this.resultCampSite = res.data;
         // if (res.data.list.length > 0) {
         // for (let i = 0; i < res.data.list.length; i++) {
@@ -288,7 +259,11 @@ export default {
         // } else {
         // this.$store.state.resultOfCampsite = res.data.list;
         // }
+        // this.router.go(0)
         this.$emit("newarticles", res.data.list);
+      //         if (this.doNm == null) {
+      //   this.doNm = null;
+      // }
         // this.$store.dispatch("resultOfCampsite", res.data.list);
 
         // console.log(this.$store.state.resultCampSite);
@@ -313,7 +288,7 @@ export default {
         (this.animalCmgCl = ""),
         (this.exprnProgrmAt = ""),
         (this.clturEventAt = ""),
-        (this.eqpmnLendCl = 0),
+        (this.eqpmnLendCl = ""),
         (this.siteMgCo = 0);
     },
     changed() {
@@ -383,7 +358,7 @@ export default {
       }
     },
   },
-  watch: {
+  // watch: {
     // doNm() {
     // if (this.doNmtemp.length == 1) {
     //     this.doNm = this.doNmtemp;
@@ -397,7 +372,7 @@ export default {
     //   }
     // },
     // },
-  },
+  // },
 };
 </script>
 
