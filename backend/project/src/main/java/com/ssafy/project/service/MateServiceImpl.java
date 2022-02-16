@@ -531,63 +531,6 @@ public class MateServiceImpl implements MateService {
                 }
             }
             
-            // if(list1.size() == 0){
-            //     if(list2.size() == 0){
-            //         if(list3.size() == 0){
-            //         }else{
-            //             listResult = list3;
-            //         }
-            //     }else{
-            //         if(list3.size() == 0){
-            //             listResult = list2;
-            //         }else{
-            //             for (int i = 0; i < list2.size(); i++) {
-            //                 for (int j = 0; j < list3.size(); j++) {
-            //                     if(list2.get(i).equals(list3.get(j)))
-            //                         listResult.add(list2.get(i));
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }else{
-            //     if(list2.size() == 0){
-            //         if(list3.size() == 0){
-            //             listResult = list1;
-            //         }else{
-            //             for (int i = 0; i < list1.size(); i++) {
-            //                 for (int j = 0; j < list3.size(); j++) {
-            //                     if(list1.get(i).equals(list3.get(j)))
-            //                         listResult.add(list1.get(i));
-            //                 }
-            //             }
-            //         }
-            //     }else{
-            //         System.out.println("check");
-            //         System.out.println(list1);
-            //         System.out.println(list2);
-            //         if(list3.size() == 0){
-            //             for (int i = 0; i < list1.size(); i++) {
-            //                 for (int j = 0; j < list2.size(); j++) {
-            //                     if(list1.get(i).equals(list2.get(j))){
-            //                         listResult.add(list1.get(i));
-            //                     }
-            //                 }
-            //             }
-            //         }else{
-            //             for (int i = 0; i < list1.size(); i++) {
-            //                 for (int j = 0; j < list2.size(); j++) {
-            //                     for (int k = 0; k < list3.size(); k++) {
-            //                         if(list1.get(i).equals(list2.get(j)) && list2.get(j).equals(list3.get(k))){
-            //                             listResult.add(list1.get(i));
-            //                         }
-                                        
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-            
 
             if(listResult.size() == 0){
                 dto.setMatefilter(-1);

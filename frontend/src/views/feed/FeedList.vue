@@ -76,12 +76,15 @@ export default {
 
     // FeedDetail
   },
+  // data() {
+  //   return { feedcount: "" };
+  // },
   methods: {},
   created: function () {
-    if (this.$store.state.userEmail == null) {
-      alert("로그인이 필요한 서비스입니다.");
-      this.$router.push({ name: "Login" });
-    }
+    // if (this.$store.state.userEmail == null) {
+    //   alert("로그인이 필요한 서비스입니다.");
+    //   this.$router.push({ name: "Login" });
+    // }
     // console.log(this.$store.state.user);
     axios({
       methods: "get",
@@ -100,6 +103,7 @@ export default {
         // console.log(res.data.list);
         const data = res.data.list;
         this.$store.dispatch("feedList", data);
+        // this.feedcount = res.data.count;
       })
 
       .catch((err) => {
@@ -117,7 +121,7 @@ export default {
     const feedLists = ref([]);
     const limit = ref(10);
     const offset = ref(0);
-
+    const feedcount = ref(0);
     const getDatas = () => {
       axios({
         methods: "get",
@@ -132,6 +136,8 @@ export default {
         .then((res) => {
           console.log("뭔데", res);
           feedLists.value.push(...res.data.list);
+          feedcount.value = res.data.count;
+          console.log(feedcount);
           // console.log(feedLists.value);
           // this.$store.dispatch("feedList", data);
           // console.log("넣습니다", feedLists);
@@ -152,10 +158,13 @@ export default {
         let scrollTop = document.documentElement.scrollTop;
         let scrollHeight = document.documentElement.scrollHeight;
         let clientHeight = document.documentElement.clientHeight;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10) {
+        // console.log("값뭔데", feedcount.value);
+        // console.log("값뭔데", offset.value);
+        if (
+          scrollTop + clientHeight >= scrollHeight - 10 &&
+          feedcount.value > offset.value + 10
+        ) {
           offset.value += 10;
-          // this.limit += 10
           getDatas();
         }
       });
@@ -166,6 +175,7 @@ export default {
       limit,
       offset,
       getDatas,
+      feedcount,
     };
   },
   // created: function() {

@@ -44,9 +44,35 @@
                       {{ item.facltNm }}
                     </h5>
                     <div class="d-flex flex-row mb-3">
-                      <div class="ratings mr-2">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i
-                        ><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      <div class="star-ratings" style="margin-top: 0px" v-if="item.campSiteScore">
+                        <div
+                          class="star-ratings-fill space-x-2 text-lg"
+                          :style="{ width: item.campSiteScore * 13 + 1.5 + '%' }"
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span style="margin-left:10px; color:yellow; font-family:Arial; font-size:16px;">{{item.campSiteScore.toFixed(1)}}</span>
+                        </div>
+                        <div></div>
+                      </div>
+                      <div class="star-ratings" style="margin-top: 0px" v-else>
+                        <div
+                          class="star-ratings-fill space-x-2 text-lg"
+                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                          <span style="margin-left:10px; color:yellow; font-family:Arial;" >{{xx.toFixed(1)}}</span>
+                 
+                        </div>
+                        <div></div>
                       </div>
                     </div>
                   </div>
@@ -163,9 +189,37 @@
                       {{ item.facltNm }}
                     </h5>
                     <div class="d-flex flex-row mb-3">
-                      <div class="ratings mr-2">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i
-                        ><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      <div class="star-ratings" style="margin-top: 0px" v-if="item.campSiteScore">
+                        <div
+                          class="star-ratings-fill space-x-2 text-lg"
+                          :style="{ width: (item.campSiteScore) * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                          <span style="margin-left:10px; color:yellow; font-family:Arial;" v-if="item.campSiteScore">{{item.campSiteScore.toFixed(1)}}</span>
+                 
+                        </div>
+                        <div></div>
+                      </div>
+                      <div class="star-ratings" style="margin-top: 0px" v-else>
+                        <div
+                          class="star-ratings-fill space-x-2 text-lg"
+                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span
+                          ><span>★</span>
+                          <span style="margin-left:10px; color:yellow; font-family:Arial;" >{{xx.toFixed(1)}}</span>
+                 
+                        </div>
+                        <div></div>
                       </div>
                     </div>
                   </div>
@@ -249,6 +303,8 @@ export default {
     CampsiteFilter,
   },
   setup() {
+    const _ = require("lodash");  
+    const xx = _.random(1,5)
     const store = useStore();
     const router = useRouter();
     const articles = ref([]);
@@ -326,21 +382,27 @@ export default {
     const giveHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "post",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'post',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("들어오나",res);
+          mylst.value.push(boardid)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const cancelHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "delete",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'delete',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("빼나",res)
+          mylst.value.splice(mylst.value.indexOf(boardid), 1)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const camplikeuser = () => {
@@ -397,7 +459,8 @@ export default {
       newarticles,
       infinityData,
       temp,
-      start
+      start,
+      xx,
     };
   },
 };
@@ -542,5 +605,33 @@ h5 {
   /* width: 300px; */
   /* height: 200px; */
   /* background: #fff; */
+}
+
+
+.star-ratings {
+  color: #fff58c;
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
 }
 </style>

@@ -197,14 +197,14 @@ public class SnsServiceImpl implements SnsService {
     public SnsResultDto snsList(SnsParamDto snsParamDto) {
 
         SnsResultDto snsResultDto = new SnsResultDto();
-
+        System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset());
         try {
             // 현재 팔로잉 하는 유저의 피드를 저장.
             List<SnsDto> followList = new ArrayList<SnsDto>();
             if(snsParamDto.getOffset() == 0){
             // 현재 sns를 보는 유저가 팔로잉 하고 있는 유저 리스트 생성
-            snsParamDto.setUserNo(93);
             List<Integer> followingList = dao.getFollowingUser(snsParamDto.getUserNo());
+            System.out.println(followingList.size());
             // 가져온 팔로잉 하는 사람을 순차적으로 호출
             if(followingList.size() != 0){
                 for(int i = 0; i < followingList.size(); i++){
@@ -220,13 +220,21 @@ public class SnsServiceImpl implements SnsService {
                 }
             }
             }
-            snsParamDto.setUserNo(93);
             
             snsParamDto.setFollowingList(dao.getFollowingUser(snsParamDto.getUserNo()));
-            System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset());
-            List<SnsDto> list = dao.snsList(snsParamDto);
-            int count = dao.snsListTotalCountWithoutFolling(snsParamDto);
-            for (int i = 0; i < snsParamDto.getLimit(); i++) {
+            System.out.println("limit :  "+ snsParamDto.getLimit()+ "     offset : "+snsParamDto.getOffset() + "     folowwinglist : " + snsParamDto.getFollowingList() );
+            List<SnsDto> list;
+            int count;
+            if(snsParamDto.getFollowingList().size() != 0){
+                list = dao.snsList(snsParamDto);
+                count = dao.snsListTotalCountWithoutFollowing(snsParamDto);
+            }else{
+                list = dao.snsListFollowingNull(snsParamDto);
+                count = dao.snsListTotalCount();
+            }
+            System.out.println("text");
+            //int count = dao.snsListTotalCountWithoutFollowing(snsParamDto);
+            for (int i = 0; i < list.size(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
