@@ -8,27 +8,27 @@
 
         <router-link
           :to="{ name: 'Mainpage' }"
-          class="d-flex flex-column justify-content-center align-items-center"
+          class="mainpagerouter d-flex flex-column justify-content-center align-items-center"
           ><i class="bi bi-house-door fs-5"></i>
           <div class="NewModalDiscription">Home</div></router-link
         >
 
         <router-link
           :to="{ name: 'FeedList' }"
-          class="d-flex flex-column justify-content-center align-items-center me-5"
+          class="feedrouter d-flex flex-column justify-content-center align-items-center me-5"
           ><i class="bi bi bi-journal-richtext fs-5"></i>
           <div class="NewModalDiscription">SNS</div></router-link
         >
         <router-link
           :to="{ name: 'Campsite' }"
-          class="d-flex flex-column justify-content-center align-items-center ms-5"
+          class="campisterouter d-flex flex-column justify-content-center align-items-center ms-5"
           ><i class="bi bi bi-binoculars fs-5"></i>
           <div class="NewModalDiscription">캠핑장</div>
         </router-link>
 
         <div v-if="this.$store.state.userEmail">
           <a
-            class="nav-link d-flex flex-column justify-content-center align-items-center"
+            class="profilerouter nav-link d-flex flex-column justify-content-center align-items-center"
             aria-current="page"
             :href="`
               /profile/${this.$store.state.userEmail}`"
@@ -180,7 +180,9 @@ body {
   box-shadow: 0 5px 5px rgba(255, 147, 85, 0.35);
   transition: height 0.3s;
 }
-
+.clicked_campistrouter {
+  color: black;
+}
 .circle:hover {
   height: 110px;
   border-radius: 50px;

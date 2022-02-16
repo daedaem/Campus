@@ -232,9 +232,9 @@ public class SnsServiceImpl implements SnsService {
                 list = dao.snsListFollowingNull(snsParamDto);
                 count = dao.snsListTotalCount();
             }
-            
+            System.out.println("text");
             //int count = dao.snsListTotalCountWithoutFollowing(snsParamDto);
-            for (int i = 0; i < snsParamDto.getLimit(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 List<SnsImageDto> imageList = dao.snsImageList(list.get(i).getSnsNo());
                 list.get(i).setImageList(imageList);
                 List<SnsReplyDto> snsReplyList = dao.snsReplyList(list.get(i).getSnsNo());
