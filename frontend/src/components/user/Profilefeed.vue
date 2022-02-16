@@ -9,13 +9,27 @@
 		</div>
 	</div>
 	<div v-else>
-		<h1>아직 피드가 없습니다!</h1>
+		<div v-if="this.seeUser === this.currentUser">
+			<h1>게시글을 한번 작성해보러 갈까요?</h1>
+			<div class="d-flex justify-content-center">
+				<button class="check-button" @click="createFeed()">Go</button>
+			</div>
+		</div>
+		<div v-else>
+			<h1>아직 게시글이 없습니다.</h1>
+		</div>
 	</div>
 </template>
 
 <script>
 export default {
 	name: "Profilefeed",
+	data() {
+		return {
+			seeUser: "",
+			currentUser: "",
+		}
+	},
 	props: {
 		feedList: Object,
 	},
@@ -24,7 +38,16 @@ export default {
 			this.$router.push({ 
 				name: 'FeedDetail',
 				params: { snsNo: e}})
+		},
+		createFeed: function () {
+			this.$router.push({
+				name: 'FeedCreate'
+			})
 		}
+	},
+	created: function() {
+		this.seeUser = this.$route.params.userEmail
+		this.currentUser = this.$store.state.userList.userEmail
 	}
 }
 </script>
@@ -65,5 +88,16 @@ export default {
 }
 .hover-img .icon-heart::after  {
     content: ' ♥';
+}
+
+.check-button{
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #5791ff;
+  border: none;
+  color: white;
+  margin-top: 20px;
 }
 </style>

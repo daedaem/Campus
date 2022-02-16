@@ -42,17 +42,18 @@
 								placeholder="닉네임을 입력하세요"
 								v-model="credentials.userNickname"
 								autofocus
-								@blur="nicknameValid">
+								@blur="nicknameValid"
+								:disabled="this.validatedcheck === true">
 
-							<button
+							<!-- <button
 								class="check-button"
 								@click="duplNickname()"
 								type="button"
-								>중복확인</button>
+								>중복확인</button> -->
 						</div>
-						<small align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form" style="color:red">
+						<!-- <small align="left" v-if="!nicknameValidFlag && this.credentials.userNickname.length > 0" class="check-form" style="color:red">
 							특수문자를 사용할 수 없습니다.
-						</small>
+						</small> -->
 					</div>
 
 					<div class="row mt-2">
@@ -681,5 +682,9 @@ export default {
 	background-color: #fb0102;
 	border: none;
 	color: white;
+}
+
+input[type=password] {
+  font-family: 'NanumSquare'
 }
 </style>
