@@ -9,7 +9,7 @@
           <div
             class="d-flex flex-column justify-content-center align-items-center"
           >
-            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" style="max-width:100%; height:auto;"/>
+            <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" style="width:350px; height:auto;"/>
             <div class="text-center">
 
               <a class="btn btn-sm" href="#">
@@ -25,7 +25,7 @@
     
     <Maincarousel v-if="mainlist.length != 0" :mainlist="mainlist" style="margin-top:50px;"/>
   </body>
-  <Newmodal/>
+  <!-- <Newmodal/> -->
 </template>
 
 <script>
@@ -34,7 +34,7 @@ import axios from "axios";
 // import { useStore } from "vuex";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import Newmodal from '@/components/mateparty/Newmodal.vue'
+// import Newmodal from '@/components/mateparty/Newmodal.vue'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -45,7 +45,7 @@ export default {
   components: {
     Maincarousel,
     Navbar,
-    Newmodal,
+    // Newmodal,
   },
 
   setup() {

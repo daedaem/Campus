@@ -68,9 +68,12 @@ export default {
 
   name: "Mateparty",
   setup() {
-    const store = useStore();
     
-
+    const store = useStore();
+    // if (store.state.userEmail == null) {
+    //   alert("로그인이 필요한 서비스입니다.");
+    //   router.push({ name: "Login" });
+    // }
     const newFilter = ref(store.state.mateList)
     const testlist = ref("");
     const viewFunc = (data) => {
