@@ -23,7 +23,7 @@
 
     <select id="snsList" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname, u.userEmail
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             <if test='followingList.size != 0'>
@@ -38,7 +38,7 @@
 
     <select id="snsListFollowingNull" parameterType="com.ssafy.project.dto.SnsParamDto" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname, u.userEmail
             FROM sns s, user u
             WHERE s.userNo = u.userNo
             ORDER BY s.snsNo DESC
@@ -47,7 +47,7 @@
 
     <select id="userSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
             SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname, u.userEmail
             FROM sns s, user u
             WHERE s.userNo = u.userNo AND s.userNo = #{userNo}
             ORDER BY s.snsNo DESC
@@ -55,7 +55,7 @@
 
     <select id="FollowingSnsList" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
             SELECT s.snsNo, s.userNo, 
-                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname
+                s.snsContent, s.snsCreateTime, u.userProfileImage , u.userNickname, u.userEmail
                 FROM sns s, user u
                 WHERE s.userNo = u.userNo and u.userNo = #{userNo} and s.snsCreateTime >= (CURDATE()-INTERVAL 5 DAY)
                 ORDER BY s.snsNo DESC
@@ -80,7 +80,7 @@
     </delete>
 
     <select id="snsDetail" parameterType="int" resultType="com.ssafy.project.dto.SnsDto">
-        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime, s.snsUpdateTime, u.userNickname, u.userProfileImage
+        SELECT s.snsNo, s.userNo, s.snsContent, s.snsCreateTime, s.snsUpdateTime, u.userNickname, u.userProfileImage, u.userEmail
         FROM sns s, user u
         WHERE s.snsNo = #{snsNo}
         AND s.userNo = u.userNo
@@ -88,7 +88,7 @@
 
     <select id="snsReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
             SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
-                u.userNickname, u.userProfileImage
+                u.userNickname, u.userProfileImage, u.userEmail
                 FROM snsReply s, user u
                 WHERE s.userNo = u.userNo
                 AND snsNo = #{snsNo};
@@ -114,7 +114,7 @@
     <!-- search word-->
     <select id="snsListSearchWord" parameterType="map" resultType="com.ssafy.project.dto.SnsDto">
         SELECT s.snsNo, s.userNo, u.userNickname,
-                s.snsContent, s.snsCreateTime, u.userProfileImage
+                s.snsContent, s.snsCreateTime, u.userProfileImage, u.userEmail
             FROM sns s, user u
             WHERE s.userno = u.userNo
                 AND s.snsContent LIKE CONCAT('%', #{searchword}, '%')

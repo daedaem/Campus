@@ -211,6 +211,7 @@ public class MateServiceImpl implements MateService {
             MateDto dto = new MateDto();
             dto.setMateNo(mateNo);
             dto.setMateImageUrl(TEMP_URL);
+            file.delete();
             dao.mateImageInsert(dto);
             
 
