@@ -464,7 +464,11 @@ export default {
 
 <style>
 /* 574픽셀부터는 사진 외 내용이 밑으로 가므로 top공백을 없애주기 위해서 feeddetailtotal 프레임에 css걸어줌 */
-
+.bi-heart-fill{
+    color: rgb(237, 73, 86);
+    fill: rgb(237, 73, 86);
+    height: 24;
+    width: 24;}
 @media (min-width: 768px) {
   .FeedDetailTotal {
     width: calc(100% - 40px);
@@ -534,6 +538,8 @@ export default {
     flex-shrink: 1;
     max-width: 360px;
     background-color: #ffff;
+    
+
 
     /* border: 1px solid #eee; */
     /* width: 100%; */
@@ -541,6 +547,7 @@ export default {
   .FeedDetail-RightBox-ContentBox {
     flex-grow: 1;
     flex-shrink: 1;
+    border-top-right-radius: 1px solid #eee;
     /* flex: 1; */
   }
   .FeedDetail-WriteComment {

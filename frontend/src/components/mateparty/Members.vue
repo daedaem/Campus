@@ -204,7 +204,7 @@
                   </div>
                   <div class="star-ratings-base space-x-2 text-lg">
                     <span>★</span><span>★</span><span>★</span><span>★</span
-                    ><span>★</span>&nbsp;<span>{{ item.userRatePoint }}/5</span>
+                    ><span>★</span>&nbsp;<span style="font-family:Arial; font-size:16px;">{{ item.userRatePoint }}/5</span>
                   </div>
                   <div></div>
                 </div>
