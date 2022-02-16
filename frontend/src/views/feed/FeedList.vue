@@ -28,7 +28,7 @@
                     캠핑을 공유해주세요.
                   </div>
                 </div>
-                <!-- <searchbar class="feedlistsearchbar"></searchbar> -->
+                <searchbar class="feedlistsearchbar"></searchbar>
                 <a class="nav-link mt-2" aria-current="page" href="/sns/create">
                   <!-- <i class="bi bi-journal-richtext"></i> -->
 
@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+    <Newmodal class="Newmodal" />
   </div>
 </template>
 
@@ -68,7 +69,7 @@ import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 import { ref, onMounted } from "vue";
-// import Searchbar from "../../components/common/Searchbar.vue";
+import Searchbar from "../../components/common/Searchbar.vue";
 // import { useRouter } from "vue-router";
 
 // import { ref } from "vue";
@@ -79,7 +80,7 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
-    // Searchbar,
+    Searchbar,
     // Navbar,
 
     // FeedDetail

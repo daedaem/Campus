@@ -113,7 +113,7 @@
                     class="d-flex justify-content-between align-items-center py-2"
                   >
                     <div
-                      class="d-flex justify-content-start align-items-center ps-3 col-9"
+                      class="d-flex justify-content-start align-items-center ps-3"
                     >
                       <img
                         v-if="comment.userProfileImage === null"
@@ -127,7 +127,7 @@
                         alt=""
                         class="user-comment-profile-image"
                       />
-                      <div class="fw-bold">
+                      <div class="commentUserNickname fw-bold">
                         {{ comment.userNickname }}
                       </div>
                       <div
@@ -469,6 +469,10 @@ export default {
 <style scoped>
 * {
   font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+}
+.commentUserNickname {
+  max-width: 100px;
+  font-size: 13px;
 }
 .feedlistitems-commentcontent {
   font-weight: 400;
