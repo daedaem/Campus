@@ -13,7 +13,7 @@
       
       </div>
       <div class="row">
-        <div class="card col-md-2 col-" v-for="(item, idx) in recentlist" :key="idx" style="margin-top:50px;" @click="goRecentDetail(item.mateNo)">
+        <div class="card col-sm-6 col-md" v-for="(item, idx) in recentlist" :key="idx" style="margin-left:5px; margin-right:5px; margin-top:50px;" @click="goRecentDetail(item.mateNo)">
           <img
             class="card-img-top"
             :src="item.mateImageUrl"
@@ -166,8 +166,8 @@ export default {
 
 @media (min-width: 768px) {
 .row > .card {
-    margin-left : 18px;
-    margin-right : 18px;
+    // margin-left : 18px;
+    // margin-right : 18px;
 
     background: #fff;
  
