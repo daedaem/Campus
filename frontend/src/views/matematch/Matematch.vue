@@ -1,8 +1,8 @@
 <template>
     <Navbar id="navbar"></Navbar>
-  <div class="CampSitebackground">
-    <div class="CampeSitebackground-imgcover">
-      <div class="CampeSitebackground-content">메이트 매칭</div>
+  <div class="MateMatch">
+    <div class="MateMatch-imgcover">
+      <div class="MateMatch-content"><h1> 메이트 매칭</h1></div>
       <div></div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 </div>
     <div class="row">
         <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx" style="margin-bottom:40px;" align="center" >
-            <div class="card p-0" style="margin:0px;" >
+            <div class="card p-0" style="margin:0px;" :class="'card'+[idx]">
                 <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">{{item.userNickname}}</h4>
@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style scoped>
-.CampSitebackground {
+.MateMatch {
   width: 100%;
   height: 200px;
   /* background: black; */
@@ -130,14 +130,14 @@ export default {
   50% 65% no-repeat; 
   background-size: 100% auto;
 }
-.CampeSitebackground-imgcover {
+.MateMatch-imgcover {
   position: absolute;
   width: 100%;
   height: 200px;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
-.CampeSitebackground-content {
+.MateMatch-content {
   position: absolute;
   top: 30%;
   left: 20%;
@@ -162,8 +162,51 @@ export default {
     width: 768px;
     margin: 0 auto;
     padding: 0 20px;
-    background: beige;
+    background: #fafafa;
   }
+  
+@keyframes card0-ani { 
+  from { transform: translate(300px, 300px); 
+  } 
+  to 
+  { transform: translate(100px, 100px); 
+  } 
+}
+@keyframes card1-ani { 
+  from { transform: translate(-200px, 400px); 
+  } 
+  to 
+  { transform: translate(0px, 150px); 
+  } 
+}
+@keyframes card2-ani { 
+  from { transform: translate(100px, 0); 
+  } 
+  to 
+  { transform: translate(0px, 100px); 
+  } 
+}
+@keyframes card3-ani { 
+  from { transform: translate(-50, -50); 
+  } 
+  to 
+  { transform: translate(100px, 100px); 
+  } 
+}
+
+.card0 {
+  animation: card0-ani 2s;
+}
+
+.card1 {
+  animation: card1-ani 2s;
+}
+.card2 {
+  animation: card2-ani 2s;
+}
+.card3 {
+  animation: card3-ani 2s;
+}
 }
 
 .container {
@@ -186,6 +229,9 @@ export default {
   cursor: pointer;
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+ 
+
+
 }
 
 .card .card-image {
@@ -332,4 +378,6 @@ sub {
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-font-smoothing: antialiased;
 }
+
+
 </style>

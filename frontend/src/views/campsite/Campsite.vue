@@ -274,6 +274,7 @@ export default {
     }
 
     const getNewdata = (val) => {
+      newarticles.value = []
       temp.value = val;
       console.log(temp.value);
 
@@ -403,6 +404,11 @@ export default {
 </script>
 
 <style scoped>
+.bi-heart-fill{
+    color: rgb(237, 73, 86);
+    fill: rgb(237, 73, 86);
+    height: 24;
+    width: 24;}
 .navbar {
   /* width: 968px; */
   /* align-self: stretch; */
