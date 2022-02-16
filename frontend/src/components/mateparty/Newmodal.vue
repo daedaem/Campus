@@ -1,42 +1,56 @@
 <template>
   <div clas="tabbarFrame d-flex">
     <div class="wrapper">
-      <div class="tabbar pt-4">
+      <div
+        class="tabbar d-flex justify-content-between align-items-center pt-1"
+      >
         <!-- <div><img class="logos" src="@/assets/images/logo3.png" alt="" /></div> -->
-        <router-link :to="{ name: 'Mainpage' }"
-          ><i class="bi bi-house-door fs-2"></i
-        ></router-link>
 
-        <router-link :to="{ name: 'FeedList' }"
-          ><i class="bi bi bi-journal-richtext fs-2"></i
-        ></router-link>
+        <router-link
+          :to="{ name: 'Mainpage' }"
+          class="d-flex flex-column justify-content-center align-items-center"
+          ><i class="bi bi-house-door fs-5"></i>
+          <div class="NewModalDiscription">Home</div></router-link
+        >
 
-        <router-link :to="{ name: 'Campsite' }"
-          ><i class="bi bi bi-binoculars fs-2"></i
-        ></router-link>
+        <router-link
+          :to="{ name: 'FeedList' }"
+          class="d-flex flex-column justify-content-center align-items-center me-5"
+          ><i class="bi bi bi-journal-richtext fs-5"></i>
+          <div class="NewModalDiscription">SNS</div></router-link
+        >
+        <router-link
+          :to="{ name: 'Campsite' }"
+          class="d-flex flex-column justify-content-center align-items-center ms-5"
+          ><i class="bi bi bi-binoculars fs-5"></i>
+          <div class="NewModalDiscription">캠핑장</div>
+        </router-link>
 
-        <div v-if="this.$store.state.userName">
-          <a class="nav-link" aria-current="page" href="/login"
-            ><i class="bi bi-person fs-2"> </i>
-          </a>
-          <!-- <i class="fas fa-cog icon-settings" style="margin-right: 70px"></i> -->
-        </div>
-        <div v-else>
+        <div v-if="this.$store.state.userEmail">
           <a
-            class="nav-link"
+            class="nav-link d-flex flex-column justify-content-center align-items-center"
             aria-current="page"
             :href="`
               /profile/${this.$store.state.userEmail}`"
           >
-            <i class="bi bi-person fs-2"> </i>
+            <i class="bi bi-person fs-5"> </i>
+            <div class="NewModalDiscription">프로필</div>
           </a>
-          <!-- <i class="fas fa-cog icon-settings" style="margin-right: 70px"></i> -->
+        </div>
+        <div v-else>
+          <a
+            class="nav-link d-flex flex-column justify-content-center align-items-center"
+            aria-current="page"
+            href="/login"
+            ><i class="bi bi-person fs-3"> </i>
+            <div class="NewModalDiscription">로그인</div>
+          </a>
         </div>
 
         <div class="circle">
           <i class="fas fa-plus plus-icon"></i>
-          <i style="color: white" class="bi bi-person-plus social"> </i>
-          <i class="bi bi-people social"><a href="/mateparty"></a> </i>
+          <i class="bi bi-person-plus social" @click="goMatematch"> </i>
+          <i class="bi bi-people social" @click="gotoParty"> </i>
         </div>
         <div class="circleBackground"></div>
       </div>
@@ -62,12 +76,16 @@ export default {
   components: {
     // Modal2,
   },
-  mathods: {
+  methods: {
     goMatematch() {
-      console.log(this.$store.state.myNum);
-      this.router.push({
+      this.$router.push({
+        name: "Mateparty",
+      });
+    },
+    gotoParty() {
+      this.$router.push({
         name: "Matematch",
-        params: { userNo: this.$store.state.myNum },
+        params: { userNo: `${this.$store.state.myNum}` },
       });
     },
   },
@@ -98,7 +116,12 @@ body {
 * {
   box-sizing: border-box;
 }
-
+.bi {
+  color: black;
+}
+.nav-link {
+  padding: 0;
+}
 .wrapper {
   height: 100%;
   display: flex;
@@ -200,7 +223,7 @@ body {
   transition: opacity 0.3s, top 0.5s 0.1s ease;
 }
 
-.circle .social:nth-child(4) {
+.circle .social:nth-child(1) {
   opacity: 0;
   transition: opacity 0.3s, top 0.5s 0.22s ease;
   margin-bottom: 0px;
@@ -241,5 +264,9 @@ body {
 .bi-journal-richtext {
   font-size: 23px;
   color: $backgroundColor;
+}
+.NewModalDiscription {
+  font-size: 12px;
+  color: black;
 }
 </style>

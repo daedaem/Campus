@@ -11,9 +11,9 @@
           전체보기
         </div>
       </div>
-      <div class="row">
+      <div class="row d-flex justify-content-around">
         <div
-          class="card col-sm-6 col-md"
+          class="card col-sm-6 col-md col-lg col-xl"
           v-for="(item, idx) in recentlist"
           :key="idx"
           style="margin-left: 5px; margin-right: 5px; margin-top: 50px"
@@ -177,14 +177,34 @@ export default {
 }
 .row {
 }
-.maincarouseltitle {
-  // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  // font-weight: 900;
-  // font-style: normal;
-  cursor: pointer;
-  line-height: 18px;
+@media (max-width: 768px) {
+  .maincarouseltitle {
+    // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    // font-weight: 900;
+    // font-style: normal;
+    cursor: pointer;
+    line-height: 18px;
+  }
 }
+@media (min-width: 768px) {
+  .maincarouseltitle {
+    // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    // font-weight: 900;
+    // font-style: normal;
+    cursor: pointer;
+    line-height: 18px;
+  }
+}
+// .maincarouseltitle {
+//   // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
+//   font-size: 18px;
+//   // font-weight: 900;
+//   // font-style: normal;
+//   cursor: pointer;
+//   line-height: 18px;
+// }
 .maincarouseltitle-sub {
   // font-family: "UI Frip", "Noto Sans KR", Helvetica, Arial, sans-serif;
   font-size: 14px;

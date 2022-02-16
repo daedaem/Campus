@@ -261,7 +261,7 @@ p {
     z-index: 20; */
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .CampusNavbar {
     /* display: none; */
     visibility: hidden;
@@ -282,7 +282,7 @@ p {
   .brandSlogan {
     position: absolute;
     bottom: 90%;
-    min-width: 300px;
+    min-width: 330px;
     /* width: 100%; */
   }
   .Navlogos {
