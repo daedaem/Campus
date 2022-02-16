@@ -28,6 +28,7 @@
                     캠핑을 공유해주세요.
                   </div>
                 </div>
+                <!-- <searchbar class="feedlistsearchbar"></searchbar> -->
                 <a class="nav-link mt-2" aria-current="page" href="/sns/create">
                   <!-- <i class="bi bi-journal-richtext"></i> -->
 
@@ -35,7 +36,12 @@
                 </a>
               </div>
               <hr style="width: 90%; margin: auto" />
-              <div style="height: 20%"><br /></div>
+              <div style="height: 20%">
+                <br />
+                <!-- <div style="width: 100%; background-color: black font: black;">
+                  
+                </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -62,6 +68,7 @@ import FeedListItems from "../../components/feed/FeedListItems.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 import { ref, onMounted } from "vue";
+// import Searchbar from "../../components/common/Searchbar.vue";
 // import { useRouter } from "vue-router";
 
 // import { ref } from "vue";
@@ -72,6 +79,7 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
+    // Searchbar,
     // Navbar,
 
     // FeedDetail
@@ -278,7 +286,17 @@ export default {
     } */
   }
 }
+.feedlistsearchbar {
+  /* border: #dbdbdb; */
+  /* color: black; */
+  /* background: #f2f2f2; */
 
+  /* color: #7c7e7f; */
+}
+.feedlistsearchbar::placeholder {
+  color: black;
+  font-size: 0.5rem;
+}
 .FeedList-ProfileImage {
   width: 40px;
   height: 40px;
