@@ -10,9 +10,9 @@
 
     <div class="circle">
       <i class="fas fa-plus plus-icon"></i>
-      <i class="fab fa-youtube social"></i>
-      <i class="fab fa-twitter social"></i>
-      <i class="fab fa-github  social"></i>
+      <i class="fab fa-youtube social" style="margin-top:5px;"></i>
+      <i class="fab fa-twitter social"  style="margin-top:5px;"></i>
+      
     
     </div>
     <div class="circleBackground"></div>
@@ -107,10 +107,10 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(100px - #{$circle-radius / 2});
+  bottom: calc(105px - #{$circle-radius / 2});
   margin-bottom: -50px;
   height: 55px;
-  width: 55px;
+  width: 60px;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
@@ -124,7 +124,7 @@ body {
 }
 
 .circle:hover {
-  height: 200px;
+  height: 140px;
   border-radius: 50px;
 }
 

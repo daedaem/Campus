@@ -165,7 +165,48 @@ export default {
     background: #fafafa;
   }
   
+@keyframes card0-ani { 
+  from { transform: translate(300px, 300px); 
+  } 
+  to 
+  { transform: translate(100px, 100px); 
+  } 
+}
+@keyframes card1-ani { 
+  from { transform: translate(-200px, 400px); 
+  } 
+  to 
+  { transform: translate(0px, 150px); 
+  } 
+}
+@keyframes card2-ani { 
+  from { transform: translate(100px, 0); 
+  } 
+  to 
+  { transform: translate(0px, 100px); 
+  } 
+}
+@keyframes card3-ani { 
+  from { transform: translate(-50, -50); 
+  } 
+  to 
+  { transform: translate(100px, 100px); 
+  } 
+}
 
+.card0 {
+  animation: card0-ani 2s;
+}
+
+.card1 {
+  animation: card1-ani 2s;
+}
+.card2 {
+  animation: card2-ani 2s;
+}
+.card3 {
+  animation: card3-ani 2s;
+}
 }
 
 .container {
