@@ -2,34 +2,36 @@
 
   <div class="container-fluid">
     <div class="row justify-content-center ">
-      <input type="checkbox" id="check" @click="showRooms()" > <label class="chat-btn" for="check" > <i class="bi bi-chat-dots"></i></label>
+      <input type="checkbox" id="check" @click="showRooms() , checktest()" > <label class="chat-btn" for="check" > <i class="bi bi-chat-dots"></i></label>
         <div class="wrapper">
           <div class="header">
             
           <div v-if="visible===0">
-            <div class="col-md-12 col-xl-12 chat"><div class="card mb-sm-12 mb-md-12 contacts_card">
-              <div class="card-body contacts_body">
-                <ul class="contacts">
-                  <li>
-             
-             
-                  <div v-for="(item,idx) in chatList" :key="idx" >
+            <div class="col-md-12 col-xl-12 chat" :style="checking ? '' : 'display:none'">
+              <div class="card mb-sm-12 mb-md-12 contacts_card" :style="checking ? '' : 'display:none'">
+                <div class="card-body contacts_body" :style="checking ? '' : 'display:none'">
+                  <ul class="contacts">
+                    <li>
+              
+              
+                    <div v-for="(item,idx) in chatList" :key="idx" >
 
-                    <div class="bd-highlight ">
-                      <div class="user_info">
-                        <div @click="visibleCheck(),sendlist(item.id),temp(item.id,item.title),socketConnect(item.id)">
+                      <div class="bd-highlight ">
+                        <div class="user_info">
+                          <div @click="visibleCheck(),sendlist(item.id),temp(item.id,item.title),socketConnect(item.id)">
 
-                          <div> {{idx+1}} 번 채팅방 </div>
-                          <div style="font-size: 20px; color: white;">{{item.title}}</div>
+                            <div> {{idx+1}} 번 채팅방 </div>
+                            <div style="font-size: 20px; color: white;">{{item.title}}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  
+                    </li>
+                  </ul>
                 
-                  </li>
-                </ul>
-              
-                </div></div>
+                </div>
+              </div>
           </div>
           
           
@@ -37,11 +39,11 @@
           
             </div>
           <div v-else >
-            <div class="col-md-12 col-xl-12 chat">
-              
-              <div class="card" style="position:relative;"> 
+            <div class="col-md-12 col-xl-12 chat" :style="checking ? '' : 'display:none' ">
+      
+              <div class="card" style="position:relative;" :style="checking ? '' : 'display:none'"> 
                 <div style="background-color:#98cde2; overflow:hidden; z-index:100002; display:inline-block; height:50px; border-radius:20px; " >
-                  <i class="bi bi-chevron-left fa-2x"  @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px; left:20px;"></i>
+                  <i class="bi bi-chevron-left fa-2x"  @click="visibleCheck(),delTrash(temps.id)" style="position:absolute; top:10px; left:20px;" :style="checking ? '' : 'display:none'"></i>
                 </div>
                 
                 <div class="card-body msg_card_body MessageList" ref="MessageList" style="padding-bottom:65px; ">
@@ -106,6 +108,7 @@ export default {
         title :null,
       },
       socketStop : [],
+      checking : 0,
     }
   },
   created() {
@@ -115,6 +118,13 @@ export default {
     
   },
   methods:{
+    checktest() {
+      if (this.checking === 0 ) {
+        this.checking = 1
+      } else {
+        this.checking = 0
+      }
+    },
     delTrash(roomNm){
       this.MessageList = []
       this.socketStop.push(roomNm)

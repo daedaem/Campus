@@ -18,9 +18,8 @@ import { faImages as fasImages } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 // import {Tabs, Tab} from 'vue3-tabs-component';
 
@@ -43,4 +42,4 @@ createApp(App)
   )
   .mount("#app");
 
-  window.Kakao.init('d143a1a0aa2684d509747f52dc9d3cfc');
+window.Kakao.init("d143a1a0aa2684d509747f52dc9d3cfc");

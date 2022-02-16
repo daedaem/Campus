@@ -28,14 +28,7 @@
         <Modal3 @style-check="styleCheck"/>
       </ul>
     </div>
-    <div class="btn-group filterbox1 col-4">
-      <button class="btn  dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" style="color: #7ac4e1;">
-        정렬
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
-        <Modal4 @sort-check="sortCheck"/>
-      </ul>
-    </div>
+    
     <div class="btn-group filterbox1-apply col-4">
       <button class="btn" type="button" aria-expanded="false" style="color: #fff;" @click="apply">
         적용
@@ -48,12 +41,13 @@
 </template>
 
 <script>
+
 import Modal1 from  '../../components/mateparty/modal/Modal1.vue'
 import Modal2 from  '../../components/mateparty/modal/Modal2.vue'
 import Modal3 from  '../../components/mateparty/modal/Modal3.vue'
-import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
+// import Modal4 from  '../../components/mateparty/modal/Modal4.vue'
 import {ref,} from 'vue'
-
+import {useStore} from 'vuex'
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -64,12 +58,12 @@ export default {
     Modal1,
     Modal2,
     Modal3,
-    Modal4,
+    // Modal4,
 
   },
   
   setup(props,{emit}) {
-  
+    const store = useStore()
     const allData = ref({
       mateCampstart : null,
       mateCampend : null,
@@ -81,6 +75,7 @@ export default {
       },
       sortList : ref(null),
     })
+    const filterInit = ref(0)
     
     const apply = () =>{
 
@@ -89,22 +84,38 @@ export default {
           method : 'post',
           url : `${SERVER_URL}/mate/filter`,
           data : allData.value
-        })
-        .then(res => {
-          console.log(res)
-          emit('filter-data',res)
+      })
+      .then(res => {
+        console.log(res)
+        if (res.data.dto) {
+          alert('검색 결과가 없습니다.')
+            
+        }
           
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        else {
+            console.log('필터올리기')
+            emit('filter-data',res)
+            allData.value.mateCampstart = null
+            allData.value.mateCampend = null
+            if (store.state.initData === 0) {
+              store.dispatch('initData',1)
+            } else {
+              store.dispatch('initData',0)
+            }
+        }
+  
+      })
+      .catch(err => {
+        alert('필터를 재설정해주세요.')
+        console.log(err)
+      })
     }
 
 
     const dateCheck = (val) => {
       console.log(val)
-      // allData.value.mateCampstart = val[0]
-      // allData.value.mateCampend = val[1]
+      allData.value.mateCampstart = val[0]
+      allData.value.mateCampend = val[1]
       console.log(allData.value)
        
     }
@@ -162,6 +173,7 @@ export default {
       campCheck,
       styleCheck,
       // sortCheck,
+      filterInit,
       
 
     }
@@ -196,7 +208,7 @@ export default {
  
   background-color: #fff;
   color: #7ac4e1;
-  border: 3px solid #7ac4e1;
+  border: 2px solid #7ac4e1;
   border-radius: 30px;
   font-size : 14px;
   margin:5px;

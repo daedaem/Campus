@@ -381,7 +381,11 @@ export default {
 
 <style>
 /* 574픽셀부터는 사진 외 내용이 밑으로 가므로 top공백을 없애주기 위해서 feeddetailtotal 프레임에 css걸어줌 */
-
+.bi-heart-fill{
+    color: rgb(237, 73, 86);
+    fill: rgb(237, 73, 86);
+    height: 24;
+    width: 24;}
 @media (min-width: 574px) {
   .FeedDetailTotal {
     width: 100%;
