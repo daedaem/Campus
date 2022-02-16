@@ -1,24 +1,25 @@
 <template>
+  <Navbar class="CampusNavbar"></Navbar>
   <div id="app">
-    <!-- <Navbar class="CampusNavbar"></Navbar> -->
-
     <Chat class="chat" />
 
     <router-view :key="$route.fullPath"></router-view>
     <!-- <Newmodal class="Newmodal" /> -->
   </div>
+  <Newmodal class="Newmodal" />
+
   <!-- 삭제금지 -->
 </template>
 
 <script>
-// import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/common/Navbar.vue";
 // import Navbar from "@/components/Navbar.vue";
 import Chat from "@/components/common/Chat.vue";
 
 export default {
   name: "App",
   components: {
-    // Navbar,
+    Navbar,
     // Navbar,
     Chat,
   },
@@ -26,6 +27,20 @@ export default {
 </script>
 
 <style lang="scss">
+.CampusNavbar {
+  background: transparent;
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+}
+.CampusNavbar {
+  /* display: none; */
+  visibility: hidden;
+  /* background: transparent;
+    position: absolute;
+    z-index: 10000;
+    width: 100%; */
+}
 @font-face {
   font-family: "myFont";
   src: url("./assets/fonts/BM/BMDOHYEON_ttf.ttf");
@@ -50,7 +65,14 @@ export default {
   //   font-weight: 400;
   //   // color: #2c3e50;
 }
-
+@media (min-width: 768px) {
+  .Navbar {
+    background: transparent;
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+  }
+}
 @media (max-width: 768px) {
   .chat {
     // background: whitesmoke;
