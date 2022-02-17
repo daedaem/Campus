@@ -1,4 +1,6 @@
 <template>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
+
   <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
     <div class="FeedListTotalframe d-flex" v-if="this.$store.state.isLogin">
       <div class="FeedListFrame">
@@ -6,36 +8,49 @@
           class="body d-flex flex-column justify-content-center align-items-center"
         >
           <div class="total-frame col-12">
-            <div v-if="this.$store.state.isLogin" class="FeedCreateFrame">
-              <div class="d-flex justify-content-center align-items-center">
-                <div v-if="this.$store.state.userProfileImage == null">
-                  <img
-                    class="FeedList-ProfileImage"
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                    alt=""
-                  />
-                </div>
-                <div v-else>
-                  <img
-                    class="FeedList-ProfileImage"
-                    :src="`${this.$store.state.userProfileImage}`"
-                    alt=""
-                  />
-                </div>
-                <div class="FeedListuserNickname d-flex align-items-center">
-                  <div class="FeedListuserNotification">
-                    {{ this.$store.state.userList.userNickname }} 님, 당신의
-                    캠핑을 공유해주세요.
-                  </div>
-                </div>
-                <a class="nav-link mt-2" aria-current="page" href="/sns/create">
-                  <!-- <i class="bi bi-journal-richtext"></i> -->
+            <div>
+              <!-- <searchbar class="feedlistsearchbar"></searchbar> -->
 
-                  <i class="bi bi-plus-square fs-3"></i>
-                </a>
+              <div v-if="this.$store.state.isLogin" class="FeedCreateFrame">
+                <div class="d-flex justify-content-center align-items-center">
+                  <div v-if="this.$store.state.userProfileImage == null">
+                    <img
+                      class="FeedList-ProfileImage"
+                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      alt=""
+                    />
+                  </div>
+                  <div v-else>
+                    <img
+                      class="FeedList-ProfileImage"
+                      :src="`${this.$store.state.userProfileImage}`"
+                      alt=""
+                    />
+                  </div>
+                  <div class="FeedListuserNickname d-flex align-items-center">
+                    <div class="FeedListuserNotification">
+                      {{ this.$store.state.userList.userNickname }} 님, 당신의
+                      캠핑을 공유해주세요.
+                    </div>
+                  </div>
+                  <a
+                    class="nav-link mt-2"
+                    aria-current="page"
+                    href="/sns/create"
+                  >
+                    <!-- <i class="bi bi-journal-richtext"></i> -->
+
+                    <i class="bi bi-plus-square fs-3"></i>
+                  </a>
+                </div>
+                <hr style="width: 90%; margin: auto" />
+                <div style="height: 20%">
+                  <br />
+                  <!-- <div style="width: 100%; background-color: black font: black;">
+                  
+                </div> -->
+                </div>
               </div>
-              <hr style="width: 90%; margin: auto" />
-              <div style="height: 20%"><br /></div>
             </div>
           </div>
         </div>
@@ -50,6 +65,7 @@
         </div>
       </div>
     </div>
+    <Newmodal class="Newmodal" />
   </div>
 </template>
 
@@ -57,11 +73,12 @@
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 import FeedListItems from "../../components/feed/FeedListItems.vue";
-// import Navbar from "@/components/common/Navbar.vue";
+import Navbar from "@/components/common/Navbar.vue";
 
 import { mapState } from "vuex";
 import axios from "axios";
 import { ref, onMounted } from "vue";
+// import Searchbar from "../../components/common/Searchbar.vue";
 // import { useRouter } from "vue-router";
 
 // import { ref } from "vue";
@@ -72,7 +89,8 @@ export default {
   name: "FeedList",
   components: {
     FeedListItems,
-    // Navbar,
+    // Searchbar,
+    Navbar,
 
     // FeedDetail
   },
@@ -152,6 +170,12 @@ export default {
           console.log(err);
         });
     };
+    const myProfile = (e) => {
+      this.$router.go({
+        name: 'Profile',
+				params: { userEmail: e}
+      })
+    }
     onMounted(() => {
       getDatas();
       window.addEventListener("scroll", () => {
@@ -176,6 +200,7 @@ export default {
       offset,
       getDatas,
       feedcount,
+      myProfile,
     };
   },
   // created: function() {
@@ -278,7 +303,17 @@ export default {
     } */
   }
 }
+.feedlistsearchbar {
+  /* border: #dbdbdb; */
+  /* color: black; */
+  /* background: #f2f2f2; */
 
+  /* color: #7c7e7f; */
+}
+.feedlistsearchbar::placeholder {
+  color: black;
+  font-size: 0.5rem;
+}
 .FeedList-ProfileImage {
   width: 40px;
   height: 40px;

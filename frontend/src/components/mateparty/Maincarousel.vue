@@ -137,8 +137,13 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import Newmodal from "@/components/mateparty/Newmodal.vue";
+
 export default {
   name: "Maincarousel",
+  componenets: {
+    Newmodal,
+  },
   props: {
     mainlist: Array,
   },
@@ -213,8 +218,7 @@ export default {
   // font-weight: 400;
 }
 @media (min-width: 768px) {
-
-.row > .card {
+  .row > .card {
     // margin-left : 18px;
     // margin-right : 18px;
 

@@ -5,19 +5,21 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-center align-items-center">
             <div>
+              <router-link :to="{ name: 'Profile',  params: { userEmail: feed.userEmail }}">
               <img
-                v-if="feed.userProfileImage === null" 
+                v-if="feed.userProfileImage === null"
                 style="cursor: pointer"
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 class="user-profile-image"
-                alt="...">
+                alt="..."
+              />
               <img
                 v-else
                 style="cursor: pointer"
                 :src="`${feed.userProfileImage}`"
                 class="user-profile-image"
                 alt="..."
-              />
+              /></router-link>
             </div>
 
             <div
@@ -112,8 +114,9 @@
                     class="d-flex justify-content-between align-items-center py-2"
                   >
                     <div
-                      class="d-flex justify-content-start align-items-center ps-3 col-9"
+                      class="d-flex justify-content-start align-items-center ps-3"
                     >
+                      <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}">
                       <img
                         v-if="comment.userProfileImage === null"
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -126,7 +129,7 @@
                         alt=""
                         class="user-comment-profile-image"
                       />
-                      <div class="fw-bold">
+                      <div class="commentUserNickname fw-bold">
                         {{ comment.userNickname }}
                       </div>
                       <div
@@ -161,11 +164,12 @@
                 <div
                   class="d-flex justify-content-center align-items-center mx-2"
                 >
-                  <img 
+                  <img
                     v-if="this.$store.state.userList.userProfileImage === null"
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     alt=""
-                    class="user-comment-profile-image ms-2">
+                    class="user-comment-profile-image ms-2"
+                  />
                   <img
                     v-else
                     :src="`${this.$store.state.userList.userProfileImage}`"
@@ -173,7 +177,7 @@
                     class="user-comment-profile-image ms-2"
                   />
 
-                  <div class="fw-bold">
+                  <div class="feedListItemsUserNickname fw-bold">
                     {{ this.$store.state.userList.userNickname }}
                   </div>
                 </div>
@@ -182,7 +186,7 @@
                   id="commentcontent"
                   ref="textarea"
                   rows="2"
-                  class="d-flex col"
+                  class="feedListItemsCommentContent d-flex col"
                   placeholder=" 댓글을 입력하세요"
                   style="overflow: auto"
                 >
@@ -465,18 +469,26 @@ export default {
 </script>
 
 <style scoped>
-*{  font-family:Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;}
-.feedlistitems-commentcontent{
-  font-weight: 400;
-  overflow: "auto";
-  
+* {
+  font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
 }
-.bi-heart-fill{
-    color: rgb(237, 73, 86);
-    fill: rgb(237, 73, 86);
-    height: 24;
-    width: 24;}
-    
+.commentUserNickname {
+  max-width: 100px;
+  font-size: 13px;
+}
+.feedlistitems-commentcontent {
+  font-weight: 400;
+  /* vertical-align: middle; */
+  overflow: "auto";
+  /* border-color: transparent; */
+}
+.bi-heart-fill {
+  color: rgb(237, 73, 86);
+  fill: rgb(237, 73, 86);
+  height: 24;
+  width: 24;
+}
+
 @media (min-width: 420px) {
   .user-feed-cards {
     border-radius: 20px;
@@ -484,6 +496,12 @@ export default {
     background-color: white;
     border: 1px solid #dbdbdb;
   }
+}
+.feedListItemsUserNickname {
+  font-size: 14px;
+  overflow: hidden;
+  max-width: 90px;
+  cursor: pointer;
 }
 .feed-frame {
   min-height: 400px;
@@ -555,5 +573,10 @@ export default {
 }
 .ReplyTime {
   font-size: 10px;
+}
+.feedListItemsCommentContent {
+  /* border-color: transparent; */
+  border-radius: 10px;
+  vertical-align: middle;
 }
 </style>

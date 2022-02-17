@@ -1,5 +1,5 @@
 <template>
-  <Navbar id="navbar"></Navbar>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
   <div class="CampSitebackground">
     <div class="CampeSitebackground-imgcover">
       <div class="CampeSitebackground-content ps-5">캠핑장</div>
@@ -21,7 +21,7 @@
             </div>
             <div v-if="newarticles.length != 0" style="max-width: 768px">
               <div
-                class="row p-2 bg-white mb-3"
+                class="row p-2 bg-white mb-3 col"
                 style="
                   min-height: 200px;
                   border-radius: 15px;
@@ -44,33 +44,55 @@
                       {{ item.facltNm }}
                     </h5>
                     <div class="d-flex flex-row mb-3">
-                      <div class="star-ratings" style="margin-top: 0px" v-if="item.campSiteScore">
+                      <div
+                        class="star-ratings"
+                        style="margin-top: 0px"
+                        v-if="item.campSiteScore"
+                      >
                         <div
                           class="star-ratings-fill space-x-2 text-lg"
-                          :style="{ width: item.campSiteScore * 13 + 1.5 + '%' }"
+                          :style="{
+                            width: item.campSiteScore * 13 + 1.5 + '%',
+                          }"
                         >
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
                         </div>
                         <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span><span style="margin-left:10px; color:yellow; font-family:Arial; font-size:16px;">{{item.campSiteScore.toFixed(1)}}</span>
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span
+                          ><span
+                            style="
+                              margin-left: 10px;
+                              color: yellow;
+                              font-family: Arial;
+                              font-size: 16px;
+                            "
+                            >{{ item.campSiteScore.toFixed(1) }}</span
+                          >
                         </div>
                         <div></div>
                       </div>
                       <div class="star-ratings" style="margin-top: 0px" v-else>
                         <div
                           class="star-ratings-fill space-x-2 text-lg"
-                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }"
+                          style="margin-top: 2px"
                         >
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
                         </div>
                         <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
-                          <span style="margin-left:10px; color:yellow; font-family:Arial;" >{{xx.toFixed(1)}}</span>
-                 
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
+                          <span
+                            style="
+                              margin-left: 10px;
+                              color: yellow;
+                              font-family: Arial;
+                            "
+                            >{{ xx.toFixed(1) }}</span
+                          >
                         </div>
                         <div></div>
                       </div>
@@ -80,7 +102,7 @@
                     <div class="mb-1 spec-1">{{ item.addr1 }}</div>
                     <div class="mt-1 mb-1 spec-1">{{ item.lineIntro }}</div>
                   </div>
-                  <!-- <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p> -->
+
                 </div>
                 <div
                   class="align-items-center align-content-center col-md-3 border-left mt-1"
@@ -189,35 +211,56 @@
                       {{ item.facltNm }}
                     </h5>
                     <div class="d-flex flex-row mb-3">
-                      <div class="star-ratings" style="margin-top: 0px" v-if="item.campSiteScore">
+                      <div
+                        class="star-ratings"
+                        style="margin-top: 0px"
+                        v-if="item.campSiteScore"
+                      >
                         <div
                           class="star-ratings-fill space-x-2 text-lg"
-                          :style="{ width: (item.campSiteScore) * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                          :style="{
+                            width: item.campSiteScore * 13 + 1.5 + '%',
+                          }"
+                          style="margin-top: 2px"
                         >
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
                         </div>
                         <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
-                          <span style="margin-left:10px; color:yellow; font-family:Arial;" v-if="item.campSiteScore">{{item.campSiteScore.toFixed(1)}}</span>
-                 
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
+                          <span
+                            style="
+                              margin-left: 10px;
+                              color: yellow;
+                              font-family: Arial;
+                            "
+                            v-if="item.campSiteScore"
+                            >{{ item.campSiteScore.toFixed(1) }}</span
+                          >
                         </div>
                         <div></div>
                       </div>
                       <div class="star-ratings" style="margin-top: 0px" v-else>
                         <div
                           class="star-ratings-fill space-x-2 text-lg"
-                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }" style="margin-top:2px;"
+                          :style="{ width: `${xx}` * 13 + 1.5 + '%' }"
+                          style="margin-top: 2px"
                         >
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
                         </div>
                         <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span
-                          ><span>★</span>
-                          <span style="margin-left:10px; color:yellow; font-family:Arial;" >{{xx.toFixed(1)}}</span>
-                 
+                          <span>★</span><span>★</span><span>★</span
+                          ><span>★</span><span>★</span>
+                          <span
+                            style="
+                              margin-left: 10px;
+                              color: yellow;
+                              font-family: Arial;
+                            "
+                            >{{ xx.toFixed(1) }}</span
+                          >
                         </div>
                         <div></div>
                       </div>
@@ -249,7 +292,7 @@
                     class="heart-box"
                     @click="cancelHeart(item.contentId)"
                   >
-                    <i class="bi bi-heart-fill me-3" style="color:red;"></i>
+                    <i class="bi bi-heart-fill me-3" style="color: red"></i>
                   </span>
                   <div class="d-flex flex-column pt-2 mt-4">
                     <button
@@ -275,7 +318,6 @@
                     </button>
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -290,21 +332,21 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import Navbar from "@/components/common/Navbar.vue";
 // import CampSearch from "@/components/campsite/campSearch.vue"
+import Navbar from "@/components/common/Navbar.vue";
 import CampsiteFilter from "@/components/campsite/CampsiteFilter.vue";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Campsite",
   components: {
-    Navbar,
     // CampSearch,
     CampsiteFilter,
+    Navbar,
   },
   setup() {
-    const _ = require("lodash");  
-    const xx = _.random(1,5)
+    const _ = require("lodash");
+    const xx = _.random(1, 5);
     const store = useStore();
     const router = useRouter();
     const articles = ref([]);
@@ -313,29 +355,25 @@ export default {
     const offset = ref(0);
     const lst = ref(0);
     const mylst = ref([]);
-    const temp = ref([])
-    const start = ref(0)
+    const temp = ref([]);
+    const start = ref(0);
 
     const infinityData = () => {
-
       // const datas = temp.value.splice(start.value,start.value+9)
       // console.log('datas',datas)
-      newarticles.value.push(...temp.value.splice(start.value,start.value+9))
-      console.log(start.value, start.value+9)
-      console.log('articles',newarticles)
-
-      
-
-
-    }
+      newarticles.value.push(
+        ...temp.value.splice(start.value, start.value + 9)
+      );
+      console.log(start.value, start.value + 9);
+      console.log("articles", newarticles);
+    };
 
     const getNewdata = (val) => {
-      newarticles.value = []
+      newarticles.value = [];
       temp.value = val;
       console.log(temp.value);
 
-
-      infinityData()
+      infinityData();
       window.addEventListener("scroll", () => {
         let scrollTop = document.documentElement.scrollTop;
         let scrollHeight = document.documentElement.scrollHeight;
@@ -347,8 +385,6 @@ export default {
           infinityData();
         }
       });
-
-
     };
     // const mycamping = ref([]);
     // const goDetail = () => { router.push({name: 'Campsitedetail', params: {}})}
@@ -382,27 +418,25 @@ export default {
     const giveHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: 'post',
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
-      })
-        .then((res) => {
-          console.log("들어오나",res);
-          mylst.value.push(boardid)
-          // console.log("이건", mylst.value)
-        })
+        method: "post",
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
+      }).then((res) => {
+        console.log("들어오나", res);
+        mylst.value.push(boardid);
+        // console.log("이건", mylst.value)
+      });
     };
 
     const cancelHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: 'delete',
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
-      })
-        .then((res) => {
-          console.log("빼나",res)
-          mylst.value.splice(mylst.value.indexOf(boardid), 1)
-          // console.log("이건", mylst.value)
-        })
+        method: "delete",
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
+      }).then((res) => {
+        console.log("빼나", res);
+        mylst.value.splice(mylst.value.indexOf(boardid), 1);
+        // console.log("이건", mylst.value)
+      });
     };
 
     const camplikeuser = () => {
@@ -467,26 +501,13 @@ export default {
 </script>
 
 <style scoped>
-.bi-heart-fill{
-    color: rgb(237, 73, 86);
-    fill: rgb(237, 73, 86);
-    height: 24;
-    width: 24;}
-.navbar {
-  /* width: 968px; */
-  /* align-self: stretch; */
-  /* padding-left: calc(100% - 90%);
-  padding-right: calc(100vw - 90%); */
-
-  /* padding-left: calc(100% - 80%); */
-  /* padding-right: calc(100vw - 10%); */
+.bi-heart-fill {
+  color: rgb(237, 73, 86);
+  fill: rgb(237, 73, 86);
+  height: 24;
+  width: 24;
 }
-/* 수정해야함 */
-/* @media (max-width: 420px) {
-  .navbar {
-    display: none;
-  }
-} */
+
 .CampSitebackground {
   width: 100%;
   height: 200px;
@@ -527,6 +548,7 @@ export default {
   .CampSiteImageFrame img {
     object-fit: cover;
   }
+
 }
 @media (min-width: 768px) {
   body {
@@ -606,7 +628,6 @@ h5 {
   /* height: 200px; */
   /* background: #fff; */
 }
-
 
 .star-ratings {
   color: #fff58c;
