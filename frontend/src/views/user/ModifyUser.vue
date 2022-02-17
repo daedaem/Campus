@@ -352,10 +352,25 @@ export default {
 			})
 				.then((res) => {
 					console.log(res)
+					Swal.fire({ title: '회원정보 수정에 성공하였습니다.', icon: 'success', timer:2000})
+					this.$router.push({name: 'Mainpage'})
 				})
 				.catch(() => {
 					console.log("수정안됨")
+					Swal.fire({ title: "서버에 오류가 생겼습니다. 다시 시도해 주세요.", icon: 'warning', timer:2000})
 				})
+			this.imageSend()
+		},
+		imageSend: function () {
+			axios ({
+				method: "put",
+				url: `${SERVER_URL}/user/image/${this.credentials.userEmail}`,
+				headers: { 'Content-Type': 'multipart/form-data' },
+				data: this.userProfileImage
+			})
+				.catch(() => {
+					console.log("이미지가 없습니다.")
+			})
 		},
 		getProfile: function() {
 			axios.get(`${SERVER_URL}/user/${this.myEmail}`)

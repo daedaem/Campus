@@ -2,10 +2,7 @@
   <Navbar></Navbar>
   <div class="registration-form">
       <form style="border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 0px;border-bottom-right-radius:0px">
-        <div class="form-icon">
-          <h1>Camp-Us</h1>
-          <span><i class="icon icon-user"></i></span>
-        </div>
+        <h1>Camp-Us</h1>
 
         <div class="form-group">
           <input 
@@ -46,9 +43,7 @@
       <div class="social-media">
         <h5>Social Login</h5>
         <div class="social-icons">
-            <a @click="kakaoLogin"><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""></a>
             <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
-            
             <a @click="kakaoLogout">로그아웃</a>
         </div>
       </div>
@@ -181,8 +176,15 @@ export default {
         .get(`${SERVER_URL}/login/kakao/oauth`)
         .then((res) => {
           console.log(res.data)
-          // window.location.href = res.data
+          window.location.href = res.data
           // window.open(res.data)
+          
+          axios
+            .post(`${SERVER_URL}/login/kakao/callback`)
+            .then((res) => {
+              console.log(res)
+            })
+          
         })
 
     },

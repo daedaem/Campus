@@ -33,6 +33,7 @@
 									class="form-control item"
 									type="text"
 									style="width:70%; float: left"
+									maxlength='8'
 									placeholder="닉네임을 입력하세요"
 									v-model="credentials.userNickname"
 									autofocus
@@ -68,7 +69,7 @@
 									class="form-control item"
 									type="password"
 									style="width:70%; float: left"
-									placeholder='비밀번호를 입력하세요'
+									placeholder='소문자/숫자 1개이상 8자리이상'
 									v-model="credentials.userPassword"
 									autofocus
 									@blur="passwordValid"
