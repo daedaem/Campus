@@ -25,17 +25,14 @@
             v-model="credentials.userPassword">
         </div>
 
-        <!-- 회원가입 및 비밀번호 찾기 -->
+        <!-- 회원가입 -->
         <div class="d-flex justify-content-between mx-3">
           <div @click="moveToSignUp">
             회원가입
           </div>
-          <div @click="movetofindPw">
-            비밀번호
-          </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group d-flex justify-content-center">
           <button 
             type="button" 
             class="btn btn-block login-account"
@@ -49,7 +46,9 @@
       <div class="social-media">
         <h5>Social Login</h5>
         <div class="social-icons">
+            <a @click="kakaoLogin"><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""></a>
             <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
+            
             <a @click="kakaoLogout">로그아웃</a>
         </div>
       </div>
@@ -305,6 +304,9 @@ export default {
 }
 
 input[type=password] {
+  font-family: 'NanumSquare'
+}
+input[type=text] {
   font-family: 'NanumSquare'
 }
 

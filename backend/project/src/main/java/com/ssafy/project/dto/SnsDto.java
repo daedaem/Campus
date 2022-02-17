@@ -15,6 +15,7 @@ public class SnsDto {
     private int userNo;
     private String userNickname;
     private String snsContent;
+    private String userEmail;
 
     private LocalDateTime snsCreateTime;
     private LocalDateTime snsUpdateTime;
