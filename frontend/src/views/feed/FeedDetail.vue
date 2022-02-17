@@ -565,6 +565,7 @@ export default {
   }
   .FeedDetailContent {
     font-size: 14px;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
   }
   .FeedDetailContent .calculatedTime {
     font-size: 10px;

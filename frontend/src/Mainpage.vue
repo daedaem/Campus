@@ -145,6 +145,7 @@ export default {
     position: absolute;
     z-index: 10000;
     width: 100%;
+    /* height:50px; */
   }
   .CampusNavbar {
     /* visibility: hidden;
