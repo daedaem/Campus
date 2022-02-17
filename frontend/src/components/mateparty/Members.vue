@@ -197,7 +197,7 @@
                 <div class="star-ratings" style="margin-top: 0px">
                   <div
                     class="star-ratings-fill space-x-2 text-lg"
-                    :style="{ width: item.userRatePoint * 20 + 1.5 + '%' }"
+                    :style="{ width: item.userRatePoint * 20 + 1.5 + '%' }" style = "margin-top:1.2px;"
                   >
                     <span>★</span><span>★</span><span>★</span><span>★</span
                     ><span>★</span>
@@ -495,6 +495,12 @@ export default {
       })
       .then( res=> {
         console.log(res)
+        console.log(listNo)
+        member.value.forEach( e => {
+          if (e.mateListNo === listNo) {
+          e.mateApplyCheck = 1
+          }
+        })
       })
       .catch(err => {
         console.log(err)

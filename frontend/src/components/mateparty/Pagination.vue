@@ -1,9 +1,9 @@
 <template>
-  <div class="overflow-auto">
+  <div class="over">
     <b-row :per-page="perPage" :current-page="currentPage"> 
       <b-card-group class ="col-md-4 col-sm-6 col-xs-12 " v-for="(item,idx) in paginatedItems" :key="idx" >
         
-        <b-card title-variant="card_title" class="mb-5 test" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})" >
+        <b-card style="cursor:pointer;" title-variant="card_title" class="mb-5 test" :title="item.mateTitle" :img-src='item.mateImageUrl' img-alt="Image" img-top @click ="this.$router.push({name: 'Partyinfo', params: { mateNo : item.mateNo }})" >
           <b-card-text >
             <div align="left" v-if="item.campStyleList" >
               <span v-if="item.campStyleList.style1">{{'#'+item.campStyleList.style1}}</span><span v-if="item.campStyleList.style2">{{' #'+item.campStyleList.style2}}</span><span v-if="item.campStyleList.style3">{{' #'+item.campStyleList.style3}}</span>
@@ -216,5 +216,11 @@ img{
   -webkit-box-orient: vertical;
 
   }
+}
+
+
+
+.over {
+  overflow: hidden !important;
 }
 </style>

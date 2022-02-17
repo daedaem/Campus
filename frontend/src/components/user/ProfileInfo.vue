@@ -46,7 +46,7 @@
       <div class="filterbox1" >
         <img width="100" height="100" src="../../assets/images/텐트_색상버전.png" alt="" v-if="this.user_data.campEquipTent === 0">
         <img width="100" height="100" src="../../assets/images/텐트_검정버전.png" alt="" v-else>
-        <div>탠트</div>
+        <div>텐트</div>
       </div>
       <div class="filterbox1" >
         <img width="100" height="100" src="@/assets/images/화로대_색상버젼.png" alt="" v-if="this.user_data.campEquipBrazier === 0">
@@ -58,7 +58,7 @@
 	<h1 align="left" class="my-3">나만의 캠핑장</h1>
   <div class="d-flex">
 
-    <div v-if="camp_List.length !== 0" class="instagram-container">
+    <div v-if="camp_List.length !== 0" class="camp-container">
       <div class="post" v-for="(value, idx) in camp_List" :key="idx">
         <img class="img-photo" :src="value.firstImageUrl">
         <span class="hover-img" @click="movetocamp(value.contentId)">
@@ -120,68 +120,146 @@ export default {
 </script>
 
 <style scoped>
-.info-container{
-	align-content: center;
-	display: flex;
-	justify-content: center;
-	width: 930px;
-}
-.items {
-  overflow: hidden;
-  border-style: solid;
-  border-color: rgb(204, 123, 123);
-  border-radius: 45px;
-  padding: 20px;
+@media (min-width: 929px) {
+
+  .info-container{
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    width: 929px;
+  }
+  .items {
+    overflow: hidden;
+    border-style: solid;
+    border-color: rgb(204, 123, 123);
+    border-radius: 45px;
+    padding: 20px;
+  }
+
+  .filterbox1 {
+    float: left;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
+
+  img:hover {
+    background-color: #eee
+  }
+  .instagram-container {
+    display: grid;
+    grid-template-columns: minmax(150px, 465px) minmax(auto, 465px);
+    grid-template-rows: 300px auto auto 300px auto;
+    display: inline-grid;
+    /* grid-template-columns: 1fr 1fr; */
+    row-gap: 25px;
+    column-gap: 25px;
+  }
+  .camp-container {
+    display: grid;
+    grid-template-columns: minmax(150px, 465px) minmax(auto, 465px);
+    grid-template-rows: 300px auto auto 300px auto;
+    display: inline-grid;
+    /* grid-template-columns: 1fr 1fr; */
+    row-gap: 25px;
+    column-gap: 25px;
+  }
+
+  .camp-container .post{
+      cursor: pointer;
+      position: relative; 
+      display: block;
+      width: 100%;
+  }
+  .img-photo{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      vertical-align: top;
+  }
+
+  .camp-container .hover-img{
+    background: rgba(0,0,0, .4);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  .post:hover  .hover-img{
+      display: flex;
+  }
 }
 
-.filterbox1 {
-  float: left;
-  margin-left: 40px;
-  margin-right: 20px;
-}
+@media (max-width: 928px) {
+  .info-container{
+    align-content: center;
+    display: flex;
+    justify-content: center;
+  }
+  .items {
+    overflow: hidden;
+    border-style: solid;
+    border-color: rgb(204, 123, 123);
+    border-radius: 45px;
+    padding: 20px;
+  }
 
-img:hover {
-  background-color: #eee
-}
-.instagram-container {
-  display: grid;
-  grid-template-columns: minmax(150px, 465px) minmax(auto, 465px);
-  grid-template-rows: 300px auto auto 300px auto;
-  display: inline-grid;
-  /* grid-template-columns: 1fr 1fr; */
-  row-gap: 25px;
-  column-gap: 25px;
-}
+  .filterbox1 {
+    float: left;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
 
-.instagram-container .post{
+  img:hover {
+    background-color: #eee
+  }
+  .camp-container {
+    /* display: grid;
+    grid-template-columns: minmax(150px, 465px) minmax(auto, 465px);
+    grid-template-rows: 300px auto auto 300px auto; */
+    display: inline-grid;
+    /* grid-template-columns: 1fr 1fr; */
+    row-gap: 25px;
+    column-gap: 25px;
+  }
+
+  .camp-container .post{
     cursor: pointer;
     position: relative; 
     display: block;
     width: 100%;
-}
-.img-photo{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    vertical-align: top;
+  }
+  .img-photo{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      vertical-align: top;
+  }
+
+  .camp-container .hover-img{
+    background: rgba(0,0,0, .4);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  .post:hover  .hover-img{
+      display: flex;
+  }
 }
 
-.instagram-container .hover-img{
-  background: rgba(0,0,0, .4);
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 0;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	color: white;
-  text-align: center;
-  font-size: 2.2rem;
-}
-.post:hover  .hover-img{
-    display: flex;
-}
 
 </style>

@@ -16,7 +16,7 @@
           class="card col-sm-6 col-md col-lg col-xl"
           v-for="(item, idx) in recentlist"
           :key="idx"
-          style="margin-left: 5px; margin-right: 5px; margin-top: 50px"
+          style="margin-left: 5px; margin-right: 5px; margin-top: 50px; cursor:pointer;"
           @click="goRecentDetail(item.mateNo)"
         >
           <img
@@ -43,10 +43,10 @@
               <div align="right">
                 <small>
                   <i class="far fa-user"></i>
-                  <span v-if="item.mateList" align="right">
-                    {{ item.mateList.length }}</span
+                  <span align="right">
+                    {{  memberNums(item) +1 }}</span
                   >
-                  <span v-else> 1</span>
+
                   <span> / {{ item.memberlimit }}</span>
                 </small>
               </div>
@@ -59,7 +59,7 @@
     <!-- footer -->
     <div class="container-fluid pb-0 mb-0 justify-content-between text-light">
       <footer>
-        <div class="row my-5 justify-content-center py-5">
+        <div class="row my-5 justify-content-center pb-3">
           <div class="col-11">
             <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref} from "vue";
 import { useRouter } from "vue-router";
 import Newmodal from "@/components/mateparty/Newmodal.vue";
 
@@ -162,10 +162,22 @@ export default {
     const goRecentDetail = (No) => {
       router.push({ name: "Partyinfo", params: { mateNo: No } });
     };
+
+    const memberNums = (item) => {
+      const val = ref(0)
+      item.mateList.forEach(element => {
+        val.value += element.mateListNum
+      });
+      return val.value
+    }
+
+
+
     return {
       recentlist,
       goCampsite,
       goRecentDetail,
+      memberNums,
     };
   },
 };
@@ -276,7 +288,7 @@ h1 {
 
 .container-fluid {
   overflow: hidden;
-  margin-top: 250px;
+  margin-top: 100px;
   background: #262626;
   color: #627482 !important;
   margin-bottom: 0;

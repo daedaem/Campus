@@ -1,76 +1,37 @@
 <template>
-  <div>
-    <section class="profile-container">
-      <section class="profile-grid">
-        <div class="photo">
-          <!-- <img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지"> -->
-          <img
-            v-if="this.user_data.userProfileImage"
-            v-bind:src="this.user_data.userProfileImage"
-            alt=""
-          />
-          <img
-            v-if="this.user_data.userProfileImage == null"
-            src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
-          />
-        </div>
-        <div class="name-buttons d-flex justify-content-between">
-          <h1>{{ this.user_data.userNickname }}의 프로필</h1>
-          <div style="width: 100px">
-            <button
-              v-if="this.$route.params.userEmail === this.myEmail"
-              @click="logout"
-              style="width: 100px"
-            >
-              로그아웃
-            </button>
-          </div>
-          <div class="">
-            <button
-              v-if="this.$route.params.userEmail === this.myEmail"
-              @click="moveToModify"
-              class="btn profile-settings-btn"
-              aria-label="profile settings"
-            >
-              <i class="fas fa-cog" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
+	<Navbar></Navbar>
+	<div>
+		
+		<section class="profile-container">
+			<section class="profile-grid">
+				<div class="photo">
+					<!-- <img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지"> -->
+					<img v-if="this.user_data.userProfileImage" v-bind:src="this.user_data.userProfileImage" alt="">
+					<img v-if="this.user_data.userProfileImage == null" src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg">
+				</div>
+				<div class="name-buttons d-flex justify-content-between">
+					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
+					
+					<div class="">
+						<button v-if="this.$route.params.userEmail === this.myEmail" @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+					</div>
+					
+				</div>
+				
+				<div class="mt-2">
+					유저 평점: {{this.user_data.userRatePoint}} / 5
+				</div>
 
-        <div class="mt-2">
-          <span class="mx-1" v-for="(value, idx) in campstylelist" :key="idx">
-            #{{ value }}</span
-          >
-        </div>
+				<div class="mt-2">
+					<span class="mx-1" v-for="(value, idx) in campstylelist" :key="idx">
+						#{{ value }}</span>
+				</div>
 
-        <div class="mt-2">
-          유저 평점: {{ this.user_data.userRatePoint }} / 5
-        </div>
 
-        <div class="userInfo-follow" v-if="this.UserNo !== this.myId">
-          <button
-            v-if="isFollow === true"
-            class="follow-buttonOn"
-            type="button"
-            @click="
-              unfollow();
-              followcnt();
-            "
-          >
-            Unfollow
-          </button>
-          <button
-            v-else
-            class="follow-buttonOff"
-            type="button"
-            @click="
-              follow();
-              followcnt();
-            "
-          >
-            Follow
-          </button>
-          <!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
+				<div class="userInfo-follow" v-if="this.UserNo !== this.myId">
+					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">Unfollow</button>
+					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >Follow</button>
+					<!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
 					<button class="follow-btn " v-else @click="follow">팔로우</button> -->
         </div>
       </section>
@@ -158,20 +119,40 @@
       </footer>
     </section>
 
-    <section class="mt-3 d-flex justify-content-center">
-      <div class="tab-content">
-        <div v-show="currentTab == 0">
-          <ProfileInfo :user_data="this.user_data" :camp_List="this.campList" />
-        </div>
-        <div v-show="currentTab == 1">
-          <ProfileFeed :feedList="this.feedList" />
-        </div>
-        <div v-show="currentTab == 2">
-          <ProfileHistory :historyList="this.historyList" />
-        </div>
-      </div>
-    </section>
-  </div>
+		<section class="instagram-container" style="width:100%">
+			<footer class="image-footer">
+				<!-- <div id="tabs-posts"> -->
+					<div v-for="(tab, index) in tabs" :key="index"
+							v-bind:class="{active: currentTab === index}"
+							v-on:click="currentTab = index">{{ tab }}</div>			
+				<!-- </div>	 -->
+			</footer>
+		</section>
+
+		<section class="mt-3 d-flex justify-content-center">
+			<div class="tab-content">
+				<div v-show="currentTab==0">
+					<ProfileInfo
+						:user_data="this.user_data"
+						:camp_List="this.campList"
+					/>
+				</div>
+				<div v-show="currentTab==1">
+					<ProfileFeed
+						:feedList="this.feedList"
+					/>
+				</div>
+				<div v-show="currentTab==2">
+					<ProfileHistory
+						:historyList="this.historyList"
+					/>
+				</div>
+			</div>
+		</section>
+
+		
+
+	</div>
 </template>
 
 <script>
@@ -558,5 +539,141 @@ export default {
   background-color: blue;
   font-size: 18px;
   color: white;
+}
+
+@media (max-width: 740px)
+{ 
+		.profile-stats {
+		margin-top: 2.3rem;
+		align-items: center;
+		/* border-bottom: 0.1rem solid #dadada; */
+	}
+
+	.profile-stats li {
+		display: inline-block;
+		font-size: 1.0rem;
+		line-height: 1.5;
+		margin-right: 3.5rem;
+		cursor: pointer;
+	}
+
+	.profile-stats li:last-of-type {
+		margin-right: 0;
+	}
+	.profile-container{
+	
+		justify-content: left;
+		margin-bottom: 20px;
+		padding-top: 30px;
+		font-family: 'Roboto',sans-serif;
+		font-weight: 300;
+	}
+	.profile-grid
+	{
+		/*grid-template-columns:90px auto;*/
+		grid-template-columns: 20vw 80vw;
+		grid-template-rows: auto auto;
+		grid-template-areas: "photo  user-bottom"
+													"description  description"
+													"followers-line  followers-line"
+													"h-post h-post"
+													"second-line second-line";
+													
+		row-gap: 12px;
+	}
+	.profile-grid .photo{
+			padding-left: 8px;
+			width: 100px;
+			height: auto;
+	}
+
+	
+.profile-grid .photo img{
+	width: 80px;
+	height: 80px;
+	padding: 2px;
+	border: 2px solid rgb(192, 187, 187);;
+}
+	.profile-grid .name-buttons{
+		grid-area: user-bottom;
+		display: block;
+		padding-left: 10px;
+
+	}
+	.profile-grid .name-buttons div:nth-of-type(1){
+		margin-bottom: 9px;
+	}
+	.profile-grid .name-buttons div:nth-of-type(2){
+		padding-left: 15px;
+	}
+	.instagram-container{
+		display: grid;
+		justify-content: center;
+		grid-template-columns:repeat(3,minmax(auto,293px));
+		grid-template-rows: auto ;
+		row-gap: 3px;
+		column-gap: 3px;
+	}
+	.instagram-container .image-footer {
+		width: 100%;
+		border-top: 1px solid rgb(201, 195, 195);
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		grid-column-start: 1;
+		grid-column-end: 4;
+		background-color: #fafafa;
+}
+.instagram-container .image-footer div {
+  display: flex;
+  padding-top: 15px;
+  margin-left: 50px;
+  margin-right: 50px;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  align-items: center;
+  font-weight: 300;
+  text-align: center;
+}
+
+	/* .instagram-container .image-footer div{
+		padding-top: 8px;
+		padding-bottom: 8px;
+	} */
+	.footer-end{
+		height: 50px; 
+		font-size: 1.3rem;
+	}
+}
+
+@media (max-width: 400px)
+{
+    header .search-container{
+        display: none;
+    }
+    header .options-container{
+        margin-left: auto;
+    }
+    .profile-grid{
+        grid-template-columns: 25vw 75vw;
+    }
+    .footer-end{
+
+        height: 40px; 
+        font-size: 1.2rem;
+    }
+		.instagram-container .image-footer div {
+			display: flex;
+			padding-top: 15px;
+			margin-left: 40px;
+			margin-right: 40px;
+			justify-content: center;
+			font-size: 0.8rem;
+			font-family: "Roboto", sans-serif;
+			align-items: center;
+			font-weight: 300;
+			text-align: center;
+		}
 }
 </style>
