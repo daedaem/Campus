@@ -16,10 +16,10 @@ public class SnsReplyDto {
     private String userNickname;
     private String snsReplyContent;
     private String userProfileImage;
+    private String userEmail;
 
     private LocalDateTime snsReplyCreateTime;
     private LocalDateTime snsReplyUpdateTime;
 
     
 }
-// 컨트롤러에서 sns와 댓글 따로 부르기
