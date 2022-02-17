@@ -1,43 +1,40 @@
 <template>
-  <Navbar id="navbar"></Navbar>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
   <div class="MateParty">
     <div class="MateParty-imgcover">
-      <div class="MateParty-content">    <h1 style="">메이트 모집</h1>
-</div>
+      <div class="MateParty-content"><h1 style="">메이트 모집</h1></div>
       <div></div>
     </div>
   </div>
   <body>
- 
-      
-
     <!-- <h1>Mate party</h1> -->
     <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
-    <!-- <div class="container" style="width:100%;">
-      <div class="row">
+    <!-- <div class="container" style="width:100%;">  
         <div class="col-12"> -->
-    <div style="margin-top:30px;">
-      <Filters @filter-data="filterData" style="width:100%;"/>
+    <div style="margin-top: 30px">
+      <Filters @filter-data="filterData" style="width: 100%" />
     </div>
     <!-- <Newmodal /> -->
-    <br>
+    <br />
     <!-- <div style="overflow:hidden z-index:30"> -->
 
-      <div align="right">
-        <b-button
-          pill
-          style="width: 100px; height: 40px; margin-top: 40px; margin-bottom: 20px; background-color:#7ac4e1; border-color:#7ac4e1; align:right;"
-          @click="goMakeparty"
-          
-          >글 작성</b-button
-        >
-      </div>
-    <Pagination
-      v-if="newFilter.length != 0"
-      :newFilter="newFilter"
- 
-      
-    />
+    <div align="right">
+      <b-button
+        pill
+        style="
+          width: 100px;
+          height: 40px;
+          margin-top: 40px;
+          margin-bottom: 20px;
+          background-color: #7ac4e1;
+          border-color: #7ac4e1;
+          align: right;
+        "
+        @click="goMakeparty"
+        >글 작성</b-button
+      >
+    </div>
+    <Pagination v-if="newFilter.length != 0" :newFilter="newFilter" />
     <!-- {{matelists}} -->
     <!-- </div>
     </div>
@@ -51,8 +48,9 @@ import Filters from "@/components/mateparty/Filters.vue";
 import router from "@/router";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import axios from "axios";
 import Navbar from "@/components/common/Navbar.vue";
+import axios from "axios";
+
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -63,17 +61,17 @@ export default {
     Pagination,
     Filters,
     Navbar,
+
   },
 
   name: "Mateparty",
   setup() {
-    
     const store = useStore();
     // if (store.state.userEmail == null) {
     //   alert("로그인이 필요한 서비스입니다.");
     //   router.push({ name: "Login" });
     // }
-    const newFilter = ref(store.state.mateList)
+    const newFilter = ref(store.state.mateList);
     const testlist = ref("");
     const viewFunc = (data) => {
       // console.log(data)
@@ -97,15 +95,12 @@ export default {
       router.push({ name: "Makeparty" });
     };
 
- 
     const filterData = (val) => {
-      console.log(val)
-      newFilter.value = val.data.list
-      
+      console.log(val);
+      newFilter.value = val.data.list;
     };
 
     return {
-
       goMakeparty,
       filterData,
       newFilter,
@@ -123,8 +118,8 @@ export default {
 
   /* background-position: 30%; */
   /* background-repeat: no-repeat; */
-  background: url("./../../assets/images/pexels-vlad-bagacian-1061640.jpg") 
-  50% 65% no-repeat;
+  background: url("./../../assets/images/pexels-vlad-bagacian-1061640.jpg") 50%
+    65% no-repeat;
   background-size: 100% auto;
 }
 .MateParty-imgcover {
@@ -144,9 +139,9 @@ export default {
   z-index: 2;
   text-align: center;
 }
-.writebutton{
-background-color: #7ac4e1;
-border:1px solid #fff
+.writebutton {
+  background-color: #7ac4e1;
+  border: 1px solid #fff;
 }
 
 @media (min-width: 768px) {
@@ -158,25 +153,24 @@ border:1px solid #fff
   }
 }
 body {
-    /* width : 768px; */
-    /* margin: 0 auto; */
-    padding: 0 20px;
-
+  /* width : 768px; */
+  /* margin: 0 auto; */
+  padding: 0 20px;
 }
 .test {
   width: 100%;
 }
 
 .dd {
-  width :100%;
-  height:100%;
-  height : auto;
+  width: 100%;
+  height: 100%;
+  height: auto;
   aspect-ratio: 16/9;
 }
 
 img {
-  width :100%;
-  height : auto;
+  width: 100%;
+  height: auto;
   aspect-ratio: 16/9;
 }
 </style>

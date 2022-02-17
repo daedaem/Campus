@@ -1,5 +1,14 @@
 <template>
   <!-- 피드 게시물 첨부 사진이 한 개일때 -->
+  <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 0">
+    <div class="feed-picture d-flex justify-content-center align-items-center">
+      <img
+        class="FeedDetailCarousel-defaultimage"
+        src="@/assets/images/logo1.png"
+        alt=""
+      />
+    </div>
+  </div>
   <div class="feed-picture-box" v-if="this.imageinfo.imageList.length == 1">
     <div class="feed-picture">
       <img
@@ -256,6 +265,26 @@ export default {
     align-items: center;
   }
 }
+@media (max-width: 768px) {
+  /* .total-feed-box {
+    align-self: center;
+  } */
+  .feed-picture-box {
+    align-self: center;
+    width: 100%;
+    /* height: 100%; */
+  }
+  .feed-picture {
+    /* display: flex; */
+    /* flex-direction: column; */
+    align-items: center;
+  }
+  .FeedDetailCarousel-defaultimage {
+    width: 300px;
+    height: 90%;
+  }
+}
+
 .FeedDetailCarousel-image {
   width: 100%;
   height: 100%;
@@ -277,7 +306,7 @@ export default {
   /* object-fit: cover; */
   /* max-width: 600px;
    */
-  max-height: 600px;
+  max-height: 400px;
   /* max-height: calc(100%-40px); */
 }
 /* .bi-x-circle {
