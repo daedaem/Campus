@@ -1,4 +1,5 @@
 <template>
+  <Navbar></Navbar>
   <div class="registration-form">
     <form
       style="
@@ -71,6 +72,8 @@
               로그아웃
             </button>
           </div> -->
+ 
+
   </div>
 </template>
 
