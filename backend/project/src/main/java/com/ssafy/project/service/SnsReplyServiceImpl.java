@@ -26,6 +26,9 @@ public class SnsReplyServiceImpl implements SnsReplyService {
         try {
             
             List<SnsReplyDto> list = dao.snsReplyList(snsReplyNo);
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setUserEmail(dao.snsReplyUserEmail(list.get(i).getUserNo()));
+            }
             int count = dao.snsReplyCount(snsReplyNo);
             snsReplyResultDto.setList(list);
             snsReplyResultDto.setCount(count);
