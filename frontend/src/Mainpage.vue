@@ -1,5 +1,6 @@
 <template>
-  <Navbar class="CampusNavbar"></Navbar>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
+
   <body>
     <div>
       <img class="brandlogo" src="@/assets/images/logo1.png" alt="" /><a
@@ -35,27 +36,27 @@
       style="margin-top: 50px"
     />
   </body>
-  <Newmodal class="Newmodal" />
 </template>
 
 <script>
 import Maincarousel from "@/components/mateparty/Maincarousel.vue";
 import axios from "axios";
+import Navbar from "@/components/common/Navbar.vue";
+
 // import { useStore } from "vuex";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import Newmodal from "@/components/mateparty/Newmodal.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
-import Navbar from "@/components/common/Navbar.vue";
+// import Navbar from "@/components/common/Navbar.vue";
 
 export default {
   name: "Mainpage",
   components: {
     Maincarousel,
+    // MainNavbar,
     Navbar,
-    Newmodal,
   },
 
   setup() {
@@ -114,19 +115,45 @@ export default {
 </script>
 
 <style scoped>
-.CampusNavbar {
-  background: transparent;
-  position: absolute;
-  z-index: 10000;
-  width: 100%;
+@media (min-width: 768px) {
+  #TotalNavbar {
+    /* background: transparent; */
+    /* visibility: hidden; */
+    /* color: transparent; */
+    background: transparent;
+
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+  }
+  .CampusNavbar {
+    /* visibility: hidden;
+    background: transparent;
+    position: absolute; */
+  }
+
+  .MainTitle {
+    /* position: absolute; */
+
+    margin-bottom: 100px;
+  }
+
+  .Newmodal {
+    display: none;
+  }
+  .btn {
+    margin-bottom: 20px;
+  }
+  .brandlogo {
+    display: none;
+    /* position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 54px;
+    height: 45px;
+    z-index: 20; */
+  }
 }
-/* body { */
-/* width: 100vw;
-  height: 100vh; */
-/* margin: 0 auto; */
-/* padding: 0 20px; */
-/* background: beige; */
-/* } */
 
 .brandSlogan {
   max-width: 80%;
@@ -233,43 +260,19 @@ p {
     width: 100%; */
 /* display: hidden; */
 /* } */
-@media (min-width: 768px) {
-  .MainTitle {
-    /* position: absolute; */
 
-    margin-bottom: 100px;
-  }
-  .Navbar {
-    background: transparent;
-    position: absolute;
-    z-index: 10000;
-    width: 100%;
-  }
-  .Newmodal {
-    display: none;
-  }
-  .btn {
-    margin-bottom: 20px;
-  }
-  .brandlogo {
-    display: none;
-    /* position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 54px;
-    height: 45px;
-    z-index: 20; */
-  }
-}
 @media (max-width: 768px) {
   .CampusNavbar {
-    /* display: none; */
+    display: none;
+    position: absolute;
+    top: 0px;
     visibility: hidden;
     /* background: transparent;
-    position: absolute;
+
     z-index: 10000;
     width: 100%; */
   }
+
   .brandlogo {
     position: absolute;
     top: 15px;
