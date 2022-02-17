@@ -220,7 +220,7 @@ img{
 
 
 
-.over {
-  overflow: hidden !important;
+.overflow-auto {
+  overflow: hidden !important
 }
 </style>

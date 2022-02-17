@@ -6,6 +6,7 @@
       <div></div>
     </div>
   </div>
+  <div style="background-color : #fafafa;">
   <body>
     <!-- <h1>Mate party</h1> -->
     <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
@@ -40,6 +41,7 @@
     </div>
     </div> -->
   </body>
+  </div>
 </template>
 
 <script>
