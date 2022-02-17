@@ -39,7 +39,7 @@
               <li>
                 <a class="dropdown-item" @click="goMatematch()">메이트(매칭)</a>
               </li>
-              <li>
+              <li v-if="me">
                 <a class="dropdown-item" @click="mySurvey()">설문조사</a>
               </li>
               <!-- <li><hr class="dropdown-divider"></li> -->
@@ -178,7 +178,7 @@ export default {
     const router = useRouter();
     const store = useStore();
     const onoff = ref(0);
-
+    const me = store.state.myNum
     const refresh = () => {
       if (onoff.value === 0) {
         onoff.value += 1;
@@ -191,20 +191,29 @@ export default {
     };
 
     const goMatematch = () => {
-      console.log(store.state.myNum);
-      console.log(store.state.userList.userMBTI);
-      if (store.state.userList.userMBTI === "") {
+      if (store.state.myNum === "") {
         Swal.fire({
-          title: "설문이 필요합니다.",
+          title: "로그인이 필요한 서비스입니다.",
           icon: "warning",
           timer: 2000,
         });
-        router.push({ name: "Survey" });
+        router.push({ name: "Login" })
       } else {
-        router.push({
-          name: "Matematch",
-          params: { userNo: store.state.myNum },
-        });
+        console.log(store.state.myNum);
+        console.log(store.state.userList.userMBTI);
+        if (store.state.userList.userMBTI === "") {
+          Swal.fire({
+            title: "설문이 필요합니다.",
+            icon: "warning",
+            timer: 2000,
+          });
+          router.push({ name: "Survey" });
+        } else {
+          router.push({
+            name: "Matematch",
+            params: { userNo: store.state.myNum },
+          });
+        }
       }
     };
 
@@ -212,6 +221,7 @@ export default {
       refresh,
       onoff,
       goMatematch,
+      me,
     };
   },
   methods: {

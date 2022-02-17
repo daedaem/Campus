@@ -49,9 +49,9 @@ import router from "@/router";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import Navbar from "@/components/common/Navbar.vue";
-import axios from "axios";
+import Swal from "sweetalert2"
 
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   props: {
@@ -67,30 +67,18 @@ export default {
   name: "Mateparty",
   setup() {
     const store = useStore();
-    // if (store.state.userEmail == null) {
-    //   alert("로그인이 필요한 서비스입니다.");
-    //   router.push({ name: "Login" });
-    // }
-    const newFilter = ref(store.state.mateList);
-    const testlist = ref("");
-    const viewFunc = (data) => {
-      // console.log(data)
-      store.dispatch("viewMate", data);
-    };
-    axios({
-      methods: "get",
-      url: `${SERVER_URL}/mate`,
-    })
-      .then((res) => {
-        // console.log(res.data.list)
-        viewFunc(res.data.list);
-        testlist.value = res.data.list;
+    if (store.state.userEmail == null) {
+      Swal.fire({
+        title : "로그인이 필요한 서비스입니다.",
+        icon : "warning",
+        timer : 2000,
       })
-
-      .catch((err) => {
-        console.log(err);
-      });
-
+      router.push({ name: "Login" });
+    }
+    
+    // const testlist = ref("");
+    
+    const newFilter = ref(store.state.mateList);
     const goMakeparty = () => {
       router.push({ name: "Makeparty" });
     };
