@@ -88,7 +88,22 @@
                   <div class="d-flex flex-row align-items-center">
                     <h5 class="mt-3">후기</h5>
                   </div>
-                  <h6 class="text-success">찜?</h6>
+                  <span
+                    v-if="mylst.includes(item.contentId) === false"
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="giveHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart me-3"></i>
+                  </span>
+                  <span
+                    v-else
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="cancelHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart-fill me-3" style="color:red;"></i>
+                  </span>
                   <div class="d-flex flex-column pt-2 mt-4">
                     <button
                       class="btn btn-primary btn-sm"
@@ -101,6 +116,7 @@
                       class="btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-if="item.resveUrl != null"
+                      @click="movetocampsite(item.resveUrl)"
                     >
                       예약사이트
                     </button>
@@ -263,6 +279,7 @@
                       class="btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-if="item.resveUrl != null"
+                      @click="movetocampsite(item.resveUrl)"
                     >
                       예약사이트
                     </button>
@@ -405,6 +422,10 @@ export default {
         })
     };
 
+    const movetocampsite = (value) => {
+      window.open(value)
+    };
+
     const camplikeuser = () => {
       const userNm = store.state.myNum;
       const mycamping = [];
@@ -461,6 +482,7 @@ export default {
       temp,
       start,
       xx,
+      movetocampsite,
     };
   },
 };

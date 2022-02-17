@@ -11,23 +11,23 @@
 				</div>
 				<div class="name-buttons d-flex justify-content-between">
 					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
-					<div style="width: 100px;">
-						<button v-if="this.$route.params.userEmail === this.myEmail" @click="logout" style="width: 100px">로그아웃</button>
-					</div>
+					
 					<div class="">
 						<button v-if="this.$route.params.userEmail === this.myEmail" @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 					</div>
+					
 				</div>
 				
+				<div class="mt-2">
+					유저 평점: {{this.user_data.userRatePoint}} / 5
+				</div>
+
 				<div class="mt-2">
 					<span class="mx-1" v-for="(value, idx) in campstylelist" :key="idx">
 						#{{ value }}</span>
 				</div>
 
-				<div class="mt-2">
-					유저 평점: {{this.user_data.userRatePoint}} / 5
-				</div>
-				
+
 				<div class="userInfo-follow" v-if="this.UserNo !== this.myId">
 					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">Unfollow</button>
 					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >Follow</button>
@@ -91,7 +91,7 @@
 			</ul>
 		</section>
 
-		<section class="instagram-container">
+		<section class="instagram-container" style="width:100%">
 			<footer class="image-footer">
 				<!-- <div id="tabs-posts"> -->
 					<div v-for="(tab, index) in tabs" :key="index"
@@ -536,5 +536,141 @@ export default {
 	background-color: blue;
 	font-size: 18px;
 	color: white;
+}
+
+@media (max-width: 740px)
+{ 
+		.profile-stats {
+		margin-top: 2.3rem;
+		align-items: center;
+		/* border-bottom: 0.1rem solid #dadada; */
+	}
+
+	.profile-stats li {
+		display: inline-block;
+		font-size: 1.0rem;
+		line-height: 1.5;
+		margin-right: 3.5rem;
+		cursor: pointer;
+	}
+
+	.profile-stats li:last-of-type {
+		margin-right: 0;
+	}
+	.profile-container{
+	
+		justify-content: left;
+		margin-bottom: 20px;
+		padding-top: 30px;
+		font-family: 'Roboto',sans-serif;
+		font-weight: 300;
+	}
+	.profile-grid
+	{
+		/*grid-template-columns:90px auto;*/
+		grid-template-columns: 20vw 80vw;
+		grid-template-rows: auto auto;
+		grid-template-areas: "photo  user-bottom"
+													"description  description"
+													"followers-line  followers-line"
+													"h-post h-post"
+													"second-line second-line";
+													
+		row-gap: 12px;
+	}
+	.profile-grid .photo{
+			padding-left: 8px;
+			width: 100px;
+			height: auto;
+	}
+
+	
+.profile-grid .photo img{
+	width: 80px;
+	height: 80px;
+	padding: 2px;
+	border: 2px solid rgb(192, 187, 187);;
+}
+	.profile-grid .name-buttons{
+		grid-area: user-bottom;
+		display: block;
+		padding-left: 10px;
+
+	}
+	.profile-grid .name-buttons div:nth-of-type(1){
+		margin-bottom: 9px;
+	}
+	.profile-grid .name-buttons div:nth-of-type(2){
+		padding-left: 15px;
+	}
+	.instagram-container{
+		display: grid;
+		justify-content: center;
+		grid-template-columns:repeat(3,minmax(auto,293px));
+		grid-template-rows: auto ;
+		row-gap: 3px;
+		column-gap: 3px;
+	}
+	.instagram-container .image-footer {
+		width: 100%;
+		border-top: 1px solid rgb(201, 195, 195);
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		grid-column-start: 1;
+		grid-column-end: 4;
+		background-color: #fafafa;
+}
+.instagram-container .image-footer div {
+  display: flex;
+  padding-top: 15px;
+  margin-left: 50px;
+  margin-right: 50px;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  align-items: center;
+  font-weight: 300;
+  text-align: center;
+}
+
+	/* .instagram-container .image-footer div{
+		padding-top: 8px;
+		padding-bottom: 8px;
+	} */
+	.footer-end{
+		height: 50px; 
+		font-size: 1.3rem;
+	}
+}
+
+@media (max-width: 400px)
+{
+    header .search-container{
+        display: none;
+    }
+    header .options-container{
+        margin-left: auto;
+    }
+    .profile-grid{
+        grid-template-columns: 25vw 75vw;
+    }
+    .footer-end{
+
+        height: 40px; 
+        font-size: 1.2rem;
+    }
+		.instagram-container .image-footer div {
+			display: flex;
+			padding-top: 15px;
+			margin-left: 40px;
+			margin-right: 40px;
+			justify-content: center;
+			font-size: 0.8rem;
+			font-family: "Roboto", sans-serif;
+			align-items: center;
+			font-weight: 300;
+			text-align: center;
+		}
 }
 </style>

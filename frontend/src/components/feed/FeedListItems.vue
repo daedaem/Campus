@@ -25,7 +25,9 @@
               class="user-profile-username fs-6 fw-bold"
               style="cursor: pointer"
             >
-              {{ feed.userNickname }}
+              <router-link :to="{ name: 'Profile',  params: { userEmail: feed.userEmail }}" class="text-dark text-decoration-none">
+                {{ feed.userNickname }}
+              </router-link>
             </div>
           </div>
           <feed-list-item-dropdown v-bind:feed="feed"></feed-list-item-dropdown>
@@ -129,7 +131,7 @@
                         class="user-comment-profile-image"
                       /></router-link>
                       <div class="fw-bold">
-                        {{ comment.userNickname }}
+                        <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}" class="text-dark text-decoration-none">{{ comment.userNickname }}</router-link>
                       </div>
                       <div
                         class="FeedListItems-commentContent col mx-3 text-start"
