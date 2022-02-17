@@ -60,6 +60,10 @@ public interface MateDao {
 
     public void mateApplyDelete(int mateListNo);
 
+    public MateListDto mateListbyMateListNo(int mateListNo);
+
+    public void mateApplyoutMessage(int mateNo, int userNo);
+
     public List<MateListDto> userCampStyle(int userNo);
 
     public void mateImageInsert(MateDto dto);

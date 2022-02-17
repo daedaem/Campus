@@ -334,7 +334,9 @@ public class MateServiceImpl implements MateService {
         MateResultDto mateResultDto = new MateResultDto();
 
         try {
-
+            // 모집글 번호를 받아온다 -> 모집글에 포함된 유저번호도 받아온다 -> 이후 메세지에서 모집글번호롸 유저번호가 같은 유저의 메시지를 삭제.
+            MateListDto mateListDto = dao.mateListbyMateListNo(mateListNo); // userNo와 mateNo 을 가져온다.
+            dao.mateApplyoutMessage(mateListDto.getMateNo(), mateListDto.getUserNo());
             dao.mateApplyDelete(mateListNo);
             mateResultDto.setResult(SUCCESS);
 
