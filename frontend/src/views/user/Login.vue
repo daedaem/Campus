@@ -1,10 +1,8 @@
 <template>
+  <Navbar></Navbar>
   <div class="registration-form">
       <form style="border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 0px;border-bottom-right-radius:0px">
-        <div class="form-icon">
-          <h1>Camp-Us</h1>
-          <span><i class="icon icon-user"></i></span>
-        </div>
+        <h1>Camp-Us</h1>
 
         <div class="form-group">
           <input 
@@ -45,9 +43,7 @@
       <div class="social-media">
         <h5>Social Login</h5>
         <div class="social-icons">
-            <a @click="kakaoLogin"><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""></a>
             <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
-            
             <a @click="kakaoLogout">로그아웃</a>
         </div>
       </div>
@@ -72,13 +68,12 @@
         />
       </div>
 
-      <!-- 회원가입 및 비밀번호 찾기 -->
+      <!-- 회원가입 -->
       <div class="d-flex justify-content-between mx-3">
         <div @click="moveToSignUp">회원가입</div>
-        <div @click="movetofindPw">비밀번호</div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group d-flex justify-content-center">
         <button
           type="button"
           class="btn btn-block login-account"
@@ -88,14 +83,18 @@
           Login
         </button>
       </div>
-    </form>
+   
 
     <div class="social-media">
       <h5>Social Login</h5>
       <div class="social-icons">
         <a @click="kakaoLogin"
+          ><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""
+        /></a>
+        <a @click="kakaoLogin"
           ><i class="icon-social-google" title="Google"></i
         ></a>
+
         <a @click="kakaoLogout">로그아웃</a>
       </div>
     </div>
@@ -107,6 +106,8 @@
               로그아웃
             </button>
           </div> -->
+ 
+
   </div>
 </template>
 
@@ -224,8 +225,15 @@ export default {
         .get(`${SERVER_URL}/login/kakao/oauth`)
         .then((res) => {
           console.log(res.data)
-          // window.location.href = res.data
+          window.location.href = res.data
           // window.open(res.data)
+          
+          axios
+            .post(`${SERVER_URL}/login/kakao/callback`)
+            .then((res) => {
+              console.log(res)
+            })
+          
         })
 
     },
@@ -347,8 +355,8 @@ export default {
 input[type="password"] {
   font-family: "NanumSquare";
 }
-input[type=text] {
-  font-family: 'NanumSquare'
+input[type="text"] {
+  font-family: "NanumSquare";
 }
 
 @media (max-width: 576px) {

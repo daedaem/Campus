@@ -242,7 +242,7 @@ export default {
       // console.log(this.frm);
       // console.log(this.feedCreateContent);
       // 글그림 모두 있을 때,
-      if (this.frm.lenght > 0) {
+      if (this.feedCreateImageList.ImageList.length > 0) {
         if (this.feedCreateContent.snsContent) {
           if (this.feedCreateContent.snsContent[0] == "#") {
             this.feedCreateContent.snsContent =

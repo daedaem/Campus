@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style>
-body{margin-top:20px;}
+
 
 .card-big-shadow {
     max-width: 320px;
