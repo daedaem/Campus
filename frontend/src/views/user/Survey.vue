@@ -1,4 +1,6 @@
 <template>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
+
   <div>
     <div class="container p-3" align="left">
       <!-- 1 페이지 -->
@@ -688,9 +690,7 @@
           <form>
             <div class="row">
               <h1>Q12</h1>
-              <button align="right" class="out-button" @click="mbtiskip">
-                나가기
-              </button>
+
             </div>
             <div class="row mb-3">
               <b-progress :max="max">
@@ -732,23 +732,8 @@
               </button>
             </div>
             <div class="d-flex justify-content-between">
-              <button
-                class="check-button"
-                type="button"
-                @click.prevent="prev()"
-              >
-                Previous
-              </button>
-              <button
-                class="check-button"
-                type="button"
-                @click.prevent="checkmbti()"
-              >
-                finish
-              </button>
-            </div>
-            <div class="row">
-              <button class="out-button" @click="mbtiskip">나가기</button>
+              <button class="check-button" type="button" @click.prevent="prev()">Previous</button>
+              <button class="check-button" type="button" @click.prevent="checkmbti()">finish</button>
             </div>
           </form>
         </div>
@@ -760,12 +745,13 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Survey",
-  components: {},
+  components: { Navbar },
   data() {
     return {
       page: 1,
@@ -811,6 +797,7 @@ export default {
       userEmail: "",
       isMBTI: false,
       animate: true,
+      finalCheck: false,
     };
   },
   created: function () {
@@ -821,29 +808,40 @@ export default {
   methods: {
     prev() {
       this.page--;
+      this.allcheck();
     },
     next() {
       this.page++;
+      this.allcheck();
+    },
+    allcheck() {
+      if ((this.oneButton || this.notoneButton) == true && (this.twoButton || this.nottwoButton) == true &&
+      (this.threeButton || this.notthreeButton) == true && (this.fourButton || this.notfourButton) == true &&
+      (this.fiveButton || this.notfiveButton) == true && (this.sixButton || this.notsixButton) == true &&
+      (this.sevenButton || this.notsevenButton) == true && (this.eightButton || this.noteightButton) == true &&
+      (this.nineButton || this.notnineButton) == true && (this.tenButton || this.nottenButton) == true &&
+      (this.eleButton || this.noteleButton) == true) {
+        this.finalCheck = true
+      }
     },
     onSubmit() {
-      axios
-        .put(`${SERVER_URL}/user/mbti`, {
-          userEmail: this.userEmail,
-          userMBTI: this.credentials.MBTI,
-        })
-        .then((res) => {
-          console.log(res);
-          Swal.fire({
-            title: "설문조사가 완료되었습니다.",
-            icon: "success",
-            text: this.credentials.MBTI,
-            timer: 2000,
+      if (this.finalCheck === false) {
+        Swal.fire({title: '설문조사를 완료해주십시요', icon:'info', timer:2000})
+      } else {
+        axios
+          .put(`${SERVER_URL}/user/mbti`, {
+            userEmail: this.userEmail,
+            userMBTI: this.credentials.MBTI,
+          })
+          .then((res) => {
+            console.log(res);
+            Swal.fire({title: '설문조사가 완료되었습니다.', icon:'success', text: this.credentials.MBTI, timer:2000})
+            this.$router.push({ name: "Mainpage" });
+          })
+          .catch(() => {
+            alert("다시 시도해주세요.");
           });
-          this.$router.push({ name: "Mainpage" });
-        })
-        .catch(() => {
-          alert("다시 시도해주세요.");
-        });
+      }
     },
     mbtiskip: function () {
       this.$router.push({ name: "Mainpage" });
@@ -1056,12 +1054,12 @@ export default {
 </script>
 
 <style>
-.mbtiButtonOn {
+/* .mbtiButtonOn {
   background-color: skyblue;
 }
 .mbtiButtonOff {
   background-color: white;
-}
+} */
 
 .registration-form {
   padding: 50px 0;

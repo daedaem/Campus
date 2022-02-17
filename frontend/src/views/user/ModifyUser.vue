@@ -395,52 +395,66 @@ export default {
     next() {
       this.step++;
     },
-    onSubmit: function () {
-      this.credentials.userEmail = this.myEmail;
-      console.log(1);
-      axios({
-        method: "put",
-        url: `${SERVER_URL}/user`,
-        data: this.credentials,
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch(() => {
-          console.log("수정안됨");
-        });
-    },
-    getProfile: function () {
-      axios
-        .get(`${SERVER_URL}/user/${this.myEmail}`)
-        .then((res) => {
-          console.log(res);
-          this.credentials.userEmail = res.data.userEmail;
-          this.credentials.userNickname = res.data.userNickname;
-          this.credentials.userPassword = res.data.userPassword;
-          this.credentials.userName = res.data.userName;
-          this.credentials.password_confirmation = res.data.userPassword;
-          this.credentials.userGender = res.data.userGender;
-          this.credentials.userLocation = res.data.userLocation;
-          this.credentials.userAge = res.data.userAge;
-          this.credentials.userMBTI = res.data.userMBTI;
-          this.credentials.campEquipLantern = res.data.campEquipLantern;
-          this.credentials.campEquipReel = res.data.campEquipReel;
-          this.credentials.campEquipBurner = res.data.campEquipBurner;
-          this.credentials.campEquipicebox = res.data.campEquipicebox;
-          this.credentials.campEquipTableChair = res.data.campEquipTableChair;
-          this.credentials.campEquipSleepingbag = res.data.campEquipSleepingbag;
-          this.credentials.campEquipTarp = res.data.campEquipTarp;
-          this.credentials.campEquipPot = res.data.campEquipPot;
-          this.credentials.campEquipTent = res.data.campEquipTent;
-          this.credentials.campEquipBrazier = res.data.campEquipBrazier;
-          this.credentials.campStyle1 = res.data.campStyle1;
-          this.credentials.campStyle2 = res.data.campStyle2;
-          this.credentials.campStyle3 = res.data.campStyle3;
-          this.credentials.campStyle4 = res.data.campStyle4;
-          this.credentials.campStyle5 = res.data.campStyle5;
-          this.credentials.campStyle6 = res.data.campStyle6;
-          this.credentials.userProfileImage = res.data.userProfileImage;
+		onSubmit: function() {
+			this.credentials.userEmail = this.myEmail
+			console.log(1)
+			axios({
+				method: "put",
+				url: `${SERVER_URL}/user`,
+				data: this.credentials
+			})
+				.then((res) => {
+					console.log(res)
+					Swal.fire({ title: '회원정보 수정에 성공하였습니다.', icon: 'success', timer:2000})
+					this.$router.push({name: 'Mainpage'})
+				})
+				.catch(() => {
+					console.log("수정안됨")
+					Swal.fire({ title: "서버에 오류가 생겼습니다. 다시 시도해 주세요.", icon: 'warning', timer:2000})
+				})
+			this.imageSend()
+		},
+		imageSend: function () {
+			axios ({
+				method: "put",
+				url: `${SERVER_URL}/user/image/${this.credentials.userEmail}`,
+				headers: { 'Content-Type': 'multipart/form-data' },
+				data: this.userProfileImage
+			})
+				.catch(() => {
+					console.log("이미지가 없습니다.")
+			})
+		},
+		getProfile: function() {
+			axios.get(`${SERVER_URL}/user/${this.myEmail}`)
+			.then(res => {
+				console.log(res)
+				this.credentials.userEmail = res.data.userEmail
+				this.credentials.userNickname = res.data.userNickname
+				this.credentials.userPassword = res.data.userPassword
+				this.credentials.userName = res.data.userName
+				this.credentials.password_confirmation = res.data.userPassword
+				this.credentials.userGender = res.data.userGender
+				this.credentials.userLocation = res.data.userLocation
+				this.credentials.userAge = res.data.userAge
+				this.credentials.userMBTI = res.data.userMBTI
+				this.credentials.campEquipLantern = res.data.campEquipLantern
+				this.credentials.campEquipReel = res.data.campEquipReel
+				this.credentials.campEquipBurner = res.data.campEquipBurner
+				this.credentials.campEquipicebox = res.data.campEquipicebox
+				this.credentials.campEquipTableChair = res.data.campEquipTableChair
+				this.credentials.campEquipSleepingbag = res.data.campEquipSleepingbag
+				this.credentials.campEquipTarp = res.data.campEquipTarp
+				this.credentials.campEquipPot = res.data.campEquipPot
+				this.credentials.campEquipTent = res.data.campEquipTent
+				this.credentials.campEquipBrazier = res.data.campEquipBrazier
+				this.credentials.campStyle1 = res.data.campStyle1
+				this.credentials.campStyle2 = res.data.campStyle2
+				this.credentials.campStyle3 = res.data.campStyle3
+				this.credentials.campStyle4 = res.data.campStyle4
+				this.credentials.campStyle5 = res.data.campStyle5
+				this.credentials.campStyle6 = res.data.campStyle6
+				this.credentials.userProfileImage = res.data.userProfileImage
 
 				if (this.credentials.userGender == 'W') {
 					this.femaleButton = true

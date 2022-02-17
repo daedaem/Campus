@@ -23,19 +23,19 @@
             </div>
           </div>
 
-          <!-- 닉네임 입력 -->
-          <div class="row">
-            <label>닉네임</label>
-            <div class="form-group">
-              <input
-                class="form-control item"
-                type="text"
-                style="width: 70%; float: left"
-                placeholder="닉네임을 입력하세요"
-                v-model="credentials.userNickname"
-                autofocus
-                @blur="nicknameValid"
-              />
+						<!-- 닉네임 입력 -->
+						<div class="row">
+							<label>닉네임</label>
+							<div class="form-group">
+								<input
+									class="form-control item"
+									type="text"
+									style="width:70%; float: left"
+									maxlength='8'
+									placeholder="닉네임을 입력하세요"
+									v-model="credentials.userNickname"
+									autofocus
+									@blur="nicknameValid">
 
               <button
                 class="check-button"
@@ -47,46 +47,41 @@
             </div>
           </div>
 
-          <!-- 이름 입력 -->
-          <div class="row">
-            <label>이름</label>
-            <div class="form-group">
-              <input
-                class="form-control item"
-                type="text"
-                style="width: 70%; float: left"
-                placeholder="이름을 입력하세요."
-                v-model="credentials.userName"
-                autofocus
-              />
-            </div>
-          </div>
+						<!-- 이름 입력 -->
+						<div class="row">
+							<label>이름</label>
+							<div class="form-group">
+								<input
+									class="form-control item"
+									type="text"
+									style="width:70%; float: left"
+									placeholder="이름을 입력하세요."
+									v-model="credentials.userName"
+									autofocus>
+							</div>
+						</div>
+							
+						<!-- 비밀번호 -->
+						<div class="row">
+							<label>비밀번호</label>
+							<div class="form-group">
+								<input 
+									class="form-control item"
+									type="password"
+									style="width:70%; float: left"
+									placeholder='소문자/숫자 1개이상 8자리이상'
+									v-model="credentials.userPassword"
+									autofocus
+									@blur="passwordValid"
+									>
+							</div>
+							<!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
+							<small align="left" v-if="!passwordValidFlag && this.credentials.userPassword.length > 0" class="check-form">
+								유효하지 않은 비밀번호 입니다.
+							</small>
+						</div>
 
-          <!-- 비밀번호 -->
-          <div class="row">
-            <label>비밀번호</label>
-            <div class="form-group">
-              <input
-                class="form-control item"
-                type="password"
-                style="width: 70%; float: left"
-                placeholder="비밀번호를 입력하세요"
-                v-model="credentials.userPassword"
-                autofocus
-                @blur="passwordValid"
-              />
-            </div>
-            <!-- 소문자/숫자가 1개이상 존재하고 8-16자리 -->
-            <small
-              align="left"
-              v-if="
-                !passwordValidFlag && this.credentials.userPassword.length > 0
-              "
-              class="check-form"
-            >
-              유효하지 않은 비밀번호 입니다.
-            </small>
-          </div>
+          
 
           <!-- 비밀번호확인 -->
           <div class="row">
@@ -807,14 +802,10 @@ export default {
 input[type="password"] {
   font-family: "NanumSquare";
 }
-<<<<<<< HEAD
-</style>
-=======
-input[type=text] {
-  font-family: 'NanumSquare'
+input[type="text"] {
+  font-family: "NanumSquare";
 }
-input[type=email] {
-  font-family: 'NanumSquare'
+input[type="email"] {
+  font-family: "NanumSquare";
 }
 </style>
->>>>>>> 458524bfa65ca6300724b1a68c43dc8ff7675bb5

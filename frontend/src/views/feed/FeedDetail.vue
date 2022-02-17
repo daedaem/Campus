@@ -22,17 +22,20 @@
                     class="FeedDetail-ProfileBox-Image d-flex align-items-center ps-2"
                   >
                     <!-- 프로필이미지넣어지면 -->
+                    <router-link :to="{ name: 'Profile',  params: { userEmail: feedDetailContents.userEmail }}">
                     <img
                       style="cursor: pointer"
                       :src="`${this.feedDetailContents.userProfileImage}`"
                       class="FeedDetail-user-profile-image"
                       alt="..."
-                    />
+                    /></router-link>
                     <div
                       class="FeedDetail-ProfileBox-Username py-4 fw-bold"
                       style="cursor: pointer"
                     >
+                    <router-link :to="{ name: 'Profile',  params: { userEmail: feedDetailContents.userEmail }}" class="text-dark text-decoration-none">
                       {{ this.feedDetailContents.userNickname }}
+                    </router-link>
                     </div>
                   </div>
                   <div
@@ -81,7 +84,9 @@
                                   class="user-comment-profile-image ms-2"
                                 /></router-link>
                                 <div class="commentUserNickname fw-bold">
-                                  {{ comment.userNickname }}
+                                  <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}" class="text-dark text-decoration-none">
+                                    {{ comment.userNickname }}
+                                  </router-link>
                                 </div>
                               </div>
                               <div
@@ -560,6 +565,7 @@ export default {
   }
   .FeedDetailContent {
     font-size: 14px;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
   }
   .FeedDetailContent .calculatedTime {
     font-size: 10px;

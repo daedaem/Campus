@@ -15,8 +15,8 @@
           관광지
         </li>
         <li id="MT1" data-order="1" @click="onClickCategory('MT1')">
-          <span class="category_bg mart"></span>
-          마트
+          <span class="category_bg mart">
+</span> 마트
         </li>
         <li id="PM9" data-order="2" @click="onClickCategory('PM9')">
           <span class="category_bg pharmacy"></span>
@@ -333,10 +333,10 @@ export default {
   margin-bottom: 10px;
 }
 #category {
-  min-width: 300px;
+  min-width: 200px;
   position: absolute;
   top: 10px;
-  left: 10px;
+  /* left: 10px; */
   border-radius: 5px;
   border: 1px solid #909090;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
@@ -347,7 +347,7 @@ export default {
 #category li {
   float: left;
   list-style: none;
-  width: 13%;
+  width: 40px;
   border-right: 1px solid #acacac;
   padding: 4px 0;
   text-align: center;
@@ -367,35 +367,36 @@ export default {
 }
 #category li span {
   display: block;
-  margin: 0 auto 3px;
-  width: 27px;
+  margin: 0 ;
+  margin-right:20px;
+  width: 36px;
   height: 28px;
 }
 #category li .category_bg {
   background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
     no-repeat;
 }
-#category li .bank {
-  background-position: -10px 0px;
+#category li .attractive_area {
+  background-position: 1px 0px;
 }
 #category li .mart {
-  background-position: -10px -36px;
+  background-position: 2px -36px;
 }
 #category li .pharmacy {
-  background-position: -10px -72px;
+  background-position: 3px -72px;
 }
 #category li .oil {
-  background-position: -10px -108px;
+  background-position: 3px -108px;
 }
 #category li .cafe {
-  background-position: -10px -144px;
+  background-position: 3px -144px;
 }
 #category li .store {
-  background-position: -10px -180px;
+  background-position: 3px -180px;
+}#category li .restaurant {
+  background-position: 3px -180px;
 }
-#category li.on .category_bg {
-  background-position-x: -46px;
-}
+
 .placeinfo_wrap {
   position: absolute;
   bottom: 28px;

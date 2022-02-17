@@ -13,11 +13,11 @@
           <div class="NewModalDiscription">Home</div></router-link
         >
 
-        <router-link
-          :to="{ name: 'FeedList' }"
+        <div
+          
           class="feedrouter d-flex flex-column justify-content-center align-items-center me-5"
-          ><i class="bi bi bi-journal-richtext fs-5"></i>
-          <div class="NewModalDiscription">SNS</div></router-link
+          @click="goSns"><i class="bi bi bi-journal-richtext fs-5"></i>
+          <div class="NewModalDiscription">SNS</div></div>
         >
         <router-link
           :to="{ name: 'Campsite' }"
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 const tabs = document.querySelectorAll(".tab");
 
 tabs.forEach((clickedTab) => {
@@ -77,17 +79,82 @@ export default {
     // Modal2,
   },
   methods: {
-    goMatematch() {
+    goSns() {
+      
+      if (this.$store.state.myNum === null) {
+        Swal.fire({
+          title: "로그인이 필요한 서비스입니다.",
+          icon: "warning",
+          timer: 2000,
+        });
+        this.$router.push({ name: "Login" })
+      } else {
+        
       this.$router.push({
-        name: "Mateparty",
+        name: "FeedList",
       });
+    
+    }
+
+    },
+    goCampsite() {
+      if (this.$store.state.myNum === null) {
+        Swal.fire({
+          title: "로그인이 필요한 서비스입니다.",
+          icon: "warning",
+          timer: 2000,
+        });
+        this.$router.push({ name: "Login" })
+      } else {
+        
+      this.$router.push({
+        name: "FeedList",
+      });
+      }
+    },
+    goMatematch() {
+      console.log(3)
+      if (this.$store.state.myNum === "") {
+        console.log(1)
+        Swal.fire({
+          title: "로그인이 필요한 서비스입니다.",
+          icon: "warning",
+          timer: 2000,
+        });
+        this.$router.push({ name: "Login" })
+      } else {
+        console.log(2)
+        if (this.$store.state.userList.userMBTI === "") {
+          Swal.fire({
+            title: "설문이 필요합니다.",
+            icon: "warning",
+            timer: 2000,
+          });
+          this.$router.push({ name: "Survey" });
+        } else {
+          this.$router.push({
+            name: "Matematch",
+            params: { userNo: this.$store.state.myNum },
+          });
+        }
+      }
     },
     gotoParty() {
+      if (this.$store.state.myNum === "") {
+        Swal.fire({
+          title: "로그인이 필요한 서비스입니다.",
+          icon: "warning",
+          timer: 2000,
+        });
+        this.$router.push({ name: "Login" })
+      } else {
+        
       this.$router.push({
-        name: "Matematch",
-        params: { userNo: `${this.$store.state.myNum}` },
+        name: "Mateparty",
+        // params: { userNo: `${this.$store.state.myNum}` },
       });
-    },
+      }
+    }
   },
 };
 </script>
