@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Chat class="chat" />
-    <router-view :key="$route.fullPath"></router-view>
+    <router-view  :key="$route.fullPath"></router-view>
     <!-- <Newmodal class="Newmodal" /> -->
     <Newmodal class="Newmodal" />
   </div>
@@ -25,7 +25,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+#app{
+  width:100vw;
+  height:100vh;
+}
 @media (max-width: 768px) {
   .chat {
     // background: whitesmoke;

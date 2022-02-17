@@ -59,7 +59,22 @@
                   <div class="d-flex flex-row align-items-center">
                     <h5 class="mt-3">후기</h5>
                   </div>
-                  <h6 class="text-success">찜?</h6>
+                  <span
+                    v-if="mylst.includes(item.contentId) === false"
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="giveHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart me-3"></i>
+                  </span>
+                  <span
+                    v-else
+                    style="cursor: pointer"
+                    class="heart-box"
+                    @click="cancelHeart(item.contentId)"
+                  >
+                    <i class="bi bi-heart-fill me-3" style="color:red;"></i>
+                  </span>
                   <div class="d-flex flex-column pt-2 mt-4">
                     <button
                       class="btn btn-primary btn-sm"
@@ -199,21 +214,27 @@ export default {
     const giveHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "post",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'post',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("들어오나",res);
+          mylst.value.push(boardid)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const cancelHeart = (boardid) => {
       const userNm = store.state.myNum;
       axios({
-        method: "delete",
-        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`,
-      }).then((res) => {
-        console.log(res);
-      });
+        method: 'delete',
+        url: `${SERVER_URL}/camp/like/${userNm}/${boardid}`
+      })
+        .then((res) => {
+          console.log("빼나",res)
+          mylst.value.splice(mylst.value.indexOf(boardid), 1)
+          // console.log("이건", mylst.value)
+        })
     };
 
     const camplikeuser = () => {

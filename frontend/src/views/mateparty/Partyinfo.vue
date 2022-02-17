@@ -1,4 +1,5 @@
 <template>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
 
   <body>
     <div class="myButton" align="right">
@@ -68,6 +69,8 @@ import axios from "axios";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import Navbar from "@/components/common/Navbar.vue";
+
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -78,6 +81,7 @@ export default {
   },
   components: {
     Carousel2,
+    Navbar,
     Cards,
     Items2,
     Members,

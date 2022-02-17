@@ -61,6 +61,26 @@ export default {
 
   setup() {
     const store = useStore();
+
+    //메이트 리스트
+    const viewFunc = (data) => {
+      // console.log(data)
+      store.dispatch("viewMate", data);
+    };
+    axios({
+      methods: "get",
+      url: `${SERVER_URL}/mate`,
+    })
+      .then((res) => {
+        // console.log(res.data.list)
+        viewFunc(res.data.list);
+  
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+
     // 메이트 데이터(5개)
     const mainlist = ref("");
     axios({
@@ -125,6 +145,7 @@ export default {
     position: absolute;
     z-index: 10000;
     width: 100%;
+    /* height:50px; */
   }
   .CampusNavbar {
     /* visibility: hidden;
