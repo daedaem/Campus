@@ -205,11 +205,14 @@ export default {
 }
 .feed-picture {
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   margin: auto;
 
   /* height: 500px; */
   /* min-height: 400 px; */
   /* max-height: 400 px; */
+}
+.feed-picture img {
+  max-height: 500px;
 }
 </style>

@@ -34,6 +34,8 @@
 
 <script>
 import { mapState } from "vuex";
+import Swal from "sweetalert2";
+
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 import axios from "axios";
@@ -62,8 +64,7 @@ export default {
         // console.log(this.inputData);
         // 공백 제거 후에 2글자 미만임
         if (this.inputData.trim().length < 2) {
-          alert("Please type at least two letters.");
-          // 공백 제거해도 2글자 이상이면 진행
+                Swal.fire({ title: "2글자 이상 작성해주세요.", timer: 2000 });          // 공백 제거해도 2글자 이상이면 진행
         } else {
           axios({
             methods: "get",
@@ -99,7 +100,7 @@ export default {
       }
       // 글자가 존재안함
       else {
-        alert("There is an empty box.");
+                  Swal.fire({ title: "작성된 글자가 없습니다.", timer: 2000 });
       }
     },
   },
