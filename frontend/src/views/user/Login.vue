@@ -1,55 +1,17 @@
 <template>
+  <Navbar></Navbar>
   <div class="registration-form">
-      <form style="border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 0px;border-bottom-right-radius:0px">
-        <div class="form-icon">
-          <h1>Camp-Us</h1>
-          <span><i class="icon icon-user"></i></span>
-        </div>
-
-        <div class="form-group">
-          <input 
-            type="text"
-            class="form-control item" 
-            id="username" 
-            placeholder="Username"
-            v-model="credentials.userEmail">
-        </div>
-
-        <div class="form-group">
-          <input 
-            type="password" 
-            class="form-control item" 
-            id="password"
-            placeholder="Password"
-            v-model="credentials.userPassword">
-        </div>
-
-        <!-- 회원가입 -->
-        <div class="d-flex justify-content-between mx-3">
-          <div @click="moveToSignUp">
-            회원가입
-          </div>
-        </div>
-
-        <div class="form-group d-flex justify-content-center">
-          <button 
-            type="button" 
-            class="btn btn-block login-account"
-            @click="login"
-            @keyup.enter="login()"
-            >Login</button>
-        </div>
-
-      </form>
-
-      <div class="social-media">
-        <h5>Social Login</h5>
-        <div class="social-icons">
-            <a @click="kakaoLogin"><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""></a>
-            <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
-            
-            <a @click="kakaoLogout">로그아웃</a>
-        </div>
+    <form
+      style="
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+      "
+    >
+      <div class="form-icon">
+        <h1>Camp-Us</h1>
+        <span><i class="icon icon-user"></i></span>
       </div>
 
       <div class="form-group">
@@ -72,13 +34,12 @@
         />
       </div>
 
-      <!-- 회원가입 및 비밀번호 찾기 -->
+      <!-- 회원가입 -->
       <div class="d-flex justify-content-between mx-3">
         <div @click="moveToSignUp">회원가입</div>
-        <div @click="movetofindPw">비밀번호</div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group d-flex justify-content-center">
         <button
           type="button"
           class="btn btn-block login-account"
@@ -94,8 +55,12 @@
       <h5>Social Login</h5>
       <div class="social-icons">
         <a @click="kakaoLogin"
+          ><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""
+        /></a>
+        <a @click="kakaoLogin"
           ><i class="icon-social-google" title="Google"></i
         ></a>
+
         <a @click="kakaoLogout">로그아웃</a>
       </div>
     </div>
@@ -107,6 +72,8 @@
               로그아웃
             </button>
           </div> -->
+ 
+
   </div>
 </template>
 
@@ -220,14 +187,11 @@ export default {
     // },
 
     kakaoLogin() {
-      axios
-        .get(`${SERVER_URL}/login/kakao/oauth`)
-        .then((res) => {
-          console.log(res.data)
-          // window.location.href = res.data
-          // window.open(res.data)
-        })
-
+      axios.get(`${SERVER_URL}/login/kakao/oauth`).then((res) => {
+        console.log(res.data);
+        // window.location.href = res.data
+        // window.open(res.data)
+      });
     },
     kakaoLogout() {
       axios.get(`${SERVER_URL}/logout`).then((res) => {
@@ -347,8 +311,8 @@ export default {
 input[type="password"] {
   font-family: "NanumSquare";
 }
-input[type=text] {
-  font-family: 'NanumSquare'
+input[type="text"] {
+  font-family: "NanumSquare";
 }
 
 @media (max-width: 576px) {
