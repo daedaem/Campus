@@ -128,14 +128,15 @@
                   </span>
                   <div class="d-flex flex-column pt-2 mt-4">
                     <button
-                      class="btn btn-primary btn-sm"
+                      class="buttonfilter-apply btn-sm"
                       type="button"
                       style="font-size: 12px;"
+                      
                     >
                       <i class="bi bi-telephone-fill" ></i> {{ item.tel }}
                     </button>
                     <button
-                      class="btn btn-outline-primary btn-sm mt-2"
+                      class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-if="item.resveUrl != null"
                       @click="movetocampsite(item.resveUrl)"
@@ -143,7 +144,7 @@
                       예약사이트
                     </button>
                     <button
-                      class="btn btn-outline-primary btn-sm mt-2"
+                      class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-else
                     >
@@ -185,14 +186,14 @@
                     <i class="bi bi-telephone-fill"></i> {{ item.tel }}
                   </button>
                   <button
-                    class="btn btn-outline-primary btn-sm mt-2"
+                    class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                     type="button"
                     v-if="item.resveUrl != null"
                   >
                     예약사이트
                   </button>
                   <button
-                    class="btn btn-outline-primary btn-sm mt-2"
+                    class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                     type="button"
                     v-else
                   >
@@ -319,7 +320,7 @@
                       <i class="bi bi-telephone-fill"></i> {{ item.tel }}
                     </button>
                     <button
-                      class="btn btn-outline-primary btn-sm mt-2"
+                      class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-if="item.resveUrl != null"
                       @click="movetocampsite(item.resveUrl)"
@@ -327,7 +328,7 @@
                       예약사이트
                     </button>
                     <button
-                      class="btn btn-outline-primary btn-sm mt-2"
+                      class="campsiteButton btn btn-outline-primary btn-sm mt-2"
                       type="button"
                       v-else
                     >
