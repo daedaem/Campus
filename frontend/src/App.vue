@@ -1,25 +1,23 @@
 <template>
-  <Navbar class="CampusNavbar"></Navbar>
   <div id="app">
     <Chat class="chat" />
-
     <router-view :key="$route.fullPath"></router-view>
     <!-- <Newmodal class="Newmodal" /> -->
+    <Newmodal class="Newmodal" />
   </div>
-  <Newmodal class="Newmodal" />
 
   <!-- 삭제금지 -->
 </template>
 
 <script>
-import Navbar from "@/components/common/Navbar.vue";
 // import Navbar from "@/components/Navbar.vue";
 import Chat from "@/components/common/Chat.vue";
+import Newmodal from "@/components/mateparty/Newmodal.vue";
 
 export default {
   name: "App",
   components: {
-    Navbar,
+    Newmodal,
     // Navbar,
     Chat,
   },
@@ -27,19 +25,14 @@ export default {
 </script>
 
 <style lang="scss">
-.CampusNavbar {
-  background: transparent;
-  position: absolute;
-  z-index: 10000;
-  width: 100%;
-}
-.CampusNavbar {
-  /* display: none; */
-  visibility: hidden;
-  /* background: transparent;
+
+@media (max-width: 768px) {
+  .chat {
+    // background: whitesmoke;
     position: absolute;
-    z-index: 10000;
-    width: 100%; */
+    left: 10;
+    bottom: 0;
+  }
 }
 @font-face {
   font-family: "myFont";
@@ -73,14 +66,6 @@ export default {
     width: 100%;
   }
 }
-@media (max-width: 768px) {
-  .chat {
-    // background: whitesmoke;
-    position: absolute;
-    left: 10;
-    bottom: 0;
-  }
-}
 
 // .nav {
 //   padding: 40px 0px 40px 0px;
@@ -99,16 +84,16 @@ export default {
 //   }
 // }
 // }
-@media (max-width: 420px) {
-  #nav {
-    // background: whitesmoke;
+// @media (max-width: 420px) {
+//   #nav {
+//     // background: whitesmoke;
 
-    width: 100vw;
-    position: fixed;
-  }
-}
-#nav {
-  padding: 30px;
-  text-align: center;
-}
+//     width: 100vw;
+//     position: fixed;
+//   }
+// }
+// #nav {
+//   padding: 30px;
+//   text-align: center;
+// }
 </style>
