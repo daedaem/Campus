@@ -30,9 +30,9 @@ public class KaKaoLoginServiceImpl {
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "f7e4963d83bf571c5cdbf7870045979d")); // REST API KEY
         // 리다이렉트 URI
-        // postParams.add(new BasicNameValuePair("redirect_uri", "http://i6e102.p.ssafy.io/login/kakao/callback"));
-        postParams.add(new BasicNameValuePair("redirect_uri",
-        "http://localhost:8080/login/kakao/callback"));
+        postParams.add(new BasicNameValuePair("redirect_uri", "https://i6e102.p.ssafy.io/login/kakao/callback"));
+        // postParams.add(new BasicNameValuePair("redirect_uri",
+        // "http://localhost:8080/login/kakao/callback"));
         postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
 
         final HttpClient client = HttpClientBuilder.create().build();
