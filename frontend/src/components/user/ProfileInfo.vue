@@ -46,7 +46,7 @@
       <div class="filterbox1" >
         <img width="100" height="100" src="../../assets/images/텐트_색상버전.png" alt="" v-if="this.user_data.campEquipTent === 0">
         <img width="100" height="100" src="../../assets/images/텐트_검정버전.png" alt="" v-else>
-        <div>탠트</div>
+        <div>텐트</div>
       </div>
       <div class="filterbox1" >
         <img width="100" height="100" src="@/assets/images/화로대_색상버젼.png" alt="" v-if="this.user_data.campEquipBrazier === 0">
