@@ -1,142 +1,188 @@
 <template>
-	<Navbar></Navbar>
-	<div>
-		
-		<section class="profile-container">
-			<section class="profile-grid">
-				<div class="photo">
-					<!-- <img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지"> -->
-					<img v-if="this.user_data.userProfileImage" v-bind:src="this.user_data.userProfileImage" alt="">
-					<img v-if="this.user_data.userProfileImage == null" src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg">
-				</div>
-				<div class="name-buttons d-flex justify-content-between">
-					<h1>{{ this.user_data.userNickname }}의 프로필</h1>
-					<div style="width: 100px;">
-						<button v-if="this.$route.params.userEmail === this.myEmail" @click="logout" style="width: 100px">로그아웃</button>
-					</div>
-					<div class="">
-						<button v-if="this.$route.params.userEmail === this.myEmail" @click="moveToModify" class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-					</div>
-				</div>
-				
-				<div class="mt-2">
-					<span class="mx-1" v-for="(value, idx) in campstylelist" :key="idx">
-						#{{ value }}</span>
-				</div>
+  <div>
+    <section class="profile-container">
+      <section class="profile-grid">
+        <div class="photo">
+          <!-- <img src="https://w.namu.la/s/dabd214cce31238efc33e14536a8145b7ca02b2871bbc5c0b1213e26b3df4b69c33c94d815fc7529c0e9f8f05a39698b6b9b2f86785782c8825888b1f1403d6797e2d5a185e51eaf077a8e48185b69666b2ea7b1600935774217a7d9c45fa7faa3d0760690695013391b253d02840690" alt="이미지"> -->
+          <img
+            v-if="this.user_data.userProfileImage"
+            v-bind:src="this.user_data.userProfileImage"
+            alt=""
+          />
+          <img
+            v-if="this.user_data.userProfileImage == null"
+            src="http://reflecteen.org.uk/wp-content/uploads/2017/10/person-holding-1-300x300.jpg"
+          />
+        </div>
+        <div class="name-buttons d-flex justify-content-between">
+          <h1>{{ this.user_data.userNickname }}의 프로필</h1>
+          <div style="width: 100px">
+            <button
+              v-if="this.$route.params.userEmail === this.myEmail"
+              @click="logout"
+              style="width: 100px"
+            >
+              로그아웃
+            </button>
+          </div>
+          <div class="">
+            <button
+              v-if="this.$route.params.userEmail === this.myEmail"
+              @click="moveToModify"
+              class="btn profile-settings-btn"
+              aria-label="profile settings"
+            >
+              <i class="fas fa-cog" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
 
-				<div class="mt-2">
-					유저 평점: {{this.user_data.userRatePoint}} / 5
-				</div>
-				
-				<div class="userInfo-follow" v-if="this.UserNo !== this.myId">
-					<button v-if="isFollow === true" class="follow-buttonOn" type="button" @click="unfollow(); followcnt()">Unfollow</button>
-					<button v-else class="follow-buttonOff" type="button" @click="follow(); followcnt()" >Follow</button>
-					<!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
+        <div class="mt-2">
+          <span class="mx-1" v-for="(value, idx) in campstylelist" :key="idx">
+            #{{ value }}</span
+          >
+        </div>
+
+        <div class="mt-2">
+          유저 평점: {{ this.user_data.userRatePoint }} / 5
+        </div>
+
+        <div class="userInfo-follow" v-if="this.UserNo !== this.myId">
+          <button
+            v-if="isFollow === true"
+            class="follow-buttonOn"
+            type="button"
+            @click="
+              unfollow();
+              followcnt();
+            "
+          >
+            Unfollow
+          </button>
+          <button
+            v-else
+            class="follow-buttonOff"
+            type="button"
+            @click="
+              follow();
+              followcnt();
+            "
+          >
+            Follow
+          </button>
+          <!-- <button class="follow-btn" v-if="isFollow" @click="unfollow">언팔로우</button>
 					<button class="follow-btn " v-else @click="follow">팔로우</button> -->
-				</div>
-			</section>
-		</section>
+        </div>
+      </section>
+    </section>
 
-    
+    <!-- 프로필 정보 -->
+    <section align="center">
+      <ul class="profile-stats">
+        <li>
+          <div @click="currentmove()">
+            <b>여정</b>
+            <p>{{ this.historyList.length }}</p>
+          </div>
+        </li>
+        <li>
+          <div @click="currentmove2()">
+            <b>게시글</b>
+            <p>{{ this.feedList.length }}</p>
+          </div>
+        </li>
 
-		<!-- 프로필 정보 -->
-		<section align="center">
-			<ul class="profile-stats">
-				<li>
-					<div @click="currentmove()">
-						<b>여정</b><p>{{ this.historyList.length}}</p>
-					</div>
-				</li>
-				<li>
-					<div @click="currentmove2()">
-						<b>게시글</b><p>{{this.feedList.length}}</p>
-					</div>
-				</li>
+        <li>
+          <!-- <div data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+          <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <b>팔로워</b>
+            <p>{{ this.followers }}</p>
+          </div>
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-backdrop="static"
+            data-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <followerModal :followerlist="this.followersList" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
 
-				<li>
-					<!-- <div data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
-					<div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-						<b>팔로워</b><p>{{ this.followers }}</p>
-					</div>	
-					<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-							<div class="modal-dialog">
-									<div class="modal-content">
-											<div class="modal-body ">
-												<followerModal
-													:followerlist="this.followersList"
-												/>
-											</div>
-									</div>
-							</div>
-					</div>
-				</li>
+        <li>
+          <div data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+            <b>팔로잉</b>
+            <p>{{ this.followings }}</p>
+          </div>
+          <div
+            class="modal fade"
+            id="staticBackdrop2"
+            data-backdrop="static"
+            data-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <followingModal :followinglist="this.followingsList" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-				<li>
-					<div data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-						<b>팔로잉</b><p>{{ this.followings }}</p>
-					</div>
-					<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-							<div class="modal-dialog">
-									<div class="modal-content">
-											<div class="modal-body ">
-												<followingModal
-													:followinglist="this.followingsList"
-												/>
-											</div>
-									</div>
-							</div>
-					</div>
-				</li>
+    <section class="instagram-container">
+      <footer class="image-footer">
+        <!-- <div id="tabs-posts"> -->
+        <div
+          v-for="(tab, index) in tabs"
+          :key="index"
+          v-bind:class="{ active: currentTab === index }"
+          v-on:click="currentTab = index"
+        >
+          {{ tab }}
+        </div>
+        <!-- </div>	 -->
+      </footer>
+    </section>
 
-			</ul>
-		</section>
-
-		<section class="instagram-container">
-			<footer class="image-footer">
-				<!-- <div id="tabs-posts"> -->
-					<div v-for="(tab, index) in tabs" :key="index"
-							v-bind:class="{active: currentTab === index}"
-							v-on:click="currentTab = index">{{ tab }}</div>			
-				<!-- </div>	 -->
-			</footer>
-		</section>
-
-		<section class="mt-3 d-flex justify-content-center">
-			<div class="tab-content">
-				<div v-show="currentTab==0">
-					<ProfileInfo
-						:user_data="this.user_data"
-						:camp_List="this.campList"
-					/>
-				</div>
-				<div v-show="currentTab==1">
-					<ProfileFeed
-						:feedList="this.feedList"
-					/>
-				</div>
-				<div v-show="currentTab==2">
-					<ProfileHistory
-						:historyList="this.historyList"
-					/>
-				</div>
-			</div>
-		</section>
-
-		
-
-	</div>
+    <section class="mt-3 d-flex justify-content-center">
+      <div class="tab-content">
+        <div v-show="currentTab == 0">
+          <ProfileInfo :user_data="this.user_data" :camp_List="this.campList" />
+        </div>
+        <div v-show="currentTab == 1">
+          <ProfileFeed :feedList="this.feedList" />
+        </div>
+        <div v-show="currentTab == 2">
+          <ProfileHistory :historyList="this.historyList" />
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 // import FollowModal from '@/components/user/FollowModal.vue'
-import ProfileFeed from '@/components/user/Profilefeed.vue'
-import ProfileHistory from '@/components/user/Profilehistory.vue'
-import ProfileInfo from '@/components/user/ProfileInfo.vue'
-import followerModal from '@/components/user/followerModal.vue'
-import followingModal from '@/components/user/followingModal.vue'
-import Navbar from "@/components/common/Navbar.vue";
-import Swal from 'sweetalert2'
+import ProfileFeed from "@/components/user/Profilefeed.vue";
+import ProfileHistory from "@/components/user/Profilehistory.vue";
+import ProfileInfo from "@/components/user/ProfileInfo.vue";
+import followerModal from "@/components/user/followerModal.vue";
+import followingModal from "@/components/user/followingModal.vue";
+import Swal from "sweetalert2";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -146,216 +192,199 @@ export default {
       type: String,
     },
   },
-  
-	data() {
-		return {
-			// userId: Number(this.$route.params.user_id), // 현재 유저넘버
-			my_data: this.$store.state.userList,
-			myId: this.$store.state.myNum, // 로그인한 유저넘버
-			myEmail: this.$store.state.userEmail,
-			user_data: {},
-			userId: "", // 보고있는 프로필 넘버
-			currentTab: 0,
-			tabs: ['Profile', 'FEED', 'History'],
-			UserNo: "",
 
-			followers: 0,
+  data() {
+    return {
+      // userId: Number(this.$route.params.user_id), // 현재 유저넘버
+      my_data: this.$store.state.userList,
+      myId: this.$store.state.myNum, // 로그인한 유저넘버
+      myEmail: this.$store.state.userEmail,
+      user_data: {},
+      userId: "", // 보고있는 프로필 넘버
+      currentTab: 0,
+      tabs: ["Profile", "FEED", "History"],
+      UserNo: "",
+
+      followers: 0,
       followings: 0,
       isFollow: false,
 
-			historyList: [],
-			feedList: [],
-			campList: [],
+      historyList: [],
+      feedList: [],
+      campList: [],
 
-			campstylelist : [],
+      campstylelist: [],
 
-
-			followersList: [], // userId 팔로워 리스트
-			followingsList: [], // userId 팔로잉 리스트
-
-		}
-	},
-	components: {
+      followersList: [], // userId 팔로워 리스트
+      followingsList: [], // userId 팔로잉 리스트
+    };
+  },
+  components: {
     // FollowModal,
-    Navbar,
     ProfileFeed,
     ProfileHistory,
     ProfileInfo,
-		followerModal,
-		followingModal,
+    followerModal,
+    followingModal,
   },
 
-	created: function () {
-		console.log("보고있는 프로필",this.$route.params.userEmail) 
-		console.log("로그인",this.myEmail, this.myId)
-		// console.log("데이터",this.user_data)
-		// console.log("세부", this.user_data.campEquipTent)
-		// 보고있는 이메일
-		this.user_email = this.$route.params.userEmail // 이메일에서 바꿔야함 유저넘버로
-		console.log("보내기전", this.user_email)
-		this.getProfile() // 유저 정보 가져오기
-		
-	},
+  created: function () {
+    console.log("보고있는 프로필", this.$route.params.userEmail);
+    console.log("로그인", this.myEmail, this.myId);
+    // console.log("데이터",this.user_data)
+    // console.log("세부", this.user_data.campEquipTent)
+    // 보고있는 이메일
+    this.user_email = this.$route.params.userEmail; // 이메일에서 바꿔야함 유저넘버로
+    console.log("보내기전", this.user_email);
+    this.getProfile(); // 유저 정보 가져오기
+  },
 
-	methods : {
-		currentmove: function() {
-			this.currentTab = 2
-		},
-		currentmove2: function() {
-			this.currentTab = 1
-		},
-		getProfile: function() {
-			axios
-				.get(`${SERVER_URL}/user/${this.user_email}`)
-				.then(res => {
-					// 여기서 불러온 아이디 넘버 가져오기
-					this.user_data = res.data
-					this.UserNo = res.data.userNo
-					console.log("일단가져와라", this.UserNo)
-					this.getMate() // 메이트 가져오기
-					this.getSns()
-					this.followcnt()
-					this.followlist()
-					this.followinglist()
-					this.styleget()
-					this.campget()
-					
-				})
-				.catch(() => {
-					console.log("프로필을 가져올 수 없습니다.")
-				})
-		},
-		
-		// 음식/음주, 불명/수다, 캠프파이어, 등산, 사진찍기, 음악감상
-		styleget: function () {
-			if (this.user_data.campStyle1 === "Y") {
-				this.campstylelist.push('음식/음주')			
-			}
-			if (this.user_data.campStyle2 === "Y") {
-				this.campstylelist.push('불멍/수다')
-			} 
-			if (this.user_data.campStyle3 === "Y") {
-				this.campstylelist.push('캠프파이어')
-			} 
-			if (this.user_data.campStyle4 === "Y") {
-				this.campstylelist.push('등산')
-			} 
-			if (this.user_data.campStyle5 === "Y") {
-				this.campstylelist.push('사진찍기')
-			} 
-			if (this.user_data.campStyle6 === "Y") {
-				this.campstylelist.push('음악감상')
-			}
-			console.log(this.campstylelist)
-		},
-		campget: function () {
-			axios
-				.get(`${SERVER_URL}/camp/like/${this.UserNo}`)
-				.then(res => {
-					this.campList = res.data.campLikeList
-					console.log("가나다", res)
-					console.log("흐흐",this.campList)
-				})
-		},
+  methods: {
+    currentmove: function () {
+      this.currentTab = 2;
+    },
+    currentmove2: function () {
+      this.currentTab = 1;
+    },
+    getProfile: function () {
+      axios
+        .get(`${SERVER_URL}/user/${this.user_email}`)
+        .then((res) => {
+          // 여기서 불러온 아이디 넘버 가져오기
+          this.user_data = res.data;
+          this.UserNo = res.data.userNo;
+          console.log("일단가져와라", this.UserNo);
+          this.getMate(); // 메이트 가져오기
+          this.getSns();
+          this.followcnt();
+          this.followlist();
+          this.followinglist();
+          this.styleget();
+          this.campget();
+        })
+        .catch(() => {
+          console.log("프로필을 가져올 수 없습니다.");
+        });
+    },
 
-		getMate: function () {
-			axios
-				.get(`${SERVER_URL}/mate`)
-				.then(res => {
-					console.log("메이트",res)
-					for (let i=0; i< res.data.count; i++) {
-						if (res.data.list[i].userNo === this.UserNo) {
-							this.historyList.push(res.data.list[i])
-						}
-					}
-				})
-		},
-		getSns: function () {
-			axios
-				.get(`${SERVER_URL}/sns/feed/${this.UserNo}`)
-				.then((res) => {
-					for (let i=0; i<res.data.list.length; i++) {
-						if (res.data.list[i].userNo === this.UserNo) {
-							this.feedList.push(res.data.list[i])
-						}
-					}
-				})
-		},
-		follow: function () {
-			console.log("뭐야", this.myId)
-			axios
-				// console.log(follow_data)
-				.post(`${SERVER_URL}/follow/${this.myId}/${this.UserNo}`, {
-					userNo: this.myId,
-					followUserNo: this.UserNo
-				})
-				.then((res => {
-					this.isFollow = true
-					this.followers += 1
-					// this.$router.go()
-					console.log("팔로우", res)
-				}))
-				.catch(err => {
-					console.log(err)
-				})
-		},
-		unfollow: function () {
-			axios
-				// console.log(follow_data)
-				.delete(`${SERVER_URL}/follow/${this.myId}/${this.UserNo}`, {
-					userNo: this.myId,
-					followUserNo: this.UserNo
-				})
-				.then((res => {
-					this.isFollow = false
-					this.followers -= 1
-					// this.$router.go()
-					console.log("언팔로우", res)
-				}))
-				.catch(err => {
-					console.log(err)
-				})
-		},
-		followcnt: function() {
-			axios
-				.get(`${SERVER_URL}/follow/num/${this.UserNo}`)
-				.then((res) => {
-					console.log("이게",res)
-					this.followers = res.data.followNum
-					this.followings = res.data.followerNum
-				})
-		},
-		followlist: function () {
-			axios
-				.get(`${SERVER_URL}/follow/${this.UserNo}`)
-				.then((res) => {
-					// console.log("보자",res.data.follow.length)
-					// for (let i=0; i<res.data.follow.length; i++) {
-					// 	this.followersList.push(res.data.follow)
-					// }
-					this.followersList = res.data.follow
-					for (let i=0; i<res.data.follow.length; i++) {
-						if (res.data.follow[i].userEmail === this.myEmail) {
-							this.isFollow = true
-						}
-					}
-				})
-		},
-		followinglist: function () {
-			axios
-				.get(`${SERVER_URL}/follower/${this.UserNo}`)
-				.then((res) => {
-					console.log("확인2",res.data)
-					this.followingsList = res.data.follower
-					// for (let i=0; i<res.data.follower.length; i++) {
-					// 	if (res.data.follower[i].userEmail === this.myEmail) {
-					// 		this.followingsList.push(res.data.follow[i])
-					// 	}
-					// }
-				})
-		},
+    // 음식/음주, 불명/수다, 캠프파이어, 등산, 사진찍기, 음악감상
+    styleget: function () {
+      if (this.user_data.campStyle1 === "Y") {
+        this.campstylelist.push("음식/음주");
+      }
+      if (this.user_data.campStyle2 === "Y") {
+        this.campstylelist.push("불멍/수다");
+      }
+      if (this.user_data.campStyle3 === "Y") {
+        this.campstylelist.push("캠프파이어");
+      }
+      if (this.user_data.campStyle4 === "Y") {
+        this.campstylelist.push("등산");
+      }
+      if (this.user_data.campStyle5 === "Y") {
+        this.campstylelist.push("사진찍기");
+      }
+      if (this.user_data.campStyle6 === "Y") {
+        this.campstylelist.push("음악감상");
+      }
+      console.log(this.campstylelist);
+    },
+    campget: function () {
+      axios.get(`${SERVER_URL}/camp/like/${this.UserNo}`).then((res) => {
+        this.campList = res.data.campLikeList;
+        console.log("가나다", res);
+        console.log("흐흐", this.campList);
+      });
+    },
 
-		logout: function () {
+    getMate: function () {
+      axios.get(`${SERVER_URL}/mate`).then((res) => {
+        console.log("메이트", res);
+        for (let i = 0; i < res.data.count; i++) {
+          if (res.data.list[i].userNo === this.UserNo) {
+            this.historyList.push(res.data.list[i]);
+          }
+        }
+      });
+    },
+    getSns: function () {
+      axios.get(`${SERVER_URL}/sns/feed/${this.UserNo}`).then((res) => {
+        for (let i = 0; i < res.data.list.length; i++) {
+          if (res.data.list[i].userNo === this.UserNo) {
+            this.feedList.push(res.data.list[i]);
+          }
+        }
+      });
+    },
+    follow: function () {
+      console.log("뭐야", this.myId);
+      axios
+        // console.log(follow_data)
+        .post(`${SERVER_URL}/follow/${this.myId}/${this.UserNo}`, {
+          userNo: this.myId,
+          followUserNo: this.UserNo,
+        })
+        .then((res) => {
+          this.isFollow = true;
+          this.followers += 1;
+          // this.$router.go()
+          console.log("팔로우", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    unfollow: function () {
+      axios
+        // console.log(follow_data)
+        .delete(`${SERVER_URL}/follow/${this.myId}/${this.UserNo}`, {
+          userNo: this.myId,
+          followUserNo: this.UserNo,
+        })
+        .then((res) => {
+          this.isFollow = false;
+          this.followers -= 1;
+          // this.$router.go()
+          console.log("언팔로우", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    followcnt: function () {
+      axios.get(`${SERVER_URL}/follow/num/${this.UserNo}`).then((res) => {
+        console.log("이게", res);
+        this.followers = res.data.followNum;
+        this.followings = res.data.followerNum;
+      });
+    },
+    followlist: function () {
+      axios.get(`${SERVER_URL}/follow/${this.UserNo}`).then((res) => {
+        // console.log("보자",res.data.follow.length)
+        // for (let i=0; i<res.data.follow.length; i++) {
+        // 	this.followersList.push(res.data.follow)
+        // }
+        this.followersList = res.data.follow;
+        for (let i = 0; i < res.data.follow.length; i++) {
+          if (res.data.follow[i].userEmail === this.myEmail) {
+            this.isFollow = true;
+          }
+        }
+      });
+    },
+    followinglist: function () {
+      axios.get(`${SERVER_URL}/follower/${this.UserNo}`).then((res) => {
+        console.log("확인2", res.data);
+        this.followingsList = res.data.follower;
+        // for (let i=0; i<res.data.follower.length; i++) {
+        // 	if (res.data.follower[i].userEmail === this.myEmail) {
+        // 		this.followingsList.push(res.data.follow[i])
+        // 	}
+        // }
+      });
+    },
+
+    logout: function () {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
       this.$store.state.userGender = null;
@@ -365,31 +394,24 @@ export default {
       sessionStorage.removeItem("myNum");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userPassword");
-      localStorage.removeItem('vuex')
-      Swal.fire({ title: "로그아웃 되었습니다.", icon: 'success', timer:2000})
+      localStorage.removeItem("vuex");
+      Swal.fire({
+        title: "로그아웃 되었습니다.",
+        icon: "success",
+        timer: 2000,
+      });
       this.$router.push({ name: "Login" });
     },
 
-
-
-		moveToModify: function () {
+    moveToModify: function () {
       this.$router.push({ name: "Modify" });
     },
-
-
-		
-	},
-	computed: {
-		
-	}
-
-
-}
-
+  },
+  computed: {},
+};
 </script>
 
 <style scoped>
-
 .profile-container {
   display: flex;
   justify-content: center;
@@ -469,7 +491,7 @@ export default {
   justify-content: center;
   grid-template-columns: repeat(3, minmax(auto, 293px));
   grid-template-rows: auto;
-  
+
   row-gap: 25px;
   column-gap: 25px;
 }
@@ -480,7 +502,7 @@ export default {
   justify-content: center;
   grid-column-start: 1;
   grid-column-end: 4;
-	background-color: #fafafa;
+  background-color: #fafafa;
 }
 .instagram-container .image-footer div {
   display: flex;
@@ -526,15 +548,15 @@ export default {
 }
 
 .follow-buttonOn {
-	border-radius: 10px;
-	background-color: grey;
-	font-size: 18px;
-	color: white;
+  border-radius: 10px;
+  background-color: grey;
+  font-size: 18px;
+  color: white;
 }
 .follow-buttonOff {
-	border-radius: 10px;
-	background-color: blue;
-	font-size: 18px;
-	color: white;
+  border-radius: 10px;
+  background-color: blue;
+  font-size: 18px;
+  color: white;
 }
 </style>

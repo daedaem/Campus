@@ -342,21 +342,21 @@ a .Navbar-User-profile-nickname {
     margin-right: 5rem;
   }
   .CampusNavbar {
-    display: none;
     position: absolute;
-    top: 0px;
-    visibility: hidden;
-    /* background: transparent;
+    display: none;
+    /* background-color: #7ac4e1; */
 
-    z-index: 10000;
-    width: 100%; */
+    /* width: 0px; */
+    /* height: 0px; */
+    /* display: none; */
+    /* visibility: hidden; */
   }
   .tabbarFrame {
     display: inline;
   }
 }
 .CampusNavbar {
-  background-color: #7ac4e1;
+  background-color: Black;
 }
 .bg-custom-1 {
   background-color: #85144b;
