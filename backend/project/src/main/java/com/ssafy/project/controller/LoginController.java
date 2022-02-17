@@ -149,19 +149,22 @@ public class LoginController {
         dto.setCampStyle5('N');
         dto.setCampStyle6('N');
 
+        System.out.println(1);
         if (userResultDto.getResult() == 1) { // 회원가입
             userResultDto = userService.userRegister(dto);
             userService.userUpdateProfileImageKakao(dto);
+            System.out.println(2);
         }
-
         UserDto userDto = new UserDto();
         userDto = loginService.kakaoLogin(dto);
-
+        System.out.println(3);
         if (userDto != null) {
             session.setAttribute("userDto", userDto);
             session.setAttribute("access_token", access_token.get("access_token"));
+            System.out.println(4);
             return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
         } else {
+            System.out.println(5);
             return new ResponseEntity<UserDto>(userDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
