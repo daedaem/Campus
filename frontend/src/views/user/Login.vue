@@ -48,59 +48,10 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control item"
-          id="username"
-          placeholder="Username"
-          v-model="credentials.userEmail"
-        />
-      </div>
+      
 
-      <div class="form-group">
-        <input
-          type="password"
-          class="form-control item"
-          id="password"
-          placeholder="Password"
-          v-model="credentials.userPassword"
-        />
-      </div>
-
-      <!-- 회원가입 -->
-      <div class="d-flex justify-content-between mx-3">
-        <div @click="moveToSignUp">회원가입</div>
-      </div>
-
-      <div class="form-group d-flex justify-content-center">
-        <button
-          type="button"
-          class="btn btn-block login-account"
-          @click="login"
-          @keyup.enter="login()"
-        >
-          Login
-        </button>
-      </div>
-   
-
-    <div class="social-media">
-      <h5>Social Login</h5>
-      <div class="social-icons">
-        <a @click="kakaoLogin"
-          ><img src="@/assets/kakao_btn.png" @click="kakaoLogin" alt=""
-        /></a>
-        <a @click="kakaoLogin"
-          ><i class="icon-social-google" title="Google"></i
-        ></a>
-
-        <a @click="kakaoLogout">로그아웃</a>
-      </div>
-    </div>
-
-    <!-- 구글 로그인 -->
-    <!-- <div class="d-flex justify-content-between mx-3 mt-3">
+          <!-- 구글 로그인 -->
+          <!-- <div class="d-flex justify-content-between mx-3 mt-3">
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <button @click="signout" align="left" class="btn-primary">
               로그아웃
@@ -114,7 +65,8 @@
 <script>
 import axios from "axios";
 // import { mapActions } from "vuex";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2'
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -130,6 +82,9 @@ export default {
       // googleUser: null,
       value: "",
     };
+  },
+  components: {
+    Navbar,
   },
 
   //구글
@@ -150,8 +105,8 @@ export default {
         data: this.credentials,
       })
         .then((res) => {
-          Swal.fire({ title: "로그인에 성공하였습니다.", timer: 2000 });
-          console.log("이건가", res);
+          Swal.fire({title:'로그인에 성공하였습니다.', timer:2000})
+          console.log("이건가",res)
           this.$store.dispatch("login");
           this.$store.dispatch("userList", res.data);
           this.$store.dispatch("myNum", res.data.userNo);
@@ -188,13 +143,9 @@ export default {
           this.$router.push({ name: "Mainpage" });
         })
         .catch((err) => {
-          Swal.fire({
-            title: "이메일과 비밀번호를 확인해주세요",
-            icons: "error",
-            time: 2000,
-          });
-          console.log(err);
-        });
+          Swal.fire({title: '이메일과 비밀번호를 확인해주세요', icons:'error', time:2000})
+          console.log(err)
+        })
     },
 
     // 회원가입 이동
@@ -238,10 +189,12 @@ export default {
 
     },
     kakaoLogout() {
-      axios.get(`${SERVER_URL}/logout`).then((res) => {
-        console.log(res);
-        alert("로그아웃");
-      });
+      axios
+        .get(`${SERVER_URL}/logout`)
+        .then((res) => {
+          console.log(res)
+          alert("로그아웃")
+        })
     },
     // kakaoLogin() {
     //   window.Kakao.Auth.login({
@@ -284,11 +237,11 @@ export default {
 </script>
 
 <style scoped>
-.registration-form {
-  padding: 50px 0;
+.registration-form{
+	padding: 50px 0;
 }
 
-.registration-form form {
+.registration-form form{
   /* background-color: #fff; */
   background-color: #dee9ff;
   max-width: 600px;
@@ -298,13 +251,13 @@ export default {
   border-top-right-radius: 30px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
-.registration-form .item {
-  border-radius: 20px;
+.registration-form .item{
+	border-radius: 20px;
   margin-bottom: 25px;
   padding: 10px 20px;
 }
 
-.registration-form .login-account {
+.registration-form .login-account{
   border-radius: 30px;
   padding: 10px 20px;
   font-size: 18px;
@@ -315,7 +268,7 @@ export default {
   margin-top: 20px;
 }
 
-.registration-form .social-media {
+.registration-form .social-media{
   max-width: 600px;
   background-color: #fff;
   margin: auto;
@@ -328,49 +281,50 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
 
-.registration-form .social-icons {
-  margin-top: 30px;
-  margin-bottom: 16px;
+.registration-form .social-icons{
+    margin-top: 30px;
+    margin-bottom: 16px;
 }
 
-.registration-form .social-icons a {
-  font-size: 23px;
-  margin: 0 3px;
-  color: #5691ff;
-  border: 1px solid;
-  border-radius: 50%;
-  width: 45px;
-  display: inline-block;
-  height: 45px;
-  text-align: center;
-  background-color: #fff;
-  line-height: 45px;
+.registration-form .social-icons a{
+    font-size: 23px;
+    margin: 0 3px;
+    color: #5691ff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    line-height: 45px;
 }
 
-.registration-form .social-icons a:hover {
-  text-decoration: none;
-  opacity: 0.6;
+.registration-form .social-icons a:hover{
+    text-decoration: none;
+    opacity: 0.6;
 }
 
-input[type="password"] {
-  font-family: "NanumSquare";
+input[type=password] {
+  font-family: 'NanumSquare'
 }
-input[type="text"] {
-  font-family: "NanumSquare";
+input[type=text] {
+  font-family: 'NanumSquare'
 }
 
 @media (max-width: 576px) {
-  .registration-form form {
-    padding: 50px 20px;
+  .registration-form form{
+      padding: 50px 20px;
   }
 
-  .registration-form .form-icon {
-    width: 70px;
-    height: 70px;
-    font-size: 30px;
-    line-height: 70px;
+  .registration-form .form-icon{
+      width: 70px;
+      height: 70px;
+      font-size: 30px;
+      line-height: 70px;
   }
 }
+
 
 /* .test {
   display: flex;
