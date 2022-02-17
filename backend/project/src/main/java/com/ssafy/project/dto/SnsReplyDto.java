@@ -23,4 +23,3 @@ public class SnsReplyDto {
 
     
 }
-// 컨트롤러에서 sns와 댓글 따로 부르기
