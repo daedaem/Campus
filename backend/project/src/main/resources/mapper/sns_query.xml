@@ -87,8 +87,8 @@
     </select>
 
     <select id="snsReplyList" parameterType="int" resultType="com.ssafy.project.dto.SnsReplyDto">
-            SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime,
-                u.userNickname, u.userEmail, u.userProfileImage
+            SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
+                u.userNickname, u.userProfileImage, u.userEmail
                 FROM snsReply s, user u
                 WHERE s.userNo = u.userNo
                 AND snsNo = #{snsNo};
