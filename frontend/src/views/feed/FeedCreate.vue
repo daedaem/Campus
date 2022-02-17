@@ -160,6 +160,8 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import axios from "axios";
 import { mapState } from "vuex";
 import FeedCreateCarousel from "../../components/feed/FeedCreateCarousel.vue";
+import Swal from "sweetalert2";
+
 // import FeedCreateModal from "../../components/feed/FeedCreateModal.vue";
 
 // import { ValidationProvider } from "vee-validate"
@@ -239,20 +241,18 @@ export default {
       // console.log(this.userList);
       // console.log(this.frm);
       // console.log(this.feedCreateContent);
-      if (
-        this.feedCreateContent.snsContent &&
-        this.feedCreateImageList.ImageList
-      ) {
-        if (this.feedCreateContent.snsContent[0] == "#") {
-          this.feedCreateContent.snsContent =
-            "#" + this.feedCreateContent.snsContent.substr(1).trim();
-          // console.log("된건가", this.inputData);
-        }
-        if (
+      // 글그림 모두 있을 때,
+      if (this.frm.lenght > 0) {
+        if (this.feedCreateContent.snsContent) {
+          if (this.feedCreateContent.snsContent[0] == "#") {
+            this.feedCreateContent.snsContent =
+              "#" + this.feedCreateContent.snsContent.substr(1).trim();
+            // console.log("된건가", this.inputData);
+          }
           // 문자열 양끝 공백 제거
           // feedCreateContent.images도 trim해야하는지확인해보자
-          this.feedCreateContent.snsContent.trim()
-        ) {
+          this.feedCreateContent.snsContent.trim();
+
           axios({
             method: "post",
             url: `${SERVER_URL}/sns/create`,
@@ -280,12 +280,9 @@ export default {
                     },
                   });
                 })
-                .then((res) => {
-                  console.log(res);
-                })
+
                 .catch((err) => {
                   console.log(err);
-                  alert("실패하였습니다.");
                 });
             })
             .then(() => {
@@ -302,10 +299,61 @@ export default {
                 });
             });
         } else {
-          alert(`There's an empty box`);
+          Swal.fire({ title: "작성된 글이 없습니다.", timer: 2000 });
         }
-      } else {
-        alert(`There's an empty box`);
+      }
+      // 글만 있을 때
+      else {
+        if (this.feedCreateContent.snsContent) {
+          if (this.feedCreateContent.snsContent[0] == "#") {
+            this.feedCreateContent.snsContent =
+              "#" + this.feedCreateContent.snsContent.substr(1).trim();
+            // console.log("된건가", this.inputData);
+          }
+          // 문자열 양끝 공백 제거
+          // feedCreateContent.images도 trim해야하는지확인해보자
+          this.feedCreateContent.snsContent.trim();
+
+          axios({
+            method: "post",
+            url: `${SERVER_URL}/sns/create`,
+            data: this.feedCreateContent,
+          })
+            .then((res) => {
+              this.datas = res.data.dto;
+              this.nowfeed = res.data.dto.snsNo;
+              this.$store.dispatch("toDetail", this.nowfeed);
+              this.$router.push({
+                name: "FeedDetail",
+                params: {
+                  snsNo: this.nowfeed,
+                  // data: this.nowfeed,
+                },
+                data: {
+                  ImageList: res.data.ImageList,
+                },
+              });
+            })
+
+            .catch((err) => {
+              console.log(err);
+            })
+            .then(() => {
+              axios
+                .get(`${SERVER_URL}/sns`)
+                .then((res) => {
+                  // console.log(res.data.list);
+                  const data = res.data.list;
+                  this.$store.dispatch("feedList", data);
+                  // console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
+        } else {
+          Swal.fire({ title: "작성된 글이 없습니다.", timer: 2000 });
+        }
       }
     },
   },

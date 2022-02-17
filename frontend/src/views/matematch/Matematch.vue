@@ -1,68 +1,94 @@
 <template>
-    <Navbar id="navbar"></Navbar>
+    <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
   <div class="MateMatch">
     <div class="MateMatch-imgcover">
-      <div class="MateMatch-content"><h1> 메이트 매칭</h1></div>
+      <div class="MateMatch-content"><h1>메이트 매칭</h1></div>
       <div></div>
     </div>
   </div>
   <body>
-<div class="container">
-  <div class="flex">
-  <!-- <p>CAMP<sub>with</sub>US</p> -->
-</div>
-    <div class="row">
-        <div class="col-lg-6" v-for="(item, idx) in matchData" :key="idx" style="margin-bottom:40px;" align="center" >
-            <div class="card p-0" style="margin:0px;" :class="'card'+[idx]">
-                <div class="card-image"> <img :src="item.userProfileImage" alt=""> </div>
-                <div class="card-content d-flex flex-column align-items-center">
-                    <h4 class="pt-2">{{item.userNickname}}</h4>
-                    <div style="font-size:20px; margin-top:20px;">{{item.userMBTI}}</div>
-                    <ul class="social-icons d-flex justify-content-center" style="margin-top:-20px;">
-                        <li style="--i:1"> <i class="bi bi-instagram white" @click="goProfile(item.userEmail)"></i>  </li>
-                        <li style="--i:2"> <i class="bi bi-chat white" @click="goChatting(item.userNo)"></i>  </li>
-                        <li style="--i:3"> <i class="bi bi-person-circle white " v-b-popover.hover="(item.campStyleScore/11*100).toFixed(2)+'%'" title="매치 적합도"></i> </li>
-                    </ul>
-                </div>
+    <div class="container">
+      <div class="flex">
+        <!-- <p>CAMP<sub>with</sub>US</p> -->
+      </div>
+      <div class="row">
+        <div
+          class="col-lg-6"
+          v-for="(item, idx) in matchData"
+          :key="idx"
+          style="margin-bottom: 40px"
+          align="center"
+        >
+          <div class="card p-0" style="margin: 0px" :class="'card' + [idx]">
+            <div class="card-image">
+              <img :src="item.userProfileImage" alt="" />
             </div>
+            <div class="card-content d-flex flex-column align-items-center">
+              <h4 class="pt-2">{{ item.userNickname }}</h4>
+              <div style="font-size: 20px; margin-top: 20px">
+                {{ item.userMBTI }}
+              </div>
+              <ul
+                class="social-icons d-flex justify-content-center"
+                style="margin-top: -20px"
+              >
+                <li style="--i: 1">
+                  <i
+                    class="bi bi-instagram white"
+                    @click="goProfile(item.userEmail)"
+                  ></i>
+                </li>
+                <li style="--i: 2">
+                  <i
+                    class="bi bi-chat white"
+                    @click="goChatting(item.userNo)"
+                  ></i>
+                </li>
+                <li style="--i: 3">
+                  <i
+                    class="bi bi-person-circle white"
+                    v-b-popover.hover="
+                      ((item.campStyleScore / 11) * 100).toFixed(2) + '%'
+                    "
+                    title="매치 적합도"
+                  ></i>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-  </div>
   </body>
 </template>
 
 <script>
 // import {mapState} from 'vuex'
 import axios from "axios";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 // import {useRouter} from 'vue'
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 import Navbar from "@/components/common/Navbar.vue";
-
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Matematch",
-  components: {
-    Navbar
-  },
+  components: {Navbar,
+},
   setup() {
-    
-    const router = useRouter()
-    const store = useStore()
-    const userNo = store.state.myNum
-    const matchData = ref([])
+    const router = useRouter();
+    const store = useStore();
+    const userNo = store.state.myNum;
+    const matchData = ref([]);
     if (store.state.userEmail == null) {
       alert("로그인이 필요한 서비스입니다.");
       router.push({ name: "Login" });
     }
     axios({
-        method : 'get',
-        url : `${SERVER_URL}/mate/match/${userNo}`
-   
+      method: "get",
+      url: `${SERVER_URL}/mate/match/${userNo}`,
     })
       .then((res) => {
         const temp = res.data.matelist;
@@ -75,49 +101,41 @@ export default {
 
     const goProfile = (userEmail) => {
       console.log(userEmail);
-      router.push({name : 'Profile' , params : { userEmail : userEmail} })
-    }
-    
+      router.push({ name: "Profile", params: { userEmail: userEmail } });
+    };
 
     //채팅방 구현
     const goChatting = (id) => {
       axios({
-        method : 'post',
-        url : `${SERVER_URL}/api/chat/room/${userNo}/${id}`
+        method: "post",
+        url: `${SERVER_URL}/api/chat/room/${userNo}/${id}`,
       })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
     const checkMbti = () => {
       if (store.state.userList.userMBTI === null) {
-        alert("설문이 필요한 서비스입니다.")
-        this.$router.push({ name: 'Survey'})
+        alert("설문이 필요한 서비스입니다.");
+        this.$router.push({ name: "Survey" });
       }
-    }
+    };
     onMounted(() => {
       checkMbti();
-    })
+    });
 
-      return {
-        matchData,
-        goProfile,
-        goChatting,
-        checkMbti,
-      }
+    return {
+      matchData,
+      goProfile,
+      goChatting,
+      checkMbti,
+    };
   },
-  
-
-
-
-}
-
-
-
+};
 </script>
 
 <style scoped>
@@ -130,8 +148,8 @@ export default {
   /* background-position: 30%; */
   /* background-repeat: no-repeat; */
   /* src: url("./../../assets/fonts/Frip/pexels-min-an-977460.jpg"); */
- background: url("./../../assets/images/pexels-min-an-977460.jpg") 
-  50% 65% no-repeat; 
+  background: url("./../../assets/images/pexels-min-an-977460.jpg") 50% 65%
+    no-repeat;
   background-size: 100% auto;
 }
 .MateMatch-imgcover {
@@ -168,49 +186,53 @@ export default {
     padding: 0 20px;
     background: #fafafa;
   }
-  
-@keyframes card0-ani { 
-  from { transform: translate(300px, 300px); 
-  } 
-  to 
-  { transform: translate(100px, 100px); 
-  } 
-}
-@keyframes card1-ani { 
-  from { transform: translate(-200px, 400px); 
-  } 
-  to 
-  { transform: translate(0px, 150px); 
-  } 
-}
-@keyframes card2-ani { 
-  from { transform: translate(100px, 0); 
-  } 
-  to 
-  { transform: translate(0px, 100px); 
-  } 
-}
-@keyframes card3-ani { 
-  from { transform: translate(-50, -50); 
-  } 
-  to 
-  { transform: translate(100px, 100px); 
-  } 
-}
 
-.card0 {
-  animation: card0-ani 2s;
-}
+  @keyframes card0-ani {
+    from {
+      transform: translate(300px, 300px);
+    }
+    to {
+      transform: translate(100px, 100px);
+    }
+  }
+  @keyframes card1-ani {
+    from {
+      transform: translate(-200px, 400px);
+    }
+    to {
+      transform: translate(0px, 150px);
+    }
+  }
+  @keyframes card2-ani {
+    from {
+      transform: translate(100px, 0);
+    }
+    to {
+      transform: translate(0px, 100px);
+    }
+  }
+  @keyframes card3-ani {
+    from {
+      transform: translate(-50, -50);
+    }
+    to {
+      transform: translate(100px, 100px);
+    }
+  }
 
-.card1 {
-  animation: card1-ani 2s;
-}
-.card2 {
-  animation: card2-ani 2s;
-}
-.card3 {
-  animation: card3-ani 2s;
-}
+  .card0 {
+    animation: card0-ani 2s;
+  }
+
+  .card1 {
+    animation: card1-ani 2s;
+  }
+  .card2 {
+    animation: card2-ani 2s;
+  }
+  .card3 {
+    animation: card3-ani 2s;
+  }
 }
 
 .container {
@@ -233,9 +255,6 @@ export default {
   cursor: pointer;
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
- 
-
-
 }
 
 .card .card-image {
@@ -382,6 +401,4 @@ sub {
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-font-smoothing: antialiased;
 }
-
-
 </style>
