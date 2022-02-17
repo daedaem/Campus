@@ -115,9 +115,9 @@
                     <button
                       class="btn btn-primary btn-sm"
                       type="button"
-                      style="font-size: 12px"
+                      style="font-size: 12px;"
                     >
-                      <i class="bi bi-telephone-fill"></i> {{ item.tel }}
+                      <i class="bi bi-telephone-fill" ></i> {{ item.tel }}
                     </button>
                     <button
                       class="btn btn-outline-primary btn-sm mt-2"
@@ -654,5 +654,15 @@ h5 {
 .star-ratings-base {
   z-index: 0;
   padding: 0;
+}
+
+.btn-primary {
+  background-color : #7ac4e1;
+  border-color : #7ac4e1;
+}
+
+.btn-outline-primary {
+  color : #7ac4e1;
+  border-color : #7ac4e1;
 }
 </style>
