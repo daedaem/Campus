@@ -807,4 +807,14 @@ export default {
 input[type="password"] {
   font-family: "NanumSquare";
 }
+<<<<<<< HEAD
 </style>
+=======
+input[type=text] {
+  font-family: 'NanumSquare'
+}
+input[type=email] {
+  font-family: 'NanumSquare'
+}
+</style>
+>>>>>>> 458524bfa65ca6300724b1a68c43dc8ff7675bb5

@@ -442,77 +442,67 @@ export default {
           this.credentials.campStyle6 = res.data.campStyle6;
           this.credentials.userProfileImage = res.data.userProfileImage;
 
-          if (this.credentials.userGender == "W") {
-            this.femaleButton = true;
-          } else if (this.credentials.userGender == "M") {
-            this.maleButton = true;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    duplNickname: function () {
-      axios({
-        method: "get",
-        url: `${SERVER_URL}/user/duplnickname/${this.credentials.userNickname}`,
-        data: this.credentials.userNickname,
-        contentType: "charset=utf-8",
-      }).then((res) => {
-        if (res.data.result === -1) {
-          this.namecheck = false;
-          Swal.fire({
-            title: "이미 존재하는 닉네임입니다.",
-            icon: "warning",
-            timer: 2000,
-          });
-        } else if (res.data.result === 1 && this.nicknameValidFlag === false) {
-          Swal.fire({
-            title: "닉네임 형식에 맞지 않습니다.",
-            icon: "warning",
-            timer: 2000,
-          });
-        } else if (res.data.result === 1 && this.nicknameValidFlag === true) {
-          this.namecheck = true;
-          Swal.fire({
-            title: "사용 가능한 닉네임 입니다.",
-            icon: "success",
-            timer: 2000,
-          });
-        }
-      });
-    },
-    deleteAccount: function () {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .delete(`${SERVER_URL}/user/${this.myEmail}`)
-            .then(() => {
-              Swal.fire({
-                title: "계정이 안전하게 삭제되었습니다.!",
-                icons: "success",
-              });
-              this.logout();
-              this.$router.push({ name: "Mainpage" });
-            })
-            .catch(() => {
-              Swal.fire({
-                title: "잠시 후 다시 시도해주세요.",
-                icons: "warning",
-              });
-            });
-        }
-      });
-    },
-    logout: function () {
+				if (this.credentials.userGender == 'W') {
+					this.femaleButton = true
+				} else if (this.credentials.userGender == 'M') {
+					this.maleButton = true
+				}
+
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
+		duplNickname: function () {
+			axios ({
+				method: "get",
+				url: `${SERVER_URL}/user/duplnickname/${this.credentials.userNickname}`,
+				data: this.credentials.userNickname,
+				contentType: "charset=utf-8"
+			})
+				.then((res) => {
+					if (res.data.result === -1) {
+						this.namecheck = false
+						Swal.fire({ title: "이미 존재하는 닉네임입니다.", icon: 'warning', timer:2000})
+					} else if (res.data.result === 1 && this.nicknameValidFlag === false) {
+						Swal.fire({ title: "닉네임 형식에 맞지 않습니다.", icon: 'warning', timer:2000})
+					} else if (res.data.result === 1 && this.nicknameValidFlag === true){
+						this.namecheck = true
+						Swal.fire({ title: "사용 가능한 닉네임 입니다.", icon: 'success', timer:2000})
+					}
+				})
+		},
+		deleteAccount: function () {
+			Swal.fire({
+				title: '정말 삭제하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '삭제',
+				cancelButtonText: '취소',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					axios.delete(`${SERVER_URL}/user/${this.myEmail}`)
+					.then(() => {
+						Swal.fire({
+							title: '계정이 안전하게 삭제되었습니다.!',
+							icons: 'success'
+						})
+						this.logout()
+						this.$router.push({ name:"Mainpage"})
+					})
+					.catch(() => {
+						Swal.fire({
+							title: '잠시 후 다시 시도해주세요.',
+							icons: 'warning'
+						})
+					})
+				}
+			})
+
+		},
+		logout: function () {
       this.$store.state.user = null;
       this.$store.state.userEmail = null;
       this.$store.dispatch("logout");
