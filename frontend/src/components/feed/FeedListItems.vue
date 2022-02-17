@@ -5,6 +5,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-center align-items-center">
             <div>
+              <router-link :to="{ name: 'Profile',  params: { userEmail: feed.userEmail }}">
               <img
                 v-if="feed.userProfileImage === null"
                 style="cursor: pointer"
@@ -18,7 +19,7 @@
                 :src="`${feed.userProfileImage}`"
                 class="user-profile-image"
                 alt="..."
-              />
+              /></router-link>
             </div>
 
             <div
@@ -115,6 +116,7 @@
                     <div
                       class="d-flex justify-content-start align-items-center ps-3"
                     >
+                      <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}">
                       <img
                         v-if="comment.userProfileImage === null"
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"

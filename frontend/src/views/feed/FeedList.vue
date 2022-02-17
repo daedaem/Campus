@@ -170,6 +170,12 @@ export default {
           console.log(err);
         });
     };
+    const myProfile = (e) => {
+      this.$router.go({
+        name: 'Profile',
+				params: { userEmail: e}
+      })
+    }
     onMounted(() => {
       getDatas();
       window.addEventListener("scroll", () => {
@@ -194,6 +200,7 @@ export default {
       offset,
       getDatas,
       feedcount,
+      myProfile,
     };
   },
   // created: function() {

@@ -74,11 +74,12 @@
                                 class="d-flex align-items-center justify-content-center"
                                 style="min-width: 95px"
                               >
+                                <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}">
                                 <img
                                   :src="`${comment.userProfileImage}`"
                                   alt=""
                                   class="user-comment-profile-image ms-2"
-                                />
+                                /></router-link>
                                 <div class="commentUserNickname fw-bold">
                                   {{ comment.userNickname }}
                                 </div>
