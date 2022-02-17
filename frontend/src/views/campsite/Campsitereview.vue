@@ -212,8 +212,8 @@ export default {
         data: form,
       })
       .then(res => {
-        const rateNm = res.data.dto.campRateNo
-        router.push({name: 'Campratedetail',params : { rateNo : rateNm}})
+        console.log(res)
+        router.push({name: 'Campsitedetail',params : { contentId : campRateDto.value.contentId }})
 
       })
       .catch(err => {

@@ -85,20 +85,20 @@ export default {
     if (store.state.userEmail == null) {
       alert("로그인이 필요한 서비스입니다.");
       router.push({ name: "Login" });
-    }
-    axios({
-      method: "get",
-      url: `${SERVER_URL}/mate/match/${userNo}`,
-    })
-      .then((res) => {
-        const temp = res.data.matelist;
-        matchData.value = temp;
-        console.log(matchData.value);
+    } else {
+      axios({
+        method: "get",
+        url: `${SERVER_URL}/mate/match/${userNo}`,
       })
-      .catch((err) => {
-        console.log(err);
-      });
-
+        .then((res) => {
+          const temp = res.data.matelist;
+          matchData.value = temp;
+          console.log(matchData.value);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     const goProfile = (userEmail) => {
       console.log(userEmail);
       router.push({ name: "Profile", params: { userEmail: userEmail } });
