@@ -33,7 +33,7 @@
         <details>
         <summary>Show more<i class="bi bi-chevron-double-right " style="padding-top:5px;"></i> </summary>
           <hr>
-          <h5 style="margin-top:10px;">상세 평점</h5>
+          <span style="margin-top:10px;">상세 평점</span><button @click="goRaterevise(data.campRateNo)" style="margin-left: 5px; color: #7ac4e1; border: 2px solid #7ac4e1; border-radius: 10px; background-color:#fff;">수정</button>
           <div style="margin-top:10px;">
             <div class="d-flex">
               <div style="margin-right:10px;">Facility</div>
@@ -119,11 +119,15 @@ export default {
       router.push({ name: "Campratedetail", params: { rateNo: no } });
     };
 
+    const goRaterevise = (Rn) => {
+      router.push({name: 'Campraterevise', params : { rateNo : Rn} })
+    }
     return {
       rateData,
       goDetail,
       CampRatecomment,
       temp,
+      goRaterevise,
     }
   }
 

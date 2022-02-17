@@ -1,4 +1,6 @@
 <template>
+  <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
+
   <div>
     <div class="container p-3" align="left">
       <!-- 1 페이지 -->
@@ -688,9 +690,6 @@
           <form>
             <div class="row">
               <h1>Q12</h1>
-              <button align="right" class="out-button" @click="mbtiskip">
-                나가기
-              </button>
             </div>
             <div class="row mb-3">
               <b-progress :max="max">
@@ -747,9 +746,7 @@
                 finish
               </button>
             </div>
-            <div class="row">
-              <button class="out-button" @click="mbtiskip">나가기</button>
-            </div>
+            <div class="row"></div>
           </form>
         </div>
       </div>
@@ -760,12 +757,13 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import Navbar from "@/components/common/Navbar.vue";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "Survey",
-  components: {},
+  components: { Navbar },
   data() {
     return {
       page: 1,
