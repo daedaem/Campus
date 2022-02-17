@@ -115,6 +115,7 @@
                     <div
                       class="d-flex justify-content-start align-items-center ps-3 col-9"
                     >
+                      <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}">
                       <img
                         v-if="comment.userProfileImage === null"
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -126,7 +127,7 @@
                         :src="`${comment.userProfileImage}`"
                         alt=""
                         class="user-comment-profile-image"
-                      />
+                      /></router-link>
                       <div class="fw-bold">
                         {{ comment.userNickname }}
                       </div>

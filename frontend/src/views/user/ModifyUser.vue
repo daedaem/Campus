@@ -420,13 +420,13 @@ export default {
 		},
 		deleteAccount: function () {
 			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
+				title: '정말 삭제하시겠습니까?',
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
+				confirmButtonText: '삭제',
+				cancelButtonText: '취소',
 			}).then((result) => {
 				if (result.isConfirmed) {
 					axios.delete(`${SERVER_URL}/user/${this.myEmail}`)

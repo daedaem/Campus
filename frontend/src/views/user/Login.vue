@@ -84,7 +84,7 @@ export default {
         userPassword: "",
       },
       error_check_login: true,
-      googleUser: null,
+      // googleUser: null,
       value: "",
     };
   },
@@ -92,7 +92,7 @@ export default {
     Navbar,
   },
 
-  // 구글
+  //구글
   // mounted() {
   //   window.addEventListener(
   //     "google-oauth-library-load",
@@ -181,7 +181,7 @@ export default {
         .get(`${SERVER_URL}/login/kakao/oauth`)
         .then((res) => {
           console.log(res.data)
-          window.location.href = res.data
+          // window.location.href = res.data
           // window.open(res.data)
         })
 
