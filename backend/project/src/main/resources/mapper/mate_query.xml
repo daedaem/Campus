@@ -265,4 +265,12 @@
         update mateList set mateApplyCheck = 1 where mateListNo = #{mateListNo};
     </update>
 
+    <select id="mateListbyMateListNo" parameterType="int" resultType="com.ssafy.project.dto.MateListDto">
+        SELECT userNo, mateNo FROM mateList WHERE mateListNo = #{mateListNo}
+    </select>
+
+    <delete id="mateApplyoutMessage" parameterType="map">
+        DELETE FROM message WHERE chatroom_id = (SELECT id FROM chatroom WHERE master_id = ( SELECT userNo FROM mate WHERE mateNo = #{mateNo} )) AND sender_id = #{userNo}
+    </delete>
+
 </mapper>
