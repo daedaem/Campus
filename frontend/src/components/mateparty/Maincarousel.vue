@@ -43,9 +43,9 @@
               <div align="right">
                 <small>
                   <i class="far fa-user"></i>
-                  <span align="right">
+                  <!-- <span align="right">
                     {{  memberNums(item) +1 }}</span
-                  >
+                  > -->
 
                   <span> / {{ item.memberlimit }}</span>
                 </small>
