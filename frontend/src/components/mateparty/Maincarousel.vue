@@ -59,7 +59,7 @@
     <!-- footer -->
     <div class="container-fluid pb-0 mb-0 justify-content-between text-light">
       <footer>
-        <div class="row my-5 justify-content-center py-5">
+        <div class="row my-5 justify-content-center pb-3">
           <div class="col-11">
             <div class="row">
               <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
@@ -276,7 +276,7 @@ h1 {
 
 .container-fluid {
   overflow: hidden;
-  margin-top: 250px;
+  margin-top: 100px;
   background: #262626;
   color: #627482 !important;
   margin-bottom: 0;

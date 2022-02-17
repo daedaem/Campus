@@ -1,6 +1,5 @@
 <template>
   <Navbar class="CampusNavbar" id="TotalNavbar"></Navbar>
-
   <div class="FeedListBackground" v-if="this.$store.state.isLogin != false">
     <div class="FeedListTotalframe d-flex" v-if="this.$store.state.isLogin">
       <div class="FeedListFrame">
@@ -78,6 +77,8 @@ import Navbar from "@/components/common/Navbar.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 import { ref, onMounted } from "vue";
+// import Swal from "sweetalert2";
+
 // import Searchbar from "../../components/common/Searchbar.vue";
 // import { useRouter } from "vue-router";
 
@@ -87,6 +88,7 @@ import { ref, onMounted } from "vue";
 
 export default {
   name: "FeedList",
+
   components: {
     FeedListItems,
     // Searchbar,
@@ -99,10 +101,14 @@ export default {
   // },
   methods: {},
   created: function () {
-    // if (this.$store.state.userEmail == null) {
-    //   alert("로그인이 필요한 서비스입니다.");
-    //   this.$router.push({ name: "Login" });
-    // }
+    if (this.$store.state.userEmail == null) {
+      // Swal.fire({
+      //   title: "설문이 필요합니다.",
+      //   icon: "warning",
+      //   timer: 2000,
+      // });
+      this.$router.push({ name: "Login" });
+    }
     // console.log(this.$store.state.user);
     axios({
       methods: "get",
@@ -170,12 +176,7 @@ export default {
           console.log(err);
         });
     };
-    const myProfile = (e) => {
-      this.$router.go({
-        name: 'Profile',
-				params: { userEmail: e}
-      })
-    }
+
     onMounted(() => {
       getDatas();
       window.addEventListener("scroll", () => {
@@ -200,7 +201,6 @@ export default {
       offset,
       getDatas,
       feedcount,
-      myProfile,
     };
   },
   // created: function() {
