@@ -5,20 +5,21 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-center align-items-center">
             <div>
-              <router-link :to="{ name: 'Profile',  params: { userEmail: feed.userEmail }}">
-              <img
-                v-if="feed.userProfileImage === null"
-                style="cursor: pointer"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                class="user-profile-image"
-                alt="..."
-              />
-              <img
-                v-else
-                style="cursor: pointer"
-                :src="`${feed.userProfileImage}`"
-                class="user-profile-image"
-                alt="..."
+              <router-link
+                :to="{ name: 'Profile', params: { userEmail: feed.userEmail } }"
+              >
+                <img
+                  v-if="feed.userProfileImage === null"
+                  style="cursor: pointer"
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  class="user-profile-image"
+                  alt="..." />
+                <img
+                  v-else
+                  style="cursor: pointer"
+                  :src="`${feed.userProfileImage}`"
+                  class="user-profile-image"
+                  alt="..."
               /></router-link>
             </div>
 
@@ -95,13 +96,7 @@
         <div
           class="collapsed-comment d-flex justify-content-around align-items-center"
         >
-          <div class="my-auto">
-            <!-- <img
-              :src="`${this.$store.state.myProifle.userProfileImage}`"
-              class="user-comment-profile-image mx-1 my-auto"
-              alt="..."
-            /> -->
-          </div>
+          <div class="my-auto"></div>
           <div class="my-auto col-12">
             <div class="form-floating">
               <div
@@ -116,19 +111,23 @@
                     <div
                       class="d-flex justify-content-start align-items-center ps-3"
                     >
-                      <router-link :to="{ name: 'Profile',  params: { userEmail: comment.userEmail }}">
-                      <img
-                        v-if="comment.userProfileImage === null"
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                        alt=""
-                        class="user-comment-profile-image"
-                      />
-                      <img
-                        v-else
-                        :src="`${comment.userProfileImage}`"
-                        alt=""
-                        class="user-comment-profile-image"
-                      />
+                      <router-link
+                        :to="{
+                          name: 'Profile',
+                          params: { userEmail: comment.userEmail },
+                        }"
+                      >
+                        <img
+                          v-if="comment.userProfileImage === null"
+                          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                          alt=""
+                          class="user-comment-profile-image" />
+                        <img
+                          v-else
+                          :src="`${comment.userProfileImage}`"
+                          alt=""
+                          class="user-comment-profile-image"
+                      /></router-link>
                       <div class="commentUserNickname fw-bold">
                         {{ comment.userNickname }}
                       </div>
@@ -209,6 +208,7 @@
     </div>
   </div>
 </template>
+
 <script>
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
