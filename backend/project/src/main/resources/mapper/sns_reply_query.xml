@@ -14,6 +14,10 @@
             WHERE s.userNo = u.userNo
             AND snsNo = #{snsNo};
     </select>
+    
+    <select id="snsReplyUserEmail" parameterType="int" resultType="String">
+        SELECT userEmail FROM user WHERE userNo = #{userNo}
+    </select>
 
     <delete id="snsReplyDelete" parameterType="int">
         DELETE FROM snsReply

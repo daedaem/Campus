@@ -52,4 +52,5 @@ public interface SnsDao {
     public List<SnsDto> FollowingSnsList(int userNo);
 
     public int snsListTotalCountWithoutFollowing(SnsParamDto snsParamDto);
+
 }

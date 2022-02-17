@@ -13,6 +13,7 @@ public interface SnsReplyDao {
     public int snsReplyInsert(SnsReplyDto dto);
     public int snsReplyDelete(int snsReplyNo);
     public int snsReplyUpdate(SnsReplyDto dto);
+    public String snsReplyUserEmail(int userNo);
 
     
 
