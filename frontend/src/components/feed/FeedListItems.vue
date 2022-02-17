@@ -5,6 +5,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-center align-items-center">
             <div>
+              <router-link :to="{ name: 'Profile',  params: { userEmail: feed.userEmail }}">
               <img
                 v-if="feed.userProfileImage === null" 
                 style="cursor: pointer"
@@ -17,7 +18,7 @@
                 :src="`${feed.userProfileImage}`"
                 class="user-profile-image"
                 alt="..."
-              />
+              /></router-link>
             </div>
 
             <div

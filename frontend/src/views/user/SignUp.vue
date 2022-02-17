@@ -100,12 +100,12 @@
 						</div>
 
 						<!--  약관동의 -->
-						<div class="row">
+						<!-- <div class="row">
 							<div class="form-group" align="left">
 								<input type="checkbox" id="term" v-model="checkValue"/>
 								<span>약관을 동의합니다.</span>
 							</div>
-						</div>
+						</div> -->
 
 
 						<!-- 다음 버튼 -->
@@ -722,6 +722,12 @@ export default {
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }
 input[type=password] {
+  font-family: 'NanumSquare'
+}
+input[type=text] {
+  font-family: 'NanumSquare'
+}
+input[type=email] {
   font-family: 'NanumSquare'
 }
 </style>
