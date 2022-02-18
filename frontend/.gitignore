@@ -2,8 +2,9 @@
 node_modules
 /dist
 
+
 # local env files
-.env.local
+#.env.local
 .env.*.local
 
 # Log files
@@ -20,7 +21,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-# Lock files
-package-lock.json
-yarn.lock

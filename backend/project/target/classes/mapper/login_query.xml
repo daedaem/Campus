@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.ssafy.project.dao.LoginDao">
+
+	<!-- 비밀번호가 맞는지 확인하기 위해 비밀번호만 select -->
+	<select id="confirm" parameterType="String" resultType="com.ssafy.project.dto.UserDto">
+		SELECT userPassword
+		FROM user
+		WHERE userEmail = #{userEmail};
+	</select>
+
+	<!-- 비밀번호가 일치하면 유저 정보를 모두 가져온다 -->
+	<select id="login" parameterType="String" resultType="com.ssafy.project.dto.UserDto">
+		SELECT u.userNo, u.userEmail, u.userPassword, u.userName, u.userProfileImage, u.userLocation, u.userAge, u.userGender, u.userNickname, u.userMBTI,
+				s.campStyle1, s.campStyle2, s.campStyle3, s.campStyle4, s.campStyle5, s.campStyle6,
+                e.campEquipTent, e.campEquipSleepingbag, e.campEquipBurner, e.campEquipBrazier, e.campEquipEtc1, e.campEquipEtc2, e.campEquipEtc3,
+                e.campEquipEtc4, e.campEquipEtc5
+		FROM user u, campStyle s, campEquip e
+		WHERE s.userNo = u.userNo
+		AND e.userNo = u.userNo
+		AND u.userEmail = #{userEmail};
+	</select>
+
+</mapper>
