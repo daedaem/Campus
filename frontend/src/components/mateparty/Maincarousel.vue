@@ -164,11 +164,11 @@ export default {
     };
 
     const memberNums = (item) => {
-      const val = ref(0)
+      let val = 0
       item.mateList.forEach(element => {
-        val.value += element.mateListNum
+        val += element.mateListNum
       });
-      return val.value
+      return val
     }
 
 

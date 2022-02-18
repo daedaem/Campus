@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Chat class="chat" />
+    <Chat class="chat" v-if="loginC"/>
     <router-view  :key="$route.fullPath"></router-view>
     <!-- <Newmodal class="Newmodal" /> -->
     <Newmodal class="Newmodal" />
@@ -13,7 +13,7 @@
 // import Navbar from "@/components/Navbar.vue";
 import Chat from "@/components/common/Chat.vue";
 import Newmodal from "@/components/mateparty/Newmodal.vue";
-
+import {useStore} from 'vuex'
 export default {
   name: "App",
   components: {
@@ -21,6 +21,14 @@ export default {
     // Navbar,
     Chat,
   },
+  setup() {
+    const store = useStore()
+    const loginC = store.state.myNum
+
+    return {
+      loginC
+    }
+  }
 };
 </script>
 
