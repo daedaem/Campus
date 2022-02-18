@@ -257,7 +257,7 @@ export default {
       MessageList: function () {
         let MessageList = this.$refs.MessageList
       MessageList.scrollTo({ top: MessageList.scrollHeight, behavior: 'smooth' });
-      }
+      }, 
     }
 
     
