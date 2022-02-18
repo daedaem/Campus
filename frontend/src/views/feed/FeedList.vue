@@ -77,7 +77,7 @@ import Navbar from "@/components/common/Navbar.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 import { ref, onMounted } from "vue";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 // import Searchbar from "../../components/common/Searchbar.vue";
 // import { useRouter } from "vue-router";
@@ -102,37 +102,13 @@ export default {
   methods: {},
   created: function () {
     if (this.$store.state.userEmail == null) {
-      // Swal.fire({
-      //   title: "설문이 필요합니다.",
-      //   icon: "warning",
-      //   timer: 2000,
-      // });
+      Swal.fire({
+        title: "로그인이 필요합니다.",
+        icon: "warning",
+        timer: 2000,
+      });
       this.$router.push({ name: "Login" });
     }
-    // console.log(this.$store.state.user);
-    axios({
-      methods: "get",
-      url: `${SERVER_URL}/sns`,
-      params: {
-        limit: 10,
-        offset: 0,
-        userNo: this.$store.state.myNum,
-
-        // searchWord : '',
-        // doNm : '',
-      },
-    })
-      .then((res) => {
-        console.log("나옵니까", res);
-        // console.log(res.data.list);
-        const data = res.data.list;
-        this.$store.dispatch("feedList", data);
-        // this.feedcount = res.data.count;
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
   },
 
   computed: {
