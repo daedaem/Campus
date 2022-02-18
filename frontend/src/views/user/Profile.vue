@@ -55,7 +55,7 @@
 
         <li>
           <!-- <div data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
-          <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="this.followlist()">
             <b>팔로워</b>
             <p>{{ this.followers }}</p>
           </div>
@@ -80,7 +80,7 @@
 
         <li>
           <div data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-            <b>팔로잉</b>
+            <b>팔로우</b>
             <p>{{ this.followings }}</p>
           </div>
           <div
@@ -102,21 +102,6 @@
           </div>
         </li>
       </ul>
-    </section>
-
-    <section class="instagram-container">
-      <footer class="image-footer">
-        <!-- <div id="tabs-posts"> -->
-        <div
-          v-for="(tab, index) in tabs"
-          :key="index"
-          v-bind:class="{ active: currentTab === index }"
-          v-on:click="currentTab = index"
-        >
-          {{ tab }}
-        </div>
-        <!-- </div>	 -->
-      </footer>
     </section>
 
 		<section class="instagram-container" style="width:100%">
@@ -163,6 +148,7 @@ import ProfileHistory from "@/components/user/Profilehistory.vue";
 import ProfileInfo from "@/components/user/ProfileInfo.vue";
 import followerModal from "@/components/user/followerModal.vue";
 import followingModal from "@/components/user/followingModal.vue";
+import Navbar from '@/components/common/Navbar.vue'
 import Swal from "sweetalert2";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -207,6 +193,7 @@ export default {
     ProfileInfo,
     followerModal,
     followingModal,
+    Navbar,
   },
 
   created: function () {
@@ -306,10 +293,13 @@ export default {
           followUserNo: this.UserNo,
         })
         .then((res) => {
+          console.log(res)
           this.isFollow = true;
           this.followers += 1;
           // this.$router.go()
-          console.log("팔로우", res);
+          console.log(this.followersList)
+          // this.followersList.push({'userEmail':this.$store.state.userList.userEmail, 'userNickname':this.$store.state.userList.userNickname})
+          console.log("흠", this.followersList)
         })
         .catch((err) => {
           console.log(err);
