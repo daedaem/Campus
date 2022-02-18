@@ -405,7 +405,7 @@ hr {
 
 .MateParty {
   width: 100%;
-  height: 200px;
+  height: 220px;
   background: black;
   background-color: rgba(0, 0, 0, 0.4);
 
@@ -418,13 +418,13 @@ hr {
 .MateParty-imgcover {
   position: absolute;
   width: 100%;
-  height: 200px;
+  height: 220px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 .MateParty-content {
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 20%;
   /* transform: translate(-50%, -50%); */
   font-size: 3rem;
