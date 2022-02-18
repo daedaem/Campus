@@ -139,6 +139,7 @@ export default {
       mainlist,
       moveToSignup,
       loginCheck,
+      viewFunc,
     };
   },
 };

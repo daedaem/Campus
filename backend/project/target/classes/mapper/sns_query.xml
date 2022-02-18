@@ -62,7 +62,7 @@
     </select>
 
     <select id="getFollowingUser" parameterType="int" resultType="int">
-            SELECT userNo FROM follow WHERE followUserNo = #{userNo}
+            SELECT followUserNo FROM follow WHERE userNo = #{userNo}
     </select>
 
     <update id="snsUpdate" parameterType="com.ssafy.project.dto.SnsDto">

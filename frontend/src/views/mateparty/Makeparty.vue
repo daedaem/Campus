@@ -274,15 +274,37 @@ export default {
             })
               .then((res) => {
                 console.log(res);
+                const viewFunc = (data) => {
+                  // console.log(data)
+                    this.$store.dispatch("viewMate", data);
+              
+                  };
+                  axios({
+                    methods: "get",
+                    url: `${SERVER_URL}/mate`,
+                  })
+                  .then((res) => {
+                    // console.log(res.data.list)
+                    viewFunc(res.data.list);
+              
+                  })
+
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 console.log(err);
               });
           }
 
+
+          
+
           setTimeout(() => {
             this.$router.push({ name: "Mateparty" });
           }, 3000);
+          
 
           // 채팅방
           const chatData = {
