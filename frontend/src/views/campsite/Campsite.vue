@@ -107,8 +107,8 @@
                 <div
                   class="align-items-center align-content-center col-md-3 border-left mt-1"
                 >
-                  <div class="d-flex flex-row align-items-center">
-                    <h5 class="mt-3">후기</h5>
+                  <div class="d-flex flex-row align-items-center mt-3">
+                    <!-- <h5 class="mt-3" style="overflow:hidden">후기</h5> -->
                   </div>
                   <span
                     v-if="mylst.includes(item.contentId) === false"
@@ -292,8 +292,8 @@
                 <div
                   class="align-items-center align-content-center col-md-3 border-left mt-1"
                 >
-                  <div class="d-flex flex-row align-items-center">
-                    <h5 class="mt-3">후기</h5>
+                  <div class="d-flex flex-row align-items-center mt-3">
+                    <!-- <h5 class="mt-3">후기</h5> -->
                   </div>
                   <span
                     v-if="mylst.includes(item.contentId) === false"
