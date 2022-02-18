@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.project.dao.SnsReplyDao">
+
+    <insert id="snsReplyInsert" parameterType="com.ssafy.project.dto.SnsReplyDto">
+        INSERT INTO snsReply ( snsNo, userNo, snsReplyContent )
+                        VALUES ( #{snsNo}, #{userNo}, #{snsReplyContent} );
+    </insert>
+
+    <select id="snsReplyList" parameterType="com.ssafy.project.dto.SnsReplyDto" resultType="com.ssafy.project.dto.SnsReplyDto">
+        SELECT s.snsNo, s.snsReplyNo , s.userNo, s.snsReplyContent,s.snsReplyCreateTime, s.snsReplyUpdateTime, 
+                u.userNickname, u.userProfileImage
+            FROM snsReply s, user u
+            WHERE s.userNo = u.userNo
+            AND snsNo = #{snsNo};
+    </select>
+    
+    <select id="snsReplyUserEmail" parameterType="int" resultType="String">
+        SELECT userEmail FROM user WHERE userNo = #{userNo}
+    </select>
+
+    <delete id="snsReplyDelete" parameterType="int">
+        DELETE FROM snsReply
+        WHERE snsReplyNo = #{snsReplyNo}
+    </delete>
+
+    <update id="snsReplyUpdate" parameterType="com.ssafy.project.dto.SnsReplyDto">
+        UPDATE snsReply
+        SET snsReplyContent = #{snsReplyContent}, snsReplyUpdateTime = CURRENT_TIMESTAMP()
+        WHERE snsReplyNo = #{snsReplyNo}
+    </update>
+
+    <select id="snsReplyCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM snsReply
+        WHERE snsReplyNo = #{snsReplyNo}
+    </select>
+
+    
+</mapper>
