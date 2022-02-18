@@ -4,7 +4,7 @@
 			<!-- {{ value.imageList.snsImageUrl }} -->
 			<img class="img-photo" :src="value.imageList[0].snsImageUrl">
 			<span class="hover-img" @click="movetofeed(value.snsNo)">
-				<p class="icon-heart">{{value.snsCreateTime}}</p>
+				<p class="icon-heart">{{value.snsCreateTime.slice(0,10) }}</p>
 			</span>
 		</div>
 	</div>
@@ -83,12 +83,7 @@ export default {
 .post:hover  .hover-img{
     display: flex;
 }
-.hover-img .icon-heart::before  {
-    content: '♥ ';
-}
-.hover-img .icon-heart::after  {
-    content: ' ♥';
-}
+
 
 .check-button{
   border-radius: 30px;
