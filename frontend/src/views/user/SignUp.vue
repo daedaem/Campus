@@ -1,4 +1,5 @@
 <template>
+  <Navbar/>
   <div>
     <div v-if="step === 1">
       <div class="registration-form">
@@ -107,14 +108,6 @@
             >
               비밀번호가 다릅니다.
             </small>
-          </div>
-
-          <!--  약관동의 -->
-          <div class="row">
-            <div class="form-group" align="left">
-              <input type="checkbox" id="term" v-model="checkValue" />
-              <span>약관을 동의합니다.</span>
-            </div>
           </div>
 
           <!-- 다음 버튼 -->
@@ -286,6 +279,7 @@ import Items from "@/components/user/Items.vue";
 // import EquipList from '@/components/user/equip_list.vue'
 import style_Dropdown from "../../components/user/campstyle.vue";
 import Fileupload from "@/components/user/Fileupload.vue";
+import Navbar from "@/components/common/Navbar.vue"
 import Swal from "sweetalert2";
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -298,6 +292,7 @@ export default {
     // EquipList,
     style_Dropdown,
     Fileupload,
+    Navbar,
   },
   data() {
     return {

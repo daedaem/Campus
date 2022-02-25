@@ -61,10 +61,5 @@ export default {
 .post:hover  .hover-img{
     display: flex;
 }
-.hover-img .icon-heart::before  {
-    content: '♥ ';
-}
-.hover-img .icon-heart::after  {
-    content: ' ♥';
-}
+
 </style>

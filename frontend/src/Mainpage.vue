@@ -14,12 +14,15 @@
           <!-- 타이틀은 이미지로 만들어서 붙여야 할 듯 배민보고 -->
           <div
             class="MainTitle d-flex flex-column justify-content-center align-items-center"
+            
           >
             <img class="brandSlogan" src="@/assets/images/slogan2.png" alt="" />
-            <a class="btn btn-sm" href="#">
+            <a class="btn btn-sm" href="#" v-if="loginCheck === null">
               <div
                 class="CreateAccountButton"
                 style="max-width: 100%; height: auto"
+                @click="moveToSignup"
+                
               >
                 계정 만들기
               </div>
@@ -46,6 +49,7 @@ import Navbar from "@/components/common/Navbar.vue";
 // import { useStore } from "vuex";
 import { ref } from "vue";
 import { useStore } from "vuex";
+import {useRouter} from 'vue-router'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -60,8 +64,9 @@ export default {
   },
 
   setup() {
+    const router= useRouter()
     const store = useStore();
-
+    const loginCheck = store.state.myNum
     //메이트 리스트
     const viewFunc = (data) => {
       // console.log(data)
@@ -127,8 +132,14 @@ export default {
         console.log(err);
       });
 
+    const moveToSignup = () => {
+      router.push({name:'Signup'})
+    }
     return {
       mainlist,
+      moveToSignup,
+      loginCheck,
+      viewFunc,
     };
   },
 };

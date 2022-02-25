@@ -6,6 +6,7 @@
       <div></div>
     </div>
   </div>
+  <div style="background-color : #fafafa;">
   <body>
     <!-- <h1>Mate party</h1> -->
     <!-- <Searchbar class="col" style="margin: 20px 0" /> -->
@@ -40,6 +41,7 @@
     </div>
     </div> -->
   </body>
+  </div>
 </template>
 
 <script>
@@ -50,8 +52,8 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import Navbar from "@/components/common/Navbar.vue";
 import Swal from "sweetalert2"
-
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from 'axios'
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   props: {
@@ -66,6 +68,7 @@ export default {
 
   name: "Mateparty",
   setup() {
+  
     const store = useStore();
     if (store.state.userEmail == null) {
       Swal.fire({
@@ -77,6 +80,27 @@ export default {
     }
     
     // const testlist = ref("");
+
+
+    const viewFunc = (data) => {
+      // console.log(data)
+      store.dispatch("viewMate", data);
+      
+    };
+    axios({
+      methods: "get",
+      url: `${SERVER_URL}/mate`,
+    })
+      .then((res) => {
+        // console.log(res.data.list)
+        viewFunc(res.data.list);
+  
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+
     
     const newFilter = ref(store.state.mateList);
     const goMakeparty = () => {
@@ -92,6 +116,7 @@ export default {
       goMakeparty,
       filterData,
       newFilter,
+      viewFunc,
     };
   },
 };

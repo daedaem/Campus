@@ -1,5 +1,11 @@
 <template>
   <Navbar class="Navbar"></Navbar>
+  <div class="MateParty">
+    <div class="MateParty-imgcover">
+      <div class="MateParty-content"><h1 style="">캠핑장 세부정보</h1></div>
+      <div></div>
+    </div>
+  </div>
 
   <body>
     
@@ -395,5 +401,35 @@ h1.tag {
 
 hr {
   border: solid 1px #7ac4e1;
+}
+
+.MateParty {
+  width: 100%;
+  height: 220px;
+  background: black;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  /* background-position: 30%; */
+  /* background-repeat: no-repeat; */
+  background: url("./../../assets/images/pexels-vlad-bagacian-1061640.jpg") 50%
+    65% no-repeat;
+  background-size: 100% auto;
+}
+.MateParty-imgcover {
+  position: absolute;
+  width: 100%;
+  height: 220px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.MateParty-content {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  /* transform: translate(-50%, -50%); */
+  font-size: 3rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
 }
 </style>

@@ -23,11 +23,11 @@
         </div>
 
         <!-- 회원가입 -->
-        <div class="d-flex justify-content-between mx-3">
+        <!-- <div class="d-flex justify-content-between mx-3">
           <div @click="moveToSignUp">
             회원가입
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group d-flex justify-content-center">
           <button 
@@ -41,24 +41,9 @@
       </form>
 
       <div class="social-media">
-        <h5>Social Login</h5>
-        <div class="social-icons">
-            <a @click="kakaoLogin"><i class="icon-social-google" title="Google"></i></a>
-            <a @click="kakaoLogout">로그아웃</a>
-        </div>
+
+        <button class="check-button" @click="moveToSignUp">회원가입</button>
       </div>
-
-      
-
-          <!-- 구글 로그인 -->
-          <!-- <div class="d-flex justify-content-between mx-3 mt-3">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <button @click="signout" align="left" class="btn-primary">
-              로그아웃
-            </button>
-          </div> -->
- 
-
   </div>
 </template>
 
@@ -157,81 +142,6 @@ export default {
     movetofindPw: function () {
       this.$router.push({ name: "findPw" });
     },
-
-    // 구글
-    // renderSignInButton() {
-    //   window.gapi.signin2.render("my-signin2", {
-    //     scope: "profile email",
-    //     width: 240,
-    //     height: 50,
-    //     longtitle: true,
-    //     theme: "dark",
-    //     onsuccess: this.onSuccess,
-    //     onfailure: this.onFailure,
-    //   });
-    // },
-
-    kakaoLogin() {
-      axios
-        .get(`${SERVER_URL}/login/kakao/oauth`)
-        .then((res) => {
-          console.log(res.data)
-          window.location.href = res.data
-          // window.open(res.data)
-          
-          axios
-            .post(`${SERVER_URL}/login/kakao/callback`)
-            .then((res) => {
-              console.log(res)
-            })
-          
-        })
-
-    },
-    kakaoLogout() {
-      axios
-        .get(`${SERVER_URL}/logout`)
-        .then((res) => {
-          console.log(res)
-          alert("로그아웃")
-        })
-    },
-    // kakaoLogin() {
-    //   window.Kakao.Auth.login({
-    //     scope: 'profile_nickname, account_email, gender',
-    //     success: this.getProfile
-    //   });
-    // },
-    // getProfile(authObj) {
-    //   console.log(1)
-    //   console.log(authObj)
-    //   window.Kakao.API.request({
-    //     url: '/v2/user/me',
-    //     success: res => {
-    //       const kakao_account = res.kakao_account;
-    //       console.log(kakao_account);
-
-    //       alert("로그인 성공")
-    //     }
-    //   })
-    // }
-
-    // onSuccess(googleUser) {
-    //   console.log(googleUser);
-    //   this.googleUser = googleUser.getBasicProfile();
-    //   this.$router.push({ name: "Home" });
-    // },
-    // onFailure(error) {
-    //   console.log(error);
-    // },
-
-    // 구글 로그아웃
-    // signout() {
-    //   const authInst = window.gapi.auth2.getAuthInstance();
-    //   authInst.signOut().then(() => {
-    //     console.log("User Signed Out!!!");
-    //   });
-    // },
   },
 };
 </script>
@@ -324,6 +234,16 @@ input[type=text] {
       line-height: 70px;
   }
 }
+.check-button {
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  background-color: #7ac4e1;
+  border: none;
+  color: white;
+}
+
 
 
 /* .test {

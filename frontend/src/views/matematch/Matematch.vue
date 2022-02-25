@@ -6,6 +6,7 @@
       <div></div>
     </div>
   </div>
+  <div style="background-color:#fafafa;">
   <body>
     <div class="container">
       <div class="flex">
@@ -60,6 +61,7 @@
       </div>
     </div>
   </body>
+  </div>
 </template>
 
 <script>
