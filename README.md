@@ -3,6 +3,7 @@
 ## 프로젝트 소개
 
 * 프로젝트명: Camp-Us
+* 프로젝트 기간: 2022.01.04 ~  2022.02.18
 * 서비스 특징:  캠핑일상을 공유하고 캠핑을 해보고 싶을 때 취향이 맞는 사람들과 캠핑을 계획할 수 있는 서비스
 * 주요 기능
   - 계정 관리
@@ -18,6 +19,7 @@
 
 
 ## 팀 소개
+
 * 조해성 : 팀장, 프론트엔드 개발 및 유지보수
 * 최호준 : 부팀장, 백엔드 개발 및 DB 설계
 * 곽동현 : 프론트엔드 개발 및 Git
@@ -43,9 +45,7 @@
 
 #### 참고
 
-- [와이어프레임](https://www.figma.com/file/zSarjZWg1r1gtHF2gR1Qjx/%EA%B3%B5%ED%86%B5-PJT-2%ED%8C%80-Prototype)
-
-
+- [와이어프레임](https://www.figma.com/file/zSarjZWg1r1gtHF2gR1Qjx/%EA%B3%B5%ED%86%B5-PJT-2%ED%8C%80-Prototype?node-id=766%3A2273)
 
 #### ERD
 
