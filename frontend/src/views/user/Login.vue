@@ -41,10 +41,9 @@
       </form>
 
       <div class="social-media">
+
         <button class="check-button" @click="moveToSignUp">회원가입</button>
       </div>
- 
-
   </div>
 </template>
 
@@ -143,7 +142,6 @@ export default {
     movetofindPw: function () {
       this.$router.push({ name: "findPw" });
     },
-
   },
 };
 </script>
@@ -245,6 +243,7 @@ input[type=text] {
   border: none;
   color: white;
 }
+
 
 
 /* .test {
